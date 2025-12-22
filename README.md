@@ -17,3 +17,9 @@ asrock-ai-center/
 │       └── zh-TW.js          # 中文文本
 └── .gitignore                # 忽略不必要的檔案上傳至 Git
 ```
+
+* install Node.js
+* Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+* npm install
+* npm run dev
+* npm run deploy
