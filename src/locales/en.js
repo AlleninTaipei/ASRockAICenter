@@ -3,7 +3,7 @@ export const en = {
     title: "ASRock AI Center",
     subtitle: "AI Middleware - AI Workstation Middleware Blueprint",
     taglines: [
-      ">Hardware Performance × AI Engine × Open API",
+      "Hardware Performance × AI Engine × Open API",
       "One-stop AI implementation support to overcome technical and cost barriers, delivering locally-integrated software and hardware solutions",
       "Making AI Capabilities as Ready-to-Use as Electricity"
     ]
@@ -11,7 +11,7 @@ export const en = {
   apps: [
     { name: "ChatForge", icon: "💬", desc: "Chatbot Foundation：Demonstrates OpenAI-compatible API calls and real-time conversation generation." },
     { name: "RagPilot", icon: "🎯", desc: "RAG Enterprise Application：Integrates structured and unstructured data, showcasing Function Call + MCP." },
-    { name: "PixelForge", icon: "🎨", desc: ">Visual Content Generation：Enterprise text-to-image workflow with batch brand asset generation." },
+    { name: "PixelForge", icon: "🎨", desc: "Visual Content Generation：Enterprise text-to-image workflow with batch brand asset generation." },
     { name: "QuickStack", icon: "🐋", desc: "Development Environment Orchestrator：One-click deployment of pre-configured Docker images for rapid AI model service and development environment setup." },
     { name: "PerfScope", icon: "📊", desc: "Performance Visualization：Simulates multi-concurrent inference, evaluating Tokens/sec and GPU performance." },
     { name: "RagLingo", icon: "🌐", desc: "AI Translation：Multi-language knowledge translation and localization powered by RAG + LLM." }
