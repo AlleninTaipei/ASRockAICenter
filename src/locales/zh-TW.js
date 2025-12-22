@@ -25,7 +25,7 @@ export const zhTW = {
         link: "https://www.asrock.com/Graphics-Card/AMD/Radeon%20AI%20PRO%20R9700%20Creator%2032GB/"
       },
       {
-        title: "GAI4G-R9700 多卡工作站系統",
+        title: "ASRock GAI4G-R9700 多卡工作站系統",
         desc: "商用多 GPU 解決方案，支援 Threadripper PRO 與 2500W 電源。",
         link: "https://www.asrock.com/Graphics-Card/spec/product.asp?Model=GAI4G-R9700"
       }

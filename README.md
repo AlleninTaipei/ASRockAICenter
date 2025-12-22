@@ -1,5 +1,6 @@
 # ASRockAICenter
 
+```bash
 asrock-ai-center/
 ├── index.html                # 網頁進入點
 ├── package.json              # 專案套件與腳本定義
@@ -15,3 +16,4 @@ asrock-ai-center/
 │       ├── en.js             # 英文文本
 │       └── zh-TW.js          # 中文文本
 └── .gitignore                # 忽略不必要的檔案上傳至 Git
+```

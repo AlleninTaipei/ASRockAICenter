@@ -1,4 +1,4 @@
-export const zhTW = {
+export const en = {
   header: {
     title: "ASRock AI Center",
     subtitle: "AI Middleware - AI Workstation Middleware Blueprint",
