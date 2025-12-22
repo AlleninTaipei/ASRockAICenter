@@ -36,6 +36,7 @@ asrock-ai-center/
 ## 部署準備
 
 * install Node.js
+* 在 Windows 電腦上第一次執行 npm 時的安全性限制。這是因為 PowerShell 預設的**「執行原則（Execution Policy）」**設定為 Restricted（受限），為了防止惡意指令碼執行，它阻擋了 npm.ps1 檔案。
 
 ```bash
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
@@ -55,10 +56,16 @@ npm run dev
 
 ## 部署至 GitHub Pages
 
-首先確保你的專案已經關聯至 Github 遠端倉庫。 執行以下指令，它會自動打包並推送到 gh-pages 分支：
+* 首先確保你的專案已經關聯至 Github 遠端倉庫。 執行以下指令，它會自動打包並推送到 gh-pages 分支：
 
 ```bash
 npm run deploy
+```
+
+* 解決 Git 身分識別問題
+```bash
+git config --global user.email "你的Email"
+git config --global user.name "你的GitHub帳號"
 ```
 
 ## 重點回顧
