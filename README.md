@@ -25,7 +25,7 @@ asrock-ai-center/
 * 核心邏輯：src/App.jsx, src/locales/ (多語系)
 * 視覺資源：src/assets/global.css, src/components/Starfield.jsx
 
-##　觀念確認
+## 觀念確認
 
 將原本的單一 index.html 轉換為現代前端開發架構（React + Vite），不僅能提升開發效率，更能解決維護性問題。
 
