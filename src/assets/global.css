@@ -588,16 +588,79 @@ h2::after {
     padding-bottom: 100px;
 }
 
+/* 響應式微調 */
+@media (max-width: 768px) {
+    .contact-section {
+        margin: 0 20px 80px;
+        padding: 40px 20px;
+    }
+
+    .contact-email-link {
+        font-size: 18px;
+    }
+}
+
+/* YouTube Section */
+.videos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.video-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: transform 0.3s ease, background 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #007bff;
+    /* 或您專案的主調色 */
+}
+
+.video-thumbnail img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.video-info {
+    padding: 1.2rem;
+}
+
+.video-title {
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.video-channel {
+    color: #888;
+    font-size: 0.85rem;
+}
+
 /* Contact Section 優化 */
 .contact-section {
     text-align: center;
     padding: 60px 40px;
-    background: rgba(74, 158, 255, 0.05); /* 淡淡的科技藍底色 */
+    background: rgba(74, 158, 255, 0.05);
+    /* 淡淡的科技藍底色 */
     border: 1px solid rgba(74, 158, 255, 0.2);
     border-radius: 30px;
     backdrop-filter: blur(10px);
     max-width: 800px;
-    margin: 0 auto 120px; /* 置中並保留底部間距 */
+    margin: 0 auto 120px;
+    /* 置中並保留底部間距 */
 }
 
 .contact-text {
@@ -624,15 +687,4 @@ h2::after {
     border-bottom-color: #00D4FF;
     transform: translateY(-3px);
     text-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
-}
-
-/* 響應式微調 */
-@media (max-width: 768px) {
-    .contact-section {
-        margin: 0 20px 80px;
-        padding: 40px 20px;
-    }
-    .contact-email-link {
-        font-size: 18px;
-    }
 }

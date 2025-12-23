@@ -19,8 +19,8 @@ export const zhTW = {
   resources: {
     title: "相關資源",
     items: [
-      { 
-        title: "AMD Radeon™ AI PRO R9700 Creator 32GB", 
+      {
+        title: "AMD Radeon™ AI PRO R9700 Creator 32GB",
         desc: "提供適合本機 AI 推論、開發和其他記憶體密集型工作負載的絕佳功能。",
         link: "https://www.asrock.com/Graphics-Card/AMD/Radeon%20AI%20PRO%20R9700%20Creator%2032GB/"
       },
@@ -30,6 +30,11 @@ export const zhTW = {
         link: "https://www.asrock.com/Graphics-Card/spec/product.asp?Model=GAI4G-R9700"
       }
     ]
+  },
+  youtubeSection: {
+    title: "熱門企業 AI 影片",
+    query: "企業級地端 AI 部署", // 中文關鍵字
+    more: "在 YouTube 上觀看"
   },
   contact: {
     title: "聯絡我們",
