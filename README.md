@@ -1,4 +1,4 @@
-# [ASRockAICenter](https://allenintaipei.github.io/asrockaicenter)
+# [ASRockAICenter](https://allenintaipei.github.io/ASRockAICenter/)
 
 ## 專案資料夾結構
 
