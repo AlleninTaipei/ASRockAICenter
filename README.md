@@ -7,6 +7,8 @@ asrock-ai-center/
 ├── index.html                # 網頁進入點
 ├── package.json              # 專案套件與腳本定義
 ├── vite.config.js            # Vite 打包配置
+├── public/
+│   ├── favicon.svg           # 網站圖示
 ├── src/
 │   ├── main.jsx              # React 渲染進入點
 │   ├── App.jsx               # 主頁面邏輯與多語系切換
