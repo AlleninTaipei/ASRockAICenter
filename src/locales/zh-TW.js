@@ -3,8 +3,8 @@ export const zhTW = {
     title: "ASRock AI Center",
     subtitle: "AI Middleware - AI 工作站中介層藍圖",
     taglines: [
+      "AI QuickSet 只是起點。華擎提供一站式 AI 導入陪跑，跨越技術與成本門檻，實現軟硬整合的在地解決方案。",
       "硬體效能 × AI 引擎 × 開放 API",
-      "一站式 AI 導入陪跑,跨越技術與成本門檻,實現軟硬整合的在地解決方案",
       "讓 AI 能力像電力一樣即插即用"
     ]
   },
@@ -13,10 +13,10 @@ export const zhTW = {
   },
   apps: [
     { name: "ChatForge", icon: "💬", desc: "Chatbot 起手式：展示 OpenAI 相容 API 調用與即時對話生成。" },
-    { name: "RagPilot", icon: "🎯", desc: "RAG 企業應用：整合結構化與非結構化資料,展示 Function Call + MCP。" },
-    { name: "PixelForge", icon: "🎨", desc: "視覺內容生成：文字轉圖像工作流,支援品牌素材批量產出。" },
+    { name: "RagPilot", icon: "🎯", desc: "RAG 企業應用：整合結構化與非結構化資料，展示 Function Call + MCP。" },
+    { name: "PixelForge", icon: "🎨", desc: "視覺內容生成：文字轉圖像工作流，支援品牌素材批量產出。" },
     { name: "QuickStack", icon: "🐋", desc: "開發環境管理平台：一鍵部署預配置 Docker 映像檔。" },
-    { name: "PerfScope", icon: "📊", desc: "性能可視化：模擬多併發推論,評估 Tokens/sec、GPU 效能。" },
+    { name: "PerfScope", icon: "📊", desc: "性能可視化：模擬多併發推論，評估 Tokens/sec、GPU 效能。" },
     { name: "RagLingo", icon: "🌐", desc: "AI 翻譯：RAG + LLM 的多語知識翻譯與本地化。" }
   ],
   resources: {

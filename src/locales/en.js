@@ -1,10 +1,10 @@
 export const en = {
   header: {
     title: "ASRock AI Center",
-    subtitle: "AI Middleware - AI Workstation Middleware Blueprint",
+    subtitle: "AI Middleware – Bridging Hardware and Software in AI Workstations",
     taglines: [
+      "AI QuickSet is just the beginning. ASRock offers comprehensive AI implementation support to eliminate technical and cost barriers, providing seamlessly integrated hardware and software solutions.",
       "Hardware Performance × AI Engine × Open API",
-      "One-stop AI implementation support to overcome technical and cost barriers, delivering locally-integrated software and hardware solutions",
       "Making AI Capabilities as Ready-to-Use as Electricity"
     ]
   },
