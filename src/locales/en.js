@@ -3,8 +3,8 @@ export const en = {
     title: "ASRock AI Center",
     subtitle: "AI Middleware – Bridging Hardware and Software in AI Workstations",
     taglines: [
-      "AI QuickSet is just the beginning. ASRock offers comprehensive AI implementation support to eliminate technical and cost barriers, providing seamlessly integrated hardware and software solutions.",
       "Hardware Performance × AI Engine × Open API",
+      "Comprehensive AI Support: Eliminating technical and cost barriers with seamlessly integrated hardware and software solutions",
       "Making AI Capabilities as Ready-to-Use as Electricity"
     ]
   },

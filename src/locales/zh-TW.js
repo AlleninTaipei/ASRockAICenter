@@ -3,8 +3,8 @@ export const zhTW = {
     title: "ASRock AI Center",
     subtitle: "AI Middleware - AI 工作站中介層藍圖",
     taglines: [
-      "AI QuickSet 只是起點。華擎提供一站式 AI 導入陪跑，跨越技術與成本門檻，實現軟硬整合的在地解決方案。",
       "硬體效能 × AI 引擎 × 開放 API",
+      "一站式 AI 導入陪跑，跨越技術與成本門檻，實現軟硬整合的在地解決方案",
       "讓 AI 能力像電力一樣即插即用"
     ]
   },
