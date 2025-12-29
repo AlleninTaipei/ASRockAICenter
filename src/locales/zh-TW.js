@@ -4,8 +4,8 @@ export const zhTW = {
     subtitle: "AI Middleware - AI 工作站中介層藍圖",
     taglines: [
       "硬體效能 × AI 引擎 × 開放 API",
-      "一站式AI導入陪跑,跨越技術與成本門檻,實現軟硬整合的在地解決方案",
-      "讓 AI 能力像電力一樣開箱即用"
+      "一站式 AI 導入陪跑,跨越技術與成本門檻,實現軟硬整合的在地解決方案",
+      "讓 AI 能力像電力一樣即插即用"
     ]
   },
   appsSection: {

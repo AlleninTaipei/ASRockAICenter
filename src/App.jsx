@@ -22,8 +22,8 @@ function App() {
     const fetchVideos = async () => {
       if (!API_KEY) return;
 
-      // 1. 先定義搜尋字串 (移動到最前面)
-      const searchQuery = (t.youtubeSection?.query || "Enterprise AI") + " trends";
+      // 1. 先定義搜尋字串
+      const searchQuery = t.youtubeSection?.query || "Enterprise AI trends";
 
       // 2. 定義快取名稱
       const cacheKey = `yt_cache_${lang}_${searchQuery.replace(/\s+/g, '_')}`;
@@ -58,7 +58,8 @@ function App() {
           videoEmbeddable: 'true',
           maxResults: 8,
           publishedAfter: publishedAfter,
-          relevanceLanguage: lang === 'zh-TW' ? 'zh-Hant' : 'en',
+          relevanceLanguage: lang === 'zh-TW' ? 'zh' : 'en',
+          regionCode: lang === 'zh-TW' ? 'TW' : 'US',
           key: API_KEY
         });
 
@@ -157,7 +158,7 @@ function App() {
         <section className="section youtube-section">
           <h2>{t.youtubeSection?.title || "Enterprise AI Insights"}</h2>
           <div className="videos-grid">
-            {videos.map((video) => (
+            {videos.slice(0, 8).map((video) => (
               <a
                 key={video.id.videoId}
                 href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
