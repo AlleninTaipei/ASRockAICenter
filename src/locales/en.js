@@ -8,6 +8,9 @@ export const en = {
       "Making AI Capabilities as Ready-to-Use as Electricity"
     ]
   },
+  appsSection: {
+    title: "AI Fusion Starter - AI Quick Start Solutions"
+  },
   apps: [
     { name: "ChatForge", icon: "💬", desc: "Chatbot Foundation：Demonstrates OpenAI-compatible API calls and real-time conversation generation." },
     { name: "RagPilot", icon: "🎯", desc: "RAG Enterprise Application：Integrates structured and unstructured data, showcasing Function Call + MCP." },

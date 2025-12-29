@@ -576,7 +576,7 @@ h2::after {
     }
 }
 
-/* --- 新增：當 reveal 類別被 App.jsx 加入時的樣式 --- */
+/* 當 reveal 類別被 App.jsx 加入時的樣式 */
 .reveal {
     opacity: 1 !important;
     transform: translateY(0) !important;
@@ -586,18 +586,6 @@ h2::after {
 .app-root {
     min-height: 100vh;
     padding-bottom: 100px;
-}
-
-/* 響應式微調 */
-@media (max-width: 768px) {
-    .contact-section {
-        margin: 0 20px 80px;
-        padding: 40px 20px;
-    }
-
-    .contact-email-link {
-        font-size: 18px;
-    }
 }
 
 /* YouTube Section */
@@ -621,7 +609,6 @@ h2::after {
     transform: translateY(-5px);
     background: rgba(255, 255, 255, 0.1);
     border-color: #007bff;
-    /* 或您專案的主調色 */
 }
 
 .video-thumbnail img {
@@ -649,18 +636,21 @@ h2::after {
     font-size: 0.85rem;
 }
 
-/* Contact Section 優化 */
+/* Contact Section 優化 - 按鈕樣式版本 */
 .contact-section {
     text-align: center;
     padding: 60px 40px;
     background: rgba(74, 158, 255, 0.05);
-    /* 淡淡的科技藍底色 */
     border: 1px solid rgba(74, 158, 255, 0.2);
     border-radius: 30px;
     backdrop-filter: blur(10px);
     max-width: 800px;
     margin: 0 auto 120px;
-    /* 置中並保留底部間距 */
+}
+
+.contact-content {
+    max-width: 100%;
+    padding: 0 10px;
 }
 
 .contact-text {
@@ -670,21 +660,83 @@ h2::after {
     margin-bottom: 20px;
 }
 
-.contact-email-link {
-    display: inline-block;
-    font-size: 24px;
-    color: #4A9EFF;
+.contact-email-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
     text-decoration: none;
+    border-radius: 16px;
     font-weight: 600;
-    padding: 10px 20px;
-    border-bottom: 2px solid transparent;
-    transition: all 0.3s ease;
-    margin-top: 10px;
+    font-size: 18px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+    /* 防止 email 超出容器 */
+    word-break: break-all;
+    max-width: 90%;
+    overflow-wrap: break-word;
+    position: relative;
+    overflow: hidden;
 }
 
-.contact-email-link:hover {
-    color: #00D4FF;
-    border-bottom-color: #00D4FF;
-    transform: translateY(-3px);
-    text-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+.contact-email-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.contact-email-btn:hover::before {
+    left: 100%;
+}
+
+.contact-email-btn:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.5);
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+/* 手機版 Contact Section 優化 */
+@media (max-width: 768px) {
+    .contact-section {
+        padding: 40px 20px;
+        margin: 0 20px 80px;
+        border-radius: 20px;
+    }
+
+    .contact-text {
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+
+    .contact-email-btn {
+        font-size: 15px;
+        padding: 12px 24px;
+        word-break: break-all;
+        max-width: 95%;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-section {
+        padding: 30px 15px;
+        margin: 0 15px 60px;
+    }
+
+    .contact-text {
+        font-size: 14px;
+    }
+
+    .contact-email-btn {
+        font-size: 13px;
+        padding: 10px 20px;
+        gap: 0.3rem;
+    }
 }

@@ -129,7 +129,7 @@ function App() {
 
         {/* 確保這裡有正確對應到 locales 裡的資料 */}
         <section className="section">
-          <h2>AI Fusion Starter</h2>
+          <h2>{t.appsSection.title}</h2>
           <div className="apps-grid">
             {t.apps.map((app, i) => (
               <div key={i} className="app-card">
@@ -183,9 +183,9 @@ function App() {
             <p className="contact-text">{t.contact.text}</p>
             <a
               href={`mailto:${t.contact.email}`}
-              className="contact-email-link"
+              className="contact-email-btn"
             >
-              {t.contact.email}
+              📧 {t.contact.email}
             </a>
           </div>
         </footer>

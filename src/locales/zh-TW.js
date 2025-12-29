@@ -8,6 +8,9 @@ export const zhTW = {
       "讓 AI 能力像電力一樣開箱即用"
     ]
   },
+  appsSection: {
+    title: "AI Fusion Starter - 快速入門解決方案"
+  },
   apps: [
     { name: "ChatForge", icon: "💬", desc: "Chatbot 起手式：展示 OpenAI 相容 API 調用與即時對話生成。" },
     { name: "RagPilot", icon: "🎯", desc: "RAG 企業應用：整合結構化與非結構化資料,展示 Function Call + MCP。" },
