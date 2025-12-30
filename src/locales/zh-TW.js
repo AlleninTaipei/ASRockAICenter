@@ -25,7 +25,7 @@ export const zhTW = {
       {
         title: "AI 工作站機殼散熱建議",
         desc: "風扇配置：實際可行的實戰方案",
-        link: "/docs/zh-TW/20251224 AI 工作站機殼散熱推薦.pdf",
+        link: `${import.meta.env.BASE_URL}docs/zh-TW/ai-workstation-thermal-guide-zh.pdf`,  // ← 用反引號
         type: "pdf"
       },
       {

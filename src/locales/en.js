@@ -25,7 +25,7 @@ export const en = {
       {
         title: "AI Workstation Chassis Thermal Recommendation",
         desc: "Fan Configuration: What Actually Works in Real-World Builds",
-        link: "/docs/en/20251224 AI Workstation Chassis Thermal Recommendation.pdf",
+        link: `${import.meta.env.BASE_URL}docs/zh-TW/ai-workstation-thermal-guide-zh.pdf`,  // ← 用反引號
         type: "pdf"
       },
       {
