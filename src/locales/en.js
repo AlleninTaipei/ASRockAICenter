@@ -23,6 +23,12 @@ export const en = {
     title: "Related Resources",
     items: [
       {
+        title: "AI Workstation Chassis Thermal Recommendation",
+        desc: "Fan Configuration: What Actually Works in Real-World Builds",
+        link: "/docs/en/20251224 AI Workstation Chassis Thermal Recommendation.pdf",
+        type: "pdf"
+      },
+      {
         title: "AMD Radeon™ AI PRO R9700 Creator 32GB",
         desc: "Great capabilities for local AI inference, development, and other memory-intensive workloads with the latest AMD RDNA™ 4 architecture and 32GB of video memory.",
         link: "https://www.asrock.com/Graphics-Card/AMD/Radeon%20AI%20PRO%20R9700%20Creator%2032GB/"

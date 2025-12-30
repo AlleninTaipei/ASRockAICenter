@@ -24,7 +24,6 @@ function App() {
       const cachedData = localStorage.getItem(cacheKey);
       const now = new Date().getTime();
 
-      // 快取檢查
       if (cachedData) {
         try {
           const { timestamp, data } = JSON.parse(cachedData);
@@ -47,7 +46,6 @@ function App() {
       try {
         let finalVideos = [];
         
-        // 如果有固定影片 ID，先透過 API 獲取該影片的完整資訊
         if (pinnedVideoId && pinnedVideoId !== 'YOUR_VIDEO_ID_HERE') {
           try {
             const videoParams = new URLSearchParams({
@@ -72,7 +70,6 @@ function App() {
           }
         }
 
-        // 查詢其他影片
         const params = new URLSearchParams({
           part: 'snippet',
           q: searchQuery,
@@ -91,7 +88,6 @@ function App() {
         const data = await response.json();
 
         if (data.items) {
-          // 合併固定影片和查詢結果
           finalVideos = [...finalVideos, ...data.items];
           
           setVideos(finalVideos);
@@ -108,7 +104,6 @@ function App() {
     fetchVideos();
   }, [lang, API_KEY, t.youtubeSection?.query, t.youtubeSection?.maxResults]);
 
-  // 優化後的捲動動畫邏輯
   useEffect(() => {
     const observerOptions = {
       threshold: 0.1,
@@ -169,7 +164,14 @@ function App() {
           <h2>{t.resources.title}</h2>
           <div className="links-grid">
             {t.resources.items.map((item, i) => (
-              <a key={i} href={item.link} className="link-card" target="_blank" rel="noreferrer">
+              <a 
+                key={i} 
+                href={item.link} 
+                className="link-card" 
+                data-type={item.type || "external"}
+                target="_blank" 
+                rel="noreferrer"
+              >
                 <div className="link-title">{item.title}</div>
                 <div className="link-description">{item.desc}</div>
               </a>

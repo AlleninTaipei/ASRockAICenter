@@ -94,8 +94,8 @@ body {
     backdrop-filter: blur(15px);
     border: 2px solid rgba(74, 158, 255, 0.4);
     color: #ffffff;
-    padding: 12px 30px;
-    font-size: 16px;
+    padding: 10px 24px;
+    font-size: 14px;
     font-weight: 600;
     border-radius: 30px;
     cursor: pointer;
@@ -146,7 +146,7 @@ body {
 
 /* Header */
 header {
-    padding: 100px 0 80px;
+    padding: 80px 0 60px;
     text-align: center;
     animation: fadeInDown 1s ease-out;
 }
@@ -164,10 +164,10 @@ header {
 }
 
 h1 {
-    font-size: 64px;
+    font-size: 36px;
     font-weight: 300;
-    margin-bottom: 25px;
-    letter-spacing: 6px;
+    margin-bottom: 20px;
+    letter-spacing: 4px;
     background: linear-gradient(135deg, #ffffff 0%, #4A9EFF 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -189,9 +189,9 @@ h1 {
 }
 
 .tagline {
-    font-size: 22px;
+    font-size: 16px;
     font-weight: 300;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     color: #B8D4FF;
     opacity: 0;
     animation: fadeIn 1s ease-out forwards;
@@ -217,20 +217,20 @@ h1 {
 
 /* Sections */
 .section {
-    margin-bottom: 120px;
+    margin-bottom: 100px;
 }
 
 h2 {
-    font-size: 48px;
+    font-size: 22px;
     font-weight: 400;
-    margin-bottom: 70px;
+    margin-bottom: 50px;
     text-align: center;
     background: linear-gradient(135deg, #4A9EFF 0%, #00D4FF 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     position: relative;
-    padding-bottom: 20px;
+    padding-bottom: 15px;
 }
 
 h2::after {
@@ -239,8 +239,8 @@ h2::after {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 100px;
-    height: 3px;
+    width: 80px;
+    height: 2px;
     background: linear-gradient(90deg, transparent, #4A9EFF, transparent);
     border-radius: 2px;
 }
@@ -249,8 +249,8 @@ h2::after {
 .apps-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
-    margin-bottom: 80px;
+    gap: 35px;
+    margin-bottom: 70px;
 }
 
 .app-card {
@@ -258,7 +258,7 @@ h2::after {
     backdrop-filter: blur(15px);
     border: 1px solid rgba(74, 158, 255, 0.2);
     border-radius: 20px;
-    padding: 40px 35px;
+    padding: 35px 30px;
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -310,15 +310,15 @@ h2::after {
 }
 
 .app-icon {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     background: linear-gradient(135deg, rgba(74, 158, 255, 0.25), rgba(0, 212, 255, 0.25));
-    border-radius: 16px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 24px;
-    font-size: 32px;
+    margin-bottom: 20px;
+    font-size: 28px;
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     box-shadow: 0 8px 20px rgba(74, 158, 255, 0.2);
@@ -329,7 +329,7 @@ h2::after {
     position: absolute;
     inset: -2px;
     background: linear-gradient(135deg, rgba(74, 158, 255, 0.4), rgba(0, 212, 255, 0.4));
-    border-radius: 18px;
+    border-radius: 16px;
     opacity: 0;
     transition: opacity 0.5s ease;
     z-index: -1;
@@ -346,9 +346,9 @@ h2::after {
 }
 
 .app-name {
-    font-size: 26px;
+    font-size: 20px;
     font-weight: 600;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
     color: #4A9EFF;
     position: relative;
     z-index: 1;
@@ -361,8 +361,8 @@ h2::after {
 }
 
 .app-description {
-    font-size: 17px;
-    line-height: 1.8;
+    font-size: 15px;
+    line-height: 1.7;
     color: rgba(255, 255, 255, 0.75);
     position: relative;
     z-index: 1;
@@ -377,8 +377,8 @@ h2::after {
 .links-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 35px;
-    margin-bottom: 80px;
+    gap: 30px;
+    margin-bottom: 70px;
 }
 
 .link-card {
@@ -386,7 +386,7 @@ h2::after {
     backdrop-filter: blur(15px);
     border: 2px solid rgba(74, 158, 255, 0.2);
     border-radius: 20px;
-    padding: 40px 35px;
+    padding: 35px 30px;
     position: relative;
     overflow: hidden;
     text-decoration: none;
@@ -415,9 +415,9 @@ h2::after {
 .link-card::after {
     content: '→';
     position: absolute;
-    top: 35px;
-    right: 30px;
-    font-size: 28px;
+    top: 30px;
+    right: 25px;
+    font-size: 24px;
     color: #4A9EFF;
     opacity: 0;
     transform: translateX(-10px);
@@ -437,10 +437,10 @@ h2::after {
 }
 
 .link-title {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 600;
     color: #ffffff;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     transition: all 0.3s ease;
 }
 
@@ -449,7 +449,7 @@ h2::after {
 }
 
 .link-description {
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.7);
     transition: all 0.3s ease;
@@ -474,8 +474,8 @@ h2::after {
     bottom: 40px;
     left: 50%;
     transform: translateX(-50%);
-    width: 30px;
-    height: 50px;
+    width: 28px;
+    height: 46px;
     border: 2px solid rgba(74, 158, 255, 0.5);
     border-radius: 20px;
     display: flex;
@@ -486,8 +486,8 @@ h2::after {
 
 .scroll-indicator::before {
     content: '';
-    width: 6px;
-    height: 10px;
+    width: 5px;
+    height: 9px;
     background: #4A9EFF;
     border-radius: 3px;
     animation: scroll 2s ease-in-out infinite;
@@ -521,17 +521,25 @@ h2::after {
 
 @media (max-width: 768px) {
     h1 {
-        font-size: 40px;
+        font-size: 32px;
         letter-spacing: 3px;
+        margin-bottom: 16px;
     }
 
     .tagline {
-        font-size: 18px;
+        font-size: 14px;
+        margin-bottom: 10px;
     }
 
     h2 {
-        font-size: 32px;
-        margin-bottom: 50px;
+        font-size: 18px;
+        margin-bottom: 40px;
+        padding-bottom: 12px;
+    }
+
+    h2::after {
+        width: 60px;
+        height: 2px;
     }
 
     .container {
@@ -544,25 +552,67 @@ h2::after {
     }
 
     .lang-btn {
-        padding: 10px 24px;
-        font-size: 14px;
+        padding: 8px 20px;
+        font-size: 13px;
     }
 
     header {
-        padding: 60px 0 40px;
+        padding: 50px 0 35px;
+    }
+
+    .section {
+        margin-bottom: 80px;
     }
 
     .apps-grid {
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 25px;
+        margin-bottom: 60px;
     }
 
     .app-card {
-        padding: 30px;
+        padding: 28px 25px;
+    }
+
+    .app-icon {
+        width: 54px;
+        height: 54px;
+        font-size: 24px;
+        margin-bottom: 18px;
+    }
+
+    .app-name {
+        font-size: 18px;
+        margin-bottom: 12px;
+    }
+
+    .app-description {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .links-grid {
+        gap: 25px;
+        margin-bottom: 60px;
     }
 
     .link-card {
-        padding: 35px 30px;
+        padding: 30px 25px;
+    }
+
+    .link-card::after {
+        font-size: 22px;
+        top: 28px;
+        right: 22px;
+    }
+
+    .link-title {
+        font-size: 17px;
+        margin-bottom: 9px;
+    }
+
+    .link-description {
+        font-size: 13px;
     }
 
     .link-icon {
@@ -639,13 +689,13 @@ h2::after {
 /* Contact Section 優化 - 按鈕樣式版本 */
 .contact-section {
     text-align: center;
-    padding: 60px 40px;
+    padding: 50px 35px;
     background: rgba(74, 158, 255, 0.05);
     border: 1px solid rgba(74, 158, 255, 0.2);
-    border-radius: 30px;
+    border-radius: 25px;
     backdrop-filter: blur(10px);
     max-width: 800px;
-    margin: 0 auto 120px;
+    margin: 0 auto 100px;
 }
 
 .contact-content {
@@ -654,10 +704,10 @@ h2::after {
 }
 
 .contact-text {
-    font-size: 20px;
+    font-size: 16px;
     color: #B8D4FF;
     line-height: 1.6;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
 
 .contact-email-btn {
@@ -665,13 +715,13 @@ h2::after {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    padding: 14px 32px;
+    padding: 12px 28px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     text-decoration: none;
-    border-radius: 16px;
+    border-radius: 14px;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 16px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
     /* 防止 email 超出容器 */
@@ -706,19 +756,19 @@ h2::after {
 /* 手機版 Contact Section 優化 */
 @media (max-width: 768px) {
     .contact-section {
-        padding: 40px 20px;
-        margin: 0 20px 80px;
+        padding: 35px 20px;
+        margin: 0 20px 70px;
         border-radius: 20px;
     }
 
     .contact-text {
-        font-size: 16px;
+        font-size: 14px;
         margin-bottom: 15px;
     }
 
     .contact-email-btn {
-        font-size: 15px;
-        padding: 12px 24px;
+        font-size: 14px;
+        padding: 10px 22px;
         word-break: break-all;
         max-width: 95%;
     }
@@ -726,17 +776,17 @@ h2::after {
 
 @media (max-width: 480px) {
     .contact-section {
-        padding: 30px 15px;
-        margin: 0 15px 60px;
+        padding: 28px 15px;
+        margin: 0 15px 55px;
     }
 
     .contact-text {
-        font-size: 14px;
+        font-size: 13px;
     }
 
     .contact-email-btn {
         font-size: 13px;
-        padding: 10px 20px;
+        padding: 9px 18px;
         gap: 0.3rem;
     }
 }

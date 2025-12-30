@@ -19,6 +19,11 @@ asrock-ai-center/
 │   └── locales/              # 語系資料夾
 │       ├── en.js             # 英文文本
 │       └── zh-TW.js          # 中文文本
+└── docs/                        # PDF 文件
+│   ├── en/
+│   │   └── pdf files
+│   └── zh-TW/
+│       └── pdf files
 └── .gitignore                # 忽略不必要的檔案上傳至 Git
 ```
 

@@ -23,6 +23,12 @@ export const zhTW = {
     title: "相關資源",
     items: [
       {
+        title: "AI 工作站機殼散熱建議",
+        desc: "風扇配置：實際可行的實戰方案",
+        link: "/docs/zh-TW/20251224 AI 工作站機殼散熱推薦.pdf",
+        type: "pdf"
+      },
+      {
         title: "AMD Radeon™ AI PRO R9700 Creator 32GB",
         desc: "提供適合本機 AI 推論、開發和其他記憶體密集型工作負載的絕佳功能。",
         link: "https://www.asrock.com/Graphics-Card/AMD/Radeon%20AI%20PRO%20R9700%20Creator%2032GB/"
