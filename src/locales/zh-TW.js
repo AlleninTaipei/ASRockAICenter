@@ -35,9 +35,14 @@ export const zhTW = {
     ]
   },
   youtubeSection: {
-    title: "熱門企業 AI 影片",
+    title: "熱門企業地端 AI 部署影片",
     query: "企業級地端 AI 部署", // 中文關鍵字
-    more: "在 YouTube 上觀看"
+    more: "在 YouTube 上觀看",
+    maxResults: 7,
+    pinnedVideo: {
+      // 只需要填入影片 ID 即可，其他資訊會自動從 YouTube API 獲取
+      videoId: "EpErrCZ2A2Q"  // 替換成實際的影片 ID，例如："dQw4w9WgXcQ"
+    },
   },
   contact: {
     title: "聯絡我們",

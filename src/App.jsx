@@ -7,10 +7,7 @@ import './assets/global.css';
 function App() {
   const [lang, setLang] = useState(localStorage.getItem('lang') || 'zh-TW');
   const [videos, setVideos] = useState([]);
-  // 不要用引號包裹，這是 JavaScript 的環境變數物件調用
   const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
-  // 測試是否成功讀取 (正式部署前可刪除)
-  // console.log('API Key Loaded:', API_KEY ? 'Yes' : 'No');
   const t = lang === 'zh-TW' ? zhTW : en;
   const toggleLanguage = () => {
     const next = lang === 'zh-TW' ? 'en' : 'zh-TW';
@@ -22,41 +19,67 @@ function App() {
     const fetchVideos = async () => {
       if (!API_KEY) return;
 
-      // 1. 先定義搜尋字串
       const searchQuery = t.youtubeSection?.query || "Enterprise AI trends";
-
-      // 2. 定義快取名稱
       const cacheKey = `yt_cache_${lang}_${searchQuery.replace(/\s+/g, '_')}`;
       const cachedData = localStorage.getItem(cacheKey);
       const now = new Date().getTime();
 
-      // 3. 快取檢查邏輯
+      // 快取檢查
       if (cachedData) {
         try {
           const { timestamp, data } = JSON.parse(cachedData);
-          // 如果 24 小時內有抓過，就直接使用並跳出
           if (now - timestamp < 24 * 60 * 60 * 1000) {
             setVideos(data);
             return;
           }
         } catch (e) {
-          localStorage.removeItem(cacheKey); // 如果 JSON 解析失敗則清除
+          localStorage.removeItem(cacheKey);
         }
       }
 
-      // 4. 計算時間過濾器
       const lastYear = new Date();
       lastYear.setFullYear(lastYear.getFullYear() - 1);
       const publishedAfter = lastYear.toISOString();
 
+      const maxResults = t.youtubeSection?.maxResults || 8;
+      const pinnedVideoId = t.youtubeSection?.pinnedVideo?.videoId;
+
       try {
+        let finalVideos = [];
+        
+        // 如果有固定影片 ID，先透過 API 獲取該影片的完整資訊
+        if (pinnedVideoId && pinnedVideoId !== 'YOUR_VIDEO_ID_HERE') {
+          try {
+            const videoParams = new URLSearchParams({
+              part: 'snippet',
+              id: pinnedVideoId,
+              key: API_KEY
+            });
+            
+            const videoUrl = `https://www.googleapis.com/youtube/v3/videos?${videoParams.toString()}`;
+            const videoResponse = await fetch(videoUrl);
+            const videoData = await videoResponse.json();
+            
+            if (videoData.items && videoData.items.length > 0) {
+              const pinnedItem = {
+                id: { videoId: pinnedVideoId },
+                snippet: videoData.items[0].snippet
+              };
+              finalVideos.push(pinnedItem);
+            }
+          } catch (error) {
+            console.error("Failed to fetch pinned video:", error);
+          }
+        }
+
+        // 查詢其他影片
         const params = new URLSearchParams({
           part: 'snippet',
           q: searchQuery,
           order: 'relevance',
           type: 'video',
           videoEmbeddable: 'true',
-          maxResults: 8,
+          maxResults: maxResults,
           publishedAfter: publishedAfter,
           relevanceLanguage: lang === 'zh-TW' ? 'zh' : 'en',
           regionCode: lang === 'zh-TW' ? 'TW' : 'US',
@@ -68,11 +91,13 @@ function App() {
         const data = await response.json();
 
         if (data.items) {
-          setVideos(data.items);
-          // 5. 存入快取
+          // 合併固定影片和查詢結果
+          finalVideos = [...finalVideos, ...data.items];
+          
+          setVideos(finalVideos);
           localStorage.setItem(cacheKey, JSON.stringify({
             timestamp: now,
-            data: data.items
+            data: finalVideos
           }));
         }
       } catch (error) {
@@ -81,9 +106,9 @@ function App() {
     };
 
     fetchVideos();
-  }, [lang, API_KEY, t.youtubeSection?.query]);
+  }, [lang, API_KEY, t.youtubeSection?.query, t.youtubeSection?.maxResults]);
 
-  // --- 優化後的捲動動畫邏輯 ---
+  // 優化後的捲動動畫邏輯
   useEffect(() => {
     const observerOptions = {
       threshold: 0.1,
@@ -98,7 +123,6 @@ function App() {
       });
     }, observerOptions);
 
-    // 使用 setTimeout 確保 DOM 已經完全渲染完成再進行監控
     const timer = setTimeout(() => {
       const elements = document.querySelectorAll('.app-card, .link-card, .section');
       elements.forEach(el => observer.observe(el));
@@ -108,7 +132,7 @@ function App() {
       clearTimeout(timer);
       observer.disconnect();
     };
-  }, [lang]); // 監聽 lang 變化，切換語系時重新監控
+  }, [lang]);
 
   return (
     <div className="app-root">
@@ -128,7 +152,6 @@ function App() {
           ))}
         </header>
 
-        {/* 確保這裡有正確對應到 locales 裡的資料 */}
         <section className="section">
           <h2>{t.appsSection.title}</h2>
           <div className="apps-grid">
@@ -154,7 +177,6 @@ function App() {
           </div>
         </section>
 
-        {/* --- 新增：YouTube 影片區塊 --- */}
         <section className="section youtube-section">
           <h2>{t.youtubeSection?.title || "Enterprise AI Insights"}</h2>
           <div className="videos-grid">

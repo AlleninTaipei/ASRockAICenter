@@ -4,7 +4,7 @@ export const en = {
     subtitle: "AI Middleware – Bridging Hardware and Software in AI Workstations",
     taglines: [
       "Hardware Performance × AI Engine × Open API",
-      "Comprehensive AI Support: Eliminating technical and cost barriers with seamlessly integrated hardware and software solutions",
+      "Comprehensive AI Support：Eliminating technical and cost barriers with seamlessly integrated hardware and software solutions",
       "Making AI Capabilities as Ready-to-Use as Electricity"
     ]
   },
@@ -12,12 +12,12 @@ export const en = {
     title: "AI Fusion Starter - AI Quick Start Solutions"
   },
   apps: [
-    { name: "ChatForge", icon: "💬", desc: "Chatbot Foundation：Demonstrates OpenAI-compatible API calls and real-time conversation generation." },
+    { name: "ChatForge", icon: "💬", desc: "Chatbot Starter：Demonstrates OpenAI-compatible API calls and real-time conversation generation." },
     { name: "RagPilot", icon: "🎯", desc: "RAG Enterprise Application：Integrates structured and unstructured data, showcasing Function Call + MCP." },
-    { name: "PixelForge", icon: "🎨", desc: "Visual Content Generation：Enterprise text-to-image workflow with batch brand asset generation." },
+    { name: "PixelForge", icon: "🎨", desc: "Visual Content Generation：Text-to-image workflow supporting batch brand material production." },
     { name: "QuickStack", icon: "🐋", desc: "Development Environment Orchestrator：One-click deployment of pre-configured Docker images for rapid AI model service and development environment setup." },
-    { name: "PerfScope", icon: "📊", desc: "Performance Visualization：Simulates multi-concurrent inference, evaluating Tokens/sec and GPU performance." },
-    { name: "RagLingo", icon: "🌐", desc: "AI Translation：Multi-language knowledge translation and localization powered by RAG + LLM." }
+    { name: "PerfScope", icon: "📊", desc: "Performance Visualization：Simulates multi-concurrent inference, evaluats Tokens/sec, GPU performance." },
+    { name: "RagLingo", icon: "🌐", desc: "AI Translation：Multi-language knowledge translation and localization with RAG + LLM." }
   ],
   resources: {
     title: "Related Resources",
@@ -35,9 +35,11 @@ export const en = {
     ]
   },
   youtubeSection: {
-    title: "Trending Enterprise AI Videos",
-    query: "Enterprise On-premises AI solutions", // 英文關鍵字
-    more: "Watch on YouTube"
+    title: "Popular Enterprise AI Videos",
+    query: "Enterprise On-premise AI", // 英文關鍵字
+    more: "Watch on YouTube",
+    maxResults: 8 // English version queries 8 videos
+    // No pinnedVideo for English version
   },
   contact: {
     title: "Contact Us",
