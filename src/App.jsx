@@ -15,6 +15,7 @@ function App() {
     localStorage.setItem('lang', next);
   };
 
+{/*
   useEffect(() => {
     const fetchVideos = async () => {
       if (!API_KEY) return;
@@ -103,6 +104,7 @@ function App() {
 
     fetchVideos();
   }, [lang, API_KEY, t.youtubeSection?.query, t.youtubeSection?.maxResults]);
+*/}
 
   useEffect(() => {
     const observerOptions = {
@@ -179,6 +181,7 @@ function App() {
           </div>
         </section>
 
+{/*
         <section className="section youtube-section">
           <h2>{t.youtubeSection?.title || "Enterprise AI Insights"}</h2>
           <div className="videos-grid">
@@ -201,6 +204,7 @@ function App() {
             ))}
           </div>
         </section>
+*/}
 
         <footer className="section contact-section">
           <h2>{t.contact.title}</h2>
