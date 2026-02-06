@@ -15,7 +15,7 @@ function App() {
     localStorage.setItem('lang', next);
   };
 
-{/*
+  {/*
   useEffect(() => {
     const fetchVideos = async () => {
       if (!API_KEY) return;
@@ -166,12 +166,12 @@ function App() {
           <h2>{t.resources.title}</h2>
           <div className="links-grid">
             {t.resources.items.map((item, i) => (
-              <a 
-                key={i} 
-                href={item.link} 
-                className="link-card" 
+              <a
+                key={i}
+                href={item.link}
+                className="link-card"
                 data-type={item.type || "external"}
-                target="_blank" 
+                target="_blank"
                 rel="noreferrer"
               >
                 <div className="link-title">{item.title}</div>
@@ -181,7 +181,7 @@ function App() {
           </div>
         </section>
 
-{/*
+        {/*
         <section className="section youtube-section">
           <h2>{t.youtubeSection?.title || "Enterprise AI Insights"}</h2>
           <div className="videos-grid">
@@ -210,6 +210,14 @@ function App() {
           <h2>{t.contact.title}</h2>
           <div className="contact-content">
             <p className="contact-text">{t.contact.text}</p>
+            <a
+              href={t.contact.linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-email-btn"              
+            >
+              <span className="icon">🔗</span> {t.contact.linkedinText}
+            </a>
             <a
               href={`mailto:${t.contact.email}`}
               className="contact-email-btn"

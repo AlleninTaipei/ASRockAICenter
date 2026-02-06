@@ -52,7 +52,9 @@ export const zhTW = {
   },
   contact: {
     title: "聯絡我們",
-    text: "商業合作或技術洽詢，請寄信至：",
+    text: "商業合作或技術洽詢：",
+    linkedinUrl: "https://www.linkedin.com/in/allen-sun-67738b38a",
+    linkedinText: "在 LinkedIn 上聯繫 Allen",
     email: "allen1_sun@asrock.com.tw"
   }
 };

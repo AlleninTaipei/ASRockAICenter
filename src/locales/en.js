@@ -49,7 +49,9 @@ export const en = {
   },
   contact: {
     title: "Contact Us",
-    text: "For collaboration or technical inquiries, please email:",
+    text: "For collaboration or technical inquiries:",
+    linkedinUrl: "https://www.linkedin.com/in/allen-sun-67738b38a",
+    linkedinText: "Contact Allen on LinkedIn",
     email: "allen1_sun@asrock.com.tw"
   }
 };
