@@ -29,6 +29,12 @@ export const zhTW = {
         type: "pdf"
       },
       {
+        title: "NVIDIA GPU 產品線 - Hopper 到 Blackwell",
+        desc: "本文件系統化梳理 NVIDIA 從 Hopper (H100) 到 Blackwell (B200) 的產品架構與階層。透過釐清 RTX、HGX、DGX 等核心術語與規格對比，協助您快速掌握硬體選型邏輯。",
+        link: `${import.meta.env.BASE_URL}docs/zh-TW/nvidia_gpu_product_lines_zh.pdf`,  // ← 用反引號
+        type: "pdf"
+      },
+      {
         title: "AMD Radeon™ AI PRO R9700 Creator 32GB",
         desc: "提供適合本機 AI 推論、開發和其他記憶體密集型工作負載的絕佳功能。",
         link: "https://www.asrock.com/Graphics-Card/AMD/Radeon%20AI%20PRO%20R9700%20Creator%2032GB/"

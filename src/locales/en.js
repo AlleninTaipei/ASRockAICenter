@@ -29,6 +29,12 @@ export const en = {
         type: "pdf"
       },
       {
+        title: "NVIDIA GPU Product Lines - Hopper to Blackwell",
+        desc: "A strategic guide to NVIDIA’s GPU lineup, covering the evolution from Hopper (H100) to Blackwell (B200). This document clarifies key terminology (RTX, HGX, DGX) and technical specs to simplify hardware selection.",
+        link: `${import.meta.env.BASE_URL}docs/en/nvidia_gpu_product_lines_en.pdf`,  // ← 用反引號
+        type: "pdf"
+      },
+      {
         title: "AMD Radeon™ AI PRO R9700 Creator 32GB",
         desc: "Great capabilities for local AI inference, development, and other memory-intensive workloads with the latest AMD RDNA™ 4 architecture and 32GB of video memory.",
         link: "https://www.asrock.com/Graphics-Card/AMD/Radeon%20AI%20PRO%20R9700%20Creator%2032GB/"
