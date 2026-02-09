@@ -49,6 +49,16 @@ export const zhTW = {
         title: "ASRock GAI4G-R9700 多卡工作站系統",
         desc: "商用多 GPU 解決方案，支援 Threadripper PRO 與 2500W 電源。",
         link: "https://www.asrock.com/Graphics-Card/spec/product.asp?Model=GAI4G-R9700"
+      },
+      {
+        title: "探索永擎革命性的伺服器創新",
+        desc: "永擎科技專注於雲端運算伺服器硬體領域，以創新和可靠性著稱。",
+        link: "https://www.asrockrack.com/index.tw.asp"
+      },
+      {
+        title: "工業級強固邊緣AIoT系統平台",
+        desc: "東擎科技致力於打造新世代高效能邊緣 AI 平台，融合 AI 加速引擎、工業物聯網與即時資料處理，為智慧製造與產業應用賦能。",
+        link: "https://www.asrockind.com/zh-tw/robust-edge-aIoT-platform"
       }
     ]
   },

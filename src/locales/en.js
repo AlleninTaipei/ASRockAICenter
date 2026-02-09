@@ -49,6 +49,16 @@ export const en = {
         title: "ASRock GAI4G-R9700 Multi-GPU Workstation",
         desc: " A commercial multi-GPU system (ships with 4 × Radeon AI PRO R9700 32GB) — supports Threadripper PRO CPUs, 8-channel DDR5 ECC, PCIe 5.0 and a 2500W PSU. Ideal for high-end AI training/inference, rendering and compute tasks.",
         link: "https://www.asrock.com/Graphics-Card/spec/product.asp?Model=GAI4G-R9700"
+      },
+      {
+        title: "Explore the revolutionary server innovations",
+        desc: "ASRock Rack Inc. is specialized in the field of Cloud Computing Server Hardware with Creativity and Reliability.",
+        link: "https://www.asrockrack.com/index.asp"
+      },
+      {
+        title: "Industrial Robust Edge AIoT Platform",
+        desc: "ASRock Industrial Computer - Innoband is dedicated to building next-generation high-performance Edge AI platforms, integrating AI acceleration, industrial IoT, and real-time data processing to empower smart manufacturing and industrial applications.",
+        link: "https://www.asrockind.com/en-gb/robust-edge-aIoT-platform"
       }
     ]
   },
