@@ -29,7 +29,7 @@ export const zhTW = {
         type: "pdf"
       },
       {
-        title: "Maste Ai - 您的專屬在地 AI 工作站",
+        title: "Master Ai - 您的專屬在地 AI 工作站",
         desc: "在 AI 運算的賽場上，沒有絕對的勝負，只有最適合您的選擇。Master Ai 象徵著我們團隊具備如大谷翔平般的「二刀流」頂尖實力，在 NVIDIA CUDA 與 AMD ROCm 兩大生態系中都能展現極致的運算表現。",
         link: `${import.meta.env.BASE_URL}docs/zh-TW/MasterAi_zh.pdf`,  // ← 用反引號
         type: "pdf"
