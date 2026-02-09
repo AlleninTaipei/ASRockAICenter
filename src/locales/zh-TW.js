@@ -29,6 +29,12 @@ export const zhTW = {
         type: "pdf"
       },
       {
+        title: "Maste Ai - 您的專屬在地 AI 工作站",
+        desc: "在 AI 運算的賽場上，沒有絕對的勝負，只有最適合您的選擇。Master Ai 象徵著我們團隊具備如大谷翔平般的「二刀流」頂尖實力，在 NVIDIA CUDA 與 AMD ROCm 兩大生態系中都能展現極致的運算表現。",
+        link: `${import.meta.env.BASE_URL}docs/zh-TW/MasterAi_zh.pdf`,  // ← 用反引號
+        type: "pdf"
+      },
+      {
         title: "NVIDIA GPU 產品線 - Hopper 到 Blackwell",
         desc: "本文件系統化梳理 NVIDIA 從 Hopper (H100) 到 Blackwell (B200) 的產品架構與階層。透過釐清 RTX、HGX、DGX 等核心術語與規格對比，協助您快速掌握硬體選型邏輯。",
         link: `${import.meta.env.BASE_URL}docs/zh-TW/nvidia_gpu_product_lines_zh.pdf`,  // ← 用反引號

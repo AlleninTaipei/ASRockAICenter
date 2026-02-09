@@ -29,6 +29,12 @@ export const en = {
         type: "pdf"
       },
       {
+        title: "Master Ai - Your own local AI Workstation",
+        desc: "In the arena of AI computing, there is no absolute winner—only the choice that best fits your needs. Master Ai embodies our team’s elite \"Two-Way Player\" expertise, mirroring the versatility of Shohei Ohtani by delivering peak performance across both NVIDIA CUDA and AMD ROCm ecosystems.",
+        link: `${import.meta.env.BASE_URL}docs/en/MasterAi_en.pdf`,  // ← 用反引號
+        type: "pdf"
+      },
+      {
         title: "NVIDIA GPU Product Lines - Hopper to Blackwell",
         desc: "A strategic guide to NVIDIA’s GPU lineup, covering the evolution from Hopper (H100) to Blackwell (B200). This document clarifies key terminology (RTX, HGX, DGX) and technical specs to simplify hardware selection.",
         link: `${import.meta.env.BASE_URL}docs/en/nvidia_gpu_product_lines_en.pdf`,  // ← 用反引號
