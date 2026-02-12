@@ -5,7 +5,7 @@ import { en } from './locales/en';
 import './assets/global.css';
 
 function App() {
-  const [lang, setLang] = useState(localStorage.getItem('lang') || 'zh-TW');
+  const [lang, setLang] = useState(localStorage.getItem('lang') || 'en');
   const [videos, setVideos] = useState([]);
   const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
   const t = lang === 'zh-TW' ? zhTW : en;

@@ -20,7 +20,7 @@ asrock-ai-center/
 │   ├── assets/
 │   │   └── global.css        # 全域樣式 (提取自原 HTML)
 │   ├── components/
-│   │   └── Starfield.jsx     # 星空動畫元件
+│   │   └── Starfield.jsx     # Canvas 2D 星空動畫元件（多層視差、流星、星雲、滑鼠互動）
 │   └── locales/              # 語系資料夾
 │       ├── en.js             # 英文文本
 │       └── zh-TW.js          # 中文文本
