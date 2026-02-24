@@ -63,10 +63,10 @@ export const en = {
     ]
   },
   youtubeSection: {
-    title: "Popular Enterprise AI Videos",
-    query: "Enterprise On-premise AI", // 英文關鍵字
+    title: "On-premise AI Videos",
+    query: "On-premise AI", // 英文關鍵字
     more: "Watch on YouTube",
-    maxResults: 8 // English version queries 8 videos
+    maxResults: 12 // English version queries 8 videos
     // No pinnedVideo for English version
   },
   contact: {
