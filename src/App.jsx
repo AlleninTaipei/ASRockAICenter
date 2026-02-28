@@ -15,6 +15,100 @@ function App() {
     localStorage.setItem('lang', next);
   };
 
+  {
+    useEffect(() => {
+      const fetchVideos = async () => {
+        if (!API_KEY) return;
+
+        const searchQuery = t.youtubeSection?.query || "Enterprise AI trends";
+        const cacheKey = `yt_cache_${lang}_${searchQuery.replace(/\s+/g, '_')}`;
+        const cachedData = localStorage.getItem(cacheKey);
+        const now = new Date().getTime();
+
+        if (cachedData) {
+          try {
+            const { timestamp, data } = JSON.parse(cachedData);
+            if (now - timestamp < 24 * 60 * 60 * 1000) {
+              setVideos(data);
+              return;
+            }
+          } catch (e) {
+            localStorage.removeItem(cacheKey);
+          }
+        }
+
+        const current = new Date();
+        const timeFrame = new Date();
+
+        timeFrame.setMonth(current.getMonth() - 3);
+        const publishedAfter = timeFrame.toISOString();
+
+        const maxResults = t.youtubeSection?.maxResults || 8;
+        const pinnedVideoId = t.youtubeSection?.pinnedVideo?.videoId;
+
+        try {
+          let finalVideos = [];
+
+          if (pinnedVideoId && pinnedVideoId !== 'YOUR_VIDEO_ID_HERE') {
+            try {
+              const videoParams = new URLSearchParams({
+                part: 'snippet',
+                id: pinnedVideoId,
+                key: API_KEY
+              });
+
+              const videoUrl = `https://www.googleapis.com/youtube/v3/videos?${videoParams.toString()}`;
+              const videoResponse = await fetch(videoUrl);
+              const videoData = await videoResponse.json();
+
+              if (videoData.items && videoData.items.length > 0) {
+                const pinnedItem = {
+                  id: { videoId: pinnedVideoId },
+                  snippet: videoData.items[0].snippet
+                };
+                finalVideos.push(pinnedItem);
+              }
+            } catch (error) {
+              console.error("Failed to fetch pinned video:", error);
+            }
+          }
+
+          const params = new URLSearchParams({
+            part: 'snippet',
+            q: searchQuery,
+            order: 'relevance',//'viewCount',
+            type: 'video',
+            videoEmbeddable: 'true',
+            maxResults: maxResults,
+            publishedAfter: publishedAfter,
+            relevanceLanguage: lang === 'zh-TW' ? 'zh-Hant' : 'en',
+            regionCode: lang === 'zh-TW' ? 'TW' : 'US',
+            key: API_KEY
+          });
+
+          const url = `https://www.googleapis.com/youtube/v3/search?${params.toString()}`;
+          const response = await fetch(url);
+          const data = await response.json();
+
+          if (data.items) {
+            finalVideos = [...finalVideos, ...data.items];
+
+            setVideos(finalVideos);
+            localStorage.setItem(cacheKey, JSON.stringify({
+              timestamp: now,
+              data: finalVideos
+            }));
+          }
+        } catch (error) {
+          console.error("YouTube API Error:", error);
+        }
+      };
+
+      fetchVideos();
+    }, [lang, API_KEY, t.youtubeSection?.query, t.youtubeSection?.maxResults]);
+  }
+
+
   useEffect(() => {
     const observerOptions = {
       threshold: 0.1,
@@ -110,6 +204,31 @@ function App() {
             </a>
           </div>
         </footer>
+
+        {
+          <section className="section youtube-section">
+            <h2>{t.youtubeSection?.title || "Enterprise AI Insights"}</h2>
+            <div className="videos-grid">
+              {videos.slice(0, 12).map((video) => (
+                <a
+                  key={video.id.videoId}
+                  href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="video-card"
+                >
+                  <div className="video-thumbnail">
+                    <img src={video.snippet.thumbnails.high.url} alt={video.snippet.title} />
+                  </div>
+                  <div className="video-info">
+                    <h3 className="video-title">{video.snippet.title}</h3>
+                    <p className="video-channel">{video.snippet.channelTitle}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </section>
+        }
 
       </div>
     </div>
