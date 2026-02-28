@@ -204,7 +204,7 @@ function App() {
         <section className="section youtube-section">
           <h2>{t.youtubeSection?.title || "Enterprise AI Insights"}</h2>
           <div className="videos-grid">
-            {videos.slice(0, 12).map((video) => (
+            {videos.slice(0, (t.youtubeSection?.maxResults || 8) + (t.youtubeSection?.pinnedVideo?.videoId ? 1 : 0)).map((video) => (
               <a
                 key={video.id.videoId}
                 href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
