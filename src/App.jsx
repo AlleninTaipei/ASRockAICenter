@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Starfield from './components/Starfield';
 import { zhTW } from './locales/zh-TW';
 import { en } from './locales/en';
@@ -15,8 +15,7 @@ function App() {
     localStorage.setItem('lang', next);
   };
 
-  {
-    useEffect(() => {
+  useEffect(() => {
       const fetchVideos = async () => {
         if (!API_KEY) return;
 
@@ -37,10 +36,8 @@ function App() {
           }
         }
 
-        const current = new Date();
         const timeFrame = new Date();
-
-        timeFrame.setMonth(current.getMonth() - 3);
+        timeFrame.setMonth(timeFrame.getMonth() - 3);
         const publishedAfter = timeFrame.toISOString();
 
         const maxResults = t.youtubeSection?.maxResults || 8;
@@ -76,7 +73,7 @@ function App() {
           const params = new URLSearchParams({
             part: 'snippet',
             q: searchQuery,
-            order: 'relevance',//'viewCount',
+            order: 'relevance',
             type: 'video',
             videoEmbeddable: 'true',
             maxResults: maxResults,
@@ -106,7 +103,6 @@ function App() {
 
       fetchVideos();
     }, [lang, API_KEY, t.youtubeSection?.query, t.youtubeSection?.maxResults]);
-  }
 
 
   useEffect(() => {
@@ -205,30 +201,28 @@ function App() {
           </div>
         </footer>
 
-        {
-          <section className="section youtube-section">
-            <h2>{t.youtubeSection?.title || "Enterprise AI Insights"}</h2>
-            <div className="videos-grid">
-              {videos.slice(0, 12).map((video) => (
-                <a
-                  key={video.id.videoId}
-                  href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="video-card"
-                >
-                  <div className="video-thumbnail">
-                    <img src={video.snippet.thumbnails.high.url} alt={video.snippet.title} />
-                  </div>
-                  <div className="video-info">
-                    <h3 className="video-title">{video.snippet.title}</h3>
-                    <p className="video-channel">{video.snippet.channelTitle}</p>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </section>
-        }
+        <section className="section youtube-section">
+          <h2>{t.youtubeSection?.title || "Enterprise AI Insights"}</h2>
+          <div className="videos-grid">
+            {videos.slice(0, 12).map((video) => (
+              <a
+                key={video.id.videoId}
+                href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
+                target="_blank"
+                rel="noreferrer"
+                className="video-card"
+              >
+                <div className="video-thumbnail">
+                  <img src={video.snippet.thumbnails.high.url} alt={video.snippet.title} />
+                </div>
+                <div className="video-info">
+                  <h3 className="video-title">{video.snippet.title}</h3>
+                  <p className="video-channel">{video.snippet.channelTitle}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
 
       </div>
     </div>

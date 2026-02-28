@@ -21,37 +21,6 @@ body {
     z-index: -1;
 }
 
-/* Floating Particles */
-.particle {
-    position: fixed;
-    width: 4px;
-    height: 4px;
-    background: rgba(74, 158, 255, 0.6);
-    border-radius: 50%;
-    pointer-events: none;
-    animation: float 20s infinite;
-    z-index: 0;
-}
-
-@keyframes float {
-
-    0%,
-    100% {
-        transform: translateY(0) translateX(0);
-        opacity: 0;
-    }
-
-    10%,
-    90% {
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateY(-100vh) translateX(50px);
-        opacity: 0;
-    }
-}
-
 /* Language Toggle */
 .lang-toggle {
     position: fixed;
@@ -430,59 +399,6 @@ h2::after {
     color: rgba(255, 255, 255, 0.9);
 }
 
-/* Language content visibility */
-.lang-content {
-    display: none;
-}
-
-.lang-content.active {
-    display: block;
-}
-
-/* Scroll indicator */
-.scroll-indicator {
-    position: fixed;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 28px;
-    height: 46px;
-    border: 2px solid rgba(74, 158, 255, 0.5);
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
-    padding-top: 8px;
-    animation: fadeOut 1s ease-out 3s forwards;
-}
-
-.scroll-indicator::before {
-    content: '';
-    width: 5px;
-    height: 9px;
-    background: #4A9EFF;
-    border-radius: 3px;
-    animation: scroll 2s ease-in-out infinite;
-}
-
-@keyframes scroll {
-    0% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateY(20px);
-        opacity: 0;
-    }
-}
-
-@keyframes fadeOut {
-    to {
-        opacity: 0;
-        pointer-events: none;
-    }
-}
-
 /* Responsive Design */
 @media (max-width: 968px) {
     .links-grid {
@@ -586,15 +502,6 @@ h2::after {
         font-size: 13px;
     }
 
-    .link-icon {
-        width: 50px;
-        height: 50px;
-        font-size: 24px;
-    }
-
-    .scroll-indicator {
-        display: none;
-    }
 }
 
 /* 當 reveal 類別被 App.jsx 加入時的樣式 */

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 const Starfield = () => {
   const canvasRef = useRef(null);
@@ -98,7 +98,6 @@ const Starfield = () => {
     // --- Shooting star factory ---
     const createShootingStar = () => {
       const w = window.innerWidth;
-      const h = window.innerHeight;
       const angle = (30 + Math.random() * 30) * (Math.PI / 180);
       const speed = 600 + Math.random() * 400;
       const startX = Math.random() * w * 0.8 + w * 0.1;
@@ -348,14 +347,6 @@ const Starfield = () => {
     <canvas
       ref={canvasRef}
       className="starfield"
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: -1,
-      }}
     />
   );
 };
