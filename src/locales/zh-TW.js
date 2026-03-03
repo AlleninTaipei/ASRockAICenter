@@ -1,6 +1,6 @@
 export const zhTW = {
   header: {
-    title: "ASRock AI Center",
+    title: "華擎科技 AI 研發中心",
     subtitle: "AI Middleware - AI 工作站中介層藍圖",
     taglines: [
       "硬體效能 × AI 引擎 × 開放 API",
