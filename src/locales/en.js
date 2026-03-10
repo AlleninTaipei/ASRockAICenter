@@ -1,6 +1,6 @@
 export const en = {
   header: {
-    title: "ASRock AI Center",
+    title: "ASRock AI - AI Center",
     subtitle: "AI Middleware – Bridging Hardware and Software in AI Workstations",
     taglines: [
       "Hardware Performance × AI Engine × Open API",
