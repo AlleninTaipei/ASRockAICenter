@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://allenintaipei.github.io/ASRockAICenter/sitemap.xml

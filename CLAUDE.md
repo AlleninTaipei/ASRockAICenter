@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 npm run dev        # Start Vite dev server with HMR
-npm run build      # Production build → dist/
+npm run build      # SSG build (vite-react-ssg) → pre-rendered HTML in dist/
 npm run preview    # Preview production build locally
 npm run deploy     # Build + push to gh-pages branch (GitHub Pages)
 ```
@@ -20,9 +20,19 @@ Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 ## Architecture
 
-**Single Page Application** — React 18 + Vite 5, deployed to GitHub Pages at `https://allenintaipei.github.io/ASRockAICenter/`. The `base: './'` in [vite.config.js](vite.config.js) ensures relative asset paths work on GitHub Pages.
+**Static Site Generation (SSG)** — React 18 + Vite 5 + `vite-react-ssg`, deployed to GitHub Pages at `https://allenintaipei.github.io/ASRockAICenter/`. The `base: './'` in [vite.config.js](vite.config.js) ensures relative asset paths work on GitHub Pages.
 
 **Entry point flow:** `index.html` → `src/main.jsx` → `src/App.jsx`
+
+### Static Site Generation (SSG)
+
+`vite-react-ssg` pre-renders the app to full HTML at build time. The built `dist/index.html` contains all rendered content — search crawlers see the complete page without executing JavaScript. React then hydrates client-side for full interactivity.
+
+**Entry point:** `src/main.jsx` exports `createRoot` via `ViteReactSSG` with a routes array (react-router-dom format). There is only one route: `{ path: '/', element: <App /> }`.
+
+**SSR guard:** `App.jsx` reads `localStorage` with a `typeof window !== 'undefined'` check because `localStorage` is unavailable during build-time rendering. All other browser APIs (`IntersectionObserver`, etc.) are safely inside `useEffect` and do not need guarding.
+
+**SEO files:** `public/robots.txt` and `public/sitemap.xml` are copied to `dist/` at build time and are accessible at the deployed URL.
 
 ### Internationalization (i18n)
 

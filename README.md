@@ -9,6 +9,8 @@ asrock-ai-center/
 ├── vite.config.js            # Vite 打包配置
 ├── public/
 │   ├── favicon.svg           # 網站圖示
+│   ├── robots.txt            # 允許爬蟲，指向 sitemap
+│   └── sitemap.xml           # 網站地圖（單頁，供 Google Search Console 使用）
 └── docs/                     # PDF 文件
 │   ├── en/
 │   │   └── pdf files
@@ -39,6 +41,7 @@ asrock-ai-center/
 * CSS 維護性：全域 CSS 轉向 React 後，可以使用 CSS Modules 或 Tailwind CSS，確保樣式只作用於特定組件。
 * 多語系架構：**「資料與結構分離」**：建立語系 JSON 檔，由 React 根據目前語言抽換文字內容。
 * 效能與開發：使用 Vite 提供的 HMR（熱更新）可以讓你修改程式碼後即時看到結果，且打包後的檔案會經過壓縮優化。
+* SEO 優化（SSG）：使用 `vite-react-ssg` 在 build time 預先渲染完整 HTML，Google 爬蟲可直接讀取頁面內容，不需執行 JavaScript。
 
 ## 部署準備
 
