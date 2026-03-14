@@ -28,7 +28,7 @@ export const en = {
       name: "ScriptForge", icon: "🎙️",
       subtitle: "AI Scripting & Subtitling Factory",
       tagline: '\u201cGiving voice the soul of text; crossing language boundaries.\u201d',
-      desc: "Integrates STT with deep LLM contextual awareness to convert video audio into localized scripts and precise subtitles with emotional warmth. Purpose-built for digital media and publishers (proven by our PoC for Japanese-to-Chinese video translation), increasing content distribution efficiency by over 80%."
+      desc: "Integrates STT with deep LLM contextual awareness to convert video audio into localized scripts and precise subtitles with emotional warmth. Purpose-built for digital media and publishers."
     },
     {
       name: "RagPilot", icon: "🎯",
