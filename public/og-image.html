@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1200" />
+  <title>ASRock AI — OG Image</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+      background: #0a0a0f;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: #fff;
+    }
+
+    /* ── Grid overlay ── */
+    .grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(6,182,212,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6,182,212,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* ── Radial glow spots ── */
+    .glow-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 900px;
+      height: 500px;
+      background: radial-gradient(ellipse at center,
+        rgba(6,182,212,0.13) 0%,
+        rgba(59,130,246,0.08) 40%,
+        transparent 70%);
+      pointer-events: none;
+    }
+    .glow-tl {
+      position: absolute;
+      top: -120px;
+      left: -120px;
+      width: 480px;
+      height: 480px;
+      background: radial-gradient(circle, rgba(6,182,212,0.10) 0%, transparent 65%);
+    }
+    .glow-br {
+      position: absolute;
+      bottom: -140px;
+      right: -80px;
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle, rgba(59,130,246,0.10) 0%, transparent 65%);
+    }
+
+    /* ── Corner brackets ── */
+    .bracket {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+    }
+    .bracket::before,
+    .bracket::after {
+      content: '';
+      position: absolute;
+      background: #06b6d4;
+    }
+    .bracket::before { width: 100%; height: 2px; }
+    .bracket::after  { width: 2px; height: 100%; }
+
+    .bracket-tl { top: 32px; left: 32px; }
+    .bracket-tl::before { top: 0; left: 0; }
+    .bracket-tl::after  { top: 0; left: 0; }
+
+    .bracket-tr { top: 32px; right: 32px; transform: scaleX(-1); }
+    .bracket-tr::before { top: 0; left: 0; }
+    .bracket-tr::after  { top: 0; left: 0; }
+
+    .bracket-bl { bottom: 32px; left: 32px; transform: scaleY(-1); }
+    .bracket-bl::before { top: 0; left: 0; }
+    .bracket-bl::after  { top: 0; left: 0; }
+
+    .bracket-br { bottom: 32px; right: 32px; transform: scale(-1); }
+    .bracket-br::before { top: 0; left: 0; }
+    .bracket-br::after  { top: 0; left: 0; }
+
+    /* ── Horizontal accent lines ── */
+    .line-top,
+    .line-bottom {
+      position: absolute;
+      left: 88px;
+      right: 88px;
+      height: 1px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(6,182,212,0.5) 20%,
+        rgba(6,182,212,0.5) 80%,
+        transparent 100%);
+    }
+    .line-top    { top: 88px; }
+    .line-bottom { bottom: 88px; }
+
+    /* ── Main content ── */
+    .content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+    }
+
+    /* ── Chip / badge above logo ── */
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(6,182,212,0.35);
+      border-radius: 999px;
+      padding: 6px 18px;
+      margin-bottom: 36px;
+      background: rgba(6,182,212,0.06);
+    }
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #06b6d4;
+      box-shadow: 0 0 8px #06b6d4;
+    }
+    .badge-text {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #06b6d4;
+    }
+
+    /* ── Logo wordmark ── */
+    .logo-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 0;
+      margin-bottom: 10px;
+    }
+    .logo-asrock {
+      font-size: 76px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      line-height: 1;
+    }
+    .logo-ai {
+      font-size: 76px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 60%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 18px rgba(6,182,212,0.55));
+    }
+
+    /* ── Divider ── */
+    .divider {
+      width: 72px;
+      height: 3px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, #06b6d4, #3b82f6);
+      margin: 22px 0 24px;
+      box-shadow: 0 0 12px rgba(6,182,212,0.6);
+    }
+
+    /* ── Tagline ── */
+    .tagline {
+      font-size: 22px;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      color: rgba(255,255,255,0.68);
+      text-align: center;
+      max-width: 680px;
+      line-height: 1.5;
+    }
+
+    /* ── Bottom domain strip ── */
+    .domain-strip {
+      position: absolute;
+      bottom: 44px;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .domain-icon {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid rgba(6,182,212,0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .domain-icon::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #06b6d4;
+    }
+    .domain-text {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: rgba(6,182,212,0.70);
+    }
+
+    /* ── Decorative hex nodes (top-right area) ── */
+    .hex-group {
+      position: absolute;
+      top: 44px;
+      right: 100px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .hex {
+      width: 10px;
+      height: 10px;
+      border: 1.5px solid rgba(6,182,212,0.4);
+      border-radius: 2px;
+      transform: rotate(45deg);
+    }
+    .hex.lit {
+      background: rgba(6,182,212,0.25);
+      border-color: rgba(6,182,212,0.8);
+      box-shadow: 0 0 8px rgba(6,182,212,0.5);
+    }
+
+    /* ── Scan-line texture ── */
+    .scanlines {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0,0,0,0.07) 3px,
+        rgba(0,0,0,0.07) 4px
+      );
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background layers -->
+  <div class="grid"></div>
+  <div class="glow-tl"></div>
+  <div class="glow-br"></div>
+  <div class="glow-center"></div>
+  <div class="scanlines"></div>
+
+  <!-- Corner brackets -->
+  <div class="bracket bracket-tl"></div>
+  <div class="bracket bracket-tr"></div>
+  <div class="bracket bracket-bl"></div>
+  <div class="bracket bracket-br"></div>
+
+  <!-- Accent lines -->
+  <div class="line-top"></div>
+  <div class="line-bottom"></div>
+
+  <!-- Decorative hex nodes -->
+  <div class="hex-group">
+    <div class="hex lit"></div>
+    <div class="hex"></div>
+    <div class="hex lit"></div>
+    <div class="hex"></div>
+    <div class="hex lit"></div>
+  </div>
+
+  <!-- Main content -->
+  <div class="content">
+    <div class="badge">
+      <div class="badge-dot"></div>
+      <span class="badge-text">Enterprise AI Platform</span>
+    </div>
+
+    <div class="logo-wrap">
+      <span class="logo-asrock">ASRock&nbsp;</span>
+      <span class="logo-ai">AI</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="tagline">Advanced AI Middleware Solutions for Enterprises</p>
+  </div>
+
+  <!-- Bottom domain -->
+  <div class="domain-strip">
+    <div class="domain-icon"></div>
+    <span class="domain-text">allenintaipei.github.io/ASRockAICenter</span>
+  </div>
+
+</body>
+</html>
