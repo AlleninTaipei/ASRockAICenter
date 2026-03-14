@@ -12,12 +12,48 @@ export const zhTW = {
     title: "AI Fusion Starter - 快速入門解決方案"
   },
   apps: [
-    { name: "ChatForge", icon: "💬", desc: "Chatbot 起手式：展示 OpenAI 相容 API 調用與即時對話生成。" },
-    { name: "RagPilot", icon: "🎯", desc: "RAG 企業應用：整合結構化與非結構化資料，展示 Function Call + MCP。" },
-    { name: "PixelForge", icon: "🎨", desc: "視覺內容生成：文字轉圖像工作流，支援品牌素材批量產出。" },
-    { name: "QuickStack", icon: "🐋", desc: "開發環境管理平台：一鍵部署預配置 Docker 映像檔。" },
-    { name: "PerfScope", icon: "📊", desc: "性能可視化：模擬多併發推論，評估 Tokens/sec、GPU 效能。" },
-    { name: "RagLingo", icon: "🌐", desc: "AI 翻譯：RAG + LLM 的多語知識翻譯與本地化。" }
+    {
+      name: "ChatForge", icon: "💬",
+      subtitle: "智慧對話門戶",
+      tagline: "「對話，是理解 AI 的第一步。」",
+      desc: "演示相容 OpenAI 的 API 調用，實現毫秒級的實時對話回應。提供企業級 Chatbot 起始模板，讓 AI 成為您最貼心的第一線客服或助理。"
+    },
+    {
+      name: "PixelForge", icon: "🎨",
+      subtitle: "視覺創意引擎",
+      tagline: "「將想像力轉化為高品質影像。」",
+      desc: "完整的 Text-to-Image 工作流，支援批次品牌素材與創意圖像生產。大幅降低設計門檻，實現從文案到視覺的一鍵自動化產出。"
+    },
+    {
+      name: "ScriptForge", icon: "🎙️",
+      subtitle: "影音劇本工廠",
+      tagline: "「賦予聲音文字的靈魂，跨越語言的邊界。」",
+      desc: "結合 STT 與 LLM 深度語境理解，將影片語音轉化為具備「情緒溫度」的在地化劇本與精確字幕。專為數位媒體與影視出版業者打造（如 PoC 驗證過的日文影片轉中文字幕），讓內容發行效率提升 80% 以上。"
+    },
+    {
+      name: "RagPilot", icon: "🎯",
+      subtitle: "企業知識導航",
+      tagline: "「讓 AI 讀懂您的私有數據。」",
+      desc: "整合結構化與非結構化數據，展示強大的 Function Call 與 MCP 擴充能力。構建企業私有的知識庫，確保 AI 回答的每一句話都有據可查。"
+    },
+    {
+      name: "RagLingo", icon: "🌐",
+      subtitle: "全球知識翻譯",
+      tagline: "「在地化，不只是翻譯，更是理解。」",
+      desc: "基於 RAG + LLM 技術，進行多語言知識的精準對譯與專業學術在地化。協助跨國企業消除知識鴻溝，實現全球化的技術文件同步。"
+    },
+    {
+      name: "QuickStack", icon: "🐋",
+      subtitle: "環境部署專家",
+      tagline: "「把複雜的底層環境，變回一鍵點擊。」",
+      desc: "預配置 Docker 鏡像，實現 AI 模型服務與開發環境的秒級部署。讓開發者不再為環境配置煩惱，專注於 AI 模型與應用邏輯的創新。"
+    },
+    {
+      name: "PerfScope", icon: "📊",
+      subtitle: "性能觀測之眼",
+      tagline: "「數據說話，硬體實力的終極驗證。」",
+      desc: "多併發推理模擬，即時監測 Tokens/sec 與 GPU 資源占用率。確保您的 AI 任務在 ASRock 工作站上發揮極致效能，看得見的流暢。"
+    }
   ],
   resources: {
     title: "相關資源",

@@ -12,12 +12,48 @@ export const en = {
     title: "AI Fusion Starter - AI Quick Start Solutions"
   },
   apps: [
-    { name: "ChatForge", icon: "💬", desc: "Chatbot Starter：Demonstrates OpenAI-compatible API calls and real-time conversation generation." },
-    { name: "RagPilot", icon: "🎯", desc: "RAG Enterprise Application：Integrates structured and unstructured data, showcasing Function Call + MCP." },
-    { name: "PixelForge", icon: "🎨", desc: "Visual Content Generation：Text-to-image workflow supporting batch brand material production." },
-    { name: "QuickStack", icon: "🐋", desc: "Development Environment Orchestrator：One-click deployment of pre-configured Docker images for rapid AI model service and development environment setup." },
-    { name: "PerfScope", icon: "📊", desc: "Performance Visualization：Simulates multi-concurrent inference, evaluats Tokens/sec, GPU performance." },
-    { name: "RagLingo", icon: "🌐", desc: "AI Translation：Multi-language knowledge translation and localization with RAG + LLM." }
+    {
+      name: "ChatForge", icon: "💬",
+      subtitle: "Conversational AI Gateway",
+      tagline: '\u201cConversation is the first step to understanding AI.\u201d',
+      desc: "Demonstrates OpenAI-compatible API calls with millisecond-level real-time response. Provides an enterprise-grade chatbot template, transforming AI into your most reliable first-line customer service or virtual assistant."
+    },
+    {
+      name: "PixelForge", icon: "🎨",
+      subtitle: "Visual Creativity Engine",
+      tagline: '\u201cTransforming imagination into high-quality imagery.\u201d',
+      desc: "A complete Text-to-Image workflow supporting batch production of brand assets and creative visuals. Drastically lowers the barrier to design, enabling one-click automation from copywriting to visual output."
+    },
+    {
+      name: "ScriptForge", icon: "🎙️",
+      subtitle: "AI Scripting & Subtitling Factory",
+      tagline: '\u201cGiving voice the soul of text; crossing language boundaries.\u201d',
+      desc: "Integrates STT with deep LLM contextual awareness to convert video audio into localized scripts and precise subtitles with emotional warmth. Purpose-built for digital media and publishers (proven by our PoC for Japanese-to-Chinese video translation), increasing content distribution efficiency by over 80%."
+    },
+    {
+      name: "RagPilot", icon: "🎯",
+      subtitle: "Enterprise Knowledge Navigator",
+      tagline: '\u201cLetting AI understand your private data.\u201d',
+      desc: "Consolidates structured and unstructured data, showcasing powerful Function Call and MCP (Model Context Protocol) expansion capabilities. Builds a private corporate knowledge base, ensuring every AI-generated answer is grounded in verifiable facts."
+    },
+    {
+      name: "RagLingo", icon: "🌐",
+      subtitle: "Global Knowledge Translation",
+      tagline: '\u201cLocalization is not just translation; it is comprehension.\u201d',
+      desc: "Based on RAG + LLM technology, providing high-precision translation and professional academic localization for technical knowledge. Assists multinational corporations in bridging knowledge gaps, achieving synchronized global technical documentation."
+    },
+    {
+      name: "QuickStack", icon: "🐋",
+      subtitle: "Development Environment Orchestrator",
+      tagline: '\u201cTurning complex underlying environments into a single click.\u201d',
+      desc: "Pre-configured Docker images for second-level deployment of AI model services and development environments. Frees developers from the headache of environment configuration, allowing them to focus on AI model innovation and application logic."
+    },
+    {
+      name: "PerfScope", icon: "📊",
+      subtitle: "The Eye of Performance Visualization",
+      tagline: '\u201cData speaks: the ultimate verification of hardware strength.\u201d',
+      desc: "Real-time monitoring of multi-concurrent inference, tracking Tokens/sec and GPU resource utilization. Ensures your AI tasks achieve peak performance on ASRock workstations with visible, measurable fluidity."
+    }
   ],
   resources: {
     title: "Related Resources",

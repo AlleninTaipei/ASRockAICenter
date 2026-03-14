@@ -16,93 +16,93 @@ function App() {
   };
 
   useEffect(() => {
-      const fetchVideos = async () => {
-        if (!API_KEY) return;
+    const fetchVideos = async () => {
+      if (!API_KEY) return;
 
-        const searchQuery = t.youtubeSection?.query || "Enterprise AI trends";
-        const cacheKey = `yt_cache_${lang}_${searchQuery.replace(/\s+/g, '_')}`;
-        const cachedData = localStorage.getItem(cacheKey);
-        const now = new Date().getTime();
+      const searchQuery = t.youtubeSection?.query || "Enterprise AI trends";
+      const cacheKey = `yt_cache_${lang}_${searchQuery.replace(/\s+/g, '_')}`;
+      const cachedData = localStorage.getItem(cacheKey);
+      const now = new Date().getTime();
 
-        if (cachedData) {
-          try {
-            const { timestamp, data } = JSON.parse(cachedData);
-            if (now - timestamp < 24 * 60 * 60 * 1000) {
-              setVideos(data);
-              return;
-            }
-          } catch (e) {
-            localStorage.removeItem(cacheKey);
-          }
-        }
-
-        const timeFrame = new Date();
-        timeFrame.setMonth(timeFrame.getMonth() - 3);
-        const publishedAfter = timeFrame.toISOString();
-
-        const maxResults = t.youtubeSection?.maxResults || 8;
-        const pinnedVideoId = t.youtubeSection?.pinnedVideo?.videoId;
-
+      if (cachedData) {
         try {
-          let finalVideos = [];
-
-          if (pinnedVideoId && pinnedVideoId !== 'YOUR_VIDEO_ID_HERE') {
-            try {
-              const videoParams = new URLSearchParams({
-                part: 'snippet',
-                id: pinnedVideoId,
-                key: API_KEY
-              });
-
-              const videoUrl = `https://www.googleapis.com/youtube/v3/videos?${videoParams.toString()}`;
-              const videoResponse = await fetch(videoUrl);
-              const videoData = await videoResponse.json();
-
-              if (videoData.items && videoData.items.length > 0) {
-                const pinnedItem = {
-                  id: { videoId: pinnedVideoId },
-                  snippet: videoData.items[0].snippet
-                };
-                finalVideos.push(pinnedItem);
-              }
-            } catch (error) {
-              console.error("Failed to fetch pinned video:", error);
-            }
+          const { timestamp, data } = JSON.parse(cachedData);
+          if (now - timestamp < 24 * 60 * 60 * 1000) {
+            setVideos(data);
+            return;
           }
-
-          const params = new URLSearchParams({
-            part: 'snippet',
-            q: searchQuery,
-            order: 'relevance',
-            type: 'video',
-            videoEmbeddable: 'true',
-            maxResults: maxResults,
-            publishedAfter: publishedAfter,
-            relevanceLanguage: lang === 'zh-TW' ? 'zh-Hant' : 'en',
-            regionCode: lang === 'zh-TW' ? 'TW' : 'US',
-            key: API_KEY
-          });
-
-          const url = `https://www.googleapis.com/youtube/v3/search?${params.toString()}`;
-          const response = await fetch(url);
-          const data = await response.json();
-
-          if (data.items) {
-            finalVideos = [...finalVideos, ...data.items];
-
-            setVideos(finalVideos);
-            localStorage.setItem(cacheKey, JSON.stringify({
-              timestamp: now,
-              data: finalVideos
-            }));
-          }
-        } catch (error) {
-          console.error("YouTube API Error:", error);
+        } catch (e) {
+          localStorage.removeItem(cacheKey);
         }
-      };
+      }
 
-      fetchVideos();
-    }, [lang, API_KEY, t.youtubeSection?.query, t.youtubeSection?.maxResults]);
+      const timeFrame = new Date();
+      timeFrame.setMonth(timeFrame.getMonth() - 3);
+      const publishedAfter = timeFrame.toISOString();
+
+      const maxResults = t.youtubeSection?.maxResults || 8;
+      const pinnedVideoId = t.youtubeSection?.pinnedVideo?.videoId;
+
+      try {
+        let finalVideos = [];
+
+        if (pinnedVideoId && pinnedVideoId !== 'YOUR_VIDEO_ID_HERE') {
+          try {
+            const videoParams = new URLSearchParams({
+              part: 'snippet',
+              id: pinnedVideoId,
+              key: API_KEY
+            });
+
+            const videoUrl = `https://www.googleapis.com/youtube/v3/videos?${videoParams.toString()}`;
+            const videoResponse = await fetch(videoUrl);
+            const videoData = await videoResponse.json();
+
+            if (videoData.items && videoData.items.length > 0) {
+              const pinnedItem = {
+                id: { videoId: pinnedVideoId },
+                snippet: videoData.items[0].snippet
+              };
+              finalVideos.push(pinnedItem);
+            }
+          } catch (error) {
+            console.error("Failed to fetch pinned video:", error);
+          }
+        }
+
+        const params = new URLSearchParams({
+          part: 'snippet',
+          q: searchQuery,
+          order: 'relevance',
+          type: 'video',
+          videoEmbeddable: 'true',
+          maxResults: maxResults,
+          publishedAfter: publishedAfter,
+          relevanceLanguage: lang === 'zh-TW' ? 'zh-Hant' : 'en',
+          regionCode: lang === 'zh-TW' ? 'TW' : 'US',
+          key: API_KEY
+        });
+
+        const url = `https://www.googleapis.com/youtube/v3/search?${params.toString()}`;
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data.items) {
+          finalVideos = [...finalVideos, ...data.items];
+
+          setVideos(finalVideos);
+          localStorage.setItem(cacheKey, JSON.stringify({
+            timestamp: now,
+            data: finalVideos
+          }));
+        }
+      } catch (error) {
+        console.error("YouTube API Error:", error);
+      }
+    };
+
+    fetchVideos();
+  }, [lang, API_KEY, t.youtubeSection?.query, t.youtubeSection?.maxResults]);
 
 
   useEffect(() => {
@@ -153,8 +153,14 @@ function App() {
           <div className="apps-grid">
             {t.apps.map((app, i) => (
               <div key={i} className="app-card">
-                <div className="app-icon">{app.icon}</div>
-                <h3 className="app-name">{app.name}</h3>
+                <div className="app-header">
+                  <div className="app-icon">{app.icon}</div>
+                  <div className="app-title-group">
+                    <h3 className="app-name">{app.name}</h3>
+                    <span className="app-subtitle">{app.subtitle}</span>
+                  </div>
+                </div>
+                <p className="app-tagline">{app.tagline}</p>
                 <p className="app-description">{app.desc}</p>
               </div>
             ))}
