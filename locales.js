@@ -55,10 +55,10 @@ const LOCALES = {
         desc: "Real-time monitoring of multi-concurrent inference, tracking Tokens/sec and GPU resource utilization. Ensures your AI tasks achieve peak performance on ASRock workstations with visible, measurable fluidity."
       },
       {
-        name: "SquadForge", icon: "🕵️",
+        name: "SquadForge", icon: "🦞",
         subtitle: "AI Agent Squad Headquarters",
         tagline: '"Every employee deserves an agent that never sleeps."',
-        desc: "Your on-premise LLM workstation is the HQ. ForgeSquad deploys a dedicated OpenCode dev agent and OpenClaw task agent for every member of your team—assembling a full AI operative squad across your organization. All missions execute within your private network: code refactoring, workflow automation, cross-platform scheduling. Zero data leaves the building. One infrastructure cost. Infinite operations."
+        desc: "ForgeSquad deploys a dedicated OpenCode dev agent and OpenClaw task agent for every member of your team—assembling a full AI operative squad across your organization. All missions execute within your private network: code refactoring, workflow automation, cross-platform scheduling. Zero data leaves the building. One infrastructure cost. Infinite operations."
       }
     ],
     resources: {
