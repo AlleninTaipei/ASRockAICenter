@@ -1,0 +1,248 @@
+// ── State ──────────────────────────────────────────────────────────────────
+let currentLang = localStorage.getItem('lang') || 'en';
+
+// ── DOM helpers ─────────────────────────────────────────────────────────────
+function getLocale() {
+  return LOCALES[currentLang] || LOCALES['en'];
+}
+
+// ── Render dynamic sections ─────────────────────────────────────────────────
+function renderApps(t) {
+  const grid = document.getElementById('apps-grid');
+  if (!grid) return;
+  grid.innerHTML = t.apps.map(app => `
+    <div class="app-card">
+      <div class="app-header">
+        <div class="app-icon">${app.icon}</div>
+        <div class="app-title-group">
+          <h3 class="app-name">${app.name}</h3>
+          <span class="app-subtitle">${app.subtitle}</span>
+        </div>
+      </div>
+      <p class="app-tagline">${app.tagline}</p>
+      <p class="app-description">${app.desc}</p>
+    </div>
+  `).join('');
+}
+
+function renderResources(t) {
+  const grid = document.getElementById('resources-grid');
+  if (!grid) return;
+  grid.innerHTML = t.resources.items.map(item => `
+    <a href="${item.link}" class="link-card" data-type="${item.type || 'external'}" target="_blank" rel="noreferrer">
+      <div class="link-title">${item.title}</div>
+      <div class="link-description">${item.desc}</div>
+    </a>
+  `).join('');
+}
+
+function renderContact(t) {
+  const text = document.getElementById('contact-text');
+  const linkedin = document.getElementById('contact-linkedin');
+  const email = document.getElementById('contact-email');
+  if (text) text.textContent = t.contact.text;
+  if (linkedin) {
+    linkedin.href = t.contact.linkedinUrl;
+    linkedin.textContent = '';
+    linkedin.innerHTML = '<span class="icon">🔗</span> ' + t.contact.linkedinText;
+  }
+  if (email) {
+    email.href = 'mailto:' + t.contact.email;
+    email.textContent = '📧 ' + t.contact.email;
+  }
+}
+
+// ── Apply locale ────────────────────────────────────────────────────────────
+function applyLocale(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
+
+  const t = getLocale();
+
+  // Static text via data-i18n
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const value = resolveKey(t, key);
+    if (value !== undefined) el.textContent = value;
+  });
+
+  // Dynamic grids
+  renderApps(t);
+  renderResources(t);
+  renderContact(t);
+
+  // Language toggle button label
+  const btn = document.getElementById('lang-toggle-btn');
+  if (btn) btn.querySelector('span').textContent = lang === 'zh-TW' ? 'EN' : '中文';
+
+  // Re-attach scroll reveal to newly rendered cards
+  attachScrollReveal();
+
+  // Fetch/display YouTube videos for new lang
+  fetchVideos();
+}
+
+// Resolve a dot-separated key path against an object
+function resolveKey(obj, keyPath) {
+  return keyPath.split('.').reduce((acc, k) => (acc && acc[k] !== undefined ? acc[k] : undefined), obj);
+}
+
+// ── Scroll Reveal ───────────────────────────────────────────────────────────
+function attachScrollReveal() {
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('reveal');
+      }
+    });
+  }, observerOptions);
+
+  setTimeout(() => {
+    document.querySelectorAll('.app-card, .link-card, .section').forEach(el => {
+      observer.observe(el);
+    });
+  }, 100);
+}
+
+// ── YouTube ─────────────────────────────────────────────────────────────────
+async function fetchVideos() {
+  const apiKeyMeta = document.querySelector('meta[name="youtube-api-key"]');
+  const API_KEY = apiKeyMeta ? apiKeyMeta.getAttribute('content') : '';
+  const youtubeSection = document.getElementById('youtube-section');
+
+  if (!API_KEY) {
+    if (youtubeSection) youtubeSection.classList.add('hidden');
+    return;
+  }
+  if (youtubeSection) youtubeSection.classList.remove('hidden');
+
+  const t = getLocale();
+  const searchQuery = (t.youtubeSection && t.youtubeSection.query) || 'Enterprise AI trends';
+  const cacheKey = 'yt_cache_' + currentLang + '_' + searchQuery.replace(/\s+/g, '_');
+  const cachedData = localStorage.getItem(cacheKey);
+  const now = new Date().getTime();
+
+  if (cachedData) {
+    try {
+      const { timestamp, data } = JSON.parse(cachedData);
+      if (now - timestamp < 24 * 60 * 60 * 1000) {
+        renderVideos(data, t);
+        return;
+      }
+    } catch (e) {
+      localStorage.removeItem(cacheKey);
+    }
+  }
+
+  const timeFrame = new Date();
+  timeFrame.setMonth(timeFrame.getMonth() - 3);
+  const publishedAfter = timeFrame.toISOString();
+
+  const maxResults = (t.youtubeSection && t.youtubeSection.maxResults) || 8;
+  const pinnedVideoId = t.youtubeSection && t.youtubeSection.pinnedVideo && t.youtubeSection.pinnedVideo.videoId;
+
+  try {
+    let finalVideos = [];
+
+    if (pinnedVideoId && pinnedVideoId !== 'YOUR_VIDEO_ID_HERE') {
+      try {
+        const videoParams = new URLSearchParams({
+          part: 'snippet',
+          id: pinnedVideoId,
+          key: API_KEY
+        });
+        const videoResponse = await fetch('https://www.googleapis.com/youtube/v3/videos?' + videoParams.toString());
+        const videoData = await videoResponse.json();
+        if (videoData.items && videoData.items.length > 0) {
+          finalVideos.push({
+            id: { videoId: pinnedVideoId },
+            snippet: videoData.items[0].snippet
+          });
+        }
+      } catch (err) {
+        console.error('Failed to fetch pinned video:', err);
+      }
+    }
+
+    const params = new URLSearchParams({
+      part: 'snippet',
+      q: searchQuery,
+      order: 'relevance',
+      type: 'video',
+      videoEmbeddable: 'true',
+      maxResults: maxResults,
+      publishedAfter: publishedAfter,
+      relevanceLanguage: currentLang === 'zh-TW' ? 'zh-Hant' : 'en',
+      regionCode: currentLang === 'zh-TW' ? 'TW' : 'US',
+      key: API_KEY
+    });
+
+    const response = await fetch('https://www.googleapis.com/youtube/v3/search?' + params.toString());
+    const data = await response.json();
+
+    if (data.items) {
+      finalVideos = [...finalVideos, ...data.items];
+      renderVideos(finalVideos, t);
+      localStorage.setItem(cacheKey, JSON.stringify({ timestamp: now, data: finalVideos }));
+    }
+  } catch (err) {
+    console.error('YouTube API Error:', err);
+  }
+}
+
+function renderVideos(videos, t) {
+  const grid = document.getElementById('videos-grid');
+  const moreLink = document.getElementById('videos-more');
+  if (!grid) return;
+
+  const maxResults = (t.youtubeSection && t.youtubeSection.maxResults) || 8;
+  const pinnedId = t.youtubeSection && t.youtubeSection.pinnedVideo && t.youtubeSection.pinnedVideo.videoId;
+  const limit = maxResults + (pinnedId ? 1 : 0);
+
+  grid.innerHTML = videos.slice(0, limit).map(video => `
+    <a href="https://www.youtube.com/watch?v=${video.id.videoId}" target="_blank" rel="noreferrer" class="video-card">
+      <div class="video-thumbnail">
+        <img src="${video.snippet.thumbnails.high.url}" alt="${escapeHtml(video.snippet.title)}" loading="lazy" />
+      </div>
+      <div class="video-info">
+        <h3 class="video-title">${escapeHtml(video.snippet.title)}</h3>
+        <p class="video-channel">${escapeHtml(video.snippet.channelTitle)}</p>
+      </div>
+    </a>
+  `).join('');
+
+  if (moreLink && t.youtubeSection) {
+    const query = encodeURIComponent(t.youtubeSection.query || '');
+    moreLink.href = 'https://www.youtube.com/results?search_query=' + query;
+    moreLink.textContent = t.youtubeSection.more || 'Watch on YouTube';
+  }
+}
+
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+// ── Init ────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  // Language toggle button
+  const toggleBtn = document.getElementById('lang-toggle-btn');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      const next = currentLang === 'zh-TW' ? 'en' : 'zh-TW';
+      localStorage.setItem('lang', next);
+      applyLocale(next);
+    });
+  }
+
+  // Apply initial locale
+  applyLocale(currentLang);
+});
