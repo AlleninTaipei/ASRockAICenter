@@ -55,7 +55,7 @@ const LOCALES = {
         desc: "Real-time monitoring of multi-concurrent inference, tracking Tokens/sec and GPU resource utilization. Ensures your AI tasks achieve peak performance on ASRock workstations with visible, measurable fluidity."
       },
       {
-        name: "ForgeSquad", icon: "🕵️",
+        name: "SquadForge", icon: "🕵️",
         subtitle: "AI Agent Squad Headquarters",
         tagline: '"Every employee deserves an agent that never sleeps."',
         desc: "Your on-premise LLM workstation is the HQ. ForgeSquad deploys a dedicated OpenCode dev agent and OpenClaw task agent for every member of your team—assembling a full AI operative squad across your organization. All missions execute within your private network: code refactoring, workflow automation, cross-platform scheduling. Zero data leaves the building. One infrastructure cost. Infinite operations."
@@ -174,7 +174,7 @@ const LOCALES = {
         desc: "多併發推理模擬，即時監測 Tokens/sec 與 GPU 資源占用率。確保您的 AI 任務在 ASRock 工作站上發揮極致效能，看得見的流暢。"
       },
       {
-        name: "ForgeSquad", icon: "🦞",
+        name: "SquadＦorge", icon: "🦞",
         subtitle: "群體 AI 代理飼育站",
         tagline: "「養一隻龍蝦不稀奇，一次養一群才是本事。」",
         desc: "以地端 LLM 工作站為「龍蝦池」，讓全公司員工同時運行各自的 OpenClaw AI 代理。程式開發、流程自動化、跨平台任務排程，全數在私有網路內閉環執行。雲端按次計費是散養，地端工作站才是規模化飼育——資料不出門，成本一次搞定。"
