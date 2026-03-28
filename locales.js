@@ -52,7 +52,7 @@ const LOCALES = {
         name: "PerfScope", icon: "📊",
         subtitle: "The Eye of Performance Visualization",
         tagline: '\u201cData speaks: the ultimate verification of hardware strength.\u201d',
-        desc: "Real-time monitoring of multi-concurrent inference, tracking Tokens/sec and GPU resource utilization. Ensures your AI tasks achieve peak performance on ASRock workstations with visible, measurable fluidity."
+        desc: "Real-time monitoring of multi-concurrent inference, tracking Tokens/sec and GPU resource utilization. Ensures your AI tasks achieve peak performance on AI workstations with visible, measurable fluidity."
       },
       {
         name: "SquadForge", icon: "🦞",
@@ -77,6 +77,12 @@ const LOCALES = {
           type: "pdf"
         },
         {
+          title: "Building with the Claude API — An Interactive Visual Primer",
+          desc: "A hands-on visual guide to the Claude API. Walk through tokenization, embeddings, streaming, and multi-turn conversations via interactive demos, then explore temperature tuning, structured extraction, and more.",
+          link: "public/docs/Building%20with%20the%20Claude%20API.html",
+          type: "html"
+        },
+        {
           title: "NVIDIA GPU Product Lines - Hopper to Blackwell",
           desc: "A strategic guide to NVIDIA's GPU lineup, covering the evolution from Hopper (H100) to Blackwell (B200). This document clarifies key terminology (RTX, HGX, DGX) and technical specs to simplify hardware selection.",
           link: "public/docs/en/nvidia_gpu_product_lines_en.pdf",
@@ -88,7 +94,7 @@ const LOCALES = {
           link: "https://www.asrock.com/Graphics-Card/AMD/Radeon%20AI%20PRO%20R9700%20Creator%2032GB/"
         },
         {
-          title: "ASRock GAI4G-R9700 Multi-GPU Workstation",
+          title: "GAI4G-R9700 Multi-GPU Workstation",
           desc: " A commercial multi-GPU system (ships with 4 \u00d7 Radeon AI PRO R9700 32GB) \u2014 supports Threadripper PRO CPUs, 8-channel DDR5 ECC, PCIe 5.0 and a 2500W PSU. Ideal for high-end AI training/inference, rendering and compute tasks.",
           link: "https://www.asrock.com/Graphics-Card/spec/product.asp?Model=GAI4G-R9700"
         },
@@ -171,7 +177,7 @@ const LOCALES = {
         name: "PerfScope", icon: "📊",
         subtitle: "性能觀測之眼",
         tagline: "「數據說話，硬體實力的終極驗證。」",
-        desc: "多併發推理模擬，即時監測 Tokens/sec 與 GPU 資源占用率。確保您的 AI 任務在 ASRock 工作站上發揮極致效能，看得見的流暢。"
+        desc: "多併發推理模擬，即時監測 Tokens/sec 與 GPU 資源占用率。確保您的 AI 任務在 AI 工作站上發揮極致效能，看得見的流暢。"
       },
       {
         name: "SquadＦorge", icon: "🦞",
@@ -196,6 +202,12 @@ const LOCALES = {
           type: "pdf"
         },
         {
+          title: "使用 Claude API 開發 — 互動式視覺入門指南",
+          desc: "以視覺化互動方式帶你走完 Claude API 的完整請求流程——從分詞、嵌入到串流輸出，並探索溫度調整、結構化擷取等實用技巧。",
+          link: "public/docs/Building%20with%20the%20Claude%20API.html",
+          type: "html"
+        },
+        {
           title: "NVIDIA GPU 產品線 - Hopper 到 Blackwell",
           desc: "本文件系統化梳理 NVIDIA 從 Hopper (H100) 到 Blackwell (B200) 的產品架構與階層。透過釐清 RTX、HGX、DGX 等核心術語與規格對比，協助您快速掌握硬體選型邏輯。",
           link: "public/docs/zh-TW/nvidia_gpu_product_lines_zh.pdf",
@@ -207,7 +219,7 @@ const LOCALES = {
           link: "https://www.asrock.com/Graphics-Card/AMD/Radeon%20AI%20PRO%20R9700%20Creator%2032GB/"
         },
         {
-          title: "ASRock GAI4G-R9700 多卡工作站系統",
+          title: "GAI4G-R9700 多卡工作站系統",
           desc: "商用多 GPU 解決方案，支援 Threadripper PRO 與 2500W 電源。",
           link: "https://www.asrock.com/Graphics-Card/spec/product.asp?Model=GAI4G-R9700"
         },
