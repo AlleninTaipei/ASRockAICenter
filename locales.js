@@ -85,8 +85,8 @@ const LOCALES = {
         {
           title: "NVIDIA GPU Product Lines - Hopper to Blackwell",
           desc: "A strategic guide to NVIDIA's GPU lineup, covering the evolution from Hopper (H100) to Blackwell (B200). This document clarifies key terminology (RTX, HGX, DGX) and technical specs to simplify hardware selection.",
-          link: "public/docs/en/nvidia_gpu_product_lines_en.pdf",
-          type: "pdf"
+          link: "public/docs/en/nvidia_gpu_product_lines_en.html",
+          type: "html"
         },
         {
           title: "AMD Radeon\u2122 AI PRO R9700 Creator 32GB",
@@ -210,8 +210,8 @@ const LOCALES = {
         {
           title: "NVIDIA GPU 產品線 - Hopper 到 Blackwell",
           desc: "本文件系統化梳理 NVIDIA 從 Hopper (H100) 到 Blackwell (B200) 的產品架構與階層。透過釐清 RTX、HGX、DGX 等核心術語與規格對比，協助您快速掌握硬體選型邏輯。",
-          link: "public/docs/zh-TW/nvidia_gpu_product_lines_zh.pdf",
-          type: "pdf"
+          link: "public/docs/zh-TW/nvidia_gpu_product_lines_zh.html",
+          type: "html"
         },
         {
           title: "AMD Radeon™ AI PRO R9700 Creator 32GB",
