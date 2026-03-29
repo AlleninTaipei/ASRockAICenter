@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Master Ai — 您的專屬在地 AI 工作站</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      line-height: 1.8;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #1a1f2e 0%, #0f1117 100%);
+      border-bottom: 1px solid #2d3748;
+      padding: 60px 24px 52px;
+      text-align: center;
+    }
+    header h1 { font-size: 2.6rem; font-weight: 700; color: #f7fafc; line-height: 1.2; }
+    header .tagline { margin-top: 14px; font-size: 1rem; color: #a0aec0; max-width: 560px; margin-inline: auto; }
+    header .org { margin-top: 14px; font-size: 0.85rem; color: #4a5568; font-family: monospace; }
+
+    /* ── Main ── */
+    main { max-width: 960px; margin: 0 auto; padding: 60px 24px 96px; }
+
+    /* ── Section heading ── */
+    h2 {
+      font-size: 1.3rem; font-weight: 600; color: #90cdf4;
+      border-left: 4px solid #4299e1; padding-left: 14px;
+      margin-bottom: 20px;
+    }
+
+    /* ── Brand colors ── */
+    .brand-nvidia { color: #76e4f7; }
+    .brand-amd    { color: #fc8181; }
+
+    /* ── Product section ── */
+    .product-section { margin-bottom: 64px; }
+
+    .product-layout {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+      background: #0d1117; border: 1px solid #2d3748; border-radius: 12px;
+      overflow: hidden;
+    }
+    .product-img {
+      position: relative; min-height: 280px;
+      background: #080c10;
+    }
+    .product-img img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .product-table-wrap { padding: 0; }
+    table {
+      width: 100%; border-collapse: collapse; font-size: 0.875rem; height: 100%;
+    }
+    thead tr { background: #1e3a4a; }
+    thead th {
+      padding: 13px 16px; text-align: left;
+      color: #e2e8f0; font-weight: 700; font-size: 0.82rem;
+      border-bottom: 1px solid #2d3748;
+    }
+    thead th.brand-nvidia-th { color: #76e4f7; }
+    thead th.brand-amd-th    { color: #fc8181; }
+    tbody tr { border-bottom: 1px solid #1a2535; transition: background 0.15s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #111927; }
+    tbody td { padding: 11px 16px; vertical-align: top; line-height: 1.65; }
+    tbody td:first-child { color: #718096; font-size: 0.82rem; width: 40%; }
+    tbody td:last-child { color: #e2e8f0; font-weight: 500; }
+
+    /* ── Closing section ── */
+    .closing { background: #1a202c; border: 1px solid #2d3748; border-radius: 12px; padding: 32px 36px; }
+    .value-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
+    .value-card {
+      background: #0d1117; border: 1px solid #2d3748; border-radius: 10px;
+      padding: 18px 16px;
+    }
+    .value-title { font-weight: 700; color: #90cdf4; font-size: 0.92rem; margin-bottom: 8px; }
+    .value-body { color: #a0aec0; font-size: 0.84rem; line-height: 1.75; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center; padding: 24px;
+      border-top: 1px solid #1a202c;
+      color: #4a5568; font-size: 0.76rem; font-family: monospace;
+    }
+
+    @media (max-width: 680px) {
+      header h1 { font-size: 1.8rem; }
+      .product-layout { grid-template-columns: 1fr; }
+      .product-img { min-height: 220px; }
+      .value-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Master Ai</h1>
+  <div class="tagline">您的專屬在地 AI 工作站<br>
+    <span style="color:#76e4f7; font-size:0.9rem;">CUDA 與 ROCm 二刀流：為企業量身打造的私有算力堡壘</span>
+  </div>
+  <div class="org">華擎科技 AI 研發中心</div>
+</header>
+
+<main>
+
+  <!-- NVIDIA Master Ai 128 -->
+  <div class="product-section">
+    <h2><span class="brand-nvidia">NVIDIA</span> &nbsp;·&nbsp; Master Ai 128</h2>
+    <div class="product-layout">
+      <div class="product-img">
+        <img src="../assets/m2.jpg" alt="Master Ai 128 NVIDIA" />
+      </div>
+      <div class="product-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="brand-nvidia-th">NVIDIA</th>
+              <th class="brand-nvidia-th">Master Ai 128</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>GPU</td><td>NVIDIA RTX PRO™ 4500 Blackwell 32GB × 4</td></tr>
+            <tr><td>電源</td><td>CANNON PRO 2500W 80PLUS</td></tr>
+            <tr><td>記憶體</td><td>DDR5 RDIMM 256GB (32GB × 8)</td></tr>
+            <tr><td>主機板</td><td>WRX90 WS EVO</td></tr>
+            <tr><td>CPU</td><td>9955WX</td></tr>
+            <tr><td>散熱器</td><td>ARCTIC Freezer 4U</td></tr>
+            <tr><td>機殼</td><td>Fractal Design Torrent</td></tr>
+            <tr><td>儲存</td><td>4TB M.2 SSD × 2</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- NVIDIA Master Ai 64 -->
+  <div class="product-section">
+    <h2><span class="brand-nvidia">NVIDIA</span> &nbsp;·&nbsp; Master Ai 64</h2>
+    <div class="product-layout">
+      <div class="product-img">
+        <img src="../assets/m3.jpg" alt="Master Ai 64 NVIDIA" />
+      </div>
+      <div class="product-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="brand-nvidia-th">NVIDIA</th>
+              <th class="brand-nvidia-th">Master Ai 64</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>GPU</td><td>NVIDIA RTX PRO™ 4500 Blackwell 32GB × 2</td></tr>
+            <tr><td>電源</td><td>1250W</td></tr>
+            <tr><td>記憶體</td><td>DDR5 128GB (32GB × 4)</td></tr>
+            <tr><td>主機板</td><td>X870E Taichi Creator</td></tr>
+            <tr><td>CPU</td><td>9950X</td></tr>
+            <tr><td>散熱器</td><td>Air Cooler</td></tr>
+            <tr><td>機殼</td><td>DY470</td></tr>
+            <tr><td>儲存</td><td>4TB M.2 SSD</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- AMD Master Ai 128 -->
+  <div class="product-section">
+    <h2><span class="brand-amd">AMD</span> &nbsp;·&nbsp; Master Ai 128</h2>
+    <div class="product-layout">
+      <div class="product-img">
+        <img src="../assets/m4.jpg" alt="Master Ai 128 AMD" />
+      </div>
+      <div class="product-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="brand-amd-th">AMD</th>
+              <th class="brand-amd-th">Master Ai 128</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>GPU</td><td>AMD Radeon™ AI PRO R9700 Creator 32GB × 4</td></tr>
+            <tr><td>電源</td><td>CANNON PRO 2500W 80PLUS</td></tr>
+            <tr><td>記憶體</td><td>DDR5 RDIMM 256GB (32GB × 8)</td></tr>
+            <tr><td>主機板</td><td>WRX90 WS EVO</td></tr>
+            <tr><td>CPU</td><td>9955WX</td></tr>
+            <tr><td>散熱器</td><td>ARCTIC Freezer 4U</td></tr>
+            <tr><td>機殼</td><td>Fractal Design Torrent</td></tr>
+            <tr><td>儲存</td><td>4TB M.2 SSD × 2</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- AMD Master Ai 64 -->
+  <div class="product-section">
+    <h2><span class="brand-amd">AMD</span> &nbsp;·&nbsp; Master Ai 64</h2>
+    <div class="product-layout">
+      <div class="product-img">
+        <img src="../assets/m5.jpg" alt="Master Ai 64 AMD" />
+      </div>
+      <div class="product-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="brand-amd-th">AMD</th>
+              <th class="brand-amd-th">Master Ai 64</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>GPU</td><td>AMD Radeon™ AI PRO R9700 Creator 32GB × 2</td></tr>
+            <tr><td>電源</td><td>1250W</td></tr>
+            <tr><td>記憶體</td><td>DDR5 128GB (32GB × 4)</td></tr>
+            <tr><td>主機板</td><td>X870E Taichi Creator</td></tr>
+            <tr><td>CPU</td><td>9950X</td></tr>
+            <tr><td>散熱器</td><td>Air Cooler</td></tr>
+            <tr><td>機殼</td><td>DY470</td></tr>
+            <tr><td>儲存</td><td>4TB M.2 SSD</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Closing -->
+  <div class="closing">
+    <h2 style="margin-bottom:16px;">為什麼選擇 Master Ai？</h2>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-title">專屬客製</div>
+        <div class="value-body">非硬性組合，而是根據您的算力需求（LLM 訓練、視覺辨識或模擬運算）提供最優化的單一或多卡解決方案。</div>
+      </div>
+      <div class="value-card">
+        <div class="value-title">技術中立</div>
+        <div class="value-body">我們精通兩大陣營的底層架構，確保您的模型能跨平台無縫遷移，不被單一硬體供應商綁架。</div>
+      </div>
+      <div class="value-card">
+        <div class="value-title">本地安全</div>
+        <div class="value-body">所有的數據主權，皆掌握在您手中。在自有防火牆內完成訓練與推論，零妥協。</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Master Ai &nbsp;·&nbsp; 華擎科技 AI 研發中心 &nbsp;·&nbsp; 您的專屬在地 AI 工作站
+</footer>
+
+</body>
+</html>

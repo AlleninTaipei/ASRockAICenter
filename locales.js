@@ -67,14 +67,14 @@ const LOCALES = {
         {
           title: "AI Workstation Chassis Thermal Recommendation",
           desc: "Fan Configuration: What Actually Works in Real-World Builds",
-          link: "public/docs/en/ai-workstation-thermal-guide-en.pdf",
-          type: "pdf"
+          link: "public/docs/en/ai-workstation-thermal-guide-en.html",
+          type: "html"
         },
         {
           title: "Master Ai - Your own local AI Workstation",
           desc: "In the arena of AI computing, there is no absolute winner\u2014only the choice that best fits your needs. Master Ai embodies our team's elite \"Two-Way Player\" expertise, mirroring the versatility of Shohei Ohtani by delivering peak performance across both NVIDIA CUDA and AMD ROCm ecosystems.",
-          link: "public/docs/en/MasterAi_en.pdf",
-          type: "pdf"
+          link: "public/docs/en/MasterAi_en.html",
+          type: "html"
         },
         {
           title: "Building with the Claude API — An Interactive Visual Primer",
@@ -192,14 +192,14 @@ const LOCALES = {
         {
           title: "AI 工作站機殼散熱建議",
           desc: "風扇配置：實際可行的實戰方案",
-          link: "public/docs/zh-TW/ai-workstation-thermal-guide-zh.pdf",
-          type: "pdf"
+          link: "public/docs/zh-TW/ai-workstation-thermal-guide-zh.html",
+          type: "html"
         },
         {
           title: "Master Ai - 您的專屬在地 AI 工作站",
           desc: "在 AI 運算的賽場上，沒有絕對的勝負，只有最適合您的選擇。Master Ai 象徵著我們團隊具備如大谷翔平般的「二刀流」頂尖實力，在 NVIDIA CUDA 與 AMD ROCm 兩大生態系中都能展現極致的運算表現。",
-          link: "public/docs/zh-TW/MasterAi_zh.pdf",
-          type: "pdf"
+          link: "public/docs/zh-TW/MasterAi_zh.html",
+          type: "html"
         },
         {
           title: "使用 Claude API 開發 — 互動式視覺入門指南",
