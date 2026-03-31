@@ -77,8 +77,8 @@ const LOCALES = {
           type: "html"
         },
         {
-          title: "Building with the Claude API — An Interactive Visual Primer",
-          desc: "A hands-on visual guide to the Claude API. Walk through tokenization, embeddings, streaming, and multi-turn conversations via interactive demos, then explore temperature tuning, structured extraction, and more.",
+          title: "Building with the Claude API",
+          desc: "Walk through fundamental API operations, advanced prompting techniques, tool integration, and architectural patterns for building AI-powered systems.",
           link: "public/docs/Building%20with%20the%20Claude%20API.html",
           type: "html"
         },
@@ -180,7 +180,7 @@ const LOCALES = {
         desc: "多併發推理模擬，即時監測 Tokens/sec 與 GPU 資源占用率。確保您的 AI 任務在 AI 工作站上發揮極致效能，看得見的流暢。"
       },
       {
-        name: "SquadＦorge", icon: "🦞",
+        name: "SquadForge", icon: "🦞",
         subtitle: "群體 AI 代理飼育站",
         tagline: "「養一隻龍蝦不稀奇，一次養一群才是本事。」",
         desc: "以地端 LLM 工作站為「龍蝦池」，讓全公司員工同時運行各自的 OpenClaw AI 代理。程式開發、流程自動化、跨平台任務排程，全數在私有網路內閉環執行。雲端按次計費是散養，地端工作站才是規模化飼育——資料不出門，成本一次搞定。"
@@ -202,8 +202,8 @@ const LOCALES = {
           type: "html"
         },
         {
-          title: "使用 Claude API 開發 — 互動式視覺入門指南",
-          desc: "以視覺化互動方式帶你走完 Claude API 的完整請求流程——從分詞、嵌入到串流輸出，並探索溫度調整、結構化擷取等實用技巧。",
+          title: "使用 Claude API 開發 — 入門指南",
+          desc: "涵蓋 API 的基本操作、進階提示技巧、工具整合以及建立 AI 系統的架構模式。",
           link: "public/docs/Building%20with%20the%20Claude%20API.html",
           type: "html"
         },
