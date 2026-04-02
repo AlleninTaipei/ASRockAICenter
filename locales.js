@@ -89,16 +89,6 @@ const LOCALES = {
           type: "html"
         },
         {
-          title: "AMD Radeon\u2122 AI PRO R9700 Creator 32GB",
-          desc: "Great capabilities for local AI inference, development, and other memory-intensive workloads with the latest AMD RDNA\u2122 4 architecture and 32GB of video memory.",
-          link: "https://www.asrock.com/Graphics-Card/AMD/Radeon%20AI%20PRO%20R9700%20Creator%2032GB/"
-        },
-        {
-          title: "GAI4G-R9700 Multi-GPU Workstation",
-          desc: " A commercial multi-GPU system (ships with 4 \u00d7 Radeon AI PRO R9700 32GB) \u2014 supports Threadripper PRO CPUs, 8-channel DDR5 ECC, PCIe 5.0 and a 2500W PSU. Ideal for high-end AI training/inference, rendering and compute tasks.",
-          link: "https://www.asrock.com/Graphics-Card/spec/product.asp?Model=GAI4G-R9700"
-        },
-        {
           title: "Explore the revolutionary server innovations",
           desc: "ASRock Rack Inc. is specialized in the field of Cloud Computing Server Hardware with Creativity and Reliability.",
           link: "https://www.asrockrack.com/index.asp"
@@ -212,16 +202,6 @@ const LOCALES = {
           desc: "本文件系統化梳理 NVIDIA 從 Hopper (H100) 到 Blackwell (B200) 的產品架構與階層。透過釐清 RTX、HGX、DGX 等核心術語與規格對比，協助您快速掌握硬體選型邏輯。",
           link: "public/docs/zh-TW/nvidia_gpu_product_lines_zh.html",
           type: "html"
-        },
-        {
-          title: "AMD Radeon™ AI PRO R9700 Creator 32GB",
-          desc: "提供適合本機 AI 推論、開發和其他記憶體密集型工作負載的絕佳功能。",
-          link: "https://www.asrock.com/Graphics-Card/AMD/Radeon%20AI%20PRO%20R9700%20Creator%2032GB/"
-        },
-        {
-          title: "GAI4G-R9700 多卡工作站系統",
-          desc: "商用多 GPU 解決方案，支援 Threadripper PRO 與 2500W 電源。",
-          link: "https://www.asrock.com/Graphics-Card/spec/product.asp?Model=GAI4G-R9700"
         },
         {
           title: "探索永擎革命性的伺服器創新",
