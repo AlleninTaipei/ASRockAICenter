@@ -105,8 +105,8 @@ const LOCALES = {
         },
         {
           title: "Industrial Robust Edge AIoT Platform",
-          desc: "ASRock Industrial Computer - Innoband is dedicated to building next-generation high-performance Edge AI platforms, integrating AI acceleration, industrial IoT, and real-time data processing to empower smart manufacturing and industrial applications.",
-          link: "https://www.asrockind.com/en-gb/robust-edge-aIoT-platform"
+          desc: "ASRock Industrial’s AI Box Computer features comprehensive hardware solutions and vision technology to bring AI and Edge computing to smart applications.",
+          link: "https://www.asrockind.com/en-gb/ai-edge-computer-"
         }
       ]
     },
@@ -229,9 +229,9 @@ const LOCALES = {
           link: "https://www.asrockrack.com/index.tw.asp"
         },
         {
-          title: "工業級強固邊緣AIoT系統平台",
-          desc: "東擎科技致力於打造新世代高效能邊緣 AI 平台，融合 AI 加速引擎、工業物聯網與即時資料處理，為智慧製造與產業應用賦能。",
-          link: "https://www.asrockind.com/zh-tw/robust-edge-aIoT-platform"
+          title: "AI 運算電腦",
+          desc: "東擎科技的 AI Box 電腦擁有全面的硬體解決方案和視覺技術，可將人工智慧和邊緣運算引入智慧應用。",
+          link: "https://www.asrockind.com/zh-tw/ai-edge-computer-"
         }
       ]
     },
