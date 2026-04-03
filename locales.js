@@ -79,7 +79,7 @@ const LOCALES = {
         {
           title: "Building with the Claude API",
           desc: "Walk through fundamental API operations, advanced prompting techniques, tool integration, and architectural patterns for building AI-powered systems.",
-          link: "public/docs/Building%20with%20the%20Claude%20API.html",
+          link: "public/docs/en/Building%20with%20the%20Claude%20API.html",
           type: "html"
         },
         {
@@ -194,7 +194,7 @@ const LOCALES = {
         {
           title: "使用 Claude API 開發 — 入門指南",
           desc: "涵蓋 API 的基本操作、進階提示技巧、工具整合以及建立 AI 系統的架構模式。",
-          link: "public/docs/Building%20with%20the%20Claude%20API.html",
+          link: "public/docs/zh-TW/Building%20with%20the%20Claude%20API.html",
           type: "html"
         },
         {
