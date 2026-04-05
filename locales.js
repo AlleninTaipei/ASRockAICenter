@@ -55,10 +55,11 @@ const LOCALES = {
         desc: "Real-time monitoring of multi-concurrent inference, tracking Tokens/sec and GPU resource utilization. Ensures your AI tasks achieve peak performance on AI workstations with visible, measurable fluidity."
       },
       {
-        name: "SquadForge", icon: "🦞",
-        subtitle: "AI Agent Squad Headquarters",
-        tagline: '"Every employee deserves an agent that never sleeps."',
-        desc: "ForgeSquad deploys a dedicated OpenCode dev agent and OpenClaw task agent for every member of your team—assembling a full AI operative squad across your organization. All missions execute within your private network: code refactoring, workflow automation, cross-platform scheduling. Zero data leaves the building. One infrastructure cost. Infinite operations."
+        "name": "SquadForge",
+        "icon": "🦞",
+        "subtitle": "Enterprise AI, Running on Your Own Compute",
+        "tagline": "\"In the era of AI, compute is strategy. Own yours.\"",
+        "desc": "SquadForge transforms your organization into an AI-native workforce by deploying dedicated agents for every employee—running entirely on your on-prem AI infrastructure. While others depend on external APIs and pay per token, you operate on owned compute: predictable, scalable, and fully under your control. No external dependencies. No data exposure. Just continuous, autonomous execution powered by your own systems. This is not SaaS. This is your AI factory."
       }
     ],
     resources: {
@@ -77,6 +78,16 @@ const LOCALES = {
           type: "html"
         },
         {
+          title: "Explore the revolutionary server innovations",
+          desc: "ASRock Rack Inc. is specialized in the field of Cloud Computing Server Hardware with Creativity and Reliability.",
+          link: "https://www.asrockrack.com/index.asp"
+        },
+        {
+          title: "Industrial Robust Edge AIoT Platform",
+          desc: "ASRock Industrial’s AI Box Computer features comprehensive hardware solutions and vision technology to bring AI and Edge computing to smart applications.",
+          link: "https://www.asrockind.com/en-gb/ai-edge-computer-"
+        },
+        {
           title: "Building with the Claude API",
           desc: "Walk through fundamental API operations, advanced prompting techniques, tool integration, and architectural patterns for building AI-powered systems.",
           link: "public/docs/en/Building%20with%20the%20Claude%20API.html",
@@ -87,16 +98,6 @@ const LOCALES = {
           desc: "A strategic guide to NVIDIA's GPU lineup, covering the evolution from Hopper (H100) to Blackwell (B200). This document clarifies key terminology (RTX, HGX, DGX) and technical specs to simplify hardware selection.",
           link: "public/docs/en/nvidia_gpu_product_lines_en.html",
           type: "html"
-        },
-        {
-          title: "Explore the revolutionary server innovations",
-          desc: "ASRock Rack Inc. is specialized in the field of Cloud Computing Server Hardware with Creativity and Reliability.",
-          link: "https://www.asrockrack.com/index.asp"
-        },
-        {
-          title: "Industrial Robust Edge AIoT Platform",
-          desc: "ASRock Industrial’s AI Box Computer features comprehensive hardware solutions and vision technology to bring AI and Edge computing to smart applications.",
-          link: "https://www.asrockind.com/en-gb/ai-edge-computer-"
         }
       ]
     },
@@ -170,10 +171,10 @@ const LOCALES = {
         desc: "多併發推理模擬，即時監測 Tokens/sec 與 GPU 資源占用率。確保您的 AI 任務在 AI 工作站上發揮極致效能，看得見的流暢。"
       },
       {
-        name: "SquadForge", icon: "🦞",
-        subtitle: "群體 AI 代理飼育站",
-        tagline: "「養一隻龍蝦不稀奇，一次養一群才是本事。」",
-        desc: "以地端 LLM 工作站為「龍蝦池」，讓全公司員工同時運行各自的 OpenClaw AI 代理。程式開發、流程自動化、跨平台任務排程，全數在私有網路內閉環執行。雲端按次計費是散養，地端工作站才是規模化飼育——資料不出門，成本一次搞定。"
+        "name": "SquadForge", "icon": "🦞",
+        "subtitle": "企業級 AI，在你的算力上運行",
+        "tagline": "「在 AI 時代，算力就是戰略。掌握它。」",
+        "desc": "SquadForge 讓你的組織轉型為 AI 原生團隊，為每位員工部署專屬 AI 代理，全面運行於企業自有的本地 AI 基礎設施之上。當他人依賴外部 API、按 token 付費時，你運行的是自有算力：可預測、可擴展、完全掌控。無外部依賴，無資料外流。所有任務持續、自主地在你的系統中執行。這不是 SaaS，而是你的 AI 生產體系。"
       }
     ],
     resources: {
@@ -192,6 +193,16 @@ const LOCALES = {
           type: "html"
         },
         {
+          title: "探索永擎革命性的伺服器創新",
+          desc: "永擎科技專注於雲端運算伺服器硬體領域，以創新和可靠性著稱。",
+          link: "https://www.asrockrack.com/index.tw.asp"
+        },
+        {
+          title: "AI 運算電腦",
+          desc: "東擎科技的 AI Box 電腦擁有全面的硬體解決方案和視覺技術，可將人工智慧和邊緣運算引入智慧應用。",
+          link: "https://www.asrockind.com/zh-tw/ai-edge-computer-"
+        },
+        {
           title: "使用 Claude API 開發 — 入門指南",
           desc: "涵蓋 API 的基本操作、進階提示技巧、工具整合以及建立 AI 系統的架構模式。",
           link: "public/docs/zh-TW/Building%20with%20the%20Claude%20API.html",
@@ -202,16 +213,6 @@ const LOCALES = {
           desc: "本文件系統化梳理 NVIDIA 從 Hopper (H100) 到 Blackwell (B200) 的產品架構與階層。透過釐清 RTX、HGX、DGX 等核心術語與規格對比，協助您快速掌握硬體選型邏輯。",
           link: "public/docs/zh-TW/nvidia_gpu_product_lines_zh.html",
           type: "html"
-        },
-        {
-          title: "探索永擎革命性的伺服器創新",
-          desc: "永擎科技專注於雲端運算伺服器硬體領域，以創新和可靠性著稱。",
-          link: "https://www.asrockrack.com/index.tw.asp"
-        },
-        {
-          title: "AI 運算電腦",
-          desc: "東擎科技的 AI Box 電腦擁有全面的硬體解決方案和視覺技術，可將人工智慧和邊緣運算引入智慧應用。",
-          link: "https://www.asrockind.com/zh-tw/ai-edge-computer-"
         }
       ]
     },
