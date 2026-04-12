@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Workstation Chassis Thermal Recommendation</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      line-height: 1.7;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #1a1f2e 0%, #0f1117 100%);
+      border-bottom: 1px solid #2d3748;
+      padding: 52px 24px 44px;
+      text-align: center;
+    }
+    header h1 { font-size: 2rem; font-weight: 700; color: #f7fafc; line-height: 1.3; }
+    header .org { margin-top: 12px; font-size: 0.95rem; color: #76e4f7; font-weight: 600; }
+    header .meta { margin-top: 8px; color: #4a5568; font-size: 0.82rem; font-family: monospace; }
+
+    /* ── Sticky nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: #0d1117; border-bottom: 1px solid #2d3748;
+      padding: 0 24px;
+      display: flex; gap: 0;
+    }
+    nav a {
+      display: block; padding: 14px 22px;
+      color: #718096; font-size: 0.85rem; font-weight: 600;
+      text-decoration: none; border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
+    nav a:hover { color: #90cdf4; border-bottom-color: #4299e1; }
+    nav a.active { color: #90cdf4; border-bottom-color: #4299e1; }
+
+    /* ── Main ── */
+    main { max-width: 920px; margin: 0 auto; padding: 52px 24px 96px; }
+
+    /* ── Chapter divider ── */
+    .chapter {
+      display: flex; align-items: center; gap: 16px;
+      margin: 60px 0 36px; padding: 20px 24px;
+      background: #1a202c; border: 1px solid #2d3748; border-radius: 12px;
+    }
+    .chapter-icon { font-size: 1.8rem; }
+    .chapter-title { font-size: 1.4rem; font-weight: 700; color: #f7fafc; }
+    .chapter-sub { font-size: 0.82rem; color: #718096; margin-top: 2px; }
+    .chapter:first-of-type { margin-top: 0; }
+
+    /* ── Section ── */
+    section { margin-bottom: 48px; }
+    h2 {
+      font-size: 1.25rem; font-weight: 600; color: #90cdf4;
+      border-left: 4px solid #4299e1; padding-left: 14px;
+      margin-bottom: 18px; display: flex; align-items: center; gap: 9px;
+    }
+    h3 { font-size: 1rem; font-weight: 600; color: #e2e8f0; margin: 18px 0 10px; }
+    p { color: #a0aec0; margin-bottom: 10px; font-size: 0.92rem; }
+
+    /* ── Tables ── */
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%; border-collapse: collapse;
+      background: #0d1117; border: 1px solid #2d3748; border-radius: 10px;
+      overflow: hidden; font-size: 0.875rem;
+    }
+    thead tr { background: #1e3a4a; }
+    thead th {
+      padding: 12px 16px; text-align: left;
+      color: #e2e8f0; font-weight: 700; font-size: 0.8rem;
+      border-bottom: 1px solid #2d3748;
+    }
+    tbody tr { border-bottom: 1px solid #1a2535; transition: background 0.15s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #111927; }
+    tbody td { padding: 12px 16px; color: #a0aec0; vertical-align: top; line-height: 1.65; }
+    tbody td:first-child { color: #e2e8f0; font-weight: 500; }
+    .mono { font-family: monospace; color: #68d391; }
+    .warn { color: #fc8181; font-weight: 600; }
+    strong { color: #e2e8f0; }
+
+    /* ── Numbered items ── */
+    .num-list { display: flex; flex-direction: column; gap: 14px; }
+    .num-item {
+      background: #1a202c; border: 1px solid #2d3748; border-radius: 10px;
+      padding: 16px 20px;
+    }
+    .num-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+    .num-badge {
+      background: #2b6cb0; color: #fff; font-size: 0.75rem; font-weight: 700;
+      padding: 2px 9px; border-radius: 20px; flex-shrink: 0;
+    }
+    .num-title { font-weight: 600; color: #e2e8f0; font-size: 0.95rem; }
+    .num-body { color: #a0aec0; font-size: 0.87rem; line-height: 1.7; }
+    .num-body li { list-style: none; padding: 2px 0; }
+    .num-body li::before { content: "· "; color: #4299e1; }
+
+    /* ── Product cards ── */
+    .product-grid { display: flex; flex-direction: column; gap: 12px; }
+    .product-card {
+      background: #1a202c; border: 1px solid #2d3748; border-radius: 10px;
+      padding: 16px 20px;
+    }
+    .product-name { font-weight: 700; color: #e2e8f0; margin-bottom: 6px; font-size: 0.95rem; }
+    .product-name a { color: #76e4f7; text-decoration: none; margin-left: 6px; font-size: 0.78rem; }
+    .product-name a:hover { text-decoration: underline; }
+    .product-desc { color: #a0aec0; font-size: 0.86rem; line-height: 1.65; margin-bottom: 8px; }
+    .product-slots {
+      display: inline-block; font-family: monospace; font-size: 0.75rem;
+      background: #2d3748; color: #90cdf4; padding: 2px 9px; border-radius: 4px;
+    }
+
+    /* ── Image block ── */
+    .img-block {
+      background: #0d1117; border: 1px solid #2d3748; border-radius: 10px;
+      overflow: hidden; text-align: center;
+    }
+    .img-block img { width: 100%; max-height: 480px; object-fit: contain; display: block; }
+    .img-caption {
+      padding: 10px 16px; font-size: 0.78rem; color: #4a5568;
+      font-family: monospace; border-top: 1px solid #2d3748;
+    }
+    .img-caption a { color: #4299e1; }
+
+    /* ── Bullet list ── */
+    .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .bullet-list li {
+      background: #1a202c; border: 1px solid #2d3748; border-radius: 8px;
+      padding: 11px 16px; display: flex; gap: 10px;
+      color: #a0aec0; font-size: 0.9rem; align-items: flex-start;
+    }
+    .bullet-list li .dia { color: #4299e1; flex-shrink: 0; }
+
+    /* ── Note box ── */
+    .note-box {
+      background: #1a1200; border: 1px solid #744210; border-radius: 8px;
+      padding: 13px 16px; margin-top: 14px; font-size: 0.86rem; color: #fbd38d;
+    }
+
+    /* ── PSU link cells ── */
+    .link-cell a {
+      display: inline-block; color: #63b3ed; text-decoration: none;
+      font-size: 0.82rem; margin-right: 8px; margin-bottom: 2px;
+    }
+    .link-cell a:hover { text-decoration: underline; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center; padding: 24px;
+      border-top: 1px solid #1a202c;
+      color: #4a5568; font-size: 0.76rem; font-family: monospace;
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.5rem; }
+      nav a { padding: 12px 14px; font-size: 0.78rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>AI Workstation Chassis<br>Thermal Recommendation</h1>
+  <div class="org">ASRock AI Center</div>
+  <div class="meta">Allen Sun &nbsp;·&nbsp; 2025-12-24</div>
+</header>
+
+<nav>
+  <a href="#case">🖥️ Case</a>
+  <a href="#psu">⚡ Power Supply</a>
+  <a href="#cpu">❄️ CPU Cooling</a>
+</nav>
+
+<main>
+
+  <!-- ══ CASE ══ -->
+  <div class="chapter" id="case">
+    <div class="chapter-icon">🖥️</div>
+    <div>
+      <div class="chapter-title">Case</div>
+      <div class="chapter-sub">Chassis selection &amp; airflow design</div>
+    </div>
+  </div>
+
+  <section>
+    <h2>AMD Radeon™ AI PRO R9700</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ASRock R9700 Creator 32GB — Key Thermal Management Parameters</th>
+            <th>Technical Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>GPU Architecture</td><td>AMD RDNA 4 (Navi 48)</td></tr>
+          <tr><td>Total Board Power (TBP)</td><td><strong>300 W</strong></td></tr>
+          <tr><td>Cooler Type</td><td>Blower-style cooler with vapor chamber</td></tr>
+          <tr><td>Recommended PSU (Single GPU)</td><td>750 W</td></tr>
+          <tr><td>Physical Dimensions</td><td>271 × 112 × 39 mm (Dual-slot width)</td></tr>
+          <tr><td>Thermal Interface Material</td><td>Honeywell PTM7950 Phase-Change TIM</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Fan Configuration: What Actually Works in Real-World Builds</h2>
+    <div class="num-list">
+      <div class="num-item">
+        <div class="num-header">
+          <span class="num-badge">1</span>
+          <span class="num-title">3 intake fans + 1 exhaust fan</span>
+        </div>
+        <div class="num-body">You don't need a dozen fans — you just need the right airflow layout.</div>
+      </div>
+      <div class="num-item">
+        <div class="num-header">
+          <span class="num-badge">2</span>
+          <span class="num-title">When GPU temperature is your top priority: use bottom intake</span>
+        </div>
+        <div class="num-body">
+          This setup is quieter and more stable than "front 3 + top 3 + rear 1".<br>
+          Bottom intake requires dust filters and at least 2 cm of chassis clearance from the ground.
+        </div>
+      </div>
+      <div class="num-item">
+        <div class="num-header">
+          <span class="num-badge">3</span>
+          <span class="num-title">When Using Liquid Cooling for the CPU</span>
+        </div>
+        <div class="num-body">
+          Radiator on top → top exhaust<br>
+          Radiator in front → front intake (only if front airflow is adequate)
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Filter Criteria Summary — 4-Card Configs</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Specification</th><th>Note</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Enhanced ATX Motherboard</td>
+            <td>Workstation boards (e.g., ASRock WRX90 WS EVO) required for 8+ PCIe slots to fit four dual-slot GPUs plus Threadripper power delivery.</td>
+          </tr>
+          <tr>
+            <td>Max GPU Length: 400mm+</td>
+            <td>R9700 is only 267–271mm. Extra space prevents fan conflicts, enables cable management for four 12V-2×6 connectors, and creates airflow buffer zones.</td>
+          </tr>
+          <tr>
+            <td>Bottom Dust Filters</td>
+            <td>Essential protection for 1800W+ systems. Maintains positive pressure while preventing dust buildup in primary cooling path.</td>
+          </tr>
+          <tr>
+            <td>Bottom 3× 140mm Fans</td>
+            <td>Four cards = 1200W heat in tight spacing. 140mm fans deliver higher CFM, lower noise, and wider airflow coverage — critical for cooling the thermally-starved bottom GPU.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Preferred Chassis Solutions — North American Market</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-name">
+          Lian Li O11 Dynamic EVO XL
+          <a href="https://lian-li.com/product/o11-dynamic-evo-xl/" target="_blank">🔗 Product Page</a>
+          <span class="product-slots">8 slots</span>
+        </div>
+        <div class="product-desc"><strong>Modular design with exceptional internal clearance:</strong> Quick-release bottom fan bracket supports three 140mm fans. The motherboard tray offers three-level vertical adjustment — setting it to Upper Mode creates up to 90.5mm clearance between GPUs and bottom intake fans, ensuring adequate airflow to lower GPUs in 4-card configs.</div>
+      </div>
+      <div class="product-card">
+        <div class="product-name">
+          Phanteks NV9 / NV9 MKI
+          <a href="https://phanteks.com/product/nv9-mk2-black/" target="_blank">🔗 Product Page</a>
+          <span class="product-slots">8 slots</span>
+        </div>
+        <div class="product-desc"><strong>Optimized vertical airflow:</strong> Elevated chassis floor maintains 65mm ground clearance, allowing three bottom 140mm fans unrestricted air intake. Integrated GPU support bracket reduces PCIe slot stress from four-GPU weight.</div>
+      </div>
+      <div class="product-card">
+        <div class="product-name">
+          Antec C8
+          <a href="https://www.antec.com/product/case/c8" target="_blank">🔗 Product Page</a>
+          <span class="product-slots">8 slots</span>
+        </div>
+        <div class="product-desc"><strong>Dual-chamber isolation:</strong> PSU and drive cages relocated to separate rear chamber, providing unobstructed intake for three bottom 140mm fans while isolating PSU heat from GPU airflow.</div>
+      </div>
+      <div class="product-card">
+        <div class="product-name">
+          Cooler Master HAF 700
+          <a href="https://www.coolermaster.com/en-global/products/haf-700/" target="_blank">🔗 Product Page</a>
+          <span class="product-slots">8 slots</span>
+        </div>
+        <div class="product-desc"><strong>Extreme high airflow with tool-free installation:</strong> PSU and drives in dedicated rear chamber remove obstructions beneath lowest GPU, enabling three bottom 140mm fans to generate clean vertical airflow directly into the GPU array.</div>
+      </div>
+      <div class="product-card">
+        <div class="product-name">
+          Fractal Design Torrent
+          <a href="https://www.fractal-design.com/products/cases/torrent/" target="_blank">🔗 Product Page</a>
+          <span class="product-slots">7 slots</span>
+        </div>
+        <div class="product-desc">Used in <strong>ASRock AI Center demonstration system</strong>.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Dual-GPU System Selection Criteria</h2>
+    <p>The chassis selection criteria for dual-GPU systems are largely identical to those for four-GPU configurations, with the following adjustments:</p>
+    <ul class="bullet-list" style="margin: 12px 0;">
+      <li><span class="dia">◆</span> Motherboard form factor requirement is reduced to <strong>ATX</strong></li>
+      <li><span class="dia">◆</span> Expansion Slots requirement is reduced to <strong>4</strong></li>
+    </ul>
+    <p style="margin-top:12px;">All other considerations — including bottom intake capability, unobstructed vertical airflow, GPU-to-fan clearance, and long-term thermal stability under sustained high-load operation — remain unchanged.</p>
+    <div class="note-box">
+      The ASRock AI Center demonstration system is built using the
+      <a href="https://www.darkflash.com/product/dy470" target="_blank" style="color:#76e4f7;">darkFlash DY470</a> chassis.
+    </div>
+  </section>
+
+  <!-- ══ POWER SUPPLY ══ -->
+  <div class="chapter" id="psu">
+    <div class="chapter-icon">⚡</div>
+    <div>
+      <div class="chapter-title">Power Supply</div>
+      <div class="chapter-sub">PSU requirements &amp; compliant models</div>
+    </div>
+  </div>
+
+  <section>
+    <h2>Filter Criteria Summary — 4-Card Configurations</h2>
+    <h3>⚠️ Primary Requirement (Non-Negotiable)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Specification</th><th>Note</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Native PCIe 5.1 12V-2×6 Power Connectors</strong></td>
+            <td>
+              1️⃣ Four dedicated cables required — one per GPU<br>
+              2️⃣ <span class="warn">No adapters or splitters permitted</span><br>
+              3️⃣ Ensures electrical integrity and thermal stability for sustained AI workloads
+            </td>
+          </tr>
+          <tr>
+            <td><strong>200–240V AC Required</strong></td>
+            <td>2500W+ PSUs cannot deliver full output on 110–120V</td>
+          </tr>
+          <tr>
+            <td><strong>Cybenetics Titanium Grade</strong><br>or<br><strong>80 PLUS® 230V EU Platinum</strong></td>
+            <td>
+              1️⃣ Maximizes efficiency under sustained load<br>
+              2️⃣ Reduces chassis heat and electrical loss<br>
+              Critical for 24/7 AI training/inference in thermally dense multi-GPU systems
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>PCIe 5.1 12V-2×6 Power Connectors</h2>
+    <div class="img-block">
+      <img src="../assets/12v2x6.jpg" alt="PCIe 5.1 12V-2×6 connectors" />
+    </div>
+  </section>
+
+  <section>
+    <h2>PCIe 5.1 12V-2×6 Power Cables — 4-Card Configuration</h2>
+    <div class="img-block">
+      <img src="../assets/16x4.jpg" alt="4-card 12V-2×6 cable configuration" />
+      <div class="img-caption">
+        Image source: <a href="https://www.super-flower.com.tw/en/products/leadex-titanium-2800w-20250526150946" target="_blank">Super Flower Leadex Titanium 2800W</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Compliant Power Supply Models</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Product Name</th><th>Efficiency Certification</th><th>Purchase Links</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="https://www.super-flower.com.tw/en/products/leadex-titanium-2800w-20250526150946#desc_section_2" target="_blank" style="color:#76e4f7;">Leadex Titanium 2800W</a></td>
+            <td><span class="mono">Cybenetics Titanium</span></td>
+            <td class="link-cell">
+              <a href="https://www.newegg.com/super-flower-leadex-platinum-sf-2800f14hp-2800-w-80-platinum/p/1HU-024C-00090" target="_blank">NEWEGG</a>
+              <a href="https://www.microcenter.com/product/698491/super-flower-leadex-titanium-2800-watt-cybenetics-titanium-atx-fully-modular-power-supply-atx-31-compatible" target="_blank">MICROCENTER</a>
+              <a href="https://www.centralcomputer.com/super-flower-sf-2800f14hp-leadex-titanium-2800w-atx-3-1-power-supply-cybenetics-titanium-native-12v-2x6-eco-fanless-silent.html" target="_blank">CENTRAL COMPUTER</a>
+            </td>
+          </tr>
+          <tr>
+            <td><a href="https://www.fsplifestyle.com/en/product/CANNONPRO2500W_12V2X6.html" target="_blank" style="color:#76e4f7;">CANNON PRO (ATX3.1) 2500W</a></td>
+            <td><span class="mono">80 PLUS® 230V EU Platinum</span></td>
+            <td class="link-cell">
+              <a href="https://www.fspgroupusa.com/ecommerce/retail-products.html" target="_blank">FSP Group USA</a>
+              <a href="https://www.amazon.com/stores/FSPGroupUSA/page/CA694B28-30FB-44B8-901C-0EE20BCAD8F3" target="_blank">Amazon FSP Store</a>
+            </td>
+          </tr>
+          <tr>
+            <td><a href="https://in-win.com/en/gaming-power-supply/pii-250" target="_blank" style="color:#76e4f7;">In Win PII-250</a></td>
+            <td><span class="mono">80 PLUS® 230V EU Platinum</span></td>
+            <td class="link-cell">
+              <a href="https://shop.in-win.com/collections/power-supply" target="_blank">InWin Store</a>
+              <a href="https://shop.magna5.com/brands/inwin/?page=1&pagesize=24&includeinstockonly=true&sortby=0&sortorder=1" target="_blank">Magna5 MS, LLC</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══ CPU COOLING ══ -->
+  <div class="chapter" id="cpu">
+    <div class="chapter-icon">❄️</div>
+    <div>
+      <div class="chapter-title">CPU Cooling</div>
+      <div class="chapter-sub">Air cooling rationale &amp; compliant coolers</div>
+    </div>
+  </div>
+
+  <section>
+    <h2>CPU Air Cooling for 4-GPU AI Workstations</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Why</th><th>Note</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>System Stability Over Peak Performance</strong></td>
+            <td>
+              1️⃣ Four high-power GPUs demand consistent, predictable thermal management<br>
+              2️⃣ Air cooling eliminates catastrophic failure modes: pump failure and coolant leaks<br>
+              3️⃣ No single point of failure in cooling subsystem
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Optimized Airflow Architecture</strong></td>
+            <td>
+              1️⃣ Synchronized front-to-back linear airflow aligns with chassis fan layout<br>
+              2️⃣ Uniform thermal envelope across all critical components<br>
+              3️⃣ Simplified maintenance and zero risk of thermal runaway from coolant loss
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Engineering for Longevity</strong></td>
+            <td>
+              1️⃣ Designed for uninterrupted 24/7 AI training and inference<br>
+              2️⃣ Passive reliability beats active complexity in mission-critical deployments<br>
+              3️⃣ Total system uptime prioritized over marginal CPU temperature gains
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Compliant CPU Coolers</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-name">
+          ARCTIC Freezer 4U
+          <a href="https://www.arctic.de/en/Freezer-4U-M/ACFRE00133A" target="_blank">🔗 Product Page</a>
+        </div>
+        <div class="product-desc">Used in <strong>ASRock AI Center demonstration system</strong>.</div>
+      </div>
+      <div class="product-card">
+        <div class="product-name">
+          Noctua NH-U14S TR5-SP6
+          <a href="https://www.noctua.at/en/products/nh-u14s-tr5-sp6" target="_blank">🔗 Product Page</a>
+        </div>
+        <div class="product-desc">
+          <a href="https://maingear.com/pages/pro-ai" target="_blank" style="color:#76e4f7;"><strong>MAINGEAR PRO AI</strong></a> features top-of-the-line Noctua cooling throughout, resulting in one of the quietest AI training and data preparation workstations on the market, without sacrificing performance.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  AI Workstation Chassis Thermal Recommendation &nbsp;·&nbsp; ASRock AI Center &nbsp;·&nbsp; Allen Sun 2025-12-24
+</footer>
+
+<script>
+  // Highlight active nav link on scroll
+  const sections = document.querySelectorAll('.chapter');
+  const navLinks = document.querySelectorAll('nav a');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const id = e.target.id;
+        const link = document.querySelector(`nav a[href="#${id}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { threshold: 0.5 });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

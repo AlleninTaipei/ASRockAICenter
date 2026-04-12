@@ -5,18 +5,94 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="google-site-verification" content="YMYxij6jy2UuUCWx4wc4FgxMeN9zZDmaFTn_Q8uE9mY" />
+  <!-- YouTube API Key: set content to your key to enable the videos section -->
+  <meta name="youtube-api-key" content="AIzaSyCx-wLqlySbhVz6wf1zsnBmz9DAv65Dxk0" />
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="public/favicon.svg" />
   <title>ASRock AI</title>
   <meta name="description"
     content="ASRock AI delivers advanced AI middleware solutions for enterprises, offering integration tools, resources, and insights to drive business transformation." />
   <meta name="author" content="ASRock AI" />
-  <script type="module" crossorigin src="./assets/index-8qL-LkOT.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-Cs6LzqG0.css">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <link rel="canonical" href="https://allenintaipei.github.io/ASRockAICenter/" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://allenintaipei.github.io/ASRockAICenter/" />
+  <meta property="og:title" content="ASRock AI" />
+  <meta property="og:description" content="ASRock AI delivers advanced AI middleware solutions for enterprises, offering integration tools, resources, and insights to drive business transformation." />
+  <meta property="og:image" content="https://allenintaipei.github.io/ASRockAICenter/og-image.png" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ASRock AI" />
+  <meta name="twitter:description" content="ASRock AI delivers advanced AI middleware solutions for enterprises, offering integration tools, resources, and insights to drive business transformation." />
+  <meta name="twitter:image" content="https://allenintaipei.github.io/ASRockAICenter/og-image.png" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <div id="root"></div>
+  <div class="app-root">
+
+    <!-- Language Toggle -->
+    <div class="lang-toggle">
+      <button class="lang-btn" id="lang-toggle-btn">
+        <span>中文</span>
+      </button>
+    </div>
+
+    <div class="container">
+
+      <!-- Header -->
+      <header>
+        <h1 data-i18n="header.title">ASRock AI</h1>
+        <h2 data-i18n="header.subtitle"></h2>
+        <p class="tagline" data-i18n="header.taglines.0"></p>
+        <p class="tagline" data-i18n="header.taglines.1"></p>
+        <p class="tagline" data-i18n="header.taglines.2"></p>
+      </header>
+
+      <!-- Apps Section -->
+      <section class="section" id="apps">
+        <h2 data-i18n="appsSection.title"></h2>
+        <div class="apps-grid" id="apps-grid">
+          <!-- populated by main.js -->
+        </div>
+      </section>
+
+      <!-- Resources Section -->
+      <section class="section" id="resources">
+        <h2 data-i18n="resources.title"></h2>
+        <div class="links-grid" id="resources-grid">
+          <!-- populated by main.js -->
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <footer class="section contact-section" id="contact">
+        <h2 data-i18n="contact.title"></h2>
+        <div class="contact-content">
+          <p class="contact-text" id="contact-text"></p>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="contact-email-btn" id="contact-linkedin"></a>
+          <a href="#" class="contact-email-btn" id="contact-email"></a>
+        </div>
+      </footer>
+
+      <!-- YouTube Section -->
+      <section class="section youtube-section hidden" id="youtube-section">
+        <h2 data-i18n="youtubeSection.title"></h2>
+        <div class="videos-grid" id="videos-grid">
+          <!-- populated by main.js -->
+        </div>
+        <div style="text-align:center; margin-top:2rem;">
+          <a href="#" target="_blank" rel="noreferrer" id="videos-more"
+            style="color:#4A9EFF; text-decoration:none; font-size:14px;"></a>
+        </div>
+      </section>
+
+    </div><!-- /.container -->
+  </div><!-- /.app-root -->
+
+  <script src="locales.js"></script>
+  <script src="main.js"></script>
 </body>
 
 </html>

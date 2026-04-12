@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NVIDIA GPU 產品線 — Hopper 到 Blackwell</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      line-height: 1.8;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #1a1f2e 0%, #0f1117 100%);
+      border-bottom: 1px solid #2d3748;
+      padding: 56px 24px 48px;
+      text-align: center;
+    }
+    header h1 { font-size: 2.4rem; font-weight: 700; color: #f7fafc; letter-spacing: 0.02em; }
+    header .subtitle { margin-top: 10px; font-size: 1.15rem; font-weight: 600; color: #76e4f7; }
+    header .meta { margin-top: 14px; color: #4a5568; font-size: 0.88rem; font-family: monospace; }
+
+    /* ── Main layout ── */
+    main { max-width: 900px; margin: 0 auto; padding: 52px 24px 88px; }
+
+    section { margin-bottom: 56px; }
+
+    h2 {
+      font-size: 1.35rem; font-weight: 600; color: #90cdf4;
+      border-left: 4px solid #4299e1; padding-left: 14px;
+      margin-bottom: 22px; display: flex; align-items: center; gap: 10px;
+    }
+    h2 .emoji { font-size: 1.2rem; }
+
+    p { color: #a0aec0; margin-bottom: 12px; }
+
+    /* ── Tables ── */
+    .table-wrap { overflow-x: auto; margin-top: 4px; }
+    table {
+      width: 100%; border-collapse: collapse;
+      background: #0d1117; border: 1px solid #2d3748; border-radius: 10px;
+      overflow: hidden; font-size: 0.88rem;
+    }
+    thead tr { background: #1e3a4a; }
+    thead th {
+      padding: 13px 16px; text-align: left;
+      color: #e2e8f0; font-weight: 700; font-size: 0.82rem;
+      letter-spacing: 0.03em;
+      border-bottom: 1px solid #2d3748;
+    }
+    tbody tr { border-bottom: 1px solid #1e2a38; transition: background 0.15s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #111927; }
+    tbody td {
+      padding: 13px 16px; color: #a0aec0; vertical-align: top;
+      line-height: 1.7;
+    }
+    tbody td:first-child { color: #e2e8f0; font-weight: 500; }
+    td .mono { font-family: monospace; color: #68d391; font-size: 0.85rem; }
+
+    /* ── Info / note box ── */
+    .note-box {
+      background: #1a202c; border: 1px solid #2a4a6a; border-radius: 10px;
+      padding: 14px 18px; margin-top: 18px;
+    }
+    .note-box p { color: #a0aec0; font-size: 0.87rem; margin: 0; }
+    .note-box strong { color: #e2e8f0; }
+
+    /* ── Bullet list (summary) ── */
+    .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
+    .bullet-list li {
+      background: #1a202c; border: 1px solid #2d3748; border-radius: 8px;
+      padding: 13px 18px; display: flex; gap: 12px; align-items: flex-start;
+      color: #a0aec0; font-size: 0.92rem;
+    }
+    .bullet-list li .diamond { color: #4299e1; font-size: 0.9rem; flex-shrink: 0; margin-top: 2px; }
+    .bullet-list li code {
+      font-family: monospace; background: #2d3748;
+      padding: 1px 6px; border-radius: 4px;
+      color: #76e4f7; font-size: 0.85rem;
+    }
+
+    /* ── Choice list ── */
+    .choice-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+    .choice-list li {
+      background: #1a202c; border: 1px solid #2d3748; border-radius: 8px;
+      padding: 14px 18px; display: flex; align-items: baseline; gap: 10px;
+      font-size: 0.92rem;
+    }
+    .choice-list li .use-case { color: #e2e8f0; font-weight: 600; }
+    .choice-list li .arrow { color: #4a5568; flex-shrink: 0; }
+    .choice-list li .target { font-family: monospace; color: #68d391; }
+
+    /* ── Spec comparison ── */
+    .spec-highlight { color: #f6ad55; font-weight: 600; }
+
+    /* ── Takeaway ── */
+    .takeaway {
+      background: linear-gradient(135deg, #0d2318, #0f1117);
+      border: 1px solid #276749; border-radius: 12px;
+      padding: 24px 28px; margin-top: 4px;
+    }
+    .takeaway p { color: #c6f6d5; font-size: 0.93rem; margin: 0; line-height: 1.9; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center; padding: 28px 24px;
+      border-top: 1px solid #1a202c;
+      color: #4a5568; font-size: 0.78rem; font-family: monospace;
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.7rem; }
+      tbody td, thead th { padding: 10px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>NVIDIA GPU 產品線</h1>
+  <div class="subtitle">Hopper 到 Blackwell</div>
+  <div class="meta">20251128 &nbsp;·&nbsp; Allen Sun</div>
+</header>
+
+<main>
+
+  <!-- Section 1: 業界慣用語分層 -->
+  <section>
+    <h2><span class="emoji">🧠</span> NVIDIA 業界慣用語分層整理</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>層級</th>
+            <th>常用稱呼</th>
+            <th>範例</th>
+            <th>說明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>消費級 GPU</td>
+            <td><span class="mono">GeForce RTX</span></td>
+            <td>RTX 5090 / RTX 5080</td>
+            <td>個人玩家、創作者、AI 開發入門</td>
+          </tr>
+          <tr>
+            <td>專業工作站 GPU</td>
+            <td><span class="mono">RTX Professional</span></td>
+            <td>RTX 6000 Ada / RTX PRO 6000</td>
+            <td>專業繪圖、工程設計、AI 開發環境</td>
+          </tr>
+          <tr>
+            <td>資料中心 GPU</td>
+            <td><span class="mono">NVIDIA Data Center GPU<br>「A/H/B 系列 GPU」</span></td>
+            <td>A100 / H100 / B200</td>
+            <td>AI 訓練、推理、大模型服務</td>
+          </tr>
+          <tr>
+            <td>GPU 模組平台</td>
+            <td><span class="mono">HGX</span></td>
+            <td>HGX H100 / HGX B200</td>
+            <td>伺服器用 GPU 主板（SXM 版本）</td>
+          </tr>
+          <tr>
+            <td>整機系統 / 超算平台</td>
+            <td><span class="mono">DGX / GB200 / NVL72</span></td>
+            <td>DGX H100 / GB200 NVL72</td>
+            <td>完整 AI 超算解決方案</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note-box">
+      <p><strong>功率區別 (TDP)：</strong>SXM 版本（HGX）的功耗通常遠高於 PCIe 版本（例如 H100 SXM 是 700W，PCIe 則是 300–350W）。B200 SXM：<strong>~1000W</strong>（比 H100 高 40%）。</p>
+    </div>
+  </section>
+
+  <!-- Section 2: 實際業界溝通用語 -->
+  <section>
+    <h2><span class="emoji">📦</span> 實際業界溝通中常見的用語分層</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>常見說法</th>
+            <th>實際含義</th>
+            <th>對應技術層級</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="mono">RTX</span></td>
+            <td>泛指工作站或消費級 GPU</td>
+            <td>RTX 5090 / RTX PRO 6000 等 PCIe Slot</td>
+          </tr>
+          <tr>
+            <td><span class="mono">PCIe GPU</span></td>
+            <td>指標準主機板插槽 GPU</td>
+            <td>RTX 系列 / A100 PCIe / H100 PCIe / B200 PCIe</td>
+          </tr>
+          <tr>
+            <td><span class="mono">Data Center GPU</span></td>
+            <td>泛指 SXM / NVLink 版本 GPU</td>
+            <td>A100 / H100 / B200<br>2020 (A) Ampere · 2022 (H) Hopper · 2024 (B) Blackwell</td>
+          </tr>
+          <tr>
+            <td><span class="mono">HGX 平台</span></td>
+            <td>一塊裝多顆 SXM GPU 的伺服器模組</td>
+            <td>HGX H100 / HGX B200</td>
+          </tr>
+          <tr>
+            <td><span class="mono">DGX 系統</span></td>
+            <td>NVIDIA 自家整機伺服器（含 CPU、儲存、網路）</td>
+            <td>DGX H100 / DGX B200</td>
+          </tr>
+          <tr>
+            <td><span class="mono">NVL72 / GB200 叢集</span></td>
+            <td>超大規模 AI 系統（多 DGX 結構）</td>
+            <td>36 CPU: Grace · 72 GPU: Blackwell</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Section 3: 工程師口語 -->
+  <section>
+    <h2><span class="emoji">📊</span> 業內實際講法舉例（工程師之間的口語）</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>語句</th>
+            <th>含意</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>「這台伺服器插兩張 RTX 6000 Ada」</td>
+            <td>工作站 / 小型 AI 推理用機，PCIe 介面</td>
+          </tr>
+          <tr>
+            <td>「我們訓練在 H100 HGX 上跑」</td>
+            <td>使用 SXM + NVLink 平台進行分散式訓練</td>
+          </tr>
+          <tr>
+            <td>「我們在跑 8 卡 A100」</td>
+            <td>常見的 DGX A100 配置</td>
+          </tr>
+          <tr>
+            <td>「客戶要上 B200 PCIe」</td>
+            <td>想在一般伺服器主板上做推理 / 加速</td>
+          </tr>
+          <tr>
+            <td>「那是 DGX H100 機櫃」</td>
+            <td>整機 NVIDIA 官方系統</td>
+          </tr>
+          <tr>
+            <td>「GB200 NVL72 cluster」</td>
+            <td>指整合 Grace CPU + Blackwell GPU 的大型叢集架構</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Section 4: 歸納成一句話 -->
+  <section>
+    <h2><span class="emoji">🧭</span> 歸納成一句話</h2>
+    <ul class="bullet-list">
+      <li><span class="diamond">◆</span> <span><code>「RTX」</code>是工作站與消費級的統稱</span></li>
+      <li><span class="diamond">◆</span> <span><code>「A/H/B 系列 (Data Center GPU)」</code>是伺服器級 GPU 的統稱</span></li>
+      <li><span class="diamond">◆</span> <span><code>「HGX」</code>是伺服器 GPU 主板</span></li>
+      <li><span class="diamond">◆</span> <span><code>「DGX」</code>是完整伺服器系統</span></li>
+      <li><span class="diamond">◆</span> <span><code>「SXM GPU」</code>才有支援 NVLink，<code>「PCIe GPU」</code>不支援 NVLink</span></li>
+      <li><span class="diamond">◆</span> <span>在 Hopper 與 Blackwell 世代，僅 SXM 版本支援高速 NVLink 互連</span></li>
+    </ul>
+  </section>
+
+  <!-- Section 5: 核心規格快速對照 -->
+  <section>
+    <h2><span class="emoji">🔬</span> 核心規格快速對照</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>項目</th>
+            <th>A100</th>
+            <th>H100</th>
+            <th>B200</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>架構</td>
+            <td>Ampere</td>
+            <td>Hopper</td>
+            <td><span class="spec-highlight">Blackwell</span></td>
+          </tr>
+          <tr>
+            <td>製程</td>
+            <td>7nm</td>
+            <td>4nm</td>
+            <td>4nm (TSMC)</td>
+          </tr>
+          <tr>
+            <td>記憶體</td>
+            <td>40/80GB HBM2e</td>
+            <td>80GB HBM3</td>
+            <td><span class="spec-highlight">192GB HBM3e</span></td>
+          </tr>
+          <tr>
+            <td>FP8 效能</td>
+            <td>—</td>
+            <td>~2,000 TFLOPS</td>
+            <td><span class="spec-highlight">~4,500 TFLOPS</span></td>
+          </tr>
+          <tr>
+            <td>NVLink</td>
+            <td>600 GB/s</td>
+            <td>900 GB/s</td>
+            <td><span class="spec-highlight">1,800 GB/s</span></td>
+          </tr>
+          <tr>
+            <td>典型價格 (USD)</td>
+            <td>~$15K</td>
+            <td>~$30K</td>
+            <td>~$40K（預估）</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Section 6: 如何選擇 GPU -->
+  <section>
+    <h2><span class="emoji">🎯</span> 如何選擇 GPU？</h2>
+    <ul class="choice-list">
+      <li>
+        <span class="use-case">訓練 GPT-4 等級模型</span>
+        <span class="arrow">→</span>
+        <span class="target">GB200 NVL72</span>
+      </li>
+      <li>
+        <span class="use-case">訓練 7B–70B 模型</span>
+        <span class="arrow">→</span>
+        <span class="target">HGX H100（8 卡）</span>
+      </li>
+      <li>
+        <span class="use-case">LLM 推理服務</span>
+        <span class="arrow">→</span>
+        <span class="target">H100 / B200 PCIe</span>
+      </li>
+      <li>
+        <span class="use-case">微調 / RAG 應用</span>
+        <span class="arrow">→</span>
+        <span class="target">A100 或 RTX 6000 Ada</span>
+      </li>
+      <li>
+        <span class="use-case">開發測試</span>
+        <span class="arrow">→</span>
+        <span class="target">RTX 4090 / 5090</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Section 7: 未來展望 -->
+  <section>
+    <h2><span class="emoji">🚀</span> 未來展望</h2>
+    <div class="takeaway">
+      <p>掌握了這些核心概念與術語層次後，未來在接續研究 <strong>Rubin</strong> 架構及其後的技術路線圖時，將能更加輕鬆上手，快速理解 NVIDIA 在 AI 運算領域的演進藍圖。</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  NVIDIA GPU 產品線 &nbsp;·&nbsp; Hopper 到 Blackwell &nbsp;·&nbsp; 20251128 Allen Sun
+</footer>
+
+</body>
+</html>

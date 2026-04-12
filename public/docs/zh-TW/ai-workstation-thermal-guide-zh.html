@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 工作站機殼散熱建議</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      line-height: 1.8;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #1a1f2e 0%, #0f1117 100%);
+      border-bottom: 1px solid #2d3748;
+      padding: 52px 24px 44px;
+      text-align: center;
+    }
+    header h1 { font-size: 2rem; font-weight: 700; color: #f7fafc; line-height: 1.3; }
+    header .org { margin-top: 12px; font-size: 0.95rem; color: #76e4f7; font-weight: 600; }
+    header .meta { margin-top: 8px; color: #4a5568; font-size: 0.82rem; font-family: monospace; }
+
+    /* ── Sticky nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: #0d1117; border-bottom: 1px solid #2d3748;
+      padding: 0 24px;
+      display: flex; gap: 0;
+    }
+    nav a {
+      display: block; padding: 14px 22px;
+      color: #718096; font-size: 0.85rem; font-weight: 600;
+      text-decoration: none; border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
+    nav a:hover { color: #90cdf4; border-bottom-color: #4299e1; }
+    nav a.active { color: #90cdf4; border-bottom-color: #4299e1; }
+
+    /* ── Main ── */
+    main { max-width: 920px; margin: 0 auto; padding: 52px 24px 96px; }
+
+    /* ── Chapter divider ── */
+    .chapter {
+      display: flex; align-items: center; gap: 16px;
+      margin: 60px 0 36px; padding: 20px 24px;
+      background: #1a202c; border: 1px solid #2d3748; border-radius: 12px;
+    }
+    .chapter-icon { font-size: 1.8rem; }
+    .chapter-title { font-size: 1.4rem; font-weight: 700; color: #f7fafc; }
+    .chapter-sub { font-size: 0.82rem; color: #718096; margin-top: 2px; }
+    .chapter:first-of-type { margin-top: 0; }
+
+    /* ── Section ── */
+    section { margin-bottom: 48px; }
+    h2 {
+      font-size: 1.25rem; font-weight: 600; color: #90cdf4;
+      border-left: 4px solid #4299e1; padding-left: 14px;
+      margin-bottom: 18px; display: flex; align-items: center; gap: 9px;
+    }
+    h3 { font-size: 1rem; font-weight: 600; color: #e2e8f0; margin: 18px 0 10px; }
+    p { color: #a0aec0; margin-bottom: 10px; font-size: 0.92rem; }
+
+    /* ── Tables ── */
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%; border-collapse: collapse;
+      background: #0d1117; border: 1px solid #2d3748; border-radius: 10px;
+      overflow: hidden; font-size: 0.875rem;
+    }
+    thead tr { background: #1e3a4a; }
+    thead th {
+      padding: 12px 16px; text-align: left;
+      color: #e2e8f0; font-weight: 700; font-size: 0.8rem;
+      border-bottom: 1px solid #2d3748;
+    }
+    tbody tr { border-bottom: 1px solid #1a2535; transition: background 0.15s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #111927; }
+    tbody td { padding: 12px 16px; color: #a0aec0; vertical-align: top; line-height: 1.7; }
+    tbody td:first-child { color: #e2e8f0; font-weight: 500; }
+    .mono { font-family: monospace; color: #68d391; }
+    .warn { color: #fc8181; font-weight: 600; }
+    strong { color: #e2e8f0; }
+
+    /* ── Numbered items ── */
+    .num-list { display: flex; flex-direction: column; gap: 14px; }
+    .num-item {
+      background: #1a202c; border: 1px solid #2d3748; border-radius: 10px;
+      padding: 16px 20px;
+    }
+    .num-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+    .num-badge {
+      background: #2b6cb0; color: #fff; font-size: 0.75rem; font-weight: 700;
+      padding: 2px 9px; border-radius: 20px; flex-shrink: 0;
+    }
+    .num-title { font-weight: 600; color: #e2e8f0; font-size: 0.95rem; }
+    .num-body { color: #a0aec0; font-size: 0.87rem; line-height: 1.75; }
+
+    /* ── Product cards ── */
+    .product-grid { display: flex; flex-direction: column; gap: 12px; }
+    .product-card {
+      background: #1a202c; border: 1px solid #2d3748; border-radius: 10px;
+      padding: 16px 20px;
+    }
+    .product-name { font-weight: 700; color: #e2e8f0; margin-bottom: 6px; font-size: 0.95rem; }
+    .product-name a { color: #76e4f7; text-decoration: none; margin-left: 6px; font-size: 0.78rem; }
+    .product-name a:hover { text-decoration: underline; }
+    .product-desc { color: #a0aec0; font-size: 0.86rem; line-height: 1.7; margin-bottom: 8px; }
+    .product-slots {
+      display: inline-block; font-family: monospace; font-size: 0.75rem;
+      background: #2d3748; color: #90cdf4; padding: 2px 9px; border-radius: 4px;
+    }
+
+    /* ── Image block ── */
+    .img-block {
+      background: #0d1117; border: 1px solid #2d3748; border-radius: 10px;
+      overflow: hidden; text-align: center;
+    }
+    .img-block img { width: 100%; max-height: 480px; object-fit: contain; display: block; }
+    .img-caption {
+      padding: 10px 16px; font-size: 0.78rem; color: #4a5568;
+      border-top: 1px solid #2d3748;
+    }
+    .img-caption a { color: #4299e1; }
+
+    /* ── Bullet list ── */
+    .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .bullet-list li {
+      background: #1a202c; border: 1px solid #2d3748; border-radius: 8px;
+      padding: 11px 16px; display: flex; gap: 10px;
+      color: #a0aec0; font-size: 0.9rem; align-items: flex-start;
+    }
+    .bullet-list li .dia { color: #4299e1; flex-shrink: 0; }
+
+    /* ── Note box ── */
+    .note-box {
+      background: #1a1200; border: 1px solid #744210; border-radius: 8px;
+      padding: 13px 16px; margin-top: 14px; font-size: 0.86rem; color: #fbd38d;
+    }
+
+    /* ── PSU link cells ── */
+    .link-cell a {
+      display: inline-block; color: #63b3ed; text-decoration: none;
+      font-size: 0.82rem; margin-right: 8px; margin-bottom: 2px;
+    }
+    .link-cell a:hover { text-decoration: underline; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center; padding: 24px;
+      border-top: 1px solid #1a202c;
+      color: #4a5568; font-size: 0.76rem; font-family: monospace;
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.5rem; }
+      nav a { padding: 12px 14px; font-size: 0.78rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>AI 工作站<br>機殼散熱建議</h1>
+  <div class="org">ASRock AI Center</div>
+  <div class="meta">Allen Sun &nbsp;·&nbsp; 2025-12-24</div>
+</header>
+
+<nav>
+  <a href="#case">🖥️ 機殼</a>
+  <a href="#psu">⚡ 電源供應器</a>
+  <a href="#cpu">❄️ CPU 散熱</a>
+</nav>
+
+<main>
+
+  <!-- ══ 機殼 ══ -->
+  <div class="chapter" id="case">
+    <div class="chapter-icon">🖥️</div>
+    <div>
+      <div class="chapter-title">機殼</div>
+      <div class="chapter-sub">機殼選型與氣流設計</div>
+    </div>
+  </div>
+
+  <section>
+    <h2>AMD Radeon™ AI PRO R9700</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ASRock R9700 Creator 32GB — 關鍵散熱管理參數</th>
+            <th>技術細節</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>GPU 架構</td><td>AMD RDNA 4（Navi 48）</td></tr>
+          <tr><td>顯示卡總功耗（TBP）</td><td><strong>300 W</strong></td></tr>
+          <tr><td>散熱器類型</td><td>渦輪式散熱器，搭配均熱板</td></tr>
+          <tr><td>建議電源供應器（單卡）</td><td>750 W</td></tr>
+          <tr><td>實體尺寸</td><td>271 × 112 × 39 mm（雙槽寬度）</td></tr>
+          <tr><td>導熱介面材料</td><td>Honeywell PTM7950 相變導熱材料</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>風扇配置：實際可行的實戰方案</h2>
+    <div class="num-list">
+      <div class="num-item">
+        <div class="num-header">
+          <span class="num-badge">1</span>
+          <span class="num-title">3 個進風風扇 + 1 個排風風扇</span>
+        </div>
+        <div class="num-body">不需要一堆風扇，只需要正確的氣流配置。</div>
+      </div>
+      <div class="num-item">
+        <div class="num-header">
+          <span class="num-badge">2</span>
+          <span class="num-title">當 GPU 溫度是最高優先順序：使用底部進風</span>
+        </div>
+        <div class="num-body">
+          此配置比「前方 3 + 上方 3 + 後方 1」更安靜且更穩定。<br>
+          底部進風需搭配防塵濾網，且機殼底部需離地至少 2 公分。
+        </div>
+      </div>
+      <div class="num-item">
+        <div class="num-header">
+          <span class="num-badge">3</span>
+          <span class="num-title">使用 CPU 水冷時</span>
+        </div>
+        <div class="num-body">
+          冷排安裝於上方 → 上方排風<br>
+          冷排安裝於前方 → 前方進風（僅限前面板進風量充足時）
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>篩選條件總結（四卡配置）</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>規格</th><th>說明</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Enhanced ATX 主機板</td>
+            <td>需使用工作站等級主機板（如 ASRock WRX90 WS EVO），才能支援 8 個以上 PCIe 插槽，以容納四張雙槽 GPU 及 Threadripper 的供電需求。</td>
+          </tr>
+          <tr>
+            <td>最大 GPU 長度：400mm 以上</td>
+            <td>R9700 僅 267–271mm。額外空間可避免風扇干涉，利於四組 12V-2×6 線材管理，並形成氣流緩衝區。</td>
+          </tr>
+          <tr>
+            <td>底部防塵濾網</td>
+            <td>對 1800W 以上系統至關重要，在維持正壓的同時防止主要散熱路徑積塵。</td>
+          </tr>
+          <tr>
+            <td>底部 3×140mm 風扇</td>
+            <td>四張顯卡約 1200W 熱量且間距緊密。140mm 風扇提供更高風量、更低噪音及更廣的覆蓋範圍，對最底層顯卡散熱尤為關鍵。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>北美市場建議機殼方案</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-name">
+          Lian Li O11 Dynamic EVO XL
+          <a href="https://lian-li.com/product/o11-dynamic-evo-xl/" target="_blank">🔗 產品頁面</a>
+          <span class="product-slots">8 槽</span>
+        </div>
+        <div class="product-desc"><strong>高度模組化且內部空間極佳：</strong>快拆式底部風扇支架支援 3 顆 140mm 風扇。主機板托盤提供三段垂直調整，設定於 Upper Mode 時，GPU 與底部進風風扇間可達 90.5mm 間距，確保四卡配置下底層 GPU 有充足氣流。</div>
+      </div>
+      <div class="product-card">
+        <div class="product-name">
+          Phanteks NV9 / NV9 MKI
+          <a href="https://phanteks.com/product/nv9-mk2-black/" target="_blank">🔗 產品頁面</a>
+          <span class="product-slots">8 槽</span>
+        </div>
+        <div class="product-desc"><strong>最佳化垂直氣流設計：</strong>架高的機殼底部提供 65mm 離地高度，讓三顆底部 140mm 風扇能無阻進風。內建 GPU 支撐架可減輕四卡重量對 PCIe 插槽的壓力。</div>
+      </div>
+      <div class="product-card">
+        <div class="product-name">
+          Antec C8
+          <a href="https://www.antec.com/product/case/c8" target="_blank">🔗 產品頁面</a>
+          <span class="product-slots">8 槽</span>
+        </div>
+        <div class="product-desc"><strong>雙艙隔離設計：</strong>電源供應器與硬碟艙移至後方獨立艙室，使底部三顆 140mm 風扇進風無阻，同時隔離 PSU 熱源對 GPU 氣流的影響。</div>
+      </div>
+      <div class="product-card">
+        <div class="product-name">
+          Cooler Master HAF 700
+          <a href="https://www.coolermaster.com/en-global/products/haf-700/" target="_blank">🔗 產品頁面</a>
+          <span class="product-slots">8 槽</span>
+        </div>
+        <div class="product-desc"><strong>極致高風量與免工具安裝：</strong>PSU 與儲存裝置位於後艙，移除最底層 GPU 下方障礙，讓三顆底部 140mm 風扇能直接形成乾淨的垂直氣流。</div>
+      </div>
+      <div class="product-card">
+        <div class="product-name">
+          Fractal Design Torrent
+          <a href="https://www.fractal-design.com/products/cases/torrent/" target="_blank">🔗 產品頁面</a>
+          <span class="product-slots">7 槽</span>
+        </div>
+        <div class="product-desc"><strong>ASRock AI Center 展示系統使用</strong>。</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>雙 GPU 系統選型條件</h2>
+    <p>雙卡系統的機殼選擇原則大致與四卡配置相同，僅需以下調整：</p>
+    <ul class="bullet-list" style="margin: 12px 0;">
+      <li><span class="dia">◆</span> 主機板尺寸需求降為 <strong>ATX</strong></li>
+      <li><span class="dia">◆</span> 擴充槽需求降為 <strong>4</strong></li>
+    </ul>
+    <p style="margin-top:12px;">其餘條件——包含底部進風能力、無阻礙的垂直氣流、GPU 與風扇間距，以及在長時間高負載下的散熱穩定性——皆維持不變。</p>
+    <div class="note-box">
+      ASRock AI Center 展示系統使用
+      <a href="https://www.darkflash.com/product/dy470" target="_blank" style="color:#76e4f7;">darkFlash DY470</a> 機殼。
+    </div>
+  </section>
+
+  <!-- ══ 電源供應器 ══ -->
+  <div class="chapter" id="psu">
+    <div class="chapter-icon">⚡</div>
+    <div>
+      <div class="chapter-title">電源供應器</div>
+      <div class="chapter-sub">PSU 選型需求與符合規範型號</div>
+    </div>
+  </div>
+
+  <section>
+    <h2>篩選條件總結（四卡配置）</h2>
+    <h3>⚠️ 主要需求（不可妥協）</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>規格</th><th>說明</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>原生 PCIe 5.1 12V-2×6 電源接頭</strong></td>
+            <td>
+              1️⃣ 需四條獨立線材（每張 GPU 一條）<br>
+              2️⃣ <span class="warn">禁止使用轉接器或分接線</span><br>
+              3️⃣ 確保長時間 AI 工作負載下的電氣完整性與熱穩定性
+            </td>
+          </tr>
+          <tr>
+            <td><strong>必須使用 200–240V AC</strong></td>
+            <td>2500W 以上電源無法在 110–120V 下輸出完整功率</td>
+          </tr>
+          <tr>
+            <td><strong>Cybenetics Titanium 等級</strong><br>或<br><strong>80 PLUS® 230V EU Platinum 認證</strong></td>
+            <td>
+              1️⃣ 在持續負載下達到最高效率<br>
+              2️⃣ 降低機殼內熱量與電能損耗<br>
+              對 24/7 AI 訓練／推論的高密度多 GPU 系統至關重要
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>PCIe 5.1 12V-2×6 電源接頭</h2>
+    <div class="img-block">
+      <img src="../assets/12v2x6.jpg" alt="PCIe 5.1 12V-2×6 電源接頭" />
+    </div>
+  </section>
+
+  <section>
+    <h2>PCIe 5.1 12V-2×6 電源線 — 四卡配置</h2>
+    <div class="img-block">
+      <img src="../assets/16x4.jpg" alt="四卡 12V-2×6 線材配置" />
+      <div class="img-caption">
+        圖片來源：<a href="https://www.super-flower.com.tw/en/products/leadex-titanium-2800w-20250526150946" target="_blank">Super Flower Leadex Titanium 2800W</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>符合規範的電源供應器型號</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>產品名稱</th><th>效率認證</th><th>購買連結</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="https://www.super-flower.com.tw/en/products/leadex-titanium-2800w-20250526150946#desc_section_2" target="_blank" style="color:#76e4f7;">Leadex Titanium 2800W</a></td>
+            <td><span class="mono">Cybenetics Titanium</span></td>
+            <td class="link-cell">
+              <a href="https://www.newegg.com/super-flower-leadex-platinum-sf-2800f14hp-2800-w-80-platinum/p/1HU-024C-00090" target="_blank">NEWEGG</a>
+              <a href="https://www.microcenter.com/product/698491/super-flower-leadex-titanium-2800-watt-cybenetics-titanium-atx-fully-modular-power-supply-atx-31-compatible" target="_blank">MICROCENTER</a>
+              <a href="https://www.centralcomputer.com/super-flower-sf-2800f14hp-leadex-titanium-2800w-atx-3-1-power-supply-cybenetics-titanium-native-12v-2x6-eco-fanless-silent.html" target="_blank">CENTRAL COMPUTER</a>
+            </td>
+          </tr>
+          <tr>
+            <td><a href="https://www.fsplifestyle.com/en/product/CANNONPRO2500W_12V2X6.html" target="_blank" style="color:#76e4f7;">CANNON PRO (ATX3.1) 2500W</a></td>
+            <td><span class="mono">80 PLUS® 230V EU Platinum</span></td>
+            <td class="link-cell">
+              <a href="https://www.fspgroupusa.com/ecommerce/retail-products.html" target="_blank">FSP Group USA</a>
+              <a href="https://www.amazon.com/stores/FSPGroupUSA/page/CA694B28-30FB-44B8-901C-0EE20BCAD8F3" target="_blank">Amazon FSP Store</a>
+            </td>
+          </tr>
+          <tr>
+            <td><a href="https://in-win.com/en/gaming-power-supply/pii-250" target="_blank" style="color:#76e4f7;">In Win PII-250</a></td>
+            <td><span class="mono">80 PLUS® 230V EU Platinum</span></td>
+            <td class="link-cell">
+              <a href="https://shop.in-win.com/collections/power-supply" target="_blank">InWin Store</a>
+              <a href="https://shop.magna5.com/brands/inwin/?page=1&pagesize=24&includeinstockonly=true&sortby=0&sortorder=1" target="_blank">Magna5 MS, LLC</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══ CPU 散熱 ══ -->
+  <div class="chapter" id="cpu">
+    <div class="chapter-icon">❄️</div>
+    <div>
+      <div class="chapter-title">CPU 散熱</div>
+      <div class="chapter-sub">空冷方案選型理由與推薦型號</div>
+    </div>
+  </div>
+
+  <section>
+    <h2>四 GPU AI 工作站的 CPU 空冷方案</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>原因</th><th>說明</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>穩定性優先於極限效能</strong></td>
+            <td>
+              1️⃣ 四張高功耗 GPU 需要穩定、可預期的散熱管理<br>
+              2️⃣ 空冷避免水泵故障與漏液等災難性風險<br>
+              3️⃣ 散熱系統不存在單點失效
+            </td>
+          </tr>
+          <tr>
+            <td><strong>最佳化氣流架構</strong></td>
+            <td>
+              1️⃣ 前進後出的線性氣流與機殼風扇配置一致<br>
+              2️⃣ 所有關鍵元件維持一致的熱環境<br>
+              3️⃣ 維護簡單，且不會因冷卻液流失導致熱失控
+            </td>
+          </tr>
+          <tr>
+            <td><strong>為長期運作而設計</strong></td>
+            <td>
+              1️⃣ 適用於 24/7 AI 訓練與推論<br>
+              2️⃣ 關鍵任務環境中，被動可靠性勝過主動複雜度<br>
+              3️⃣ 系統總上線時間優先於些微的 CPU 溫度差異
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>符合規範的 CPU 散熱器</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-name">
+          ARCTIC Freezer 4U
+          <a href="https://www.arctic.de/en/Freezer-4U-M/ACFRE00133A" target="_blank">🔗 產品頁面</a>
+        </div>
+        <div class="product-desc"><strong>ASRock AI Center 展示系統使用</strong>。</div>
+      </div>
+      <div class="product-card">
+        <div class="product-name">
+          Noctua NH-U14S TR5-SP6
+          <a href="https://www.noctua.at/en/products/nh-u14s-tr5-sp6" target="_blank">🔗 產品頁面</a>
+        </div>
+        <div class="product-desc">
+          <a href="https://maingear.com/pages/pro-ai" target="_blank" style="color:#76e4f7;"><strong>MAINGEAR PRO AI</strong></a> 全系列採用 Noctua 頂級散熱，打造市場上最安靜之一的 AI 訓練與資料準備工作站，同時不犧牲效能。
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  AI 工作站機殼散熱建議 &nbsp;·&nbsp; ASRock AI Center &nbsp;·&nbsp; Allen Sun 2025-12-24
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('.chapter');
+  const navLinks = document.querySelectorAll('nav a');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const id = e.target.id;
+        const link = document.querySelector(`nav a[href="#${id}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { threshold: 0.5 });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

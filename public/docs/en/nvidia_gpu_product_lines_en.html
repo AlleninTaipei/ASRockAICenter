@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NVIDIA GPU Product Lines — Hopper to Blackwell</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      line-height: 1.7;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #1a1f2e 0%, #0f1117 100%);
+      border-bottom: 1px solid #2d3748;
+      padding: 56px 24px 48px;
+      text-align: center;
+    }
+    header h1 { font-size: 2.4rem; font-weight: 700; color: #f7fafc; letter-spacing: -0.02em; }
+    header .subtitle { margin-top: 10px; font-size: 1.15rem; font-weight: 600; color: #76e4f7; }
+    header .meta { margin-top: 14px; color: #4a5568; font-size: 0.88rem; font-family: monospace; }
+
+    /* ── Main layout ── */
+    main { max-width: 900px; margin: 0 auto; padding: 52px 24px 88px; }
+
+    section { margin-bottom: 56px; }
+
+    h2 {
+      font-size: 1.35rem; font-weight: 600; color: #90cdf4;
+      border-left: 4px solid #4299e1; padding-left: 14px;
+      margin-bottom: 22px; display: flex; align-items: center; gap: 10px;
+    }
+    h2 .emoji { font-size: 1.2rem; }
+
+    p { color: #a0aec0; margin-bottom: 12px; }
+
+    /* ── Tables ── */
+    .table-wrap { overflow-x: auto; margin-top: 4px; }
+    table {
+      width: 100%; border-collapse: collapse;
+      background: #0d1117; border: 1px solid #2d3748; border-radius: 10px;
+      overflow: hidden; font-size: 0.88rem;
+    }
+    thead tr { background: #1e3a4a; }
+    thead th {
+      padding: 13px 16px; text-align: left;
+      color: #e2e8f0; font-weight: 700; font-size: 0.82rem;
+      letter-spacing: 0.03em;
+      border-bottom: 1px solid #2d3748;
+    }
+    tbody tr { border-bottom: 1px solid #1e2a38; transition: background 0.15s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #111927; }
+    tbody td {
+      padding: 13px 16px; color: #a0aec0; vertical-align: top;
+      line-height: 1.6;
+    }
+    tbody td:first-child { color: #e2e8f0; font-weight: 500; }
+    td .mono { font-family: monospace; color: #68d391; font-size: 0.85rem; }
+
+    /* ── Info / note box ── */
+    .note-box {
+      background: #1a202c; border: 1px solid #2a4a6a; border-radius: 10px;
+      padding: 14px 18px; margin-top: 18px;
+    }
+    .note-box p { color: #a0aec0; font-size: 0.87rem; margin: 0; }
+    .note-box strong { color: #e2e8f0; }
+
+    /* ── Bullet list (summary) ── */
+    .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
+    .bullet-list li {
+      background: #1a202c; border: 1px solid #2d3748; border-radius: 8px;
+      padding: 13px 18px; display: flex; gap: 12px; align-items: flex-start;
+      color: #a0aec0; font-size: 0.92rem;
+    }
+    .bullet-list li .diamond { color: #4299e1; font-size: 0.9rem; flex-shrink: 0; margin-top: 2px; }
+    .bullet-list li code {
+      font-family: monospace; background: #2d3748;
+      padding: 1px 6px; border-radius: 4px;
+      color: #76e4f7; font-size: 0.85rem;
+    }
+
+    /* ── Choice list ── */
+    .choice-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+    .choice-list li {
+      background: #1a202c; border: 1px solid #2d3748; border-radius: 8px;
+      padding: 14px 18px; display: flex; align-items: baseline; gap: 10px;
+      font-size: 0.92rem;
+    }
+    .choice-list li .use-case { color: #e2e8f0; font-weight: 600; }
+    .choice-list li .arrow { color: #4a5568; flex-shrink: 0; }
+    .choice-list li .target { font-family: monospace; color: #68d391; }
+
+    /* ── Spec comparison grid ── */
+    .spec-highlight { color: #f6ad55; font-weight: 600; }
+
+    /* ── Takeaway ── */
+    .takeaway {
+      background: linear-gradient(135deg, #0d2318, #0f1117);
+      border: 1px solid #276749; border-radius: 12px;
+      padding: 24px 28px; margin-top: 4px;
+    }
+    .takeaway p { color: #c6f6d5; font-size: 0.93rem; margin: 0; line-height: 1.8; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center; padding: 28px 24px;
+      border-top: 1px solid #1a202c;
+      color: #4a5568; font-size: 0.78rem; font-family: monospace;
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.7rem; }
+      tbody td, thead th { padding: 10px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>NVIDIA GPU Product Lines</h1>
+  <div class="subtitle">Hopper to Blackwell</div>
+  <div class="meta">20251128 &nbsp;·&nbsp; Allen Sun</div>
+</header>
+
+<main>
+
+  <!-- Section 1: Terminology Hierarchy -->
+  <section>
+    <h2><span class="emoji">🧠</span> NVIDIA Industry Terminology Hierarchy</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Tier</th>
+            <th>Common Name</th>
+            <th>Examples</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Consumer GPU</td>
+            <td><span class="mono">GeForce RTX</span></td>
+            <td>RTX 5090 / RTX 5080</td>
+            <td>Gaming, content creation, AI development entry</td>
+          </tr>
+          <tr>
+            <td>Professional Workstation GPU</td>
+            <td><span class="mono">RTX Professional</span></td>
+            <td>RTX 6000 Ada / RTX PRO 6000</td>
+            <td>Professional graphics, engineering design, AI dev environments</td>
+          </tr>
+          <tr>
+            <td>Data Center GPU</td>
+            <td><span class="mono">NVIDIA Data Center GPU<br>"A/H/B Series GPU"</span></td>
+            <td>A100 / H100 / B200</td>
+            <td>AI training, inference, large model serving</td>
+          </tr>
+          <tr>
+            <td>GPU Module Platform</td>
+            <td><span class="mono">HGX</span></td>
+            <td>HGX H100 / HGX B200</td>
+            <td>Server GPU baseboard (SXM version)</td>
+          </tr>
+          <tr>
+            <td>Complete System / Supercomputing Platform</td>
+            <td><span class="mono">DGX / GB200 / NVL72</span></td>
+            <td>DGX H100 / GB200 NVL72</td>
+            <td>Complete AI supercomputing solutions</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note-box">
+      <p><strong>Power Distinction (TDP):</strong> SXM versions (HGX) typically have much higher power consumption than PCIe versions — e.g., H100 SXM is 700W, PCIe is 300–350W. B200 SXM: <strong>~1000W</strong> (40% higher than H100).</p>
+    </div>
+  </section>
+
+  <!-- Section 2: Common Terminology -->
+  <section>
+    <h2><span class="emoji">📦</span> Common Industry Communication Terminology</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Common Term</th>
+            <th>Actual Meaning</th>
+            <th>Corresponding Technical Level</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="mono">RTX</span></td>
+            <td>Generally refers to workstation or consumer GPUs</td>
+            <td>RTX 5090 / RTX PRO 6000, etc.</td>
+          </tr>
+          <tr>
+            <td><span class="mono">PCIe GPU</span></td>
+            <td>Standard motherboard slot GPU</td>
+            <td>RTX series / A100 PCIe / H100 PCIe / B200 PCIe</td>
+          </tr>
+          <tr>
+            <td><span class="mono">Data Center GPU</span></td>
+            <td>Generally refers to SXM / NVLink version GPUs</td>
+            <td>A100 / H100 / B200<br>2020 (A) Ampere · 2022 (H) Hopper · 2024 (B) Blackwell</td>
+          </tr>
+          <tr>
+            <td><span class="mono">HGX Platform</span></td>
+            <td>Server module with multiple SXM GPUs</td>
+            <td>HGX H100 / HGX B200</td>
+          </tr>
+          <tr>
+            <td><span class="mono">DGX System</span></td>
+            <td>NVIDIA's complete server system (includes CPU, storage, networking)</td>
+            <td>DGX H100 / DGX B200</td>
+          </tr>
+          <tr>
+            <td><span class="mono">NVL72 / GB200 Cluster</span></td>
+            <td>Ultra-large-scale AI system (multi-DGX structure)</td>
+            <td>36 CPU: Grace · 72 GPU: Blackwell</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Section 3: Engineer Colloquialisms -->
+  <section>
+    <h2><span class="emoji">📊</span> Real Industry Usage Examples (Engineer Colloquialisms)</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Statement</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>"This server has two RTX 6000 Ada cards"</td>
+            <td>Workstation / small AI inference machine, PCIe interface</td>
+          </tr>
+          <tr>
+            <td>"We're training on H100 HGX"</td>
+            <td>Using SXM + NVLink platform for distributed training</td>
+          </tr>
+          <tr>
+            <td>"We're running 8-card A100"</td>
+            <td>Common DGX A100 configuration</td>
+          </tr>
+          <tr>
+            <td>"Client wants B200 PCIe"</td>
+            <td>Wants inference/acceleration on standard server motherboard</td>
+          </tr>
+          <tr>
+            <td>"That's a DGX H100 rack"</td>
+            <td>Complete NVIDIA official system</td>
+          </tr>
+          <tr>
+            <td>"GB200 NVL72 cluster"</td>
+            <td>Refers to large-scale cluster architecture integrating Grace CPU + Blackwell GPU</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Section 4: Summary -->
+  <section>
+    <h2><span class="emoji">🧭</span> Summary in One Statement</h2>
+    <ul class="bullet-list">
+      <li><span class="diamond">◆</span> <span><code>"RTX"</code> is the umbrella term for workstation and consumer products</span></li>
+      <li><span class="diamond">◆</span> <span><code>"A/H/B Series (Data Center GPU)"</code> is the umbrella term for server-grade GPUs</span></li>
+      <li><span class="diamond">◆</span> <span><code>"HGX"</code> is the server GPU baseboard</span></li>
+      <li><span class="diamond">◆</span> <span><code>"DGX"</code> is the complete server system</span></li>
+      <li><span class="diamond">◆</span> <span><code>"SXM GPU"</code> supports NVLink — <code>"PCIe GPU"</code> does not support NVLink</span></li>
+      <li><span class="diamond">◆</span> <span>In Hopper and Blackwell generations, only SXM versions support high-speed NVLink interconnect</span></li>
+    </ul>
+  </section>
+
+  <!-- Section 5: Core Specs -->
+  <section>
+    <h2><span class="emoji">🔬</span> Core Specifications Quick Reference</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>A100</th>
+            <th>H100</th>
+            <th>B200</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Architecture</td>
+            <td>Ampere</td>
+            <td>Hopper</td>
+            <td><span class="spec-highlight">Blackwell</span></td>
+          </tr>
+          <tr>
+            <td>Process</td>
+            <td>7nm</td>
+            <td>4nm</td>
+            <td>4nm (TSMC)</td>
+          </tr>
+          <tr>
+            <td>Memory</td>
+            <td>40/80GB HBM2e</td>
+            <td>80GB HBM3</td>
+            <td><span class="spec-highlight">192GB HBM3e</span></td>
+          </tr>
+          <tr>
+            <td>FP8 Performance</td>
+            <td>—</td>
+            <td>~2,000 TFLOPS</td>
+            <td><span class="spec-highlight">~4,500 TFLOPS</span></td>
+          </tr>
+          <tr>
+            <td>NVLink</td>
+            <td>600 GB/s</td>
+            <td>900 GB/s</td>
+            <td><span class="spec-highlight">1,800 GB/s</span></td>
+          </tr>
+          <tr>
+            <td>Typical Price (USD)</td>
+            <td>~$15K</td>
+            <td>~$30K</td>
+            <td>~$40K (estimated)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Section 6: How to Choose -->
+  <section>
+    <h2><span class="emoji">🎯</span> How to Choose a GPU?</h2>
+    <ul class="choice-list">
+      <li>
+        <span class="use-case">Training GPT-4 scale models</span>
+        <span class="arrow">→</span>
+        <span class="target">GB200 NVL72</span>
+      </li>
+      <li>
+        <span class="use-case">Training 7B–70B models</span>
+        <span class="arrow">→</span>
+        <span class="target">HGX H100 (8-card)</span>
+      </li>
+      <li>
+        <span class="use-case">LLM inference services</span>
+        <span class="arrow">→</span>
+        <span class="target">H100 / B200 PCIe</span>
+      </li>
+      <li>
+        <span class="use-case">Fine-tuning / RAG applications</span>
+        <span class="arrow">→</span>
+        <span class="target">A100 or RTX 6000 Ada</span>
+      </li>
+      <li>
+        <span class="use-case">Development &amp; testing</span>
+        <span class="arrow">→</span>
+        <span class="target">RTX 4090 / 5090</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Section 7: Future Outlook -->
+  <section>
+    <h2><span class="emoji">🚀</span> Future Outlook</h2>
+    <div class="takeaway">
+      <p>With a solid grasp of these core concepts and terminology hierarchies, navigating the upcoming <strong>Rubin</strong> architecture and subsequent technical roadmaps will become much more intuitive, allowing you to quickly understand NVIDIA's evolving blueprint in the AI computing landscape.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  NVIDIA GPU Product Lines &nbsp;·&nbsp; Hopper to Blackwell &nbsp;·&nbsp; 20251128 Allen Sun
+</footer>
+
+</body>
+</html>
