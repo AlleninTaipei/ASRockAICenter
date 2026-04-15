@@ -8,6 +8,36 @@ const LOCALES = {
         "Bridging the gap between enterprise vision and deployable AI infrastructure"
       ]
     },
+    processSection: {
+      title: "Service Model & Collaboration Process"
+    },
+    process: [
+      {
+        icon: "🔍",
+        title: "Requirements Interview & Assessment",
+        desc: "Deep-dive into your AI goals, existing infrastructure, and core pain points to define a clear project scope and measurable success criteria."
+      },
+      {
+        icon: "🎯",
+        title: "Customized Solution Design",
+        desc: "Architect a tailored AI middleware plan aligned with your hardware configuration, data pipeline, and business objectives."
+      },
+      {
+        icon: "🧪",
+        title: "POC Development & Testing",
+        desc: "Build and validate a working proof-of-concept to verify technical feasibility, performance benchmarks, and quantifiable outcomes before full commitment."
+      },
+      {
+        icon: "🚀",
+        title: "System Integration & Deployment",
+        desc: "Seamlessly integrate the solution into your production environment with end-to-end technical support across the full stack."
+      },
+      {
+        icon: "🤝",
+        title: "Ongoing Optimization & Advisory",
+        desc: "Continuous performance tuning, model updates, and strategic consulting to ensure long-term value from your on-premise AI investment."
+      }
+    ],
     appsSection: {
       title: "AI Fusion Starter - AI Quick Start Solutions"
     },
@@ -109,7 +139,6 @@ const LOCALES = {
     },
     contact: {
       title: "Contact Us",
-      text: "For collaboration or technical inquiries:",
       linkedinUrl: "https://www.linkedin.com/in/allen-sun-67738b38a",
       linkedinText: "Contact Allen on LinkedIn",
       email: "allen1_sun@asrock.com.tw"
@@ -124,6 +153,36 @@ const LOCALES = {
         "加速從願景到實際部署的無縫落地"
       ]
     },
+    processSection: {
+      title: "服務模式與合作流程"
+    },
+    process: [
+      {
+        icon: "🔍",
+        title: "需求訪談與評估",
+        desc: "深入了解您的 AI 目標、現有基礎設施與核心痛點，定義清晰的專案範疇與可量化的成功指標。"
+      },
+      {
+        icon: "🎯",
+        title: "客製化方案設計",
+        desc: "依據您的硬體配置、資料管線與業務目標，量身打造最適合的 AI Middleware 架構方案。"
+      },
+      {
+        icon: "🧪",
+        title: "POC 開發與測試",
+        desc: "建構可運行的概念驗證，在正式投入前確認技術可行性、效能表現與可量化成果。"
+      },
+      {
+        icon: "🚀",
+        title: "系統整合與正式部署",
+        desc: "提供全端技術支援，將解決方案無縫整合至您的正式生產環境，確保穩定上線。"
+      },
+      {
+        icon: "🤝",
+        title: "後續優化與顧問支持",
+        desc: "持續調校效能、更新模型，並提供策略性顧問諮詢，最大化您的 On-Premise AI 長期投資價值。"
+      }
+    ],
     appsSection: {
       title: "AI Fusion Starter - 快速入門解決方案"
     },
@@ -227,7 +286,6 @@ const LOCALES = {
     },
     contact: {
       title: "聯絡我們",
-      text: "商業合作或技術洽詢：",
       linkedinUrl: "https://www.linkedin.com/in/allen-sun-67738b38a",
       linkedinText: "在 LinkedIn 上聯繫 Allen",
       email: "allen1_sun@asrock.com.tw"
