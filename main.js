@@ -25,6 +25,22 @@ function renderApps(t) {
   `).join('');
 }
 
+function renderProcess(t) {
+  const container = document.getElementById('process-steps');
+  if (!container || !t.process) return;
+  container.innerHTML = t.process.map((step, i) => `
+    <div class="process-step">
+      <div class="step-circle">
+        <span class="step-num">${String(i + 1).padStart(2, '0')}</span>
+      </div>
+      <div class="step-content">
+        <h3 class="step-title"><span class="step-icon">${step.icon}</span>${step.title}</h3>
+        <p class="step-desc">${step.desc}</p>
+      </div>
+    </div>
+  `).join('');
+}
+
 function renderResources(t) {
   const grid = document.getElementById('resources-grid');
   if (!grid) return;
@@ -37,19 +53,27 @@ function renderResources(t) {
 }
 
 function renderContact(t) {
-  const text = document.getElementById('contact-text');
-  const linkedin = document.getElementById('contact-linkedin');
-  const email = document.getElementById('contact-email');
-  if (text) text.textContent = t.contact.text;
-  if (linkedin) {
-    linkedin.href = t.contact.linkedinUrl;
-    linkedin.textContent = '';
-    linkedin.innerHTML = '<span class="icon">🔗</span> ' + t.contact.linkedinText;
-  }
-  if (email) {
-    email.href = 'mailto:' + t.contact.email;
-    email.textContent = '📧 ' + t.contact.email;
-  }
+  const container = document.getElementById('contact-cards');
+  if (!container) return;
+  const c = t.contact;
+  container.innerHTML = `
+    <a href="${c.linkedinUrl}" target="_blank" rel="noopener noreferrer" class="contact-card contact-card--linkedin">
+      <div class="contact-card-icon">🔗</div>
+      <div class="contact-card-body">
+        <span class="contact-card-platform">LinkedIn</span>
+        <span class="contact-card-label">${c.linkedinText}</span>
+      </div>
+      <span class="contact-card-arrow">&#8599;</span>
+    </a>
+    <a href="mailto:${c.email}" class="contact-card contact-card--email">
+      <div class="contact-card-icon">📧</div>
+      <div class="contact-card-body">
+        <span class="contact-card-platform">Email</span>
+        <span class="contact-card-label">${c.email}</span>
+      </div>
+      <span class="contact-card-arrow">&#8599;</span>
+    </a>
+  `;
 }
 
 // ── Apply locale ────────────────────────────────────────────────────────────
@@ -67,6 +91,7 @@ function applyLocale(lang) {
   });
 
   // Dynamic grids
+  renderProcess(t);
   renderApps(t);
   renderResources(t);
   renderContact(t);
@@ -103,7 +128,7 @@ function attachScrollReveal() {
   }, observerOptions);
 
   setTimeout(() => {
-    document.querySelectorAll('.app-card, .link-card, .section').forEach(el => {
+    document.querySelectorAll('.app-card, .link-card, .process-step, .section').forEach(el => {
       observer.observe(el);
     });
   }, 100);
