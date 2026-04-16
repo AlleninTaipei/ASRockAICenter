@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How OpenCode Works</title>
+
+  <!-- Google Fonts: Bricolage Grotesque · DM Sans · JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Teal accent — suits a developer tool with clear, confident personality -->
+  <style>
+    :root {
+      --color-accent:       #2A7B9B;
+      --color-accent-hover: #1F6280;
+      --color-accent-light: #E4F2F7;
+      --color-accent-muted: #5A9DB8;
+    }
+  </style>
+
+  <script src="main.js" defer></script>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="nav-inner">
+      <span class="nav-title">How OpenCode Works</span>
+      <div class="nav-dots" id="nav-dots" role="tablist">
+        <button class="nav-dot" data-target="module-1" data-tooltip="From Words to Code" role="tab" aria-label="Module 1: From Words to Code"></button>
+        <button class="nav-dot" data-target="module-2" data-tooltip="The Brain Behind the Magic" role="tab" aria-label="Module 2: The Brain Behind the Magic"></button>
+        <button class="nav-dot" data-target="module-3" data-tooltip="43 Superpowers" role="tab" aria-label="Module 3: 43 Superpowers"></button>
+        <button class="nav-dot" data-target="module-4" data-tooltip="Your Digital Notebook" role="tab" aria-label="Module 4: Your Digital Notebook"></button>
+        <button class="nav-dot" data-target="module-5" data-tooltip="Many Faces, One Brain" role="tab" aria-label="Module 5: Many Faces, One Brain"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <!-- modules/*.html content is assembled here by build.sh -->
+<section class="module" id="module-1" style="background: var(--color-bg-warm)">
+
+  <!-- ============================================================
+       MODULE HEADER
+  ============================================================ -->
+  <div class="module-header animate-in">
+    <div class="module-eyebrow">Module 1 of 5</div>
+    <h1 class="module-title">From Words to Code</h1>
+    <p class="module-subtitle">What happens under the hood when you type a request</p>
+    <div class="module-hook animate-in">
+      <p>You type <em>"add a login button"</em> and 30 seconds later the file is actually changed. What happened in between those two moments?</p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN 1 — WHAT OPENCODE ACTUALLY IS
+  ============================================================ -->
+  <div class="screen" id="module-1-screen-1">
+    <div class="screen-inner">
+
+      <div class="screen-heading animate-in">
+        <span class="screen-number">01</span>
+        <h2>What OpenCode Actually Is</h2>
+      </div>
+
+      <div class="two-col animate-in">
+        <div class="col-text">
+          <p>
+            <span class="term" data-definition="An AI agent is a program that can receive instructions in plain language and take real actions — reading files, running commands, and writing code — to complete tasks on your behalf.">OpenCode</span> is an
+            <span class="term" data-definition="Open source means the source code is publicly available for anyone to read, use, modify, and contribute to. OpenCode is hosted on GitHub and free to use.">open-source</span>
+            AI coding
+            <span class="term" data-definition="An agent is a program that reasons about a goal and takes a series of actions — including calling tools — to achieve it. Unlike a simple chatbot, an agent can do things, not just say things.">agent</span>.
+            You describe what you want in plain language, and it reads files, writes code, and runs tests on your behalf.
+          </p>
+          <p>
+            Built by the creators of <a href="https://terminal.shop" target="_blank">terminal.shop</a>, OpenCode works with
+            <span class="term" data-definition="Claude is Anthropic's AI model. OpenCode can use Claude as its reasoning engine — the 'brain' that decides what to do.">Claude</span>,
+            <span class="term" data-definition="GPT-4 is OpenAI's powerful language model. OpenCode supports it as an alternative reasoning engine.">GPT-4</span>,
+            <span class="term" data-definition="Gemini is Google's AI model family. OpenCode supports Gemini as an alternative reasoning engine.">Gemini</span>, and local models.
+          </p>
+        </div>
+        <div class="col-visual">
+          <div class="callout callout-info animate-in">
+            <div class="callout-icon">🧩</div>
+            <div class="callout-content">
+              <strong class="callout-title">The Core Idea</strong>
+              <p>OpenCode is an <strong>orchestration engine</strong> — your words become a structured conversation with an
+                <span class="term" data-definition="An LLM (Large Language Model) is the AI brain — a neural network trained on vast amounts of text that can understand instructions and generate intelligent responses. Examples: Claude, GPT-4, Gemini.">LLM</span>
+                that has the ability to actually touch your computer.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="animate-in section-subheading">Four ways to use OpenCode</h3>
+
+      <div class="icon-rows animate-in stagger-children">
+
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-2)">⌨️</div>
+          <div>
+            <strong>Terminal App
+              (<span class="term" data-definition="A TUI (Terminal User Interface) is an interactive text-based application that runs inside your terminal window — keyboard-driven, no mouse required.">TUI</span>)</strong>
+            <p>Type commands directly in your
+              <span class="term" data-definition="A terminal (also called a command line or shell) is a text-based interface where you type commands to control your computer directly, without a graphical interface.">terminal</span>.
+              Ideal for developers who live in the command line.</p>
+          </div>
+        </div>
+
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-1)">🌐</div>
+          <div>
+            <strong>Web Browser</strong>
+            <p>Full interface in any browser — no installation required beyond starting the local server. Great for a familiar visual layout.</p>
+          </div>
+        </div>
+
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-3)">🖥️</div>
+          <div>
+            <strong>Desktop App</strong>
+            <p>Native window on Mac, Windows, and Linux. Feels like a real app, runs locally, keeps your code on your machine.</p>
+          </div>
+        </div>
+
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-4)">⚙️</div>
+          <div>
+            <strong>VS Code Plugin</strong>
+            <p>A
+              <span class="term" data-definition="VS Code (Visual Studio Code) is a popular free code editor made by Microsoft. It supports extensions (plugins) that add new features.">VS Code</span>
+              extension that embeds OpenCode directly inside your existing editor — no context switching needed.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN 2 — THE JOURNEY OF A SINGLE MESSAGE
+  ============================================================ -->
+  <div class="screen" id="module-1-screen-2">
+    <div class="screen-inner">
+
+      <div class="screen-heading animate-in">
+        <span class="screen-number">02</span>
+        <h2>The Journey of a Single Message</h2>
+      </div>
+
+      <p class="screen-intro animate-in">
+        Every request you make travels through a precise chain of actors.
+        Press <strong>Next Step</strong> to trace the path of "add a login button" from your keyboard to the changed file.
+      </p>
+
+      <div class="flow-animation animate-in" data-steps='[{"highlight":"flow-actor-1","label":"You type: add a login button"},{"highlight":"flow-actor-2","label":"Session created — your message is stored and context assembled","packet":true,"from":"actor-1","to":"actor-2"},{"highlight":"flow-actor-3","label":"LLM receives your message plus a list of tools it can use","packet":true,"from":"actor-2","to":"actor-3"},{"highlight":"flow-actor-3","label":"LLM decides: I should read the existing code first"},{"highlight":"flow-actor-4","label":"LLM calls the Read tool — tool executes and returns file contents","packet":true,"from":"actor-3","to":"actor-4"},{"highlight":"flow-actor-4","label":"Tool result sent back to LLM","packet":true,"from":"actor-4","to":"actor-3"},{"highlight":"flow-actor-3","label":"LLM now calls the Edit tool with the exact changes"},{"highlight":"flow-actor-5","label":"File is changed on disk — the login button exists","packet":true,"from":"actor-4","to":"actor-5"},{"highlight":"flow-actor-2","label":"Session records the change and sends final response to you","packet":true,"from":"actor-3","to":"actor-2"}]'>
+
+        <div class="flow-actors">
+
+          <div class="flow-actor" id="flow-actor-1">
+            <div class="flow-actor-icon">👤</div>
+            <span>You</span>
+          </div>
+
+          <div class="flow-actor" id="flow-actor-2">
+            <div class="flow-actor-icon">📡</div>
+            <span><span class="term" data-definition="A session is the container that holds your entire conversation with OpenCode — messages, tool results, file context, and history — for a single working task.">Session</span></span>
+          </div>
+
+          <div class="flow-actor" id="flow-actor-3">
+            <div class="flow-actor-icon">🧠</div>
+            <span>LLM</span>
+          </div>
+
+          <div class="flow-actor" id="flow-actor-4">
+            <div class="flow-actor-icon">🔧</div>
+            <span><span class="term" data-definition="A tool in OpenCode is a capability the AI can call — like reading a file, running a bash command, or searching code. The AI decides which tool to use based on what the task requires.">Tool</span></span>
+          </div>
+
+          <div class="flow-actor" id="flow-actor-5">
+            <div class="flow-actor-icon">📁</div>
+            <span>Files</span>
+          </div>
+
+        </div>
+
+        <div class="flow-packet" id="flow-packet"></div>
+        <div class="flow-step-label" id="flow-label">Click "Next Step" to begin</div>
+
+        <div class="flow-controls">
+          <button class="btn flow-next-btn">Next Step</button>
+          <button class="btn flow-reset-btn">Restart</button>
+          <span class="flow-progress"></span>
+        </div>
+
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">🔁</div>
+        <div class="callout-content">
+          <strong class="callout-title">The "Tool Use" Pattern</strong>
+          <p>This is called the
+            <span class="term" data-definition="Tool use (also called function calling) is the pattern where an AI model can call external functions — like reading a file or running a command — and incorporate the results into its reasoning.">tool use</span>
+            or
+            <span class="term" data-definition="Function calling is the technical term for when an AI model requests that a specific function (tool) be executed and waits for the result before continuing its response.">function calling</span>
+            pattern. It is how every modern
+            <span class="term" data-definition="An AI agent is a program that uses an LLM as its reasoning core and can take real-world actions — such as reading files, running code, and browsing the web — to complete tasks autonomously.">AI agent</span>
+            works — not just OpenCode.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN 3 — ANATOMY OF A TOOL
+  ============================================================ -->
+  <div class="screen" id="module-1-screen-3">
+    <div class="screen-inner">
+
+      <div class="screen-heading animate-in">
+        <span class="screen-number">03</span>
+        <h2>Anatomy of a Tool</h2>
+      </div>
+
+      <p class="screen-intro animate-in">
+        Every tool OpenCode can call is defined by a
+        <span class="term" data-definition="A TypeScript interface is a blueprint that describes the shape of an object — what properties it must have and what types those properties are. It is a contract enforced at compile time.">TypeScript interface</span>
+        in the source code. Here is what that contract looks like — and what it means in plain English.
+      </p>
+
+      <div class="translation-block animate-in">
+
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code><span class="code-line"><span class="code-keyword">export</span> <span class="code-keyword">interface</span> <span class="code-function">Def</span>&lt;<span class="code-property">Parameters</span> <span class="code-keyword">extends</span> <span class="code-function">z</span>.<span class="code-function">ZodType</span> = <span class="code-function">z</span>.<span class="code-function">ZodType</span>,</span>
+<span class="code-line">     <span class="code-property">M</span> <span class="code-keyword">extends</span> <span class="code-function">Metadata</span> = <span class="code-function">Metadata</span>&gt; &#123;</span>
+<span class="code-line">  <span class="code-property">id</span>: <span class="code-keyword">string</span></span>
+<span class="code-line">  <span class="code-property">description</span>: <span class="code-keyword">string</span></span>
+<span class="code-line">  <span class="code-property">parameters</span>: <span class="code-property">Parameters</span></span>
+<span class="code-line">  <span class="code-function">execute</span>(<span class="code-property">args</span>: <span class="code-function">z</span>.<span class="code-function">infer</span>&lt;<span class="code-property">Parameters</span>&gt;,</span>
+<span class="code-line">          <span class="code-property">ctx</span>: <span class="code-function">Context</span>): <span class="code-function">Effect</span>.<span class="code-function">Effect</span>&lt;<span class="code-function">ExecuteResult</span>&lt;<span class="code-property">M</span>&gt;&gt;</span>
+<span class="code-line">  <span class="code-function">formatValidationError</span>?(<span class="code-property">error</span>: <span class="code-function">z</span>.<span class="code-function">ZodError</span>): <span class="code-keyword">string</span></span>
+<span class="code-line">&#125;</span></code></pre>
+        </div>
+
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+
+            <p class="tl">
+              <code>id: string</code> — A unique name for this tool, like <em>"bash"</em>, <em>"read"</em>, or <em>"webfetch"</em>. The
+              <span class="term" data-definition="An LLM (Large Language Model) is the AI brain that reads your request and decides which tools to call. Examples: Claude, GPT-4, Gemini.">LLM</span>
+              uses this ID to call the right tool.
+            </p>
+
+            <p class="tl">
+              <code>description: string</code> — Plain English explanation so the AI knows <em>when</em> to use this tool. This is literally what the AI reads to decide.
+            </p>
+
+            <p class="tl">
+              <code>parameters: Parameters</code> — The inputs this tool accepts — like <em>"command"</em> and <em>"timeout"</em> for bash. Validated with Zod before execution.
+            </p>
+
+            <p class="tl">
+              <code>execute(args, ctx)</code> — The actual function that runs when the AI calls this tool. Returns an
+              <span class="term" data-definition="Effect.Effect is a TypeScript library for handling async and error-prone operations in a type-safe, composable way. Think of it as a promise with superpowers for error handling.">Effect.Effect</span>
+              — OpenCode's way of handling async operations safely.
+            </p>
+
+            <p class="tl">
+              <code>formatValidationError?</code> — Optional: a custom error message if the AI passes wrong inputs. The <em>?</em> means this field is not required.
+            </p>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">💡</div>
+        <div class="callout-content">
+          <strong class="callout-title">Why This Design Matters</strong>
+          <p>
+            Every tool is a contract between the AI and your computer. The AI reads the <code>description</code> to know <strong>WHEN</strong> to use it. The <code>parameters</code> define <strong>HOW</strong> to use it.
+            This separation is what makes AI agents safe and predictable — the AI cannot call a tool incorrectly if the schema rejects invalid inputs.
+          </p>
+        </div>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">📄</div>
+        <div class="callout-content">
+          <strong class="callout-title">Where to find this in the source</strong>
+          <p>
+            Source file:
+            <code>packages/opencode/src/tool/tool.ts</code>.
+            Every built-in tool — bash, read, edit, grep,
+            <span class="term" data-definition="webfetch is a built-in OpenCode tool that fetches the content of a URL and returns it to the LLM, allowing the AI to read documentation or web pages.">webfetch</span>
+            — implements this same interface.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN 4 — THE CONVERSATION THAT CHANGES FILES
+  ============================================================ -->
+
+</section>
+<section class="module" id="module-2" style="background: var(--color-bg)">
+
+  <!-- ── MODULE HEADER ─────────────────────────────────────── -->
+  <div class="module-header animate-in">
+    <div class="module-eyebrow">Module 2 of 5</div>
+    <h2 class="module-title">The Brain Behind the Magic</h2>
+    <p class="module-subtitle">How AI agents make decisions — and why there are three of them</p>
+  </div>
+
+  <!-- ── OPENING HOOK ──────────────────────────────────────── -->
+  <div class="module-intro animate-in">
+    <p class="module-lead">
+      OpenCode does not have one <span class="term" data-definition="A large language model (LLM) — an AI system trained on vast amounts of text that can understand and generate human language, write code, and reason through complex tasks.">AI</span> —
+      it has a team of them with different personalities and different levels of trust.
+      Here is why that matters.
+    </p>
+    <p class="module-body">
+      The multi-agent system exists because different tasks require different
+      <span class="term" data-definition="The degree of risk an agent is willing to accept. A high-trust agent can delete files and run shell commands; a low-trust agent can only read. OpenCode enforces this via permission rulesets.">risk tolerances</span>.
+      A planning AI that cannot accidentally delete files is safer for exploration.
+      A building AI that can run any command is more powerful — but needs more trust.
+    </p>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       SCREEN 1 — Not One AI: A Team
+       ════════════════════════════════════════════════════════ -->
+  <div class="module-screen animate-in">
+    <h3 class="screen-title animate-in">Not One AI — A Team</h3>
+    <p class="screen-intro animate-in">
+      Every time you use OpenCode, you are working with one of three specialised
+      <span class="term" data-definition="An autonomous AI process that can perceive its environment, use tools, and take actions to complete a goal — without running every step through a human.">agents</span>,
+      each with different capabilities and constraints.
+    </p>
+
+    <div class="pattern-cards animate-in stagger-children">
+
+      <!-- Build Agent -->
+      <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-2)">
+        <div class="pattern-icon" style="background: var(--color-actor-2)">🏗️</div>
+        <h4 class="pattern-title">Build Agent</h4>
+        <p class="pattern-desc">
+          Full permissions — can read files, write code, run bash commands.
+          This is your hands-on contractor.
+          Used for most tasks.
+        </p>
+      </div>
+
+      <!-- Plan Agent -->
+      <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-5)">
+        <div class="pattern-icon" style="background: var(--color-actor-5)">📋</div>
+        <h4 class="pattern-title">Plan Agent</h4>
+        <p class="pattern-desc">
+          <span class="term" data-definition="Read-only mode means the agent can look at files and analyze code, but cannot write, edit, or execute anything. Nothing in your project can be changed.">Read-only mode</span>
+          — can explore and analyze but cannot change anything.
+          Your safe research assistant.
+          Great for understanding a codebase.
+        </p>
+      </div>
+
+      <!-- General Agent -->
+      <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-3)">
+        <div class="pattern-icon" style="background: var(--color-actor-3)">🔍</div>
+        <h4 class="pattern-title">General Agent</h4>
+        <p class="pattern-desc">
+          Spawned automatically as a
+          <span class="term" data-definition="A subagent is a secondary AI process created by the main agent to handle a specific subtask — like a deep search — and report results back. It runs in the background.">subagent</span>
+          for complex searches.
+          Runs in the background to gather information for the main agent.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="callout callout-info animate-in">
+      <div class="callout-icon">🎯</div>
+      <div class="callout-content">
+        <strong class="callout-title">Practical Rule of Thumb</strong>
+        <p>
+          The agent you are using affects what OpenCode is allowed to do.
+          When you are not sure what to ask for — start with Plan mode.
+          When you are ready to make changes — switch to Build.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       SCREEN 2 — The Reasoning Loop (ReAct)
+       ════════════════════════════════════════════════════════ -->
+  <div class="module-screen animate-in">
+    <h3 class="screen-title animate-in">The Reasoning Loop</h3>
+    <p class="screen-intro animate-in">
+      The <span class="term" data-definition="A large language model — the AI brain at the core of an agent. It reads text, understands context, and generates responses or tool-call instructions.">LLM</span>
+      does not just answer once. It thinks in a loop — calling tools, reading results, and
+      deciding whether it needs more information before giving a final answer.
+    </p>
+
+    <div class="step-cards animate-in stagger-children">
+
+      <div class="step-card animate-in">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Receive context</strong>
+          <p>
+            Your message + conversation history + the list of available
+            <span class="term" data-definition="A tool is a function the AI can call during its reasoning loop — for example: read a file, run a shell command, search the web, or write code. The AI decides which tool to use and when.">tools</span>
+            are all loaded into the AI at once.
+          </p>
+        </div>
+      </div>
+
+      <div class="step-card animate-in">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Decide</strong>
+          <p>What tool (if any) would help me answer this?
+          The AI weighs its options and picks the most useful next action.</p>
+        </div>
+      </div>
+
+      <div class="step-card animate-in">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Act</strong>
+          <p>
+            Call the tool, then wait for the result.
+            This is a real
+            <span class="term" data-definition="A tool call is when the AI instructs the OpenCode runtime to execute a specific function — like reading a file or running a bash command — and waits for the output before continuing.">tool call</span>:
+            the AI pauses and the runtime executes it.
+          </p>
+        </div>
+      </div>
+
+      <div class="step-card animate-in">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <strong>Observe</strong>
+          <p>What did the tool return?
+          Does this change my plan?
+          The AI reads the output and updates its understanding.</p>
+        </div>
+      </div>
+
+      <div class="step-card animate-in">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <strong>Loop or Finish</strong>
+          <p>Go back to step 2 if more information is needed — or write the final answer if the task is complete.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout callout-accent animate-in">
+      <div class="callout-icon">💡</div>
+      <div class="callout-content">
+        <strong class="callout-title">Engineers call this a "ReAct Loop"</strong>
+        <p>
+          <span class="term" data-definition="ReAct stands for Reasoning + Acting. It is the standard architecture for AI agents: the AI reasons about what to do, acts by calling a tool, observes the result, and repeats until it has enough information to answer.">ReAct loop</span>
+          stands for Reasoning + Acting.
+          It is the core pattern behind every AI agent, not just OpenCode.
+          When you see the AI calling multiple tools before answering, this loop is exactly what you are watching.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       SCREEN 3 — The Context Window Problem
+       ════════════════════════════════════════════════════════ -->
+  <div class="module-screen animate-in">
+    <h3 class="screen-title animate-in">The Context Window Problem</h3>
+    <p class="screen-intro animate-in">
+      Every <span class="term" data-definition="A model is a specific trained AI brain — for example Claude Sonnet, GPT-4, or Gemini. OpenCode lets you pick which model powers each agent.">model</span>
+      has a memory limit called the
+      <span class="term" data-definition="The context window is the maximum amount of text an LLM can process in a single request — including your messages, the conversation history, tool results, and system instructions. Once full, the oldest content is dropped.">context window</span>.
+      It can only hold so many words at once.
+    </p>
+
+    <div class="callout callout-info animate-in">
+      <div class="callout-icon">🗒️</div>
+      <div class="callout-content">
+        <strong class="callout-title">The Whiteboard Metaphor</strong>
+        <p>
+          Imagine a whiteboard that holds 200 sticky notes.
+          Fill it up and you must erase the oldest ones to add new ones —
+          no matter how important they were.
+          That is exactly how the context window works.
+        </p>
+      </div>
+    </div>
+
+    <p class="screen-subheading animate-in">
+      Here is the real code that describes everything sent to the AI for each response.
+      It comes from <code>packages/opencode/src/session/llm.ts</code>:
+    </p>
+
+    <div class="translation-block animate-in">
+      <div class="translation-code">
+        <span class="translation-label">CODE — <code>StreamInput</code> type</span>
+        <pre><code><span class="code-line"><span class="code-keyword">export type</span> <span class="code-function">StreamInput</span> = {</span>
+<span class="code-line">  <span class="code-property">user</span>: <span class="code-function">MessageV2.User</span></span>
+<span class="code-line">  <span class="code-property">sessionID</span>: <span class="code-type">string</span></span>
+<span class="code-line">  <span class="code-property">parentSessionID</span>?: <span class="code-type">string</span></span>
+<span class="code-line">  <span class="code-property">model</span>: <span class="code-function">Provider.Model</span></span>
+<span class="code-line">  <span class="code-property">agent</span>: <span class="code-function">Agent.Info</span></span>
+<span class="code-line">  <span class="code-property">permission</span>?: <span class="code-function">Permission.Ruleset</span></span>
+<span class="code-line">  <span class="code-property">system</span>: <span class="code-type">string</span>[]</span>
+<span class="code-line">  <span class="code-property">messages</span>: <span class="code-function">ModelMessage</span>[]</span>
+<span class="code-line">  <span class="code-property">small</span>?: <span class="code-type">boolean</span></span>
+<span class="code-line">  <span class="code-property">tools</span>: <span class="code-function">Record</span>&lt;<span class="code-type">string</span>, <span class="code-function">Tool</span>&gt;</span>
+<span class="code-line">  <span class="code-property">retries</span>?: <span class="code-type">number</span></span>
+<span class="code-line">  <span class="code-property">toolChoice</span>?: <span class="code-string">"auto"</span> | <span class="code-string">"required"</span> | <span class="code-string">"none"</span></span>
+<span class="code-line">}</span></code></pre>
+      </div>
+      <div class="translation-english">
+        <span class="translation-label">PLAIN ENGLISH</span>
+        <div class="translation-lines">
+          <p class="tl"><span class="tl-key">user</span> — The message you just sent — your most recent request</p>
+          <p class="tl"><span class="tl-key">sessionID</span> — Which conversation this belongs to</p>
+          <p class="tl"><span class="tl-key">model</span> — Which AI brain to use (Claude, GPT-4, Gemini, etc.)</p>
+          <p class="tl"><span class="tl-key">agent</span> — Which agent mode is active (build, plan, or general)</p>
+          <p class="tl"><span class="tl-key">permission</span> — The safety rules for what this agent is allowed to do</p>
+          <p class="tl"><span class="tl-key">system</span> — The instructions that define how the AI should behave (the <span class="term" data-definition="A system prompt is a set of hidden instructions given to the AI before any user message — it defines the AI personality, rules, and capabilities for the session.">system prompt</span>)</p>
+          <p class="tl tl-highlight"><span class="tl-key">messages</span> — <strong>THE KEY FIELD:</strong> the conversation history sent to the AI — this is what fills up the context window</p>
+          <p class="tl"><span class="tl-key">tools</span> — The full list of tools the AI can call this turn</p>
+          <p class="tl"><span class="tl-key">toolChoice</span> — Whether the AI must use a tool, can choose, or is prevented from using tools at all</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-info animate-in">
+      <div class="callout-icon">🗜️</div>
+      <div class="callout-content">
+        <strong class="callout-title">Compaction: OpenCode's Memory Management</strong>
+        <p>
+          When a session gets very long, OpenCode runs
+          <span class="term" data-definition="Compaction is OpenCode&#39;s solution to the context window limit. It summarizes the older parts of a conversation into a compact digest, then continues — trading some detail for space to keep going.">compaction</span>
+          — it summarizes the older parts of the conversation into a shorter summary, then continues.
+          You lose some detail but gain space for more messages.
+        </p>
+      </div>
+    </div>
+
+    <p class="screen-subheading animate-in">
+      Each agent is defined by its own configuration object.
+      Here is what that looks like in <code>packages/opencode/src/agent/agent.ts</code>:
+    </p>
+
+    <div class="translation-block animate-in">
+      <div class="translation-code">
+        <span class="translation-label">CODE — <code>Agent.Info</code> schema</span>
+        <pre><code><span class="code-line"><span class="code-keyword">export const</span> <span class="code-property">Info</span> = <span class="code-function">z</span></span>
+<span class="code-line">  .<span class="code-function">object</span>({</span>
+<span class="code-line">    <span class="code-property">name</span>: <span class="code-function">z.string</span>(),</span>
+<span class="code-line">    <span class="code-property">description</span>: <span class="code-function">z.string</span>().<span class="code-function">optional</span>(),</span>
+<span class="code-line">    <span class="code-property">mode</span>: <span class="code-function">z.enum</span>([<span class="code-string">"subagent"</span>, <span class="code-string">"primary"</span>, <span class="code-string">"all"</span>]),</span>
+<span class="code-line">    <span class="code-property">native</span>: <span class="code-function">z.boolean</span>().<span class="code-function">optional</span>(),</span>
+<span class="code-line">    <span class="code-property">permission</span>: <span class="code-function">Permission.Ruleset.zod</span>,</span>
+<span class="code-line">    <span class="code-property">model</span>: <span class="code-function">z.object</span>({</span>
+<span class="code-line">      <span class="code-property">modelID</span>: <span class="code-function">ModelID.zod</span>,</span>
+<span class="code-line">      <span class="code-property">providerID</span>: <span class="code-function">ProviderID.zod</span>,</span>
+<span class="code-line">    }).<span class="code-function">optional</span>(),</span>
+<span class="code-line">    <span class="code-property">prompt</span>: <span class="code-function">z.string</span>().<span class="code-function">optional</span>(),</span>
+<span class="code-line">    <span class="code-property">steps</span>: <span class="code-function">z.number</span>().<span class="code-function">int</span>().<span class="code-function">positive</span>().<span class="code-function">optional</span>(),</span>
+<span class="code-line">  })</span></code></pre>
+      </div>
+      <div class="translation-english">
+        <span class="translation-label">PLAIN ENGLISH</span>
+        <div class="translation-lines">
+          <p class="tl"><span class="tl-key">name</span> — The agent name — "build", "plan", or a custom name you define</p>
+          <p class="tl"><span class="tl-key">mode</span> — How this agent is used: as the main agent, a background helper (subagent), or both</p>
+          <p class="tl"><span class="tl-key">permission</span> — The <span class="term" data-definition="A permission ruleset defines what an agent is allowed to do — for example: can it write files? Can it run shell commands? Plan mode has a restrictive ruleset; Build mode has a permissive one.">permission ruleset</span> this agent must follow — the core safety constraint</p>
+          <p class="tl"><span class="tl-key">model</span> — Optional: override which AI model this specific agent uses, independent of your global setting</p>
+          <p class="tl"><span class="tl-key">prompt</span> — Optional custom system prompt to change this agent's personality or instructions</p>
+          <p class="tl"><span class="tl-key">steps</span> — Maximum number of tool calls before stopping — a safety limit to prevent runaway loops</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-accent animate-in">
+      <div class="callout-icon">🔑</div>
+      <div class="callout-content">
+        <strong class="callout-title">Why Zod?</strong>
+        <p>
+          The <code>z.object()</code> syntax comes from
+          <span class="term" data-definition="Zod is a TypeScript library for defining and validating data schemas at runtime. It ensures that data passed between parts of the system matches the expected shape — catching errors early.">Zod schema</span>
+          — a validation library for
+          <span class="term" data-definition="TypeScript is JavaScript with types added. Types let the developer describe what shape data must take, and the compiler catches mistakes before the code runs.">TypeScript</span>.
+          It means OpenCode validates agent configurations at runtime — if you define a custom agent with bad values, it fails immediately with a clear error rather than silently misbehaving.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       SCREEN 4 — Group Chat: Watching the AI Think
+       ════════════════════════════════════════════════════════ -->
+  <div class="module-screen animate-in">
+    <h3 class="screen-title animate-in">Group Chat — Watching the AI Think</h3>
+    <p class="screen-intro animate-in">
+      Every response you see is actually the <em>end</em> of a longer internal dialogue.
+      Here is what the ReAct loop looks like in practice — watch the AI reason through a real task step by step.
+    </p>
+
+    <div class="chat-window animate-in" id="chat-module2">
+      <div class="chat-messages">
+
+        <!-- 0: User -->
+        <div class="chat-message" data-msg="0" data-sender="user" style="display:none">
+          <div class="chat-avatar" style="background: var(--color-actor-1)">U</div>
+          <div class="chat-bubble">
+            <span class="chat-sender" style="color: var(--color-actor-1)">You</span>
+            <p>Please add error handling to the fetchUser function</p>
+          </div>
+        </div>
+
+        <!-- 1: AI decides to read -->
+        <div class="chat-message" data-msg="1" data-sender="ai" style="display:none">
+          <div class="chat-avatar" style="background: var(--color-actor-3)">AI</div>
+          <div class="chat-bubble">
+            <span class="chat-sender" style="color: var(--color-actor-3)">AI (Build Agent)</span>
+            <p>Let me start by reading the current fetchUser function to understand its structure.</p>
+          </div>
+        </div>
+
+        <!-- 2: Read Tool returns -->
+        <div class="chat-message" data-msg="2" data-sender="read" style="display:none">
+          <div class="chat-avatar" style="background: var(--color-actor-2)">R</div>
+          <div class="chat-bubble">
+            <span class="chat-sender" style="color: var(--color-actor-2)">Read Tool</span>
+            <p>Read complete. fetchUser is at line 34. It makes an HTTP request but has no try/catch block. Returns raw JSON.</p>
+          </div>
+        </div>
+
+        <!-- 3: AI decides what to do -->
+        <div class="chat-message" data-msg="3" data-sender="ai" style="display:none">
+          <div class="chat-avatar" style="background: var(--color-actor-3)">AI</div>
+          <div class="chat-bubble">
+            <span class="chat-sender" style="color: var(--color-actor-3)">AI (Build Agent)</span>
+            <p>I can see the issue. No error handling for network failures or non-200 responses. I will add a try/catch and check the response status.</p>
+          </div>
+        </div>
+
+        <!-- 4: Edit Tool applies changes -->
+        <div class="chat-message" data-msg="4" data-sender="edit" style="display:none">
+          <div class="chat-avatar" style="background: var(--color-actor-4)">E</div>
+          <div class="chat-bubble">
+            <span class="chat-sender" style="color: var(--color-actor-4)">Edit Tool</span>
+            <p>Edit applied at lines 34-52. Added try/catch, status check, and a descriptive error message.</p>
+          </div>
+        </div>
+
+        <!-- 5: AI final answer -->
+        <div class="chat-message" data-msg="5" data-sender="ai" style="display:none">
+          <div class="chat-avatar" style="background: var(--color-actor-3)">AI</div>
+          <div class="chat-bubble">
+            <span class="chat-sender" style="color: var(--color-actor-3)">AI (Build Agent)</span>
+            <p>Done. I wrapped the fetch call in a try/catch block and added a check for non-OK HTTP responses. The function now throws a clear error with the status code if anything goes wrong.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="chat-typing" style="display:none">
+        <div class="chat-avatar" id="chat-module2-typing-avatar">?</div>
+        <div class="chat-typing-dots">
+          <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+        </div>
+      </div>
+
+      <div class="chat-controls">
+        <button class="btn chat-next-btn">Next Message</button>
+        <button class="btn chat-all-btn">Play All</button>
+        <button class="btn chat-reset-btn">Replay</button>
+        <span class="chat-progress"></span>
+      </div>
+    </div>
+
+    <div class="callout callout-info animate-in">
+      <div class="callout-icon">👁️</div>
+      <div class="callout-content">
+        <strong class="callout-title">The AI called two tools before answering you</strong>
+        <p>
+          Notice that the AI never guessed — it read the file first, then acted.
+          Each
+          <span class="term" data-definition="A stream is the live flow of tokens (words) from the LLM as it generates a response. OpenCode streams responses in real time so you see text appear incrementally rather than waiting for the full answer.">stream</span>
+          of the ReAct loop adds new information, making the next decision smarter than if the AI had acted on assumptions alone.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MODULE FOOTER ──────────────────────────────────────── -->
+  <div class="module-footer animate-in">
+    <p class="module-footer-text">
+      You now understand the team structure behind OpenCode — three agents, a reasoning loop,
+      and a memory limit that shapes every response.
+    </p>
+    <p class="module-footer-next">Next up: <strong>43 Superpowers</strong> — the full tool catalogue and when each one fires.</p>
+  </div>
+
+</section>
+<section class="module" id="module-3" style="background: var(--color-bg-warm)">
+
+  <!-- ============================================================
+       MODULE HEADER
+  ============================================================ -->
+  <div class="module-header animate-in">
+    <div class="module-eyebrow">Module 3 of 5</div>
+    <h1 class="module-title">43 Superpowers</h1>
+    <p class="module-subtitle">The tools OpenCode uses — and the rules that govern them</p>
+    <div class="module-hook animate-in">
+      <p>Every file OpenCode reads, every
+        <span class="term" data-definition="A bash command is an instruction typed into the terminal (shell) to tell your computer to do something — like run a program, list files, or install packages.">bash command</span>
+        it runs, every web search it performs — it does all of these through a
+        <span class="term" data-definition="A tool is a named capability given to the AI agent. Each tool has a defined set of inputs and outputs. The AI calls tools to interact with the real world — reading files, running commands, searching the web, and more.">tool</span>.
+        There are 43 built-in tools. You control exactly which ones it can use, and when.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN 1 — THE 5 FAMILIES OF TOOLS
+  ============================================================ -->
+  <div class="screen" id="module-3-screen-1">
+    <div class="screen-inner">
+
+      <div class="screen-heading animate-in">
+        <span class="screen-number">01</span>
+        <h2>The 5 Families of Tools</h2>
+      </div>
+
+      <p class="screen-intro animate-in">
+        The 43 built-in tools are grouped into five families — each designed for a different category of work. Together they give the AI agent the ability to read, write, run, search, and extend.
+      </p>
+
+      <div class="pattern-cards animate-in stagger-children">
+
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-1)">
+          <div class="pattern-card-icon" style="background: var(--color-actor-1)">📄</div>
+          <div class="pattern-card-content">
+            <h3>File Tools</h3>
+            <p>read, write, edit,
+              <span class="term" data-definition="Glob is a pattern-matching syntax for file paths — for example, src/**/*.ts means all TypeScript files anywhere inside the src folder.">glob</span>,
+              <span class="term" data-definition="Grep is a tool that searches for a text pattern inside files — like searching your entire codebase for every place a function is called.">grep</span>
+              — navigate and change your codebase. The most commonly used family.</p>
+          </div>
+        </div>
+
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-2)">
+          <div class="pattern-card-icon" style="background: var(--color-actor-2)">⚡</div>
+          <div class="pattern-card-content">
+            <h3>Shell Tools</h3>
+            <p>bash, task — run
+              <span class="term" data-definition="A terminal command (also called a shell command) is an instruction you type into the command line to make your computer do something — install packages, run tests, start servers, and more.">terminal commands</span>
+              and scripts. Powerful but requires care — configure permissions thoughtfully.</p>
+          </div>
+        </div>
+
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-3)">
+          <div class="pattern-card-icon" style="background: var(--color-actor-3)">🔍</div>
+          <div class="pattern-card-content">
+            <h3>Search Tools</h3>
+            <p>codesearch, webfetch, websearch — find information inside the codebase or on the internet. Lets the AI pull in external knowledge without leaving the workflow.</p>
+          </div>
+        </div>
+
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-4)">
+          <div class="pattern-card-icon" style="background: var(--color-actor-4)">🧠</div>
+          <div class="pattern-card-content">
+            <h3>Intelligence Tools</h3>
+            <p>
+              <span class="term" data-definition="LSP stands for Language Server Protocol — a standard way for editors and tools to get deep code intelligence like type checking, go-to-definition, and error detection from the language compiler itself.">lsp</span>,
+              apply_patch — understand code with language server support, type checking, and smart patching.</p>
+          </div>
+        </div>
+
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-5)">
+          <div class="pattern-card-icon" style="background: var(--color-actor-5)">🔌</div>
+          <div class="pattern-card-content">
+            <h3>Extension Tools</h3>
+            <p>
+              <span class="term" data-definition="MCP stands for Model Context Protocol — an open industry standard for connecting external tools and data sources to AI models. Think of it like a USB port: any tool built to the spec plugs into any AI that supports it.">mcp</span>-*
+              tools added by MCP servers and plugins — dynamically extend OpenCode with your own tools.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN 2 — ANATOMY OF A TOOL: THE BASH EXAMPLE
+  ============================================================ -->
+  <div class="screen" id="module-3-screen-2">
+    <div class="screen-inner">
+
+      <div class="screen-heading animate-in">
+        <span class="screen-number">02</span>
+        <h2>Anatomy of a Tool — The Bash Example</h2>
+      </div>
+
+      <p class="screen-intro animate-in">
+        Every tool is defined by a
+        <span class="term" data-definition="A schema is a formal description of the shape of data — what fields exist, what type each field is, and which ones are required. It acts like a contract between the AI and the tool.">schema</span>
+        — a precise description of what inputs it accepts. Here is the real schema for the bash
+        <span class="term" data-definition="A tool is a named capability given to the AI agent. Each tool has a defined set of inputs and outputs. The AI calls tools to interact with the real world — reading files, running commands, searching the web, and more.">tool</span>
+        from OpenCode source code, alongside a plain English translation.
+      </p>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>
+<span class="code-line"><span class="code-keyword">const</span> <span class="code-variable">Parameters</span> = <span class="code-variable">z</span>.<span class="code-function">object</span>({</span>
+<span class="code-line">  <span class="code-property">command</span>: <span class="code-variable">z</span>.<span class="code-function">string</span>()</span>
+<span class="code-line">    .<span class="code-function">describe</span>(<span class="code-string">"The command to execute"</span>),</span>
+<span class="code-line">  <span class="code-property">timeout</span>: <span class="code-variable">z</span>.<span class="code-function">number</span>()</span>
+<span class="code-line">    .<span class="code-function">describe</span>(<span class="code-string">"Optional timeout in milliseconds"</span>)</span>
+<span class="code-line">    .<span class="code-function">optional</span>(),</span>
+<span class="code-line">  <span class="code-property">workdir</span>: <span class="code-variable">z</span>.<span class="code-function">string</span>()</span>
+<span class="code-line">    .<span class="code-function">describe</span>(<span class="code-string">"The working directory to run</span></span>
+<span class="code-line"><span class="code-string">     the command in..."</span>)</span>
+<span class="code-line">    .<span class="code-function">optional</span>(),</span>
+<span class="code-line">  <span class="code-property">description</span>: <span class="code-variable">z</span>.<span class="code-function">string</span>()</span>
+<span class="code-line">    .<span class="code-function">describe</span>(<span class="code-string">"Clear, concise description</span></span>
+<span class="code-line"><span class="code-string">     of what this command does..."</span>),</span>
+<span class="code-line">})</span>
+          </code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl"><strong>command</strong> — The actual command to run — like
+              <span class="term" data-definition="npm is the Node Package Manager — a command-line tool for installing JavaScript/TypeScript libraries and running scripts defined in package.json.">npm</span>
+              test or
+              <span class="term" data-definition="git is the most widely used version control system. It tracks changes to files, lets you create branches, and synchronizes code between team members.">git</span>
+              status</p>
+            <p class="tl"><strong>timeout</strong> (optional) — A time limit in milliseconds — stop the command if it takes too long</p>
+            <p class="tl"><strong>workdir</strong> (optional) — Which folder to run the command in — like running npm install inside a specific package folder</p>
+            <p class="tl"><strong>description</strong> — A plain English description of what this command does — helps you review what the AI is about to run</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">💡</div>
+        <div class="callout-content">
+          <strong class="callout-title">Why description is required — not optional</strong>
+          <p>This forces the AI to explain its reasoning before every
+            <span class="term" data-definition="A bash command is an instruction typed into the terminal (shell) to tell your computer to do something — like run a program, list files, or install packages.">bash command</span>.
+            You can always see WHY it wants to run something, not just WHAT it is running.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN 3 — THE PERMISSION SYSTEM
+  ============================================================ -->
+  <div class="screen" id="module-3-screen-3">
+    <div class="screen-inner">
+
+      <div class="screen-heading animate-in">
+        <span class="screen-number">03</span>
+        <h2>The Permission System — Your Safety Net</h2>
+      </div>
+
+      <p class="screen-intro animate-in">
+        The
+        <span class="term" data-definition="The permission system is a set of rules you configure that determine whether each tool call is allowed to run automatically, blocked entirely, or paused for your approval before proceeding.">permission system</span>
+        gives you fine-grained control over every tool call. Three actions are available:
+      </p>
+
+      <div class="icon-rows animate-in stagger-children" style="margin-bottom: 2rem;">
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-2)">✅</div>
+          <div>
+            <strong><span class="term" data-definition="allow means the tool call runs immediately without any confirmation prompt — you have pre-approved this action.">allow</span></strong>
+            <p>Run without asking — you have pre-approved this action</p>
+          </div>
+        </div>
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-4)">⏸️</div>
+          <div>
+            <strong><span class="term" data-definition="ask means OpenCode pauses and shows you a confirmation prompt before the tool call runs. You can approve or deny it in the moment.">ask</span></strong>
+            <p>Pause and show a confirmation prompt — you decide in the moment</p>
+          </div>
+        </div>
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-3)">🚫</div>
+          <div>
+            <strong><span class="term" data-definition="deny means the tool call is blocked entirely — the AI cannot use this tool or command at all.">deny</span></strong>
+            <p>Block completely — this action is never allowed</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="animate-in section-subheading">Example rules in
+        <span class="term" data-definition="JSON (JavaScript Object Notation) is a lightweight text format for storing structured data. It uses key-value pairs and is easy for both humans and machines to read.">JSON</span>
+        <span class="term" data-definition="Configuration means the settings you define to control how a piece of software behaves — in OpenCode, this includes which tools are allowed, your preferred AI model, and more.">configuration</span>
+      </h3>
+
+      <div class="badge-list animate-in">
+
+        <div class="badge-item">
+          <code class="badge-code">bash → * → ask</code>
+          <span class="badge-desc">Must confirm all bash commands before they run — the
+            <span class="term" data-definition="A wildcard (*) is a special character that matches anything. In permission rules, bash → * → ask means: for bash, match any command, and ask for approval.">wildcard</span>
+            catches everything</span>
+        </div>
+
+        <div class="badge-item">
+          <code class="badge-code">bash → npm test → allow</code>
+          <span class="badge-desc">Running tests is pre-approved — no confirmation needed for this specific command</span>
+        </div>
+
+        <div class="badge-item">
+          <code class="badge-code">edit → *.env* → ask</code>
+          <span class="badge-desc">Ask before editing any .env file — the
+            <span class="term" data-definition="A glob pattern is a text pattern that uses wildcard characters to match multiple file paths at once. For example, *.env* matches any filename that contains .env anywhere in the name.">glob pattern</span>
+            *.env* matches any env file</span>
+        </div>
+
+        <div class="badge-item">
+          <code class="badge-code">edit → src/** → allow</code>
+          <span class="badge-desc">Free to edit anything in the src/ folder — the AI works uninterrupted on source code</span>
+        </div>
+
+        <div class="badge-item">
+          <code class="badge-code">bash → rm -rf → deny</code>
+          <span class="badge-desc">Block this dangerous command entirely — it can never run, no matter what</span>
+        </div>
+
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">📋</div>
+        <div class="callout-content">
+          <strong class="callout-title">Most specific rule wins</strong>
+          <p>Rules are checked in order — the most specific match takes precedence. A rule for <code>npm test</code> is more specific than a rule for <code>*</code>, so it overrides the wildcard.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN 4 — HOW A TOOL CALL FLOWS
+  ============================================================ -->
+  <div class="screen" id="module-3-screen-4">
+    <div class="screen-inner">
+
+      <div class="screen-heading animate-in">
+        <span class="screen-number">04</span>
+        <h2>How a Tool Call Flows</h2>
+      </div>
+
+      <p class="screen-intro animate-in">
+        When the AI decides to run a
+        <span class="term" data-definition="A bash command is an instruction typed into the terminal (shell) to tell your computer to do something — like run a program, list files, or install packages.">bash command</span>,
+        the request passes through a pipeline of checks before anything happens on your computer. Follow each step below.
+      </p>
+
+      <div class="flow-animation animate-in" data-steps='[
+        {"highlight":"flow-actor-1","label":"AI decides to run a bash command: npm install"},
+        {"highlight":"flow-actor-1","label":"Tool call initiated — parameters assembled","packet":true,"from":"actor-1","to":"actor-2"},
+        {"highlight":"flow-actor-2","label":"Permission system checks: does npm install match any rule?"},
+        {"highlight":"flow-actor-2","label":"Match found: bash rule allows npm install. Proceed without asking."},
+        {"highlight":"flow-actor-3","label":"Command executes in the project directory","packet":true,"from":"actor-2","to":"actor-3"},
+        {"highlight":"flow-actor-3","label":"Command finishes — output captured"},
+        {"highlight":"flow-actor-4","label":"Result sent back to AI: packages installed successfully","packet":true,"from":"actor-3","to":"actor-4"},
+        {"highlight":"flow-actor-1","label":"AI reads the result and continues reasoning","packet":true,"from":"actor-4","to":"actor-1"}
+      ]'>
+        <div class="flow-actors">
+          <div class="flow-actor" id="flow-actor-1">
+            <div class="flow-actor-icon">🧠</div>
+            <span>AI Agent</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-2">
+            <div class="flow-actor-icon">🛡️</div>
+            <span>Permissions</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-3">
+            <div class="flow-actor-icon">✅</div>
+            <span>Executor</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-4">
+            <div class="flow-actor-icon">📤</div>
+            <span>Result</span>
+          </div>
+        </div>
+        <div class="flow-packet" id="flow-packet"></div>
+        <div class="flow-step-label" id="flow-label">Click "Next Step" to begin</div>
+        <div class="flow-controls">
+          <button class="btn flow-next-btn">Next Step</button>
+          <button class="btn flow-reset-btn">Restart</button>
+          <span class="flow-progress"></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN 5 — EXTENDING WITH MCP SERVERS
+  ============================================================ -->
+  <div class="screen" id="module-3-screen-5">
+    <div class="screen-inner">
+
+      <div class="screen-heading animate-in">
+        <span class="screen-number">05</span>
+        <h2>Extending with MCP Servers</h2>
+      </div>
+
+      <div class="two-col animate-in">
+        <div class="col-text">
+          <p>
+            What is
+            <span class="term" data-definition="MCP stands for Model Context Protocol — an open industry standard for connecting external tools and data sources to AI models. Think of it like a USB port: any tool built to the spec plugs into any AI that supports it.">MCP</span>?
+            The Model Context Protocol is an industry standard for connecting external tools to AI. Like a USB port — any tool built to the spec plugs into any AI that supports it.
+          </p>
+          <p>
+            MCP servers can wrap internal tools, APIs, databases, and services — exposing them to the AI through the same
+            <span class="term" data-definition="A tool is a named capability given to the AI agent. Each tool has a defined set of inputs and outputs. The AI calls tools to interact with the real world — reading files, running commands, searching the web, and more.">tool</span>
+            interface as built-in capabilities.
+          </p>
+        </div>
+        <div class="col-visual">
+          <div class="callout callout-info animate-in">
+            <div class="callout-icon">🔌</div>
+            <div class="callout-content">
+              <strong class="callout-title">Automatic Discovery</strong>
+              <p>The AI discovers MCP tools automatically at startup — they appear alongside the 43 built-in tools. From the AI perspective, there is no difference between a built-in tool and an MCP tool.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="animate-in section-subheading">Example MCP servers</h3>
+
+      <div class="icon-rows animate-in stagger-children">
+
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-1)">🐙</div>
+          <div>
+            <strong>GitHub MCP</strong>
+            <p>Adds tools for reading PRs, creating issues, searching commits — the AI can navigate your GitHub repo directly</p>
+          </div>
+        </div>
+
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-2)">💬</div>
+          <div>
+            <strong>Slack MCP</strong>
+            <p>Adds tools for posting messages and reading channels — the AI can notify your team when it finishes a task</p>
+          </div>
+        </div>
+
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-5)">🏢</div>
+          <div>
+            <strong>Custom MCP</strong>
+            <p>Build your own server to expose any internal tool — deploy scripts, database queries, monitoring dashboards</p>
+          </div>
+        </div>
+
+      </div>
+
+      <h3 class="animate-in section-subheading">How to configure an MCP server</h3>
+
+      <div class="badge-list animate-in">
+
+        <div class="badge-item">
+          <code class="badge-code">command: mcp-github</code>
+          <span class="badge-desc">The command to start the MCP server process — OpenCode launches this when it starts up</span>
+        </div>
+
+        <div class="badge-item">
+          <code class="badge-code">env: GITHUB_TOKEN</code>
+          <span class="badge-desc">Authentication credentials passed to the server — kept separate from your code</span>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+<section class="module" id="module-4" style="background: var(--color-bg)">
+
+  <!-- ============================================================
+       MODULE HEADER
+  ============================================================ -->
+  <div class="module-header animate-in">
+    <div class="module-eyebrow">Module 4 of 5</div>
+    <h1 class="module-title">Your Digital Notebook</h1>
+    <p class="module-subtitle">How OpenCode saves everything — and why that matters</p>
+    <div class="module-hook animate-in">
+      <p>Every message you have sent, every file OpenCode changed, every decision it made — all of it is saved. You can revert to any point. Here is how the memory works.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN 1 — WHAT GETS SAVED
+  ============================================================ -->
+  <div class="screen" id="module-4-screen-1">
+    <div class="screen-inner">
+
+      <div class="screen-heading animate-in">
+        <span class="screen-number">01</span>
+        <h2>What Gets Saved</h2>
+      </div>
+
+      <p class="animate-in">OpenCode keeps a complete
+        <span class="term" data-definition="An audit trail is a chronological record of every action taken — who did what, when, and what changed. It lets you trace exactly how a result came to be.">audit trail</span>
+        of your work. Every interaction is recorded in a structured
+        <span class="term" data-definition="A database is an organized collection of data stored on your computer, structured so it can be quickly searched, filtered, and retrieved.">database</span>
+        — no guesswork, no lost context.</p>
+
+      <div class="icon-rows animate-in stagger-children">
+
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-1)">💬</div>
+          <div>
+            <strong>Every Message</strong>
+            <p>Your requests and the AI responses — including all tool calls, file reads, and edits, stored in order.</p>
+          </div>
+        </div>
+
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-2)">📝</div>
+          <div>
+            <strong>File
+              <span class="term" data-definition="A diff (short for 'difference') is a record showing exactly what changed in a file — which lines were added, removed, or modified. Like a before-and-after comparison.">Diffs</span></strong>
+            <p>A record of exactly what changed in which file, line by line. Like git blame but for every AI action.</p>
+          </div>
+        </div>
+
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-3)">🔐</div>
+          <div>
+            <strong>Permissions Granted</strong>
+            <p>Which actions you approved during the
+              <span class="term" data-definition="A session is one continuous conversation with OpenCode — from when you open it to when you close it. All messages, tool calls, and file changes within a session are stored together.">session</span>
+              — so the AI does not have to ask twice for the same thing.</p>
+          </div>
+        </div>
+
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-4)">📋</div>
+          <div>
+            <strong>Session Metadata</strong>
+            <p>Title, directory, timestamps, and parent session if you forked from another conversation.</p>
+          </div>
+        </div>
+
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-5)">📊</div>
+          <div>
+            <strong>Compaction Summaries</strong>
+            <p>When the session gets long, a compact summary of older work is generated and stored — so history is never lost entirely.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">🗄️</div>
+        <div class="callout-content">
+          <strong class="callout-title">All Local, All Yours</strong>
+          <p>All of this lives in a single
+            <span class="term" data-definition="SQLite is a lightweight database engine that stores everything in a single file on your computer. No server, no internet connection required — just a file you can copy, back up, or delete.">SQLite</span>
+            database file on your machine. No cloud required. You own your data.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN 2 — THE SESSION TABLE: CODE DECODED
+  ============================================================ -->
+  <div class="screen" id="module-4-screen-2">
+    <div class="screen-inner">
+
+      <div class="screen-heading animate-in">
+        <span class="screen-number">02</span>
+        <h2>The Session Table — Code Decoded</h2>
+      </div>
+
+      <p class="animate-in">Every session you open becomes one row in the
+        <code>session</code> table of the
+        <span class="term" data-definition="A schema is the blueprint of a database — it defines what tables exist, what columns each table has, and what type of data each column holds.">schema</span>.
+        Here is the real code from OpenCode, translated into plain English.</p>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>
+<span class="code-line"><span class="code-keyword">export const</span> <span class="code-property">SessionTable</span> = <span class="code-function">sqliteTable</span>(</span>
+<span class="code-line">  <span class="code-string">"session"</span>,</span>
+<span class="code-line">  {</span>
+<span class="code-line">    <span class="code-property">id</span>: <span class="code-function">text</span>().<span class="code-function">primaryKey</span>(),</span>
+<span class="code-line">    <span class="code-property">project_id</span>: <span class="code-function">text</span>()</span>
+<span class="code-line">      .<span class="code-function">references</span>(() =&gt; ProjectTable.id),</span>
+<span class="code-line">    <span class="code-property">workspace_id</span>: <span class="code-function">text</span>(),</span>
+<span class="code-line">    <span class="code-property">parent_id</span>: <span class="code-function">text</span>(),</span>
+<span class="code-line">    <span class="code-property">slug</span>: <span class="code-function">text</span>().<span class="code-function">notNull</span>(),</span>
+<span class="code-line">    <span class="code-property">directory</span>: <span class="code-function">text</span>().<span class="code-function">notNull</span>(),</span>
+<span class="code-line">    <span class="code-property">title</span>: <span class="code-function">text</span>().<span class="code-function">notNull</span>(),</span>
+<span class="code-line">    <span class="code-property">share_url</span>: <span class="code-function">text</span>(),</span>
+<span class="code-line">    <span class="code-property">summary_additions</span>: <span class="code-function">integer</span>(),</span>
+<span class="code-line">    <span class="code-property">summary_deletions</span>: <span class="code-function">integer</span>(),</span>
+<span class="code-line">    <span class="code-property">summary_files</span>: <span class="code-function">integer</span>(),</span>
+<span class="code-line">    <span class="code-property">summary_diffs</span>: <span class="code-function">text</span>({ mode: <span class="code-string">"json"</span> }),</span>
+<span class="code-line">    <span class="code-property">revert</span>: <span class="code-function">text</span>({ mode: <span class="code-string">"json"</span> }),</span>
+<span class="code-line">    <span class="code-property">permission</span>: <span class="code-function">text</span>({ mode: <span class="code-string">"json"</span> }),</span>
+<span class="code-line">  }</span>
+<span class="code-line">)</span>
+          </code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl"><strong>id</strong> — A unique ID for this session — like a receipt number. This is the
+              <span class="term" data-definition="A primary key is the unique identifier for each row in a database table. No two rows can share the same primary key value — it is what makes each record distinct.">primary key</span>.</p>
+            <p class="tl"><strong>project_id</strong> — Which project folder this session belongs to.</p>
+            <p class="tl"><strong>workspace_id</strong> — Optional: which enterprise workspace this belongs to.</p>
+            <p class="tl"><strong>parent_id</strong> — If you forked from another session, this points to the original.</p>
+            <p class="tl"><strong>slug</strong> — A short URL-friendly name for the session.</p>
+            <p class="tl"><strong>directory</strong> — The folder on your computer where OpenCode was running.</p>
+            <p class="tl"><strong>title</strong> — The display name for this session (shown in the UI).</p>
+            <p class="tl"><strong>share_url</strong> — If you shared this session, the encrypted link is stored here.</p>
+            <p class="tl"><strong>summary_additions / deletions / files</strong> — How many lines were added, deleted, and how many files changed.</p>
+            <p class="tl"><strong>summary_diffs</strong> — A
+              <span class="term" data-definition="JSON (JavaScript Object Notation) is a lightweight format for storing and exchanging data. It uses key-value pairs and is readable by both humans and machines.">JSON</span>
+              summary of every file that was changed.</p>
+            <p class="tl"><strong>revert</strong> — The
+              <span class="term" data-definition="A checkpoint is a saved snapshot of state at a particular moment in time. You can return to a checkpoint to undo everything that happened after it.">checkpoint</span>
+              data needed to undo everything back to this point.</p>
+            <p class="tl"><strong>permission</strong> — The permission rules that were active during this session.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">💡</div>
+        <div class="callout-content">
+          <strong class="callout-title">Relational Databases in 30 Seconds</strong>
+          <p>Storing data in structured tables like this is called a
+            <span class="term" data-definition="A relational database stores data in tables (rows and columns) and lets tables reference each other — for example, a session row can reference a project row by ID.">relational database</span>.
+            Think of it like a spreadsheet where each row is one session and each column is a piece of information. SQLite is a tiny, fast database that lives as a single file on your computer — no server needed.</p>
+          <p>OpenCode uses
+            <span class="term" data-definition="Drizzle ORM is a TypeScript library that lets you define database tables as code and write type-safe queries. It generates the SQL for you so you rarely have to write raw database commands.">Drizzle ORM</span>
+            to define these tables in TypeScript, making the
+            <span class="term" data-definition="A migration is a versioned change to your database structure — adding a column, renaming a table, etc. Migrations let you evolve the database safely over time.">migrations</span>
+            type-safe and keeping the
+            <span class="term" data-definition="A blob (Binary Large Object) is a chunk of arbitrary binary data stored in a database field. Often used for storing images, files, or large JSON payloads.">blob</span>
+            fields strongly typed.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN 3 — THE CONFIGURATION HIERARCHY
+  ============================================================ -->
+  <div class="screen" id="module-4-screen-3">
+    <div class="screen-inner">
+
+      <div class="screen-heading animate-in">
+        <span class="screen-number">03</span>
+        <h2>The Configuration Hierarchy</h2>
+      </div>
+
+      <p class="animate-in">OpenCode reads settings from three layers, each overriding the one below it. Understanding this hierarchy tells you exactly where to put any setting.</p>
+
+      <div class="step-cards animate-in stagger-children">
+
+        <div class="step-card animate-in">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>System / Enterprise
+              (<span class="term" data-definition="MDM (Mobile Device Management) is software IT departments use to push settings and policies to company computers remotely. It can lock down certain applications or enforce approved configurations.">MDM</span>)</strong>
+            <p>Managed by IT via Apple MDM or Windows GPO. Cannot be overridden by users. Used in enterprise deployments to enforce company-wide settings like approved AI providers.</p>
+          </div>
+        </div>
+
+        <div class="step-card animate-in">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>User-level
+              (<code>~/.opencode/config.jsonc</code>)</strong>
+            <p>Your personal defaults across all projects. This is where you set your preferred AI model, default permissions, and personal
+              <span class="term" data-definition="MCP (Model Context Protocol) servers are external programs that give OpenCode new tools — like web search, database access, or custom APIs. They connect at startup via your config file.">MCP servers</span>.</p>
+          </div>
+        </div>
+
+        <div class="step-card animate-in">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Project-level
+              (<code>.opencode/config.jsonc</code>)</strong>
+            <p>Project-specific settings that override your personal defaults. This is where you set which model is best for this codebase, project-specific permissions, and team-shared MCP servers.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <h3 class="animate-in section-subheading">Where the files live</h3>
+
+      <div class="file-tree animate-in">
+        <div class="ft-folder open">
+          <span class="ft-name">~/</span>
+          <span class="ft-desc">your home folder</span>
+          <div class="ft-children">
+            <div class="ft-folder">
+              <span class="ft-name">.opencode/</span>
+              <span class="ft-desc">personal OpenCode folder</span>
+              <div class="ft-children">
+                <div class="ft-file">
+                  <span class="ft-name">config.jsonc</span>
+                  <span class="ft-desc">your personal settings — applies to all projects</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ft-folder open" style="margin-top: 0.75rem">
+          <span class="ft-name">your-project/</span>
+          <span class="ft-desc">any project folder</span>
+          <div class="ft-children">
+            <div class="ft-folder">
+              <span class="ft-name">.opencode/</span>
+              <span class="ft-desc">project-level OpenCode folder</span>
+              <div class="ft-children">
+                <div class="ft-file">
+                  <span class="ft-name">config.jsonc</span>
+                  <span class="ft-desc">project settings — overrides personal settings</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="animate-in section-subheading">Key config options</h3>
+
+      <div class="badge-list animate-in">
+
+        <div class="badge-item">
+          <code class="badge-code">model</code>
+          <span class="badge-desc">Which AI to use: <code>claude-sonnet-4-5</code>, <code>gpt-4o</code>, <code>gemini-1.5-pro</code>, etc.</span>
+        </div>
+
+        <div class="badge-item">
+          <code class="badge-code">provider</code>
+          <span class="badge-desc">Which AI provider: <code>anthropic</code>, <code>openai</code>, <code>google</code>, <code>local</code>, etc.</span>
+        </div>
+
+        <div class="badge-item">
+          <code class="badge-code">permission</code>
+          <span class="badge-desc">Your allow / deny / ask rules for tools and file paths.</span>
+        </div>
+
+        <div class="badge-item">
+          <code class="badge-code">mcp</code>
+          <span class="badge-desc">External tool servers to connect at startup.</span>
+        </div>
+
+        <div class="badge-item">
+          <code class="badge-code">plugins</code>
+          <span class="badge-desc">npm packages that add new tools or UI features.</span>
+        </div>
+
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">📄</div>
+        <div class="callout-content">
+          <strong class="callout-title">Why .jsonc instead of .json?</strong>
+          <p><span class="term" data-definition="JSONC is JSON with Comments — it allows // line comments and /* block comments */ inside the file, making configuration files much easier to annotate and understand.">JSONC</span>
+            is JSON with Comments — the <code>c</code> stands for comments. It lets you add notes like <code>// my work laptop API key</code> right inside the
+            <span class="term" data-definition="A config file (configuration file) is a text file that stores settings for a program. Instead of hardcoding settings in source code, they are read from the config file at startup.">config file</span>,
+            which regular JSON does not allow.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN 4 — REVERT, FORK, SHARE
+  ============================================================ -->
+
+</section>
+<section class="module" id="module-5" style="background: var(--color-bg-warm)">
+
+  <!-- ============================================================
+       MODULE HEADER
+  ============================================================ -->
+  <div class="module-header animate-in">
+    <div class="module-eyebrow">Module 5 of 5</div>
+    <h1 class="module-title">Many Faces, One Brain</h1>
+    <p class="module-subtitle">How one engine powers four different interfaces</p>
+    <div class="module-hook animate-in">
+      <p>The same session you started in your terminal shows up in the browser tab. Close the browser, open the desktop app — still there. Add the VS Code plugin — same sessions. How does one app run in four places at once?</p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN 1 — THE ARCHITECTURE AT A GLANCE
+  ============================================================ -->
+  <div class="screen" id="module-5-screen-1">
+    <div class="screen-inner">
+
+      <div class="screen-heading animate-in">
+        <span class="screen-number">01</span>
+        <h2>The Architecture at a Glance</h2>
+      </div>
+
+      <p class="screen-intro animate-in">
+        OpenCode separates the <strong>engine</strong> (core logic, running as a
+        <span class="term" data-definition="A local server is a web server running entirely on your own machine — not on the internet. It listens for connections from apps on the same computer, so your data never leaves your machine.">local server</span>)
+        from the <strong>faces</strong> (UI
+        <span class="term" data-definition="A client is any application that connects to a server to use its capabilities. In OpenCode, the terminal UI, web browser, desktop app, and VS Code extension are all clients connecting to the local core engine.">clients</span>).
+        Click any component below to learn what it does.
+      </p>
+
+      <div class="arch-diagram animate-in">
+
+        <div class="arch-zone">
+          <h4 class="arch-zone-label">Core Engine</h4>
+
+          <div class="arch-component"
+            data-desc="SQLite database storing all sessions, messages, file diffs, and permissions. Lives on your machine — no cloud.">
+            <div class="arch-icon">🗄️</div>
+            <span>Session Store</span>
+          </div>
+
+          <div class="arch-component"
+            data-desc="The multi-agent system (build/plan/general) that manages conversations and orchestrates tool calls.">
+            <div class="arch-icon">🤖</div>
+            <span>Agent Engine</span>
+          </div>
+
+          <div class="arch-component"
+            data-desc="Executes the 43 built-in tools plus any MCP server tools. Checks permissions before each execution.">
+            <div class="arch-icon">🔧</div>
+            <span>Tool Runner</span>
+          </div>
+
+          <div class="arch-component"
+            data-desc="A local Hono web server that exposes the REST API and WebSocket endpoint. Clients connect to this.">
+            <div class="arch-icon">🌐</div>
+            <span>HTTP Server</span>
+          </div>
+        </div>
+
+        <div class="arch-zone">
+          <h4 class="arch-zone-label">Client Interfaces</h4>
+
+          <div class="arch-component"
+            data-desc="A full terminal interface (TUI) built with opentui. Runs in your terminal window — no browser needed.">
+            <div class="arch-icon">⌨️</div>
+            <span>Terminal UI</span>
+          </div>
+
+          <div class="arch-component"
+            data-desc="A SolidJS web app served by the local server. Open http://localhost:4096 in any browser to access.">
+            <div class="arch-icon">🌐</div>
+            <span>Web Browser</span>
+          </div>
+
+          <div class="arch-component"
+            data-desc="A Tauri wrapper around the web UI — gives you a native window without needing a browser.">
+            <div class="arch-icon">🖥️</div>
+            <span>Desktop App</span>
+          </div>
+
+          <div class="arch-component"
+            data-desc="An official extension that embeds the web UI inside VS Code as a sidebar panel.">
+            <div class="arch-icon">⚙️</div>
+            <span>VS Code Extension</span>
+          </div>
+
+          <div class="arch-component"
+            data-desc="Headless access for bots, scripts, and CI/CD pipelines. Call the same API that the UIs use.">
+            <div class="arch-icon">🤖</div>
+            <span>REST API</span>
+          </div>
+        </div>
+
+        <div class="arch-description" id="arch-desc">Click any component to learn what it does</div>
+
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">💡</div>
+        <div class="callout-content">
+          <strong class="callout-title">One Source of Truth</strong>
+          <p>All these clients talk to the SAME engine. Start a session in the terminal, continue it in your browser — no data duplication, no sync needed. The
+            <span class="term" data-definition="A local server is a web server running entirely on your own machine. In OpenCode, the local HTTP server is the single source of truth that all clients connect to.">local server</span>
+            is the single source of truth.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN 2 — HOW REAL-TIME UPDATES WORK
+  ============================================================ -->
+  <div class="screen" id="module-5-screen-2">
+    <div class="screen-inner">
+
+      <div class="screen-heading animate-in">
+        <span class="screen-number">02</span>
+        <h2>How Real-Time Updates Work</h2>
+      </div>
+
+      <div class="two-col animate-in">
+        <div class="col-text">
+          <p>
+            <span class="term" data-definition="WebSocket is a communication protocol that keeps a persistent connection open between a client and server, allowing either side to send data at any time — ideal for live updates like chat, dashboards, and AI streaming output.">WebSocket</span>
+            is like a phone call — once you dial, the line stays open and either side can speak at any moment.
+            <span class="term" data-definition="HTTP (HyperText Transfer Protocol) is the foundation of data communication on the web. An HTTP request is a one-time transaction: the client sends a request, the server sends a response, and the connection closes.">HTTP</span>
+            requests are like letters — you send one, wait for a reply, then the connection closes.
+          </p>
+          <p>
+            When the AI is working, every event — a file edit, a tool call, a message — is broadcast over WebSocket to every connected
+            <span class="term" data-definition="A client is any application that connects to a server to use its capabilities. In OpenCode, the terminal UI, web browser, desktop app, and VS Code extension are all clients.">client</span>
+            simultaneously.
+          </p>
+        </div>
+        <div class="col-visual">
+          <div class="callout callout-info animate-in">
+            <div class="callout-icon">📡</div>
+            <div class="callout-content">
+              <strong class="callout-title">One Event, Every Screen</strong>
+              <p>The AI fires one event. The
+                <span class="term" data-definition="An event bus is a central channel where components publish events and others subscribe to receive them — like a message board where any component can post and any component can read.">event bus</span>
+                carries it. Every client listening on the WebSocket reacts instantly — terminal, browser, desktop app, all at once.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="animate-in section-subheading">Follow a live update through the system</h3>
+
+      <div class="chat-window animate-in" id="chat-module5">
+        <div class="chat-messages">
+
+          <div class="chat-message" data-msg="0" data-sender="ai" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-3)">AI</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-3)">LLM</span>
+              <p>I just edited src/auth.ts — adding login function at line 34.</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="1" data-sender="bus" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-4)">BUS</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-4)">Event Bus</span>
+              <p>Publishing event: file.edited — {file: src/auth.ts, lines: 34-52, action: insert}</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="2" data-sender="terminal" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-2)">TUI</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-2)">Terminal UI</span>
+              <p>Received file.edited event. Updating diff display in terminal UI.</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="3" data-sender="browser" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-5)">WEB</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-5)">Browser</span>
+              <p>Received same event. Highlighting changed lines in web editor view.</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="4" data-sender="ai" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-3)">AI</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-3)">LLM</span>
+              <p>Running tests now to verify the change works...</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="5" data-sender="bus" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-4)">BUS</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-4)">Event Bus</span>
+              <p>Publishing event: tool.called — {tool: bash, command: npm test}</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="6" data-sender="terminal" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-2)">TUI</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-2)">Terminal UI</span>
+              <p>Showing bash execution spinner in terminal.</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="7" data-sender="browser" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-5)">WEB</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-5)">Browser</span>
+              <p>Showing live bash output in browser panel.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="chat-typing" style="display:none">
+          <div class="chat-avatar" id="chat-module5-typing-avatar">?</div>
+          <div class="chat-typing-dots">
+            <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+          </div>
+        </div>
+
+        <div class="chat-controls">
+          <button class="btn chat-next-btn">Next Message</button>
+          <button class="btn chat-all-btn">Play All</button>
+          <button class="btn chat-reset-btn">Replay</button>
+          <span class="chat-progress"></span>
+        </div>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">📊</div>
+        <div class="callout-content">
+          <strong class="callout-title">A Pattern You Already Know</strong>
+          <p>This
+            <span class="term" data-definition="Pub/sub (publish/subscribe) is a messaging pattern where a publisher sends events to a central channel, and any number of subscribers receive those events — without the publisher knowing who is listening.">pub/sub</span>
+            pattern — one event, many listeners — is how live chat apps, sports score trackers, and stock tickers work. One source broadcasts, every client that is listening reacts instantly.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN 3 — THE EVENT BUS: CODE DECODED
+  ============================================================ -->
+  <div class="screen" id="module-5-screen-3">
+    <div class="screen-inner">
+
+      <div class="screen-heading animate-in">
+        <span class="screen-number">03</span>
+        <h2>The Event Bus — Code Decoded</h2>
+      </div>
+
+      <p class="screen-intro animate-in">
+        The
+        <span class="term" data-definition="An event bus is a central channel where components publish events and others subscribe to receive them. In OpenCode, it is the backbone that keeps every UI client in sync with the core engine.">event bus</span>
+        is defined in <code>packages/opencode/src/bus/bus.ts</code>. Here is the real interface — and what each method does in plain English.
+      </p>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE — <code>Bus.Interface</code></span>
+          <pre><code><span class="code-line"><span class="code-keyword">export interface</span> <span class="code-function">Interface</span> {</span>
+<span class="code-line">  <span class="code-keyword">readonly</span> <span class="code-function">publish</span>: &lt;D <span class="code-keyword">extends</span> <span class="code-function">BusEvent.Definition</span>&gt;(</span>
+<span class="code-line">    def: D,</span>
+<span class="code-line">    properties: <span class="code-function">z.output</span>&lt;D[<span class="code-type">"properties"</span>]&gt;,</span>
+<span class="code-line">  ) =&gt; <span class="code-function">Effect.Effect</span>&lt;<span class="code-type">void</span>&gt;</span>
+<span class="code-line">  <span class="code-keyword">readonly</span> <span class="code-function">subscribe</span>: &lt;D <span class="code-keyword">extends</span> <span class="code-function">BusEvent.Definition</span>&gt;(def: D) =&gt; <span class="code-function">Stream.Stream</span>&lt;<span class="code-function">Payload</span>&lt;D&gt;&gt;</span>
+<span class="code-line">  <span class="code-keyword">readonly</span> <span class="code-function">subscribeAll</span>: () =&gt; <span class="code-function">Stream.Stream</span>&lt;<span class="code-function">Payload</span>&gt;</span>
+<span class="code-line">  <span class="code-keyword">readonly</span> <span class="code-function">subscribeCallback</span>: &lt;D <span class="code-keyword">extends</span> <span class="code-function">BusEvent.Definition</span>&gt;(</span>
+<span class="code-line">    def: D,</span>
+<span class="code-line">    callback: (event: <span class="code-function">Payload</span>&lt;D&gt;) =&gt; <span class="code-type">unknown</span>,</span>
+<span class="code-line">  ) =&gt; <span class="code-function">Effect.Effect</span>&lt;() =&gt; <span class="code-type">void</span>&gt;</span>
+<span class="code-line">  <span class="code-keyword">readonly</span> <span class="code-function">subscribeAllCallback</span>: (callback: (event: <span class="code-type">any</span>) =&gt; <span class="code-type">unknown</span>) =&gt; <span class="code-function">Effect.Effect</span>&lt;() =&gt; <span class="code-type">void</span>&gt;</span>
+<span class="code-line">}</span></code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl"><strong>publish(def, properties)</strong> — Send an event to all listeners — like a radio tower broadcasting a signal</p>
+            <p class="tl"><strong>subscribe(def)</strong> — Listen for one specific type of event — like tuning to a specific radio frequency</p>
+            <p class="tl"><strong>subscribeAll()</strong> — Listen for ALL events — useful for debugging or logging everything that happens</p>
+            <p class="tl"><strong>subscribeCallback(def, callback)</strong> — Listen for a specific event and run a function when it arrives</p>
+            <p class="tl"><strong>subscribeAllCallback(callback)</strong> — Run a function every time ANY event fires — the most powerful listener</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">🔗</div>
+        <div class="callout-content">
+          <strong class="callout-title">The Secret to Staying in Sync</strong>
+          <p>This interface is what lets the
+            <span class="term" data-definition="TUI (Terminal UI) is a text-based user interface that runs inside a terminal window — no graphical window or browser required. OpenCode uses opentui to power its terminal interface.">terminal UI</span>,
+            web UI, and VS Code extension all stay in sync without talking to each other directly. They all listen to the same bus. The bus carries the truth.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN 4 — BUILDING ON TOP OF OPENCODE
+  ============================================================ -->
+  <div class="screen" id="module-5-screen-4">
+    <div class="screen-inner">
+
+      <div class="screen-heading animate-in">
+        <span class="screen-number">04</span>
+        <h2>Building on Top of OpenCode</h2>
+      </div>
+
+      <p class="screen-intro animate-in">
+        Because OpenCode exposes a standard
+        <span class="term" data-definition="REST API (Representational State Transfer API) is a standard way of building web services that communicate over HTTP. Any program that can make HTTP requests — apps, scripts, bots — can call a REST API.">REST API</span>
+        and
+        <span class="term" data-definition="WebSocket is a communication protocol that keeps a persistent connection open between a client and server, allowing either side to send data at any time — ideal for real-time streaming output.">WebSocket</span>,
+        you can build anything on top of it. Here are three real-world use cases.
+      </p>
+
+      <div class="icon-rows animate-in stagger-children">
+
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-2)">💬</div>
+          <div>
+            <strong>Use Case 1: Slack Bot</strong>
+            <p>Send a message to Slack with a coding task → your bot calls <code>POST /sessions</code> to start a session → <code>POST /sessions/{id}/messages</code> to send the task →
+              <span class="term" data-definition="WebSocket is a persistent connection that lets the server push data to the client in real time — no polling required.">WebSocket</span>
+              stream returns the result → bot replies in Slack with the outcome.</p>
+          </div>
+        </div>
+
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-4)">🔄</div>
+          <div>
+            <strong>Use Case 2: CI/CD Integration</strong>
+            <p>After every
+              <span class="term" data-definition="A pull request (PR) is a request to merge code changes from one branch into another. It is the standard way developers collaborate and review code before it goes into the main codebase.">pull request</span>
+              → your
+              <span class="term" data-definition="A CI/CD pipeline (Continuous Integration/Continuous Delivery) is an automated sequence of steps that runs whenever code is pushed — building, testing, and deploying software automatically.">pipeline</span>
+              starts an OpenCode session → asks it to review the diff for security issues → gets a structured response → posts it as a PR comment.</p>
+          </div>
+        </div>
+
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-5)">🎨</div>
+          <div>
+            <strong>Use Case 3: Custom Dashboard</strong>
+            <p>Build any frontend you want — React, Vue, plain HTML — that connects to the REST API. Your own branding, your own UI, same powerful engine underneath. It is
+              <span class="term" data-definition="Headless refers to a server or engine that runs without any user interface of its own — it exposes an API so you can build any UI you want on top of it.">headless</span>
+              by design.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <h3 class="animate-in section-subheading">The 4 key API endpoints</h3>
+
+      <div class="badge-list animate-in">
+
+        <div class="badge-item">
+          <code class="badge-code">POST /sessions</code>
+          <span class="badge-desc">Create a new session in a project directory — this is where every interaction begins</span>
+        </div>
+
+        <div class="badge-item">
+          <code class="badge-code">POST /sessions/{id}/messages</code>
+          <span class="badge-desc">Send a message and start the AI working — the core interaction
+            <span class="term" data-definition="An endpoint is a specific URL in an API that performs a particular action. Each endpoint accepts certain HTTP methods (GET, POST, etc.) and returns data in a defined format.">endpoint</span>
+          </span>
+        </div>
+
+        <div class="badge-item">
+          <code class="badge-code">GET /sessions/{id}/messages</code>
+          <span class="badge-desc">Retrieve the full conversation history — useful for displaying past sessions or building summaries</span>
+        </div>
+
+        <div class="badge-item">
+          <code class="badge-code">WS /sessions/{id}/subscribe</code>
+          <span class="badge-desc">Open a
+            <span class="term" data-definition="WebSocket is a communication protocol that keeps a persistent connection open between a client and server, allowing either side to send data at any time.">WebSocket</span>
+            to receive live events as they happen — the real-time stream of everything the AI is doing</span>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN 5 — WHAT TO EXPLORE NEXT
+  ============================================================ -->
+  <div class="screen" id="module-5-screen-5">
+    <div class="screen-inner">
+
+      <div class="screen-heading animate-in">
+        <span class="screen-number">05</span>
+        <h2>What to Explore Next</h2>
+      </div>
+
+      <p class="screen-intro animate-in">
+        You have learned how OpenCode works from the inside out — from a single tool call all the way to a multi-interface architecture. Now it is your turn to go build something. Here are four great starting points.
+      </p>
+
+      <div class="pattern-cards animate-in stagger-children">
+
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-2)">
+          <div class="pattern-icon" style="background: var(--color-actor-2)">🚀</div>
+          <h4 class="pattern-title">Run Your First Session</h4>
+          <p class="pattern-desc">Install OpenCode (<code>npm i -g opencode-ai</code>), navigate to any project, run <code>opencode</code> — and ask it to explain the codebase to you. You will understand it from the inside out in minutes.</p>
+        </div>
+
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-4)">
+          <div class="pattern-icon" style="background: var(--color-actor-4)">⚙️</div>
+          <h4 class="pattern-title">Configure Permissions</h4>
+          <p class="pattern-desc">Create a <code>.opencode/config.jsonc</code> in your project and set permission rules. Start with bash set to <code>ask</code> — see every command before it runs. You are always in control.</p>
+        </div>
+
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-5)">
+          <div class="pattern-icon" style="background: var(--color-actor-5)">🔌</div>
+          <h4 class="pattern-title">Add an MCP Server</h4>
+          <p class="pattern-desc">Install the GitHub
+            <span class="term" data-definition="MCP stands for Model Context Protocol — an open industry standard for connecting external tools and data sources to AI models. Think of it like a USB port: any tool built to the spec plugs into any AI that supports it.">MCP</span>
+            server and connect it to OpenCode. Ask OpenCode to look at your open PRs and suggest which to tackle first.</p>
+        </div>
+
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-3)">
+          <div class="pattern-icon" style="background: var(--color-actor-3)">🛠️</div>
+          <h4 class="pattern-title">Build a Custom Integration</h4>
+          <p class="pattern-desc">Use the
+            <span class="term" data-definition="REST API (Representational State Transfer API) is a standard way of building web services that communicate over HTTP. Any program that can make HTTP requests can call a REST API.">REST API</span>
+            to build something that fits your workflow — a Slack command, a daily summary script, or your own UI. The same API the web app uses is open to you.</p>
+        </div>
+
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">🎓</div>
+        <div class="callout-content">
+          <strong class="callout-title">You Now Understand OpenCode</strong>
+          <p>You have traced how a plain English request becomes a tool call, how the agent reasons and orchestrates, how sessions are stored, and how one engine powers four interfaces. That is the whole system — go use it.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+  </main>
+
+</body>
+</html>

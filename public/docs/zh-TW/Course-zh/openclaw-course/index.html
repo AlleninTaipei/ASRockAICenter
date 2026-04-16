@@ -1,0 +1,1899 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenClaw 如何運作 — 互動式課程</title>
+
+  <!-- Google Fonts: Bricolage Grotesque · DM Sans · JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- OpenClaw accent: vermillion — matches the lobster brand -->
+  <style>
+    :root {
+      --color-accent:       #D94F30;
+      --color-accent-hover: #C4432A;
+      --color-accent-light: #FDEEE9;
+      --color-accent-muted: #E8836C;
+    }
+  </style>
+
+  <script src="main.js" defer></script>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="nav-inner">
+      <span class="nav-title">OpenClaw 如何運作</span>
+      <div class="nav-dots" id="nav-dots" role="tablist">
+        <button class="nav-dot" data-target="module-1" data-tooltip="你的 AI 無所不在" role="tab" aria-label="Module 1: 你的 AI 無所不在"></button>
+        <button class="nav-dot" data-target="module-2" data-tooltip="五個角色" role="tab" aria-label="Module 2: 五個角色"></button>
+        <button class="nav-dot" data-target="module-3" data-tooltip="Message 的旅程" role="tab" aria-label="Module 3: Message 的旅程"></button>
+        <button class="nav-dot" data-target="module-4" data-tooltip="內部大腦" role="tab" aria-label="Module 4: 內部大腦"></button>
+        <button class="nav-dot" data-target="module-5" data-tooltip="Skills 與 Plugins" role="tab" aria-label="Module 5: Skills 與 Plugins"></button>
+        <button class="nav-dot" data-target="module-6" data-tooltip="保持健康" role="tab" aria-label="Module 6: 保持健康"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <!-- modules/*.html content is assembled here by build.sh -->
+<section class="module" id="module-1" style="background: var(--color-bg)">
+  <div class="module-content">
+
+    <header class="module-header animate-in">
+      <span class="module-number">01</span>
+      <h1 class="module-title">你的 AI 無所不在</h1>
+      <p class="module-subtitle">
+        想像你早上 9 點從 WhatsApp 傳訊息給 AI，中午在 iPhone 收到語音回覆，
+        下午 3 點在 Mac 上拿到 Canvas drawing，而且全都來自同一個 brain。
+      </p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- ═══════════════════════════════════════════════════════
+           SCREEN 1 — Hero Intro
+           ══════════════════════════════════════════════════════ -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">位於一切中心的個人 concierge</h2>
+
+        <p>
+          <strong>OpenClaw</strong> 是一個個人 <span class="term" data-definition="AI assistant 完全跑在你擁有的硬體上，例如 Mac、Linux box 或 Raspberry Pi，而不是別人管理的遠端 server。">AI assistant</span>，
+          它住在你的機器上，並在你原本就會聊天的地方回覆你。你可以把它想成永不休息的飯店總機：任何網路、任何電話打進來，都會接到同一位聰明的 concierge。
+        </p>
+
+        <!-- Channel badges → central hub visual -->
+        <div style="background: var(--color-surface); border-radius: var(--radius-lg); padding: var(--space-8); box-shadow: var(--shadow-md); margin: var(--space-8) 0; text-align: center;">
+          <div style="display: flex; flex-wrap: wrap; gap: var(--space-3); justify-content: center; margin-bottom: var(--space-6);">
+            <span style="background: #25D366; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 600;">WhatsApp</span>
+            <span style="background: #229ED9; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 600;">Telegram</span>
+            <span style="background: #4A154B; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 600;">Slack</span>
+            <span style="background: #5865F2; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 600;">Discord</span>
+            <span style="background: #147EFB; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 600;">iMessage</span>
+            <span style="background: #3A76F0; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 600;">Signal</span>
+            <span style="background: #00B900; color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 600;">LINE</span>
+          </div>
+
+          <div style="display: flex; align-items: center; justify-content: center; gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-4);">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-1); font-size: var(--text-xs); color: var(--color-text-muted); font-family: var(--font-mono);">
+              <span>↓</span><span>↓</span><span>↓</span>
+            </div>
+          </div>
+
+          <div style="display: inline-flex; align-items: center; gap: var(--space-3); background: var(--color-accent); color: white; padding: var(--space-4) var(--space-8); border-radius: var(--radius-lg); font-family: var(--font-display); font-size: var(--text-xl); font-weight: 700; box-shadow: var(--shadow-lg);">
+            <span style="font-size: 2rem;">🦞</span>
+            <div style="text-align: left;">
+              <div>OpenClaw</div>
+              <div style="font-size: var(--text-sm); opacity: 0.85; font-weight: 400;">你的 AI，一個 brain，無所不在</div>
+            </div>
+          </div>
+
+          <p style="margin-top: var(--space-4); font-size: var(--text-sm); color: var(--color-text-muted);">
+            每個 app 都會連到同一個在你機器上執行的 <span class="term" data-definition="Gateway 是跑在你機器上的中央 server process。每個 channel、CLI command 和 app 都會連到它；它負責啟動 channels、dispatch messages，並管理 sessions。">Gateway</span>。
+          </p>
+        </div>
+
+        <!-- Superpower cards -->
+        <div class="pattern-cards">
+          <div class="pattern-card" style="border-top-color: var(--color-actor-2);">
+            <div class="pattern-icon" style="background: var(--color-info-light); font-size: 1.3rem;">📱</div>
+            <div class="pattern-title">你的 Channels</div>
+            <p class="pattern-desc">
+              透過 <span class="term" data-definition="channel 是 messaging platform adapter，也就是把 OpenClaw 接到 WhatsApp、Telegram 或 Slack 等特定 app 的 plugin。每個 channel 都負責該 app 的 auth、message parsing 和 reply delivery。">channel</span> plugins 回覆 WhatsApp、Telegram、Slack、Discord、iMessage、Signal，以及 20 多種 apps。
+            </p>
+          </div>
+          <div class="pattern-card" style="border-top-color: var(--color-actor-1);">
+            <div class="pattern-icon" style="background: var(--color-accent-light); font-size: 1.3rem;">🖥️</div>
+            <div class="pattern-title">你的 Devices</div>
+            <p class="pattern-desc">
+              跑在你的 Mac、Linux 或 Windows 機器上。你擁有它，不需要 <span class="term" data-definition="cloud 指第三方公司的遠端 servers，用來處理和儲存你的資料。OpenClaw 預設不需要 cloud infrastructure，會完全跑在你自己的硬體上。">cloud</span>，也不需要 hosted service subscription。
+            </p>
+          </div>
+          <div class="pattern-card" style="border-top-color: var(--color-actor-5);">
+            <div class="pattern-icon" style="background: var(--color-success-light); font-size: 1.3rem;">🔒</div>
+            <div class="pattern-title">你的 Rules</div>
+            <p class="pattern-desc">
+              你控制誰能跟它說話、它使用哪個 <span class="term" data-definition="AI model provider 是提供底層 AI model 的公司或服務，例如 Anthropic 提供 Claude、OpenAI 提供 GPT、Google 提供 Gemini。OpenClaw 可以使用任一 provider。">AI model provider</span>，以及它可以使用哪些 <span class="term" data-definition="tools 是 AI 在回覆過程中被允許呼叫的 functions，例如 web search、code execution 或 calendar access。你可以設定哪些 tools 啟用。">tools</span>。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════
+           SCREEN 2 — 實際使用時長什麼樣子
+           ══════════════════════════════════════════════════════ -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">實際使用時長什麼樣子</h2>
+
+        <p>想像你在 <span class="term" data-definition="Telegram 是 cloud-based instant messaging platform，提供 Bot API，讓軟體能自動收發 messages。OpenClaw 透過 bot token 連接它。">Telegram</span> 裡輸入這句話：</p>
+
+        <!-- Static mock Telegram message -->
+        <div style="background: var(--color-surface); border-radius: var(--radius-lg); padding: var(--space-6); box-shadow: var(--shadow-md); margin: var(--space-6) 0;">
+          <div style="display: flex; align-items: flex-end; gap: var(--space-3);">
+            <div style="width: 36px; height: 36px; border-radius: 50%; background: #229ED9; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: var(--text-sm); font-weight: 700; color: white; flex-shrink: 0;">你</div>
+            <div style="background: var(--color-bg-warm); border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 4px; padding: var(--space-3) var(--space-4); max-width: 75%;">
+              <span style="display: block; font-size: var(--text-xs); font-weight: 700; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; color: #229ED9; margin-bottom: var(--space-1);">YOU (TELEGRAM)</span>
+              <p style="font-size: var(--text-sm); margin: 0; line-height: var(--leading-normal);">幫我總結今天</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Four numbered step cards -->
+        <div class="step-cards stagger-children">
+          <div class="step-card animate-in">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <strong>Telegram 傳送 message</strong>
+              <p>你的 Telegram app 會把它送到你設定好的 OpenClaw <span class="term" data-definition="bot 是註冊在 Telegram Bot API 裡的 software account；它有 token，讓 OpenClaw 能代表它收發 messages。">bot</span>。</p>
+            </div>
+          </div>
+          <div class="step-card animate-in">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <strong>OpenClaw 收到它</strong>
+              <p><span class="term" data-definition="Gateway 是跑在你機器上的中央 server process。所有 channels、CLI commands 和 apps 都會透過 ws://127.0.0.1:18789 連上它。">Gateway</span>（跑在你的機器上）接起這則 message，並透過 <span class="term" data-definition="session key 是識別特定 conversation thread 的 unique string，會編碼 agent、channel 和 user IDs，讓 history 能正確保存與取回。">session key</span> 辨識發訊者。</p>
+            </div>
+          </div>
+          <div class="step-card animate-in">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <strong>AI 開始思考</strong>
+              <p><span class="term" data-definition="Pi Agent 是 OpenClaw 裡的 AI runner。它保存 conversation history、呼叫設定好的 AI model（Claude、GPT、Gemini 等）、執行 tools，並生成 reply。">Pi Agent</span> 呼叫你選定的 <span class="term" data-definition="AI model 是產生文字回應的大型語言模型，例如 Claude、GPT-4、Gemini 或其他模型。OpenClaw 會送出 prompt 和 tools list，model 則回傳 reply。">AI model</span>：Claude、GPT、Gemini，並 stream 回覆。</p>
+            </div>
+          </div>
+          <div class="step-card animate-in">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <strong>回覆回到 Telegram</strong>
+              <p>你會看到 response 像 ChatGPT 一樣一塊一塊出現，但它來自你自己的機器，透過你自己的 <span class="term" data-definition="agent 是 OpenClaw 裡設定好的 AI persona，具有名稱、system instructions、選定 model 和 tool permissions。你可以從同一個 Gateway 跑多個 agents。">agent</span>。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════
+           SCREEN 3 — The 3 Tiers
+           ══════════════════════════════════════════════════════ -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">三層架構，一個 brain</h2>
+
+        <p>OpenClaw 有三個清楚分離的 layers，每一層只負責一件事。</p>
+
+        <div class="icon-rows stagger-children">
+
+          <div class="icon-row animate-in" style="border-left: 4px solid var(--color-actor-2);">
+            <div class="icon-circle" style="background: var(--color-actor-2); font-size: 1.4rem;">📱</div>
+            <div>
+              <strong>
+                <span class="term" data-definition="Channels 是把 OpenClaw 接到特定 messaging apps 的 plugins。每個 channel 都會說該 app 的 native protocol，並處理 webhooks 或 polling、auth、message parsing 和 reply delivery。">Channels</span>
+              </strong>
+              <p>
+                你原本就在用的 messaging apps：WhatsApp、Telegram、Slack，以及 20 多種其他 apps。它們把 messages 送到 OpenClaw，也把 replies 帶回來。
+              </p>
+            </div>
+          </div>
+
+          <div class="icon-row animate-in" style="border-left: 4px solid var(--color-actor-1);">
+            <div class="icon-circle" style="background: var(--color-actor-1); font-size: 1.4rem;">🏛️</div>
+            <div>
+              <strong>
+                <span class="term" data-definition="Gateway 是跑在你機器上的中央 WebSocket server process，位於 ws://127.0.0.1:18789。它是 control plane，所有東西都透過它連線：channels、CLI、mobile apps。">Gateway</span>
+              </strong>
+              <p>
+                跑在你機器上 <code>ws://127.0.0.1:18789</code> 的 <span class="term" data-definition="control plane 是系統中負責 configuration、routing decisions 和 state management 的部分；相對地，data plane 負責移動實際內容。Gateway 是 OpenClaw 的 control plane。">control plane</span>。
+                所有東西都透過它連線：<span class="term" data-definition="channels 是把 OpenClaw 接到特定 messaging apps 的 plugins。">channels</span>、<span class="term" data-definition="CLI（Command-Line Interface）是你輸入 commands 的文字 terminal。OpenClaw 的 CLI 讓你能從 terminal 直接送 messages、管理 config，並控制 Gateway。">CLI</span>、mobile apps。
+              </p>
+            </div>
+          </div>
+
+          <div class="icon-row animate-in" style="border-left: 4px solid var(--color-actor-4);">
+            <div class="icon-circle" style="background: var(--color-actor-4); font-size: 1.4rem;">🧠</div>
+            <div>
+              <strong>
+                <span class="term" data-definition="Pi Agent 是 OpenClaw 裡的 AI runner。它保存 conversation history（session）、呼叫設定好的 model、執行 tools，並生成 reply，再透過 Gateway stream 回去。">Pi Agent</span>
+              </strong>
+              <p>
+                AI brain。它保存 conversation history、選擇正確的 <span class="term" data-definition="model 是產生 responses 的大型語言模型，例如 Claude、GPT、Gemini。Pi Agent 會帶著完整 prompt 和 tools list 呼叫 model API。">model</span>、執行 <span class="term" data-definition="tools 是 AI 在 reply 過程中可呼叫的 functions，例如 web search、code execution、calendar access。Pi Agent 負責實際執行，並把結果餵回 model。">tools</span>，並生成 reply。
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="callout callout-accent animate-in">
+          <span class="callout-icon">💡</span>
+          <div class="callout-content">
+            <span class="callout-title">concierge 類比</span>
+            <p>
+              Channels 是每張桌上的電話，Gateway 是飯店總機，Pi Agent 是永不休息的聰明 concierge。你可以新增電話（channels），不需要重新訓練 concierge。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════
+           SCREEN 4 — Code intro: entry.ts
+           ══════════════════════════════════════════════════════ -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">讀懂前門</h2>
+
+        <p>
+          每次你在 <span class="term" data-definition="CLI（Command-Line Interface）是你輸入 commands 並接收文字輸出的 terminal。OpenClaw 的 CLI 是你直接用鍵盤互動的介面。">CLI</span> 輸入 <code>openclaw</code> 時，第一個執行的檔案就是 <code>src/entry.ts</code>。我們一起讀。
+        </p>
+
+        <!-- Translation block -->
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE — src/entry.ts (lines 17–22)</span>
+            <pre><code><span class="code-line"><span class="code-keyword">const</span> <span class="code-function">ENTRY_WRAPPER_PAIRS</span> = [</span>
+<span class="code-line">  &#123; <span class="code-property">wrapperBasename</span>: <span class="code-string">"openclaw.mjs"</span>, <span class="code-property">entryBasename</span>: <span class="code-string">"entry.js"</span> &#125;,</span>
+<span class="code-line">  &#123; <span class="code-property">wrapperBasename</span>: <span class="code-string">"openclaw.js"</span>,  <span class="code-property">entryBasename</span>: <span class="code-string">"entry.js"</span> &#125;,</span>
+<span class="code-line">] <span class="code-keyword">as const</span>;</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">白話說明</span>
+            <div class="translation-lines">
+              <p class="tl">這是你在 terminal 輸入 <code>openclaw</code> 時，最先執行的東西。</p>
+              <p class="tl">它會檢查：我是以 <code>openclaw.mjs</code> 啟動的嗎？（<span class="term" data-definition="ES Module JavaScript 是使用 import/export statements 的現代 JavaScript file format。.mjs extension 會告訴 Node.js 把這個檔案視為 module。">ES module</span> format）</p>
+              <p class="tl">還是以 <code>openclaw.js</code> 啟動？（classic format）不管哪一種……</p>
+              <p class="tl">……都會把控制權交給 <code>entry.js</code>，也就是真正的 startup code。</p>
+              <p class="tl">可以把它想成有兩個門鈴的前門：兩個都會響到同一個房間。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-info animate-in">
+          <span class="callout-icon">💡</span>
+          <div class="callout-content">
+            <p>
+              最後的 <code>as const</code> 是 <span class="term" data-definition="TypeScript 是 JavaScript 的 strongly-typed superset，可以在 code 執行前抓出 type errors。OpenClaw 完全以 TypeScript 撰寫。">TypeScript</span> 在說：這個 list 是永久固定的，不要讓任何人在 runtime 修改它。
+              這是加在 <span class="term" data-definition="entry point 是程式的起點，也就是你 launch 它時第一個執行的檔案。OpenClaw 的 entry point 是 src/entry.ts，解析 launcher format 後會委派給 entry.js。">entry point</span> configuration 上的一個小安全鎖。
+            </p>
+          </div>
+        </div>
+
+        <!-- Visual: two doorbells → one room -->
+        <div style="background: var(--color-surface); border-radius: var(--radius-lg); padding: var(--space-8); box-shadow: var(--shadow-md); margin: var(--space-8) 0;">
+          <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: var(--space-6); align-items: center;">
+            <div style="text-align: center;">
+              <div style="background: var(--color-bg-code); color: #A6E3A1; font-family: var(--font-mono); font-size: var(--text-sm); padding: var(--space-3) var(--space-4); border-radius: var(--radius-sm); display: inline-block; margin-bottom: var(--space-2);">openclaw.mjs</div>
+              <div style="font-size: var(--text-xs); color: var(--color-text-muted);">Modern ES Module 門鈴</div>
+            </div>
+            <div style="text-align: center; font-size: var(--text-2xl); color: var(--color-text-muted); display: flex; flex-direction: column; gap: var(--space-2);">
+              <span>→</span>
+              <span>→</span>
+            </div>
+            <div></div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: var(--space-6); align-items: center; margin-top: var(--space-4);">
+            <div style="text-align: center;">
+              <div style="background: var(--color-bg-code); color: #A6E3A1; font-family: var(--font-mono); font-size: var(--text-sm); padding: var(--space-3) var(--space-4); border-radius: var(--radius-sm); display: inline-block; margin-bottom: var(--space-2);">openclaw.js</div>
+              <div style="font-size: var(--text-xs); color: var(--color-text-muted);">Classic format 門鈴</div>
+            </div>
+            <div style="text-align: center; font-size: var(--text-2xl); color: var(--color-text-muted);">→</div>
+            <div style="text-align: center;">
+              <div style="background: var(--color-accent); color: white; font-family: var(--font-mono); font-size: var(--text-sm); padding: var(--space-3) var(--space-4); border-radius: var(--radius-sm); display: inline-block; margin-bottom: var(--space-2); font-weight: 700;">entry.js</div>
+              <div style="font-size: var(--text-xs); color: var(--color-text-muted);">同一個真正的 startup 房間</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /.module-body -->
+  </div><!-- /.module-content -->
+</section>
+<section class="module" id="module-2" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+
+    <header class="module-header animate-in">
+      <span class="module-number">02</span>
+      <h1 class="module-title">五個角色</h1>
+      <p class="module-subtitle">
+        每當你送出一則 message，OpenClaw 裡五個不同部件就會開始行動。來認識它們。
+      </p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- ═══════════════════════════════════════════════════════
+           SCREEN 1 — The Five Actors Visual
+           ══════════════════════════════════════════════════════ -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">你機器裡的機場</h2>
+
+        <p>
+          把 OpenClaw 想成一座繁忙機場。航廈是 <span class="term" data-definition="Gateway 是跑在你機器上的中央 WebSocket control plane，位於 ws://127.0.0.1:18789。所有東西都透過它連線。">Gateway</span>；航空公司是 <span class="term" data-definition="Channels 是把 OpenClaw 和特定 messaging apps 互相轉換的 plugins；每個 channel 都會說該 app 的 native protocol。">Channels</span>；航管是 <span class="term" data-definition="Router 會讀取每則 incoming message，並決定哪個 AI agent 與哪個 conversation thread 負責處理。">Router</span>；駕駛艙組員是 <span class="term" data-definition="Pi Agent 是 AI runner，負責保存 conversation history、呼叫 model、執行 tools，並把 reply stream 回去。">Pi Agent</span>；地勤服務則是 <span class="term" data-definition="Plugins 是 optional npm packages，可用來用新 channels、AI providers 或 tools 擴充 OpenClaw，並與 core 分開安裝。">Plugins</span>。
+        </p>
+
+        <div class="icon-rows stagger-children">
+
+          <div class="icon-row animate-in" style="border-left: 4px solid var(--color-actor-1);">
+            <div class="icon-circle" style="background: var(--color-actor-1); font-size: 1.4rem;">🏛️</div>
+            <div>
+              <strong style="color: var(--color-actor-1);">
+                <span class="term" data-definition="Gateway 是你機器上的中央 WebSocket server process，位於 ws://127.0.0.1:18789。Channels、CLI commands 和 apps 都會連到它；它啟動 channels、管理 sessions，並 dispatch replies。">Gateway</span>
+              </strong>
+              <p>
+                <span class="term" data-definition="WebSocket 是一種持久雙向連線 protocol。Gateway 透過 WebSocket 讓 channels、CLI 和 apps 即時溝通。">WebSocket</span> control plane，跑在你機器上的 <code>ws://127.0.0.1:18789</code>。
+                每個 channel、<span class="term" data-definition="CLI（Command-Line Interface）是你輸入 openclaw message send 這類 commands 的 terminal。CLI 會透過 WebSocket 連到 Gateway。">CLI</span> command 和 app 都透過這裡連線。
+              </p>
+            </div>
+          </div>
+
+          <div class="icon-row animate-in" style="border-left: 4px solid var(--color-actor-2);">
+            <div class="icon-circle" style="background: var(--color-actor-2); font-size: 1.4rem;">📡</div>
+            <div>
+              <strong style="color: var(--color-actor-2);">
+                <span class="term" data-definition="Channels 是把 OpenClaw 接到特定 messaging platforms 的 plugins。每個 channel 都為單一平台處理 auth、polling 或 webhooks、message parsing、normalization 和 reply delivery。">Channels</span>
+              </strong>
+              <p>
+                20 多個 adapters，負責在 OpenClaw 與 WhatsApp、Telegram、Slack、Discord、Signal、iMessage 等平台之間轉換。
+                每個 channel 都會說該 app 的語言：<span class="term" data-definition="webhook 是 server 在事件發生時送到你 application 的 HTTP request，例如新 message 抵達。WhatsApp 和 Discord 使用 webhooks 將 updates push 給 OpenClaw。">webhooks</span>、<span class="term" data-definition="polling 是以固定間隔反覆詢問 server 有沒有新資料。Telegram Bot API 支援這種方式，OpenClaw 每幾秒問一次「有新 messages 嗎？」">polling</span>，全都包含。
+              </p>
+            </div>
+          </div>
+
+          <div class="icon-row animate-in" style="border-left: 4px solid var(--color-actor-3);">
+            <div class="icon-circle" style="background: var(--color-actor-3); font-size: 1.4rem;">🗺️</div>
+            <div>
+              <strong style="color: var(--color-actor-3);">
+                <span class="term" data-definition="Router 會根據 binding configuration rules，讀取每則 incoming message，決定應由哪個 AI agent 處理，以及它屬於哪個 conversation thread。">Router</span>
+              </strong>
+              <p>
+                讀取每則 incoming message，並決定：哪個 <span class="term" data-definition="AI agent 是 OpenClaw 裡設定好的 AI persona，具有名稱、system instructions、選定 model 和 tool permissions。同一個 Gateway 可同時跑多個 agents。">AI agent</span> 處理它？
+                它屬於哪個 conversation thread？Router 會產生一個 <span class="term" data-definition="session key 是為一個 conversation thread 編碼 agent ID、channel name 和 account ID 的 unique string，用來準確保存與取回 conversation history。">session key</span>。
+              </p>
+            </div>
+          </div>
+
+          <div class="icon-row animate-in" style="border-left: 4px solid var(--color-actor-4);">
+            <div class="icon-circle" style="background: var(--color-actor-4); font-size: 1.4rem;">🧠</div>
+            <div>
+              <strong style="color: var(--color-actor-4);">
+                <span class="term" data-definition="Pi Agent 是 AI runner。它保存 conversation history（session）、呼叫 Claude/GPT/Gemini、執行 tools，並把 reply 經由 Gateway stream 回原本的 channel。">Pi Agent</span>
+              </strong>
+              <p>
+                AI runner。它保存 conversation history、呼叫 Claude/GPT/Gemini、執行 <span class="term" data-definition="tools 是 AI 被允許 invoke 的 functions，例如 web search、code execution、calendar access。Pi Agent 會處理實際執行，並把結果回饋給 model。">tools</span>，並把 reply 經由 Gateway stream 回去。
+              </p>
+            </div>
+          </div>
+
+          <div class="icon-row animate-in" style="border-left: 4px solid var(--color-actor-5);">
+            <div class="icon-circle" style="background: var(--color-actor-5); font-size: 1.4rem;">🔌</div>
+            <div>
+              <strong style="color: var(--color-actor-5);">
+                <span class="term" data-definition="Plugins 是 runtime 時擴充 OpenClaw 的 optional npm packages，可加入新 channels（messaging apps）、新 AI providers（model sources）或新 tools。Core 保持精簡，optional capabilities 以 plugins 形式提供。">Plugins</span>
+              </strong>
+              <p>
+                可加入新 channels、新 AI <span class="term" data-definition="provider plugin 會為 OpenClaw 加入新的 AI model source；例如 Anthropic provider plugin 負責 Claude API calls、auth 和 model catalog。">providers</span> 或新 tools 的 optional <span class="term" data-definition="npm（Node Package Manager）是 JavaScript/TypeScript packages 的標準 registry 和 installer。OpenClaw plugins 以 npm packages 發佈，並用 npm install 安裝。">npm</span> packages。
+                Core 保持精簡；optional capabilities 則以 plugins 形式發佈。
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="callout callout-accent animate-in">
+          <span class="callout-icon">✈️</span>
+          <div class="callout-content">
+            <span class="callout-title">為什麼是五個？</span>
+            <p>
+              每個角色都只有一個明確職責。當事情出錯時，你會知道該盤問哪個角色：找那個職責和症狀相符的角色。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════
+           SCREEN 2 — 認識 Gateway (group chat animation)
+           ══════════════════════════════════════════════════════ -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">認識 Gateway</h2>
+
+        <p>
+          <span class="term" data-definition="Gateway 是位於 ws://127.0.0.1:18789 的中央 WebSocket control plane。它啟動所有 channels、註冊 plugins，並把每則 incoming message route 到正確的 AI agent。">Gateway</span> 不是 AI，而是機場航廈。
+          來看它如何醒來並處理一個真實 command。
+        </p>
+
+        <div class="chat-window" id="chat-module2">
+          <div class="chat-messages">
+
+            <div class="chat-message" data-msg="0" data-sender="you" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-text-muted)">你</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-text-muted)">YOU (TERMINAL)</span>
+                <p>openclaw gateway --port 18789 --verbose</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="1" data-sender="gateway" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">GW</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">GATEWAY</span>
+                <p>啟動中……載入 <span class="term" data-definition="config 是控制哪些 channels 和 plugins 啟用、哪些 AI models 可用，以及 routing 和 authentication 如何運作的 configuration file。">config</span>……在 port 18789 bind <span class="term" data-definition="WebSocket 是 full-duplex、persistent connection protocol。Gateway 監聽 WebSocket connections，讓 channels、CLI 和 mobile apps 都能即時溝通。">WebSocket</span>……</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="2" data-sender="gateway" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">GW</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">GATEWAY</span>
+                <p>已載入 3 個 channels：Telegram、WhatsApp、Discord。已載入 2 個 <span class="term" data-definition="plugins 是擴充 OpenClaw 的 optional npm packages，可加入 channels、AI providers 或 tools。Gateway 會在 startup 時 discover 並載入它們。">plugins</span>。Ready。</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="3" data-sender="you" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-text-muted)">你</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-text-muted)">YOU (TERMINAL)</span>
+                <p>openclaw message send --to +1234567890 --message "Hello from terminal"</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="4" data-sender="gateway" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">GW</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">GATEWAY</span>
+                <p>收到 message。Routing 到 default <span class="term" data-definition="agent 是 OpenClaw 裡設定好的 AI persona，具有名稱、system instructions 和 model assignment。">agent</span>。<span class="term" data-definition="Session key 是識別一個 conversation thread 的 unique string，會編碼 agent、channel 和 account IDs，讓 history 能準確保存與取回。">Session key</span>: default/whatsapp/main。正在排入 <span class="term" data-definition="Pi Agent 是 AI runner，負責保存 conversation history、呼叫 model、執行 tools，並 stream reply。">Pi Agent</span> queue……</p>
+              </div>
+            </div>
+
+            <!-- typing indicator -->
+            <div class="chat-typing" style="display:none">
+              <div class="chat-avatar" id="chat-module2-typing-avatar" style="background: var(--color-actor-1)">GW</div>
+              <div class="chat-typing-dots">
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+              </div>
+            </div>
+
+          </div><!-- /.chat-messages -->
+
+          <div class="chat-controls">
+            <button class="btn chat-next-btn">下一則訊息</button>
+            <button class="btn chat-all-btn">全部播放</button>
+            <button class="btn chat-reset-btn">重播</button>
+            <span class="chat-progress">0 / 5 則訊息</span>
+          </div>
+        </div><!-- /#chat-module2 -->
+
+        <div class="callout callout-accent animate-in">
+          <span class="callout-icon">💡</span>
+          <div class="callout-content">
+            <p>
+              Gateway 不是 AI，而是 switchboard。它不會閱讀你的 messages，也不會生成 replies。
+              它只會透過 <span class="term" data-definition="Router 是 routing 與 session-management layer。Router 會產生 session key，並把 message dispatch 給正確的 AI agent。">Router</span> 把 messages route 到正確位置。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════
+           SCREEN 3 — 認識 Router (code translation)
+           ══════════════════════════════════════════════════════ -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">認識 Router</h2>
+
+        <p>
+          Router 的工作是回答一個問題：「這則 message 應該由哪個 <span class="term" data-definition="AI agent 是設定好的 AI persona，具有名稱、system instructions、model choice 和 tool permissions。同一個 Gateway 可以跑多個 agents。">AI agent</span> 和 conversation thread 處理？」
+          它會產生 <code>ResolvedAgentRoute</code>，也就是一張 decision slip，裡面有 Gateway dispatch 工作所需的一切資訊。
+        </p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE — src/routing/resolve-route.ts (lines 40–61)</span>
+            <pre><code><span class="code-line"><span class="code-keyword">export type</span> <span class="code-function">ResolvedAgentRoute</span> = &#123;</span>
+<span class="code-line">  <span class="code-property">agentId</span>: <span class="code-keyword">string</span>;</span>
+<span class="code-line">  <span class="code-property">channel</span>: <span class="code-keyword">string</span>;</span>
+<span class="code-line">  <span class="code-property">accountId</span>: <span class="code-keyword">string</span>;</span>
+<span class="code-line">  <span class="code-property">sessionKey</span>: <span class="code-keyword">string</span>;</span>
+<span class="code-line">  <span class="code-property">mainSessionKey</span>: <span class="code-keyword">string</span>;</span>
+<span class="code-line">  <span class="code-property">lastRoutePolicy</span>: <span class="code-string">"main"</span> | <span class="code-string">"session"</span>;</span>
+<span class="code-line">  <span class="code-property">matchedBy</span>:</span>
+<span class="code-line">    | <span class="code-string">"binding.peer"</span></span>
+<span class="code-line">    | <span class="code-string">"binding.peer.parent"</span></span>
+<span class="code-line">    | <span class="code-string">"binding.peer.wildcard"</span></span>
+<span class="code-line">    | <span class="code-string">"binding.guild+roles"</span></span>
+<span class="code-line">    | <span class="code-string">"binding.guild"</span></span>
+<span class="code-line">    | <span class="code-string">"binding.team"</span></span>
+<span class="code-line">    | <span class="code-string">"binding.account"</span></span>
+<span class="code-line">    | <span class="code-string">"binding.channel"</span></span>
+<span class="code-line">    | <span class="code-string">"default"</span>;</span>
+<span class="code-line">&#125;;</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">白話說明</span>
+            <div class="translation-lines">
+              <p class="tl"><code>agentId</code>：由哪個 <span class="term" data-definition="AI agent 是設定好的 AI persona。你可以有多個 agents：工作用、個人用、團隊用。">AI agent</span> 處理這則 message。</p>
+              <p class="tl"><code>channel</code>：message 來自哪個 app（telegram、whatsapp、discord……）。</p>
+              <p class="tl"><code>accountId</code>：是哪個 bot account 收到它（你可能有多個 bot accounts）。</p>
+              <p class="tl"><code>sessionKey</code>：這個 conversation thread 的 unique ID。</p>
+              <p class="tl"><code>mainSessionKey</code>：direct（非群組）chats 的 shortcut alias。</p>
+              <p class="tl"><code>lastRoutePolicy</code>：要更新 main <span class="term" data-definition="session 是 conversation thread 的 stored record。在建立 AI prompt 前會載入它，讓 model 取得 context。">session</span> 還是特定 session。</p>
+              <p class="tl"><code>matchedBy</code>：router 是<strong>如何</strong>找到正確 agent 的；這是 <span class="term" data-definition="debugging 是系統性追蹤是哪個 component 造成非預期 failure 的做法。matchedBy field 會告訴你哪個 routing rule 被觸發，或根本沒有觸發。">debugging</span> 時最有用的欄位。</p>
+              <p class="tl"><code>"binding.peer"</code> 表示精確 user-ID match，是最 specific 的 <span class="term" data-definition="binding rule 是把 user、chat、guild 或 channel map 到特定 AI agent 的 configuration rule。Router 會從最 specific 到最不 specific 依序評估 rules。">binding rule</span>。</p>
+              <p class="tl"><code>"default"</code> 表示沒有任何 rules match，因此使用 fallback agent。</p>
+              <p class="tl">可以把它想成每則 message 上的 shipping label。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-info animate-in">
+          <span class="callout-icon">🔍</span>
+          <div class="callout-content">
+            <span class="callout-title">Debugging 小提醒</span>
+            <p>
+              如果 messages 被送到錯誤 agent，請檢查 logs 裡的 <code>matchedBy</code> field。
+              如果值是 <code>"default"</code>，代表沒有 <span class="term" data-definition="binding rule 是 config file 裡把特定 user、guild、team 或 channel 綁定到 AI agent 的 routing rule。">binding rule</span> match，請檢查 binding configuration。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════
+           SCREEN 4 — Visual file tree (the codebase map)
+           ══════════════════════════════════════════════════════ -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">把 codebase 對應到五個角色</h2>
+
+        <p>
+          每個角色在 <span class="term" data-definition="repository 是 OpenClaw project 的 top-level directory，包含所有 source code、configuration、tests 和 documentation。">repository</span> 裡都有自己的家。
+          找 bug 的第一步，就是知道該先打開哪個 folder。
+        </p>
+
+        <div class="file-tree animate-in">
+          <div class="ft-folder">
+            <span class="ft-name">src/</span>
+            <div class="ft-children">
+
+              <div class="ft-folder">
+                <span class="ft-name" style="color: var(--color-actor-1);">gateway/</span>
+                <span class="ft-desc">→ Gateway：<span class="term" data-definition="WebSocket 是 persistent two-way connection protocol。Gateway 會監聽來自 channels、CLI 和 apps 的 WebSocket connections。">WebSocket</span> server、HTTP endpoints、startup、config reload</span>
+                <div class="ft-children">
+                  <div class="ft-folder">
+                    <span class="ft-name">protocol/</span>
+                    <span class="ft-desc">→ typed wire protocol：Gateway 使用的 messages 格式</span>
+                  </div>
+                  <div class="ft-folder">
+                    <span class="ft-name">server/</span>
+                    <span class="ft-desc">→ running server：sessions、channels、events、methods</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="ft-folder">
+                <span class="ft-name" style="color: var(--color-actor-2);">channels/</span>
+                <span class="ft-desc">→ Channel core：session tracking、message handling、run state</span>
+                <div class="ft-children">
+                  <div class="ft-folder">
+                    <span class="ft-name">plugins/</span>
+                    <span class="ft-desc">→ Channel <span class="term" data-definition="plugin contracts 是定義 channel plugin 必須實作什麼的 formal interfaces，也是 core 與 channel author 之間的 contract。">plugin contracts</span> 與 adapters</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="ft-folder">
+                <span class="ft-name" style="color: var(--color-actor-3);">routing/</span>
+                <span class="ft-desc">→ Router：route resolution、<span class="term" data-definition="session key 是識別一個 conversation thread 的 unique string，會編碼 agent、channel 和 account IDs。">session keys</span>、bindings</span>
+              </div>
+
+              <div class="ft-folder">
+                <span class="ft-name" style="color: var(--color-actor-4);">agents/</span>
+                <span class="ft-desc">→ Pi Agent：AI runners、<span class="term" data-definition="model providers 是加入新 AI model source 的 plugins，例如 Anthropic、OpenAI、Google。每個 provider 都處理該服務的 API auth 和 model catalog。">model providers</span>、tools、skills</span>
+                <div class="ft-children">
+                  <div class="ft-folder">
+                    <span class="ft-name">pi-embedded-runner/</span>
+                    <span class="ft-desc">→ inner loop：context、<span class="term" data-definition="compaction 是修剪舊 conversation history 的過程，讓 prompt 保持在 model 的 context-window limit 內，同時保留最重要 messages。">compaction</span>、tool execution</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="ft-folder" style="margin-top: var(--space-2);">
+            <span class="ft-name" style="color: var(--color-actor-5);">extensions/</span>
+            <span class="ft-desc">→ Bundled <span class="term" data-definition="Plugins 是擴充 OpenClaw 的 optional npm packages。它們放在 extensions/ workspace 並隨產品出貨，但遵循與第三方 plugins 相同的 plugin contract。">Plugins</span>：Matrix、Zalo、Voice、providers</span>
+          </div>
+        </div>
+
+        <!-- Quick map: symptom → folder -->
+        <div style="background: var(--color-surface); border-radius: var(--radius-lg); padding: var(--space-6); box-shadow: var(--shadow-md); margin: var(--space-8) 0;">
+          <p style="font-family: var(--font-display); font-weight: 600; margin-bottom: var(--space-4);">Symptom → folder 快速對照</p>
+          <div class="badge-list">
+            <div class="badge-item">
+              <span class="badge-code">src/gateway/</span>
+              <span class="badge-desc">Gateway 無法啟動、port binding errors、startup crash</span>
+            </div>
+            <div class="badge-item">
+              <span class="badge-code">src/channels/</span>
+              <span class="badge-desc">某個 channel 停止接收或傳送 messages</span>
+            </div>
+            <div class="badge-item">
+              <span class="badge-code">src/routing/</span>
+              <span class="badge-desc">Messages 被送到錯的 agent，或被靜默丟棄</span>
+            </div>
+            <div class="badge-item">
+              <span class="badge-code">src/agents/</span>
+              <span class="badge-desc">AI 回覆錯誤、tools 失敗、history 遺失</span>
+            </div>
+            <div class="badge-item">
+              <span class="badge-code">extensions/</span>
+              <span class="badge-desc">某個 bundled plugin、channel 或 provider 行為異常</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════
+           SCREEN 5 — 下一步
+           ══════════════════════════════════════════════════════ -->
+      <section class="screen animate-in">
+        <div class="callout callout-info animate-in">
+          <span class="callout-icon">🗺️</span>
+          <div class="callout-content">
+            <span class="callout-title">下一步</span>
+            <p>
+              現在你已經認識五個角色，接下來的 modules 會展示它們如何溝通：<span class="term" data-definition="wire protocol 是 Gateway 透過 WebSocket 與 channels、agents 和 CLI clients 對話時使用的 typed message format。每個 command 和 event 都有定義好的 schema。">wire protocol</span>、message journey、memory 與 sessions，以及 plugins 如何擴充一切。
+            </p>
+          </div>
+        </div>
+
+      </section>
+
+    </div><!-- /.module-body -->
+  </div><!-- /.module-content -->
+</section>
+<section class="module" id="module-3" style="background: var(--color-bg)">
+  <div class="module-content">
+
+    <!-- ── MODULE HEADER ───────────────────────────────────────── -->
+    <header class="module-header animate-in">
+      <span class="module-number">03</span>
+      <h2 class="module-title">Message 的旅程</h2>
+      <p class="module-subtitle">
+        你在 Telegram 輸入一個問題。接下來 2 秒內，你的 message 會造訪 5 個地方、被轉換 4 次，最後以 AI answer 的形式回來。以下是每一站。
+      </p>
+    </header>
+
+    <!-- ════════════════════════════════════════════════════════════
+         SCREEN 1 — The Full Journey Overview
+         ════════════════════════════════════════════════════════════ -->
+    <section class="screen animate-in">
+      <h3 class="screen-heading">十個步驟，一則回覆</h3>
+
+      <p>
+        把你的 message 想成 fulfillment warehouse 裡的一個包裹。它先抵達收貨區
+        (<span class="term" data-definition="Channel 是把外部 messaging platform 接到 OpenClaw internal pipeline 的 plugin。它為單一平台處理 webhooks、parsing、normalization 和 reply delivery。">Channel</span>)，
+        被掃描並貼上 label
+        (<span class="term" data-definition="Router 會讀取 configuration，根據 chat type、sender ID 或 channel 等 rules，決定哪個 AI agent 處理每則 incoming message。">Router</span>)，
+        送到揀貨區
+        (<span class="term" data-definition="Pi Agent 是 autonomous AI process，負責接收 message、載入 conversation history、使用 tools、呼叫 AI model，並把 answer stream 回 channel。">Pi Agent</span>)，
+        和 answer 一起打包，最後再送回去。
+      </p>
+
+      <div class="flow-steps">
+        <div class="flow-step"><div class="flow-step-num">1</div><p>你在 Telegram 送出 message</p></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="flow-step-num">2</div><p>Channel Plugin 收到 <span class="term" data-definition="webhook 是 HTTP callback：當新 message 抵達時，messaging platform 會呼叫你 server 上的 URL。不需要 polling，平台會主動 push update 給你。">webhook</span></p></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="flow-step-num">3</div><p><span class="term" data-definition="Gateway 是跑在你機器上的中央 orchestrator process。它啟動 channels、管理 sessions 並 dispatch replies。所有 traffic 都流經它。">Gateway</span> route 給 Router</p></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="flow-step-num">4</div><p>Router 指派 <span class="term" data-definition="session key 是識別一個 conversation thread 的 unique string，會編碼 agent、channel、account 和 peer IDs，讓 Pi Agent 能在 disk 上找到正確 history file。">session key</span></p></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="flow-step-num">5</div><p>Pi Agent 呼叫 AI model</p></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="flow-step-num">6</div><p>Reply <span class="term" data-definition="streaming 是資料生成時就以小 chunks 逐步送出，而不是等整包 payload 準備好才送。Replies 會即時逐字出現。">streams</span> 回 Telegram</p></div>
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <span class="callout-icon">💡</span>
+        <div class="callout-content">
+          <p>AI reply 會以 chunks <span class="term" data-definition="streaming 是資料生成時就以小 chunks 逐步送出，而不是等整包 payload 準備好才送。">streams</span> 回來；你會在 model 生成時看到 partial text 出現。這是刻意設計：因為你可以在 AI 還在寫時就開始讀，所以 response 感覺更快。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════
+         SCREEN 2 — Interactive Data Flow Animation
+         ════════════════════════════════════════════════════════════ -->
+    <section class="screen animate-in">
+      <h3 class="screen-heading">一步一步看 live journey</h3>
+
+      <p>
+        跟著 live journey 一步步走：點 <strong>下一步</strong> 前進。觀察
+        <span class="term" data-definition="packet 是在 actor nodes 之間移動的視覺點，代表 message 或 data packet 從一個 component 移到另一個。">packet</span>
+        如何隨著 message travel，在 components 之間移動。
+      </p>
+
+      <div class="flow-animation animate-in"
+           id="flow-module3"
+           data-steps='[
+             {"highlight":"flow-actor-1","label":"user 在 Telegram 輸入 message 並按下 send"},
+             {"highlight":"flow-actor-2","label":"Telegram 對 OpenClaw Channel Plugin 觸發 webhook","packet":true,"from":"actor-1","to":"actor-2"},
+             {"highlight":"flow-actor-2","label":"Channel Plugin 把 message normalize 成標準 OpenClaw format"},
+             {"highlight":"flow-actor-3","label":"channel 把 normalized message 傳給 Gateway","packet":true,"from":"actor-2","to":"actor-3"},
+             {"highlight":"flow-actor-4","label":"Gateway 詢問 Router：哪個 agent 和 session 要處理這則 message？","packet":true,"from":"actor-3","to":"actor-4"},
+             {"highlight":"flow-actor-5","label":"Router 發出 session key，並把 message 排給 Pi Agent","packet":true,"from":"actor-4","to":"actor-5"},
+             {"highlight":"flow-actor-5","label":"Pi Agent 載入 conversation history 並呼叫 AI model"},
+             {"highlight":"flow-actor-3","label":"AI reply 以 chunks 經由 Gateway stream 回來","packet":true,"from":"actor-5","to":"actor-3"},
+             {"highlight":"flow-actor-2","label":"Gateway 把每個 chunk forward 給 Channel Plugin","packet":true,"from":"actor-3","to":"actor-2"},
+             {"highlight":"flow-actor-1","label":"Channel Plugin 用每個新 chunk 更新 Telegram message","packet":true,"from":"actor-2","to":"actor-1"}
+           ]'>
+
+        <div class="flow-step-label">點「下一步」開始</div>
+
+        <div class="flow-actors">
+          <div class="flow-actor" id="flow-actor-1">
+            <div class="flow-actor-icon">📱</div>
+            <span>Telegram</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-2">
+            <div class="flow-actor-icon">📡</div>
+            <span>Channel</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-3">
+            <div class="flow-actor-icon">🏛️</div>
+            <span>Gateway</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-4">
+            <div class="flow-actor-icon">🗺️</div>
+            <span>Router</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-5">
+            <div class="flow-actor-icon">🧠</div>
+            <span>Pi Agent</span>
+          </div>
+        </div><!-- /.flow-actors -->
+
+        <div class="flow-packet" id="flow-packet"></div>
+
+        <div class="flow-controls">
+          <button class="btn flow-next-btn">下一步</button>
+          <button class="btn flow-reset-btn">重設</button>
+          <span class="flow-progress">步驟 0 / 10</span>
+        </div>
+
+      </div><!-- /.flow-animation -->
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════
+         SCREEN 3 — The Draft Stream Loop (Code Translation)
+         ════════════════════════════════════════════════════════════ -->
+    <section class="screen animate-in">
+      <h3 class="screen-heading">為什麼回覆會一個字一個字出現</h3>
+
+      <p>
+        While the AI is generating a reply, OpenClaw sends partial text to Telegram so you see it appear in real time.
+        這就是 <strong>Draft Stream Loop</strong>，也就是
+        <span class="term" data-definition="Controlling the rate at which something happens. Here, it limits how often partial reply chunks are sent to Telegram, preventing the channel API from being overwhelmed.">throttled</span>
+        loop that flushes pending text at a controlled rate.
+      </p>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE — src/channels/draft-stream-loop.ts (lines 10–50)</span>
+          <pre><code><span class="code-line"><span class="code-keyword">export function</span> <span class="code-function">createDraftStreamLoop</span>(params: &#123;</span>
+<span class="code-line">  <span class="code-property">throttleMs</span>: <span class="code-keyword">number</span>;</span>
+<span class="code-line">  <span class="code-property">isStopped</span>: () =&gt; <span class="code-keyword">boolean</span>;</span>
+<span class="code-line">  <span class="code-property">sendOrEditStreamMessage</span>: (text: <span class="code-keyword">string</span>) =&gt; Promise&lt;<span class="code-keyword">void</span> | <span class="code-keyword">boolean</span>&gt;;</span>
+<span class="code-line">&#125;): DraftStreamLoop &#123;</span>
+<span class="code-line">  <span class="code-keyword">let</span> <span class="code-property">lastSentAt</span> = <span class="code-number">0</span>;</span>
+<span class="code-line">  <span class="code-keyword">let</span> <span class="code-property">pendingText</span> = <span class="code-string">""</span>;</span>
+<span class="code-line">  <span class="code-keyword">let</span> <span class="code-property">inFlightPromise</span>: Promise&lt;<span class="code-keyword">void</span> | <span class="code-keyword">boolean</span>&gt; | <span class="code-keyword">undefined</span>;</span>
+<span class="code-line"></span>
+<span class="code-line">  <span class="code-keyword">const</span> <span class="code-function">flush</span> = <span class="code-keyword">async</span> () =&gt; &#123;</span>
+<span class="code-line">    <span class="code-keyword">while</span> (!params.<span class="code-function">isStopped</span>()) &#123;</span>
+<span class="code-line">      <span class="code-keyword">if</span> (inFlightPromise) &#123;</span>
+<span class="code-line">        <span class="code-keyword">await</span> inFlightPromise;</span>
+<span class="code-line">        <span class="code-keyword">continue</span>;</span>
+<span class="code-line">      &#125;</span>
+<span class="code-line">      <span class="code-keyword">const</span> text = pendingText;</span>
+<span class="code-line">      <span class="code-keyword">if</span> (!text.<span class="code-function">trim</span>()) &#123; pendingText = <span class="code-string">""</span>; <span class="code-keyword">return</span>; &#125;</span>
+<span class="code-line">      pendingText = <span class="code-string">""</span>;</span>
+<span class="code-line">      <span class="code-keyword">const</span> current = params.<span class="code-function">sendOrEditStreamMessage</span>(text).<span class="code-function">finally</span>(() =&gt; &#123;</span>
+<span class="code-line">        <span class="code-keyword">if</span> (inFlightPromise === current) inFlightPromise = <span class="code-keyword">undefined</span>;</span>
+<span class="code-line">      &#125;);</span>
+<span class="code-line">      inFlightPromise = current;</span>
+<span class="code-line">      <span class="code-keyword">const</span> sent = <span class="code-keyword">await</span> current;</span>
+<span class="code-line">      <span class="code-keyword">if</span> (sent === <span class="code-keyword">false</span>) &#123; pendingText = text; <span class="code-keyword">return</span>; &#125;</span>
+<span class="code-line">      lastSentAt = Date.<span class="code-function">now</span>();</span>
+<span class="code-line">      <span class="code-keyword">if</span> (!pendingText) <span class="code-keyword">return</span>;</span>
+<span class="code-line">    &#125;</span>
+<span class="code-line">  &#125;;</span></code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">Creates a <span class="term" data-definition="Sending data in small incremental chunks as it is generated, rather than waiting for the entire payload to be ready.">streaming</span> loop that sends text to the channel as the AI generates it</p>
+            <p class="tl"><code>throttleMs</code> = how often to send updates — prevents flooding Telegram every millisecond</p>
+            <p class="tl"><code>isStopped()</code> = check if the run has been cancelled before sending more</p>
+            <p class="tl"><code>sendOrEditStreamMessage</code> = 實際用新文字編輯 Telegram message 的 function</p>
+            <p class="tl">—</p>
+            <p class="tl"><code>lastSentAt</code> = timestamp of last successful send, used for <span class="term" data-definition="Controlling the rate at which something happens — here, limiting how often Telegram gets updated with new partial text.">throttle</span> timing</p>
+            <p class="tl"><code>pendingText</code> = AI text waiting to be sent to Telegram</p>
+            <p class="tl"><code>inFlightPromise</code> = a Telegram edit is already in progress — wait for it before sending more</p>
+            <p class="tl">—</p>
+            <p class="tl"><code>flush()</code> = the core loop: grab all pending text, send it, wait, check again</p>
+            <p class="tl">If <code>isStopped()</code> is true — stop immediately, the run was cancelled</p>
+            <p class="tl">如果 Telegram request 還在進行中，就等它完成再進入下一輪 loop</p>
+            <p class="tl">Grab all pending text, then clear the buffer so new AI text can accumulate</p>
+            <p class="tl">Send the text to Telegram and track the request as &ldquo;in flight&rdquo;</p>
+            <p class="tl">If <code>sent === false</code>: Telegram rejected this batch — hold onto the text and retry next cycle</p>
+            <p class="tl">Update <code>lastSentAt</code>, then check if more text arrived while we were waiting</p>
+          </div>
+        </div>
+      </div><!-- /.translation-block -->
+
+      <div class="callout callout-info animate-in">
+        <span class="callout-icon">⚡</span>
+        <div class="callout-content">
+          <span class="callout-title">為什麼要 throttle？</span>
+          <p>Telegram has a <span class="term" data-definition="A limit imposed by an API provider on how many requests can be made in a time window. Exceeding it causes HTTP 429 errors and forces a waiting period.">rate limit</span> 對每秒能編輯 message 幾次有限制。 <code>throttleMs</code> parameter ensures OpenClaw never hits that limit, even during a fast-streaming response.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════
+         SCREEN 4 — Session Keys Explained
+         ════════════════════════════════════════════════════════════ -->
+    <section class="screen animate-in">
+      <h3 class="screen-heading">每則 message 上的 routing label</h3>
+
+      <p>
+        Router 處理 message 時，會建立一個
+        <span class="term" data-definition="A unique string that identifies one conversation thread. It encodes the agent, channel, account, and peer IDs so the Pi Agent can find the right history file on disk.">session key</span>
+        — a unique ID that identifies this exact conversation.
+        同一段 conversation 裡的每則 message 都會拿到相同 key，因此 Pi Agent 知道要載入哪份 history。
+      </p>
+
+      <div class="pattern-cards stagger-children">
+        <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-1);">
+          <div class="pattern-icon" style="background: var(--color-accent-light);">🤖</div>
+          <div class="pattern-title"><code>agentId</code></div>
+          <p class="pattern-desc">哪個 AI <span class="term" data-definition="A configured AI persona in OpenClaw — it has a name, system instructions, a model choice, and tool permissions.">agent</span> handles this thread (e.g. <code>&quot;default&quot;</code>)</p>
+        </div>
+        <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-2);">
+          <div class="pattern-icon" style="background: var(--color-info-light);">📡</div>
+          <div class="pattern-title"><code>channel</code></div>
+          <p class="pattern-desc">哪個 app（例如 <code>&quot;telegram&quot;</code>, <code>&quot;whatsapp&quot;</code>)</p>
+        </div>
+        <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-3);">
+          <div class="pattern-icon" style="background: var(--color-success-light);">🏦</div>
+          <div class="pattern-title"><code>accountId</code></div>
+          <p class="pattern-desc">哪個 bot account 收到 message（例如 <code>&quot;bot1&quot;</code>)</p>
+        </div>
+        <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-4);">
+          <div class="pattern-icon" style="background: var(--color-success-light);">👤</div>
+          <div class="pattern-title"><code>peer</code></div>
+          <p class="pattern-desc">Who sent it — user ID or group ID (e.g. <code>&quot;user_123456&quot;</code>)</p>
+        </div>
+      </div>
+
+      <div class="callout callout-accent animate-in" style="margin-top: var(--space-6);">
+        <span class="callout-icon">🔑</span>
+        <div class="callout-content">
+          <span class="callout-title">Example key: <code>default/telegram/bot1/user_123456</code></span>
+          <p>
+            Session keys are why OpenClaw can run hundreds of separate conversations simultaneously — each gets its own key, its own file on disk, and its own AI
+            <span class="term" data-definition="The maximum amount of text an AI model can read at once, measured in tokens. The full conversation history must fit inside this window before each AI call.">context</span>.
+            當你在 Telegram 問 AI 關於 project A、在 Discord 問 project B，這兩段會是完全分開的 conversations。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════
+         SCREEN 5 — Run State Machine (Code Translation)
+         ════════════════════════════════════════════════════════════ -->
+    <section class="screen animate-in">
+      <h3 class="screen-heading">「Do Not Disturb」系統</h3>
+
+      <p>
+        While a reply is being generated, OpenClaw tracks whether each conversation is busy.
+        這可以避免第二則 message 打斷仍在寫作中的 reply。
+      </p>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE — src/channels/run-state-machine.ts (lines 18–34)</span>
+          <pre><code><span class="code-line"><span class="code-keyword">export function</span> <span class="code-function">createRunStateMachine</span>(params: RunStateMachineParams) &#123;</span>
+<span class="code-line">  <span class="code-keyword">const</span> heartbeatMs = params.heartbeatMs ?? DEFAULT_RUN_ACTIVITY_HEARTBEAT_MS;</span>
+<span class="code-line">  <span class="code-keyword">let</span> activeRuns = <span class="code-number">0</span>;</span>
+<span class="code-line">  <span class="code-keyword">let</span> runActivityHeartbeat: ReturnType&lt;<span class="code-keyword">typeof</span> setInterval&gt; | <span class="code-keyword">null</span> = <span class="code-keyword">null</span>;</span>
+<span class="code-line"></span>
+<span class="code-line">  <span class="code-keyword">const</span> <span class="code-function">publish</span> = () =&gt; &#123;</span>
+<span class="code-line">    params.setStatus?.( &#123;</span>
+<span class="code-line">      activeRuns,</span>
+<span class="code-line">      busy: activeRuns &gt; <span class="code-number">0</span>,</span>
+<span class="code-line">      lastRunActivityAt: <span class="code-function">now</span>(),</span>
+<span class="code-line">    &#125;);</span>
+<span class="code-line">  &#125;;</span></code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">為單一 conversation thread 建立 state tracker</p>
+            <p class="tl"><code>heartbeatMs</code> = send a status update this often while a run is active</p>
+            <p class="tl"><code>activeRuns</code> = how many AI runs are currently happening (normally 0 or 1)</p>
+            <p class="tl"><code>runActivityHeartbeat</code> = a repeating timer that fires status updates while busy</p>
+            <p class="tl">—</p>
+            <p class="tl"><code>publish()</code> = broadcasts the current state to anyone listening</p>
+            <p class="tl"><code>activeRuns</code> = the live count of ongoing AI calls in this thread</p>
+            <p class="tl"><code>busy: activeRuns &gt; 0</code> = true 表示 reply 正在進行中；channel 會把下一則 message 排入 queue</p>
+            <p class="tl"><code>lastRunActivityAt</code> = timestamp of the last activity, used for health monitoring</p>
+            <p class="tl">Like an &ldquo;on air&rdquo; light in a radio studio — red means someone is talking, wait your turn</p>
+          </div>
+        </div>
+      </div><!-- /.translation-block -->
+
+      <div class="pattern-cards stagger-children" style="margin-top: var(--space-8)">
+        <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-2);">
+          <div class="pattern-icon" style="background: var(--color-accent-light);">🔴</div>
+          <div class="pattern-title">Busy (<code>activeRuns &gt; 0</code>)</div>
+          <p class="pattern-desc">reply 正在生成。新的 messages 會先排入 queue，等目前 run 完成後再送出。</p>
+        </div>
+        <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-4);">
+          <div class="pattern-icon" style="background: var(--color-success-light);">🟢</div>
+          <div class="pattern-title">Idle (<code>activeRuns === 0</code>)</div>
+          <p class="pattern-desc">沒有 reply 正在進行。下一則 message 會觸發新的
+            <span class="term" data-definition="One full cycle of the AI generation loop: load history, build prompt, call model, run tools if needed, stream reply, save result.">inference loop</span> immediately.</p>
+        </div>
+        <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-3);">
+          <div class="pattern-icon" style="background: var(--color-info-light);">💓</div>
+          <div class="pattern-title">Heartbeat</div>
+          <p class="pattern-desc">While busy, a periodic pulse is sent so the Gateway knows the run is still alive — not silently crashed.</p>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /.module-content -->
+</section>
+<section class="module" id="module-4" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+
+    <!-- ── MODULE HEADER ───────────────────────────────────────── -->
+    <header class="module-header animate-in">
+      <span class="module-number">04</span>
+      <h2 class="module-title">內部大腦</h2>
+      <p class="module-subtitle">
+        Pi Agent 保存 conversation history，決定要呼叫哪個 AI model，執行 browser 或 bash terminal 這類 tools，並把 answer stream 回去。以下是它的思考方式。
+      </p>
+    </header>
+
+    <!-- ════════════════════════════════════════════════════════════
+         SCREEN 1 — What Lives Inside a Session
+         ════════════════════════════════════════════════════════════ -->
+    <section class="screen animate-in">
+      <h3 class="screen-heading">你的 conversation 存在 disk 上</h3>
+
+      <p>
+        A
+        <span class="term" data-definition="A stored record of one conversation thread, saved as a JSONL file on disk. It contains every message exchanged — yours and the AI's — indexed by a unique session key.">session</span>
+        is a list of messages — yours and the AI&rsquo;s — stored as a
+        <span class="term" data-definition="JSON Lines: a file format where each line is a separate, valid JSON object. Ideal for append-only logs because you can add a new message by appending one line, without rewriting the whole file.">JSONL</span>
+        file on your disk.
+        每則新 message 都會 append 到那個檔案；每次 AI call 前，整份 history 都會被打包並作為
+        <span class="term" data-definition="All the text sent to an AI model in a single request: system instructions, the full conversation history, and the current user message. The model can only see what fits inside its context window.">context</span>.
+      </p>
+
+      <div class="pattern-cards stagger-children">
+        <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-1);">
+          <div class="pattern-icon" style="background: var(--color-accent-light);">📜</div>
+          <div class="pattern-title">Session History</div>
+          <p class="pattern-desc">完整 conversation 會以
+            <span class="term" data-definition="JSON Lines: a file format where each line is a separate JSON object, ideal for append-only conversation logs.">JSONL</span>
+            file 保存。AI 在生成每次 reply 前，都會讀到先前每則 message：包含你的，也包含它自己的。</p>
+        </div>
+        <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-2);">
+          <div class="pattern-icon" style="background: var(--color-info-light);">🔑</div>
+          <div class="pattern-title">Session Key</div>
+          <p class="pattern-desc">這段 conversation 的 unique ID（來自 Router）。Pi Agent 用它在 disk 上找到正確檔案。</p>
+        </div>
+        <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-3);">
+          <div class="pattern-icon" style="background: var(--color-success-light);">✂️</div>
+          <div class="pattern-title"><span class="term" data-definition="The process of summarizing old conversation messages into a compact synopsis when the history grows too large to fit inside the AI's context window. Like condensing a transcript into meeting notes.">Compaction</span></div>
+          <p class="pattern-desc">當 history 大到 AI 無法處理時，最舊的 messages 會被 summarized 成精簡 synopsis，就像把逐字稿濃縮成會議筆記。</p>
+        </div>
+        <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-4);">
+          <div class="pattern-icon" style="background: var(--color-success-light);">🗂️</div>
+          <div class="pattern-title">Parallel Sessions</div>
+          <p class="pattern-desc">Each channel + peer combination gets its own session. 你 can have hundreds of separate AI conversations running simultaneously — they never interfere.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════
+         SCREEN 2 — The Inference Loop (Group Chat)
+         ════════════════════════════════════════════════════════════ -->
+    <section class="screen animate-in">
+      <h3 class="screen-heading">brain 裡的一個 turn</h3>
+
+      <p>
+        Each time you send a message, the Pi Agent runs one &ldquo;turn&rdquo; of the
+        <span class="term" data-definition="The repeating cycle inside the Pi Agent: load history, build prompt, call AI model, run any tool calls, stream reply, save result, repeat if needed.">inference loop</span>.
+        Here is what happens inside a single turn when you ask it to check your disk.
+      </p>
+
+      <div class="chat-window" id="chat-module4">
+        <div class="chat-messages">
+
+          <!-- msg 0: User -->
+          <div class="chat-message" data-msg="0" data-sender="user" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-text-muted)">你</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-text-muted)">YOU</span>
+              <p>Check my disk usage and give me a summary</p>
+            </div>
+          </div>
+
+          <!-- msg 1: Pi Agent -->
+          <div class="chat-message" data-msg="1" data-sender="piagent" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-4)">Pi</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-4)">PI AGENT</span>
+              <p>I need to run a command to check disk usage. Using the <span class="term" data-definition="A function the AI is allowed to call during a conversation — for example web search, code execution, or file reading. The AI decides when to use a tool; the Pi Agent handles the actual execution.">bash tool</span>&hellip;</p>
+            </div>
+          </div>
+
+          <!-- msg 2: Bash Tool -->
+          <div class="chat-message" data-msg="2" data-sender="bash" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-3)">Sh</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-3)">BASH TOOL</span>
+              <p>Running: <code>df -h</code>. Result: <code>/dev/disk1s1 &nbsp;460G &nbsp;234G &nbsp;226G &nbsp;51%</code></p>
+            </div>
+          </div>
+
+          <!-- msg 3: Pi Agent sends to Claude -->
+          <div class="chat-message" data-msg="3" data-sender="piagent" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-4)">Pi</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-4)">PI AGENT</span>
+              <p>Sending to Claude: [history] + [<span class="term" data-definition="The result returned by a tool the AI called. It is fed back into the conversation so the model can use the data in its reply.">tool result</span>: 460G total, 234G used, 51%]. Waiting for response&hellip;</p>
+            </div>
+          </div>
+
+          <!-- msg 4: Claude -->
+          <div class="chat-message" data-msg="4" data-sender="claude" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-5)">Cl</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-5)">CLAUDE</span>
+              <p>你的 disk is about half full &mdash; 234 GB used out of 460 GB total. 你 have plenty of room remaining.</p>
+            </div>
+          </div>
+
+          <!-- msg 5: Pi Agent streams back -->
+          <div class="chat-message" data-msg="5" data-sender="piagent" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-4)">Pi</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-4)">PI AGENT</span>
+              <p><span class="term" data-definition="Sending data in small incremental chunks as it is generated. The reply appears word-by-word in Telegram rather than all at once.">Streaming</span> reply to you: &ldquo;你的 disk is about half full &mdash; 234 GB used out of 460 GB total&hellip;&rdquo;</p>
+            </div>
+          </div>
+
+          <!-- typing indicator -->
+          <div class="chat-typing" style="display:none">
+            <div class="chat-avatar" id="chat-module4-typing-avatar" style="background: var(--color-actor-4)">Pi</div>
+            <div class="chat-typing-dots">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+
+        </div><!-- /.chat-messages -->
+
+        <div class="chat-controls">
+          <button class="btn chat-next-btn">下一則訊息</button>
+          <button class="btn chat-all-btn">全部播放</button>
+          <button class="btn chat-reset-btn">重播</button>
+          <span class="chat-progress">0 / 6 則訊息</span>
+        </div>
+      </div><!-- /#chat-module4 -->
+
+      <div class="callout callout-info animate-in" style="margin-top: var(--space-6);">
+        <span class="callout-icon">🔁</span>
+        <div class="callout-content">
+          <span class="callout-title">Tool calls 可以 loop</span>
+          <p>如果 AI 看完一個 tool result 後還需要更多資訊，它可以再 request 另一個
+            <span class="term" data-definition="A request the AI model makes during a conversation to execute a named function — like running a shell command, searching the web, or reading a file. The Pi Agent executes it and returns the result.">tool call</span>.
+            A single user message can trigger multiple tool calls before the final reply is sent.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════
+         SCREEN 3 — Model Providers and Failover (Code Translation)
+         ════════════════════════════════════════════════════════════ -->
+    <section class="screen animate-in">
+      <h3 class="screen-heading">一個 AI 失敗，就試下一個</h3>
+
+      <p>
+        OpenClaw supports Claude, GPT, Gemini, Llama, and dozens of other models.
+        如果 provider 被 <span class="term" data-definition="rate limit 是 API provider 對特定時間窗內可發出 requests 數量的限制。超過後會造成 HTTP 429 errors，並強制等待一段時間。">rate-limited</span> 或掛掉，它會自動嘗試下一個 configured model，這個機制稱為 <strong>model failover</strong>。
+      </p>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE — src/agents/model-fallback.ts (lines 45–60)</span>
+          <pre><code><span class="code-line"><span class="code-keyword">export class</span> <span class="code-function">FallbackSummaryError</span> <span class="code-keyword">extends</span> Error &#123;</span>
+<span class="code-line">  <span class="code-keyword">readonly</span> <span class="code-property">attempts</span>: FallbackAttempt[];</span>
+<span class="code-line">  <span class="code-keyword">readonly</span> <span class="code-property">soonestCooldownExpiry</span>: <span class="code-keyword">number</span> | <span class="code-keyword">null</span>;</span>
+<span class="code-line"></span>
+<span class="code-line">  <span class="code-keyword">constructor</span>(</span>
+<span class="code-line">    message: <span class="code-keyword">string</span>,</span>
+<span class="code-line">    attempts: FallbackAttempt[],</span>
+<span class="code-line">    soonestCooldownExpiry: <span class="code-keyword">number</span> | <span class="code-keyword">null</span>,</span>
+<span class="code-line">    cause?: Error,</span>
+<span class="code-line">  ) &#123;</span>
+<span class="code-line">    <span class="code-keyword">super</span>(message, &#123; cause &#125;);</span>
+<span class="code-line">    <span class="code-keyword">this</span>.name = <span class="code-string">"FallbackSummaryError"</span>;</span>
+<span class="code-line">    <span class="code-keyword">this</span>.attempts = attempts;</span>
+<span class="code-line">    <span class="code-keyword">this</span>.soonestCooldownExpiry = soonestCooldownExpiry;</span>
+<span class="code-line">  &#125;</span>
+<span class="code-line">&#125;</span></code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl"><code>FallbackSummaryError</code> = the error thrown <em>only</em> when every configured model has been tried and failed</p>
+            <p class="tl"><code>attempts</code> = a log of each model tried and why it failed (<span class="term" data-definition="A limit imposed by an API provider on how many requests can be made in a time window.">rate limit</span>? timeout? auth error?)</p>
+            <p class="tl"><code>soonestCooldownExpiry</code> = the earliest time any model will accept requests again</p>
+            <p class="tl">—</p>
+            <p class="tl"><code>message</code> = a human-readable summary of all the failures</p>
+            <p class="tl"><code>attempts</code> = the full list of what was tried, in order</p>
+            <p class="tl"><code>soonestCooldownExpiry</code> = when to retry (milliseconds timestamp)</p>
+            <p class="tl"><code>cause</code> = the last underlying error, for debugging purposes</p>
+            <p class="tl">—</p>
+            <p class="tl">Like a rejection slip with full notes: tried Claude (rate-limited), tried GPT (timed out), tried Gemini (auth error). Try again in 47 seconds.</p>
+          </div>
+        </div>
+      </div><!-- /.translation-block -->
+
+      <div class="pattern-cards stagger-children" style="margin-top: var(--space-8)">
+        <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-1);">
+          <div class="pattern-icon" style="background: var(--color-accent-light);">1️⃣</div>
+          <div class="pattern-title">嘗試 primary model</div>
+          <p class="pattern-desc">第一個 configured provider（通常是 Claude 或 GPT）會先收到 request。</p>
+        </div>
+        <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-2);">
+          <div class="pattern-icon" style="background: var(--color-info-light);">❌</div>
+          <div class="pattern-title">Primary 失敗</div>
+          <p class="pattern-desc">Rate-limited, timed out, or auth error. Record the attempt and move to the next provider.</p>
+        </div>
+        <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-3);">
+          <div class="pattern-icon" style="background: var(--color-success-light);">2️⃣</div>
+          <div class="pattern-title">嘗試下一個 provider</div>
+          <p class="pattern-desc">Each fallback is tried in sequence until one succeeds or all are exhausted.</p>
+        </div>
+        <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-4);">
+          <div class="pattern-icon" style="background: var(--color-success-light);">🚫</div>
+          <div class="pattern-title">全部失敗</div>
+          <p class="pattern-desc">Throw <code>FallbackSummaryError</code> with the full attempt log and the soonest retry time.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════
+         SCREEN 4 — Context Window and Compaction
+         ════════════════════════════════════════════════════════════ -->
+    <section class="screen animate-in">
+      <h3 class="screen-heading">會被寫滿的 whiteboard</h3>
+
+      <p>
+        每個 AI model 一次能讀的文字量都有上限，稱為
+        <span class="term" data-definition="The maximum amount of text an AI model can process in a single request, measured in tokens (roughly 0.75 words each). The full conversation history must fit inside this limit.">context window</span>.
+        Think of it like a whiteboard: you can only fit so much writing before you have to erase the oldest notes.
+      </p>
+
+      <div class="flow-steps">
+        <div class="flow-step"><div class="flow-step-num">1</div><p>Turn 1 &mdash; History: [1 message]</p></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="flow-step-num">2</div><p>Turn 10 &mdash; History: [10 messages]</p></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="flow-step-num">3</div><p>Turn 50 &mdash; History near limit</p></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="flow-step-num">4</div><p><span class="term" data-definition="The process of summarizing old conversation messages into a compact synopsis when the history grows too large for the AI's context window.">Compaction</span> &mdash; Oldest messages summarized</p></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="flow-step-num">5</div><p>Turn 51 &mdash; History: [synopsis + recent messages]</p></div>
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <span class="callout-icon">💡</span>
+        <div class="callout-content">
+          <p>
+            &ldquo;<span class="term" data-definition="The maximum amount of text an AI model can read in one request. Old messages that fall outside this limit are invisible to the model until compaction summarizes them back in.">Context window</span>&rdquo;
+            is one of the most important concepts in AI. It explains why your AI sometimes &ldquo;forgets&rdquo; something from earlier in a long conversation — the old messages fell off the whiteboard.
+            當你要求 AI agent「improve the bot’s memory」時，你其實是在要求它處理
+            <span class="term" data-definition="The maximum amount of text an AI model can process in a single request. All prior messages must fit inside this limit.">context window</span>
+            more cleverly.
+          </p>
+        </div>
+      </div>
+
+      <div class="pattern-cards stagger-children" style="margin-top: var(--space-8)">
+        <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-2);">
+          <div class="pattern-icon" style="background: var(--color-accent-light);">📏</div>
+          <div class="pattern-title">Token budget</div>
+          <p class="pattern-desc">Each model has a fixed
+            <span class="term" data-definition="The maximum amount of text (measured in tokens) that can be sent to an AI model in one request.">context window</span>
+            — typically 128k–200k
+            <span class="term" data-definition="The basic unit AI models use to measure text. Roughly 0.75 words per token. APIs charge per token, and context windows are measured in tokens.">tokens</span>
+            for modern models. Longer conversations eat into this budget faster.</p>
+        </div>
+        <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-3);">
+          <div class="pattern-icon" style="background: var(--color-info-light);">🗜️</div>
+          <div class="pattern-title">觸發 compaction</div>
+          <p class="pattern-desc">當 history 接近上限時，
+            <span class="term" data-definition="The process of summarizing old conversation messages into a compact synopsis so the history fits back inside the AI's context window.">compaction</span>
+            summarizes the oldest messages into a brief synopsis and replaces them.</p>
+        </div>
+        <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-4);">
+          <div class="pattern-icon" style="background: var(--color-success-light);">📝</div>
+          <div class="pattern-title">哪些內容會被保留</div>
+          <p class="pattern-desc">synopsis 會保留早期 conversation 的大意。具體細節（名字、數字、精確指令）可能遺失，這是已知 tradeoff。</p>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /.module-content -->
+</section>
+<section class="module" id="module-5" style="background: var(--color-bg)">
+  <div class="module-content">
+
+    <header class="module-header animate-in">
+      <span class="module-number">05</span>
+      <h1 class="module-title">Skills、Tools 與 Plugin Machine</h1>
+      <p class="module-subtitle">OpenClaw 內建 browser、bash terminal、canvas 和 cron scheduler。它也有一套 <span class="term" data-definition="A plugin system allows new capabilities to be added to an application without modifying its core code. OpenClaw's plugin system lets anyone add new messaging channels, AI providers, and capabilities.">plugin system</span> that lets you bolt on new channels, new AI providers, and entirely new capabilities. Here is how the whole extension machine is wired together.</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- ═══════════════════════════════════════════════════════
+           SCREEN 1 — Three Layers of Extensibility
+           ══════════════════════════════════════════════════════ -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">擴充 OpenClaw 的三種方式</h2>
+
+        <p>
+          Think of OpenClaw like a Swiss Army knife factory. The knife ships with built-in blades — and you can order add-on modules from the store that clip onto the handle.
+          These three extension layers give you complete control over what your AI can do and how it behaves.
+        </p>
+
+        <div class="pattern-cards stagger-children">
+
+          <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-actor-1); color: white; font-size: 1.3rem;">🔧</div>
+            <div class="pattern-title"><span class="term" data-definition="Tools are built-in capabilities the AI can call during a conversation. Examples: browser control, bash terminal, canvas drawing, cron scheduling, memory search, camera access. They live in the Pi Agent and are invoked when the AI decides it needs them.">Tools</span></div>
+            <p class="pattern-desc">
+              Capabilities the AI can use right now: browser control, bash terminal, canvas drawing, cron scheduling, memory search, camera.
+              They live in the <span class="term" data-definition="The Pi Agent is the AI-side process that receives messages, calls tools, and generates replies. It runs the AI model inference loop and can call any registered tool.">Pi Agent</span> and are called when the AI decides it needs them.
+            </p>
+          </div>
+
+          <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-actor-2); color: white; font-size: 1.3rem;">📦</div>
+            <div class="pattern-title"><span class="term" data-definition="Plugins are npm packages (or local workspace folders) that register new channels, new AI model providers, or new tools. They are loaded by the Gateway at startup. Core stays lean — everything optional is a plugin.">Plugins</span></div>
+            <p class="pattern-desc">
+              <span class="term" data-definition="npm (Node Package Manager) is the world's largest software registry. 你 can install OpenClaw plugins with 'npm install' or 'openclaw plugins install'. Plugins are just npm packages.">npm</span> packages (or local workspace folders) that register new channels, new AI model providers, or new tools.
+              Loaded by the <span class="term" data-definition="The Gateway is OpenClaw's always-on background service. It loads plugins, opens connections to messaging platforms, and routes messages to the AI.">Gateway</span> at startup. Core stays lean — everything optional is a plugin.
+            </p>
+          </div>
+
+          <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-3)">
+            <div class="pattern-icon" style="background: var(--color-actor-3); color: white; font-size: 1.3rem;">📋</div>
+            <div class="pattern-title"><span class="term" data-definition="Skills are Markdown files with specialized instructions that get injected into the AI's system prompt. They teach the AI your processes, preferences, and workflows — without any code changes.">Skills</span></div>
+            <p class="pattern-desc">
+              Markdown files with specialized instructions that get injected into the AI's <span class="term" data-definition="The system prompt is a set of instructions given to an AI model before any conversation begins. It shapes the AI's persona, capabilities, and knowledge for every message in that session.">system prompt</span>.
+              Install a release-management skill and the AI knows your release process by heart.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="callout callout-info animate-in">
+          <span class="callout-icon">💡</span>
+          <div class="callout-content">
+            <strong class="callout-title">為什麼需要三層？</strong>
+            <p>這種三層設計是刻意的。Core 只做最少必要工作；其他全部 pluggable。這代表你可以新增 messaging app，而不必改 OpenClaw core 的任何一行。</p>
+          </div>
+        </div>
+
+        <!-- Visual diagram of the three layers -->
+        <div class="flow-steps" style="justify-content: center; flex-wrap: wrap; margin-top: var(--space-6);">
+          <div class="flow-step" style="border-color: var(--color-actor-3)">
+            <div class="flow-step-num" style="background: var(--color-actor-3);">📋</div>
+            <p><strong>Skills</strong><br><small>Injected into system prompt</small></p>
+          </div>
+          <div class="flow-arrow">+</div>
+          <div class="flow-step" style="border-color: var(--color-actor-1)">
+            <div class="flow-step-num" style="background: var(--color-actor-1);">🔧</div>
+            <p><strong>Tools</strong><br><small>Called by the AI on demand</small></p>
+          </div>
+          <div class="flow-arrow">+</div>
+          <div class="flow-step" style="border-color: var(--color-actor-2)">
+            <div class="flow-step-num" style="background: var(--color-actor-2);">📦</div>
+            <p><strong>Plugins</strong><br><small>Loaded at Gateway startup</small></p>
+          </div>
+          <div class="flow-arrow">=</div>
+          <div class="flow-step" style="border-color: var(--color-actor-4)">
+            <div class="flow-step-num" style="background: var(--color-actor-4);">✨</div>
+            <p><strong>你的 custom OpenClaw</strong><br><small>依你的 workflows 客製</small></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════
+           SCREEN 2 — The Tools Catalog
+           ══════════════════════════════════════════════════════ -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">AI 的 toolbox</h2>
+
+        <p>
+          AI 能使用的每個 tool 都會註冊在 tools catalog，這是一張把 tool names map 到 <span class="term" data-definition="handler function 是 event 發生時實際執行的 code。tool handler 則是 AI 呼叫特定 tool 時會執行的 function，例如執行 bash command。">handler functions</span> 的 lookup table。
+          當 AI 說它想使用 browser tool 時，Pi Agent 會用名稱找到它並呼叫。
+        </p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE &mdash; Tool Catalog Pattern</span>
+            <pre><code><span class="code-line"><span class="code-keyword">export type</span> <span class="code-function">ToolEntry</span> = {</span>
+<span class="code-line">  <span class="code-property">name</span>: <span class="code-keyword">string</span>;</span>
+<span class="code-line">  <span class="code-property">description</span>: <span class="code-keyword">string</span>;</span>
+<span class="code-line">  <span class="code-property">inputSchema</span>: <span class="code-keyword">unknown</span>;</span>
+<span class="code-line">  <span class="code-property">handler</span>: ToolHandler;</span>
+<span class="code-line">};</span>
+<span class="code-line"></span>
+<span class="code-line"><span class="code-keyword">export type</span> <span class="code-function">ToolCatalog</span> = {</span>
+<span class="code-line">  <span class="code-property">tools</span>: ToolEntry[];</span>
+<span class="code-line">  <span class="code-function">findTool</span>(name: <span class="code-keyword">string</span>): ToolEntry | <span class="code-keyword">undefined</span>;</span>
+<span class="code-line">};</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl"><strong>ToolEntry</strong> = one capability in the catalog</p>
+              <p class="tl"><strong>name</strong> = AI 呼叫這個 tool 時使用的名稱（例如 <code>bash</code>, <code>browser_snapshot</code>, <code>canvas_eval</code>)</p>
+              <p class="tl"><strong>description</strong> = what this tool does &mdash; the AI reads this to decide when to use it</p>
+              <p class="tl"><strong>inputSchema</strong> = the shape of inputs this tool expects (e.g. bash needs a <code>command</code> string)</p>
+              <p class="tl"><strong>handler</strong> = the actual code that runs when the AI calls this tool</p>
+              <p class="tl">&mdash;</p>
+              <p class="tl"><strong>ToolCatalog</strong> = the master list of all tools</p>
+              <p class="tl"><strong>findTool(name)</strong> = look up a tool by name &mdash; like finding a recipe by dish name</p>
+              <p class="tl">When the AI says &ldquo;I want to run <code>bash df -h</code>&rdquo;, the Pi Agent calls <code>findTool('bash')</code> and passes the command</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual: built-in tools catalog -->
+        <div class="callout callout-accent animate-in" style="margin-top: var(--space-6);">
+          <span class="callout-icon">🔧</span>
+          <div class="callout-content">
+            <strong class="callout-title">OpenClaw 內建提供的 tools</strong>
+            <div style="display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3);">
+              <span class="badge badge-info"><span class="term" data-definition="The bash tool lets the AI run shell commands on your machine — for example 'df -h' to check disk space or 'git log' to review commit history.">bash</span></span>
+              <span class="badge badge-info"><span class="term" data-definition="The browser_snapshot tool takes a screenshot of a webpage and returns it to the AI so it can visually analyze the page.">browser_snapshot</span></span>
+              <span class="badge badge-info"><span class="term" data-definition="The canvas_eval tool lets the AI draw, render, and manipulate a canvas element — enabling visual output and diagramming.">canvas_eval</span></span>
+              <span class="badge badge-info"><span class="term" data-definition="The cron tool lets the AI schedule tasks to run at specific times or intervals, like a system cron job.">cron</span></span>
+              <span class="badge badge-info"><span class="term" data-definition="The memory_search tool lets the AI actively query its long-term memory index to retrieve relevant past conversations.">memory_search</span></span>
+              <span class="badge badge-info"><span class="term" data-definition="The camera tool gives the AI access to a connected camera to capture images or video frames for analysis.">camera</span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════
+           SCREEN 3 — Plugin Manifest and Discovery
+           ══════════════════════════════════════════════════════ -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">plugins 如何自我介紹</h2>
+
+        <p>
+          每個 <span class="term" data-definition="plugin 是 npm package 或 local folder，可為 OpenClaw 加入新 channels、AI providers 或 tools。它會透過 manifest file 自我介紹。">plugin</span> 都會透過 <span class="term" data-definition="manifest file（openclaw.plugin.json）是每個 plugin 都會附上的 JSON metadata file。它不執行任何 code，只宣告 plugin 是誰、提供什麼能力。">manifest file</span> 宣告自己，也就是一份說明「我是誰、我提供什麼」的 JSON file。
+          Gateway 會在 startup 時讀取所有 manifests，並在尚未載入任何 plugin code 前，建立自己的 <span class="term" data-definition="plugin registry 是所有已知 plugins、capabilities、config schemas 與 status 的 in-memory database。Gateway 會透過讀取 manifests 建立它。">plugin registry</span>。
+        </p>
+
+        <!-- Visual: manifest file anatomy -->
+        <div class="animate-in" style="margin: var(--space-6) 0;">
+          <div style="background: var(--color-surface); border: 2px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden;">
+            <div style="background: var(--color-actor-2); color: white; padding: var(--space-3) var(--space-4); font-family: var(--font-mono); font-weight: 700; font-size: var(--text-sm);">
+              openclaw.plugin.json &mdash; the plugin identity card
+            </div>
+            <div style="padding: var(--space-4);">
+              <div style="display: grid; gap: var(--space-3);">
+                <div style="display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-3); background: var(--color-bg); border-radius: var(--radius-md);">
+                  <code style="color: var(--color-actor-1); font-weight: 700; min-width: 220px; font-size: var(--text-sm);">"id"</code>
+                  <span style="color: var(--color-text-muted); font-size: var(--text-sm)">Unique <span class="term" data-definition="The plugin ID is the canonical identifier for a plugin — used in config, registry lookups, and log messages. Examples: 'matrix', 'zalo-user', 'anthropic-vertex'.">plugin identifier</span> &mdash; e.g. <code>"matrix"</code>, <code>"zalo-user"</code>, <code>"anthropic-vertex"</code></span>
+                </div>
+                <div style="display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-3); background: var(--color-bg); border-radius: var(--radius-md);">
+                  <code style="color: var(--color-actor-2); font-weight: 700; min-width: 220px; font-size: var(--text-sm);">"openclaw.channel.id"</code>
+                  <span style="color: var(--color-text-muted); font-size: var(--text-sm)">If it is a <span class="term" data-definition="A channel plugin bridges a messaging platform — it receives messages from Telegram, WhatsApp, Discord, etc. and sends replies back. It implements the channel contract.">channel plugin</span>, the channel identifier used in routing config</span>
+                </div>
+                <div style="display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-3); background: var(--color-bg); border-radius: var(--radius-md);">
+                  <code style="color: var(--color-actor-3); font-weight: 700; min-width: 220px; font-size: var(--text-sm);">"openclaw.install.npmSpec"</code>
+                  <span style="color: var(--color-text-muted); font-size: var(--text-sm)">The <span class="term" data-definition="The npm package name is the identifier used to install the plugin with 'npm install' or 'openclaw plugins install'. It matches the package.json name field.">npm package name</span> used for installation &mdash; e.g. <code>"@openclaw/matrix"</code></span>
+                </div>
+                <div style="display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-3); background: var(--color-bg); border-radius: var(--radius-md);">
+                  <code style="color: var(--color-actor-4); font-weight: 700; min-width: 220px; font-size: var(--text-sm);">"entrypoint"</code>
+                  <span style="color: var(--color-text-muted); font-size: var(--text-sm)">The JavaScript file to execute when the plugin loads &mdash; <em>only read after the manifest is approved</em></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-accent animate-in">
+          <span class="callout-icon">💡</span>
+          <div class="callout-content">
+            <strong class="callout-title">Manifest-first architecture：用 metadata discover，只在需要時 execute</strong>
+            <p>Reading metadata is fast. Loading and running code is slow. By reading manifests first, the Gateway can show you all installed plugins in the Control UI instantly &mdash; before any plugin code actually runs.</p>
+          </div>
+        </div>
+
+        <!-- Startup sequence visual -->
+        <div class="flow-steps animate-in" style="justify-content: center; flex-wrap: wrap; margin-top: var(--space-6);">
+          <div class="flow-step">
+            <div class="flow-step-num" style="background: var(--color-actor-2);">1</div>
+            <p>Scan filesystem for plugins</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num" style="background: var(--color-actor-3);">2</div>
+            <p>Read each <code>openclaw.plugin.json</code> manifest</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num" style="background: var(--color-actor-4);">3</div>
+            <p>Build <span class="term" data-definition="The plugin registry is built from manifest metadata only — no code execution yet. It maps plugin IDs to capabilities, config schemas, and entrypoints.">registry</span> from metadata</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num" style="background: var(--color-actor-1);">4</div>
+            <p>Load <span class="term" data-definition="The entrypoint is the JavaScript file the Gateway loads when it actually runs a plugin. It only gets loaded after the manifest has been validated and the plugin is enabled.">entrypoint</span> code only for enabled plugins</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════
+           SCREEN 4 — Skills: Adding Knowledge
+           ══════════════════════════════════════════════════════ -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">給 AI 的護貝 instruction cards</h2>
+
+        <p>
+          <span class="term" data-definition="Skills are Markdown files with specialized instructions that get injected into the AI system prompt before every conversation. They give the AI persistent, always-on domain knowledge without any code changes.">Skills</span> are Markdown files that inject specialized instructions into the AI <span class="term" data-definition="The system prompt is a block of instructions sent to the AI model at the start of every conversation. It shapes the AI's behavior, knowledge, and capabilities for that session. Skills are injected here.">system prompt</span>.
+          Install a <code>code-review</code> skill and the AI knows your team&rsquo;s review process. Install a <code>release-manager</code> skill and it handles your versioning workflow.
+        </p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE &mdash; src/agents/skills.ts</span>
+            <pre><code><span class="code-line"><span class="code-keyword">export function</span> <span class="code-function">resolveSkillsInstallPreferences</span>(</span>
+<span class="code-line">  config?: OpenClawConfig</span>
+<span class="code-line">): SkillsInstallPreferences {</span>
+<span class="code-line">  <span class="code-keyword">const</span> raw = config?.skills?.install;</span>
+<span class="code-line">  <span class="code-keyword">const</span> preferBrew = raw?.preferBrew ?? <span class="code-keyword">true</span>;</span>
+<span class="code-line">  <span class="code-keyword">const</span> manager = normalizeLowercaseStringOrEmpty(</span>
+<span class="code-line">    normalizeOptionalString(raw?.nodeManager)</span>
+<span class="code-line">  );</span>
+<span class="code-line">  <span class="code-keyword">const</span> nodeManager: SkillsInstallPreferences[<span class="code-string">"nodeManager"</span>] =</span>
+<span class="code-line">    manager === <span class="code-string">"pnpm"</span> || manager === <span class="code-string">"yarn"</span> ||</span>
+<span class="code-line">    manager === <span class="code-string">"bun"</span> || manager === <span class="code-string">"npm"</span></span>
+<span class="code-line">      ? manager</span>
+<span class="code-line">      : <span class="code-string">"npm"</span>;</span>
+<span class="code-line">  <span class="code-keyword">return</span> { preferBrew, nodeManager };</span>
+<span class="code-line">}</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Reads your config to figure out how to install skills</p>
+              <p class="tl"><strong>config?.skills?.install</strong> = safely read the install preferences (the <code>?.</code> means: only if it exists)</p>
+              <p class="tl"><strong>preferBrew</strong> = prefer <span class="term" data-definition="Homebrew is a popular macOS package manager. When preferBrew is true, OpenClaw will use Homebrew to install skill dependencies on macOS if available.">Homebrew</span> for installs on Mac (defaults to <code>true</code>)</p>
+              <p class="tl">&mdash;</p>
+              <p class="tl"><strong>nodeManager</strong> = which JavaScript package manager to use for installs</p>
+              <p class="tl">Accepts: <span class="term" data-definition="pnpm is a fast JavaScript package manager. It is one of the supported node package managers for installing OpenClaw skills.">pnpm</span>, <span class="term" data-definition="yarn is a JavaScript package manager created by Facebook. It is an alternative to npm and is supported for installing OpenClaw skills.">yarn</span>, <span class="term" data-definition="bun is a fast all-in-one JavaScript runtime and package manager. It is supported for installing OpenClaw skills.">bun</span>, or <span class="term" data-definition="npm (Node Package Manager) is the default package manager for Node.js. It is the fallback package manager for installing OpenClaw skills.">npm</span></p>
+              <p class="tl">Anything else falls back to <code>npm</code></p>
+              <p class="tl">&mdash;</p>
+              <p class="tl">Returns a clean preferences object used by <code>openclaw skills install</code></p>
+              <p class="tl">This is the <span class="term" data-definition="A configuration resolver reads raw config values, validates them, applies defaults, and returns a clean preferences object that the rest of the code can use safely.">configuration resolver</span> &mdash; it translates your config file into decisions</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual: skills injection flow -->
+        <div class="callout callout-info animate-in" style="margin-top: var(--space-6);">
+          <span class="callout-icon">📋</span>
+          <div class="callout-content">
+            <strong class="callout-title">skills 如何抵達 AI</strong>
+            <p>當 agent 開始 conversation 時，它會讀取所有已安裝的 skill Markdown files，並把內容 prepend 到 system prompt。AI 會在任何 user message 抵達前先看到 skill instructions，讓 skills 成為 persistent、always-on context。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════
+           SCREEN 5 — Up next
+           ══════════════════════════════════════════════════════ -->
+      <section class="screen animate-in">
+        <div class="callout callout-accent animate-in">
+          <span class="callout-icon">➡️</span>
+          <div class="callout-content">
+            <strong class="callout-title">Up Next: 保持健康</strong>
+            <p>你現在知道 how to extend OpenClaw with tools, plugins, and skills. The final module covers how OpenClaw monitors itself, reloads config on the fly, and auto-repairs problems so your AI stays online 24/7.</p>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </div>
+</section>
+<section class="module" id="module-6" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+
+    <header class="module-header animate-in">
+      <span class="module-number">06</span>
+      <h1 class="module-title">保持健康</h1>
+      <p class="module-subtitle">OpenClaw 會 24/7 跑在你的裝置上。它透過監看斷線、無需 restart 即 reload config、鎖住不受信任的 senders，並診斷自己的問題來保持健康。</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- ═══════════════════════════════════════════════════════
+           SCREEN 1 — Four Pillars of Health
+           ══════════════════════════════════════════════════════ -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">讓 OpenClaw 維持運作的四個系統</h2>
+
+        <p>
+          把 OpenClaw 想成設計良好的船。船長監控所有系統，health officer 監看每個 port connection，locksmith 控制誰能登船，engineer 則執行 diagnostics 並修復機械問題。
+          Four distinct subsystems work together to keep everything running smoothly.
+        </p>
+
+        <div class="pattern-cards stagger-children">
+
+          <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-actor-1); color: white; font-size: 1.3rem;">🫀</div>
+            <div class="pattern-title"><span class="term" data-definition="The Channel Health Monitor continuously probes each connected messaging channel. If a channel goes quiet for too long or fails probe checks, it automatically triggers a reconnect — without any action from you.">Channel Health Monitor</span></div>
+            <p class="pattern-desc">
+              Continuously <span class="term" data-definition="A probe is a lightweight check sent to a service to verify it is still alive. The Channel Health Monitor sends probes to each connected channel every 60 seconds by default.">probes</span> each connected channel.
+              如果 channel 安靜太久，就會觸發 reconnect，而且全自動，不需要你動手。
+            </p>
+          </div>
+
+          <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-actor-2); color: white; font-size: 1.3rem;">🔄</div>
+            <div class="pattern-title"><span class="term" data-definition="Config hot reload means changes to your config file are applied instantly without restarting the Gateway. The Gateway watches the config file and applies diffs in place when it detects a change.">Config Hot Reload</span></div>
+            <p class="pattern-desc">
+              你 can edit your config file and OpenClaw applies the changes instantly &mdash; no restart needed.
+              Like editing a live playlist without stopping the music.
+            </p>
+          </div>
+
+          <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-3)">
+            <div class="pattern-icon" style="background: var(--color-actor-3); color: white; font-size: 1.3rem;">🔒</div>
+            <div class="pattern-title"><span class="term" data-definition="Security defaults protect your AI assistant from unknown senders. By default, every DM from an unknown sender triggers a pairing challenge — they must prove you authorized them before getting a reply.">Security Defaults</span></div>
+            <p class="pattern-desc">
+              每個來自 unknown sender 的 DM 都會觸發 <span class="term" data-definition="pairing challenge 是 code-based authorization flow。unknown sender 會收到 code，必須回傳；接著你在 terminal 裡 approve。這能防止陌生人存取你的 AI。">pairing challenge</span>。
+              They get a code; you approve it. No random strangers get an AI assistant by default.
+            </p>
+          </div>
+
+          <div class="pattern-card animate-in" style="border-top-color: var(--color-actor-4)">
+            <div class="pattern-icon" style="background: var(--color-actor-4); color: white; font-size: 1.3rem;">🩺</div>
+            <div class="pattern-title">The Doctor</div>
+            <p class="pattern-desc">
+              <code>openclaw doctor</code> inspects your entire setup: config, credentials, channel connections, legacy state.
+              Add <code>--fix</code> and it auto-repairs many problems &mdash; your first stop after any upgrade.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Visual health status overview -->
+        <div class="callout callout-info animate-in" style="margin-top: var(--space-6);">
+          <span class="callout-icon">🚢</span>
+          <div class="callout-content">
+            <strong class="callout-title">一個設計良好的船艦類比</strong>
+            <p>health monitor 監看每個 port（channel），連線掉了就 reconnect。security policy 控制誰能登船（DM pairing）。hot-reload engine 不需靠岸（restart）就能套用 config changes。doctor 則按需執行完整 diagnostics。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════
+           SCREEN 2 — Security Defaults: DM Pairing
+           ══════════════════════════════════════════════════════ -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">DM pairing challenge</h2>
+
+        <p>
+          OpenClaw connects to real messaging platforms. By default, it treats every unknown sender as untrusted and demands they prove you authorized them.
+          Watch a stranger attempt to contact your Telegram bot and see the full pairing flow in action.
+        </p>
+
+        <div class="chat-window animate-in" id="chat-module6">
+          <div class="chat-messages">
+
+            <div class="chat-typing" style="display:none">
+              <div class="chat-avatar" id="chat-module6-typing-avatar" style="background: var(--color-actor-1)">OC</div>
+              <div class="chat-typing-dots">
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="0" data-sender="stranger" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-text-muted)">?</div>
+              <div class="chat-bubble"><span class="chat-sender" style="color: var(--color-text-muted)">STRANGER</span><p>Hey bot, can you help me with something?</p></div>
+            </div>
+            <div class="chat-message" data-msg="1" data-sender="openclaw" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">OC</div>
+              <div class="chat-bubble"><span class="chat-sender" style="color: var(--color-actor-1)">OPENCLAW</span><p>Hi! To use this assistant, please reply with your pairing code: PAIR XK7-29B</p></div>
+            </div>
+            <div class="chat-message" data-msg="2" data-sender="stranger" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-text-muted)">?</div>
+              <div class="chat-bubble"><span class="chat-sender" style="color: var(--color-text-muted)">STRANGER</span><p>PAIR XK7-29B</p></div>
+            </div>
+            <div class="chat-message" data-msg="3" data-sender="openclaw" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">OC</div>
+              <div class="chat-bubble"><span class="chat-sender" style="color: var(--color-actor-1)">OPENCLAW</span><p>Code received. Waiting for the bot owner to approve...</p></div>
+            </div>
+            <div class="chat-message" data-msg="4" data-sender="you" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">你</div>
+              <div class="chat-bubble"><span class="chat-sender" style="color: var(--color-actor-2)">YOU (TERMINAL)</span><p>openclaw pairing approve telegram XK7-29B</p></div>
+            </div>
+            <div class="chat-message" data-msg="5" data-sender="openclaw" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">OC</div>
+              <div class="chat-bubble"><span class="chat-sender" style="color: var(--color-actor-1)">OPENCLAW</span><p>Approved! How can I help you today?</p></div>
+            </div>
+
+          </div>
+
+          <div class="chat-controls">
+            <button class="btn btn-primary chat-next-btn">下一步</button>
+            <button class="btn chat-all-btn">全部播放</button>
+            <button class="btn chat-reset-btn">重設</button>
+            <span class="chat-progress">0 / 6 則訊息</span>
+          </div>
+        </div>
+
+        <!-- Visual: dmPolicy options -->
+        <div class="animate-in" style="margin: var(--space-6) 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4);">
+          <div style="background: var(--color-surface); border: 2px solid var(--color-actor-2); border-radius: var(--radius-lg); padding: var(--space-4);">
+            <div style="font-family: var(--font-mono); font-weight: 700; color: var(--color-actor-2); margin-bottom: var(--space-2); font-size: var(--text-sm);">dmPolicy = "pairing" <span style="background: var(--color-actor-2); color: white; padding: 1px 6px; border-radius: 999px; font-size: 0.7rem; margin-left: 4px;">DEFAULT</span></div>
+            <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin: 0;">Unknown senders must complete the pairing challenge. 你 approve each one. Safe for any public bot.</p>
+          </div>
+          <div style="background: var(--color-surface); border: 2px solid var(--color-actor-3); border-radius: var(--radius-lg); padding: var(--space-4);">
+            <div style="font-family: var(--font-mono); font-weight: 700; color: var(--color-actor-3); margin-bottom: var(--space-2); font-size: var(--text-sm);">dmPolicy = "allowFrom"</div>
+            <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin: 0;">Only senders on your explicit <span class="term" data-definition="An allowFrom list is an explicit list of approved sender IDs. Only senders on this list can interact with the bot — everyone else is silently ignored.">allowFrom</span> list can interact. Strictest option for private bots.</p>
+          </div>
+          <div style="background: var(--color-surface); border: 2px solid var(--color-actor-1); border-radius: var(--radius-lg); padding: var(--space-4);">
+            <div style="font-family: var(--font-mono); font-weight: 700; color: var(--color-actor-1); margin-bottom: var(--space-2); font-size: var(--text-sm);">dmPolicy = "open"</div>
+            <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin: 0;">Anyone can talk to the bot. No challenge. Only safe if you personally know everyone who has your bot username.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-warning animate-in">
+          <span class="callout-icon">⚠️</span>
+          <div class="callout-content">
+            <strong class="callout-title">Setting <span class="term" data-definition="dmPolicy controls who can send DMs to your bot. 'open' disables the pairing gate entirely — anyone who finds the bot can interact with it. Only use this for private bots where you know everyone who has the username.">dmPolicy</span>=open disables this gate entirely</strong>
+            <p>Only do this for private bots where you personally know everyone who has the username. For any bot that strangers might find, keep the default &lsquo;pairing&rsquo; policy &mdash; or lock it to an explicit <code>allowFrom</code> list.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════
+           SCREEN 3 — Config Hot Reload
+           ══════════════════════════════════════════════════════ -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">不需要 restart</h2>
+
+        <p>
+          當你修改 config file，Gateway 會在幾秒內偵測到變更，並在不停機的情況下套用。
+          It computes a <span class="term" data-definition="A diff is a comparison showing only what changed between two versions of a file. The Gateway computes a diff between your old and new config to apply only the changed parts — minimizing disruption.">diff</span> &mdash; what changed? &mdash; and applies only the delta.
+        </p>
+
+        <!-- Visual: hot-reload / restart split -->
+        <div class="animate-in" style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin: var(--space-6) 0;">
+
+          <div style="background: var(--color-surface); border: 2px solid var(--color-actor-2); border-radius: var(--radius-lg); overflow: hidden;">
+            <div style="background: var(--color-actor-2); color: white; padding: var(--space-3) var(--space-4); font-weight: 700; display: flex; align-items: center; gap: var(--space-2);">
+              <span>🔄</span> Hot-reloads without restart
+            </div>
+            <div style="padding: var(--space-4);">
+              <div style="display: flex; flex-direction: column; gap: var(--space-2);">
+                <div class="badge badge-info" style="justify-content: flex-start;">
+                  <span class="term" data-definition="agent.* settings control AI agent behavior — model selection, system prompt overrides, temperature, and other inference parameters. These are hot-reloadable.">agent.*</span>
+                  <span style="margin-left: auto; font-size: var(--text-xs); color: var(--color-text-muted);">model selection, system prompt</span>
+                </div>
+                <div class="badge badge-info" style="justify-content: flex-start;">
+                  <span class="term" data-definition="routing.bindings is the config that maps incoming messages to specific AI agents. Changing which agent handles Discord messages takes effect immediately after saving.">routing.bindings</span>
+                  <span style="margin-left: auto; font-size: var(--text-xs); color: var(--color-text-muted);">message routing rules</span>
+                </div>
+                <div class="badge badge-info" style="justify-content: flex-start;">
+                  <span class="term" data-definition="channels.*.allowFrom is the per-channel list of allowed senders. Updating it immediately controls who can message the bot on that channel.">channels.*.allowFrom</span>
+                  <span style="margin-left: auto; font-size: var(--text-xs); color: var(--color-text-muted);">allowed sender lists</span>
+                </div>
+                <div class="badge badge-info" style="justify-content: flex-start;">
+                  <span class="term" data-definition="skills.* controls which skill files are loaded and how they are injected into the AI system prompt. Skill changes take effect on the next conversation.">skills.*</span>
+                  <span style="margin-left: auto; font-size: var(--text-xs); color: var(--color-text-muted);">skill configuration</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="background: var(--color-surface); border: 2px solid var(--color-actor-1); border-radius: var(--radius-lg); overflow: hidden;">
+            <div style="background: var(--color-actor-1); color: white; padding: var(--space-3) var(--space-4); font-weight: 700; display: flex; align-items: center; gap: var(--space-2);">
+              <span>🔁</span> Requires a restart
+            </div>
+            <div style="padding: var(--space-4);">
+              <div style="display: flex; flex-direction: column; gap: var(--space-2);">
+                <div class="badge" style="background: var(--color-actor-1); color: white; justify-content: flex-start;">
+                  <span class="term" data-definition="gateway.port is the network port the Gateway listens on. Changing the port requires a full restart because the server must rebind to the new port.">gateway.port</span>
+                  <span style="margin-left: auto; font-size: var(--text-xs); opacity: 0.8;">listening port</span>
+                </div>
+                <div class="badge" style="background: var(--color-actor-1); color: white; justify-content: flex-start;">
+                  Plugin load order changes
+                  <span style="margin-left: auto; font-size: var(--text-xs); opacity: 0.8;">plugin sequence</span>
+                </div>
+                <div class="badge" style="background: var(--color-actor-1); color: white; justify-content: flex-start;">
+                  Environment variable changes
+                  <span style="margin-left: auto; font-size: var(--text-xs); opacity: 0.8;">process env</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="callout callout-info animate-in">
+          <span class="callout-icon">🔄</span>
+          <div class="callout-content">
+            <strong class="callout-title">hot reload 內部如何運作</strong>
+            <p>The Gateway uses a <span class="term" data-definition="A file-system watcher monitors a file or directory for changes. When the config file is modified, the watcher fires an event and the Gateway re-reads and diffs the file within seconds.">file-system watcher</span>. When it detects a change, it reads the new config, computes what changed (the diff), and applies only those changes in place &mdash; like applying a git patch instead of re-cloning the whole repo.</p>
+          </div>
+        </div>
+
+        <!-- Visual: hot-reload timeline -->
+        <div class="flow-steps animate-in" style="justify-content: center; flex-wrap: wrap; margin-top: var(--space-6);">
+          <div class="flow-step">
+            <div class="flow-step-num" style="background: var(--color-actor-2);">1</div>
+            <p>你 save the config file</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num" style="background: var(--color-actor-3);">2</div>
+            <p>File-system watcher fires</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num" style="background: var(--color-actor-4);">3</div>
+            <p>Gateway reads new config &amp; computes diff</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num" style="background: var(--color-actor-1);">4</div>
+            <p>Only changed keys applied in place</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════
+           SCREEN 4 — Channel Health Monitor
+           ══════════════════════════════════════════════════════ -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">always-on heartbeat checker</h2>
+
+        <p>
+          每個 channel 都有 health policy，定義要多積極地監控 connection。
+          如果 channel 沉默太久，monitor 就會觸發 reconnect。
+        </p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE &mdash; Channel Health Policy</span>
+            <pre><code><span class="code-line"><span class="code-keyword">export type</span> <span class="code-function">ChannelHealthPolicy</span> = {</span>
+<span class="code-line">  <span class="code-property">enabled</span>: <span class="code-keyword">boolean</span>;</span>
+<span class="code-line">  <span class="code-property">probeIntervalMs</span>: <span class="code-keyword">number</span>;</span>
+<span class="code-line">  <span class="code-property">staleThresholdMs</span>: <span class="code-keyword">number</span>;</span>
+<span class="code-line">  <span class="code-property">maxConsecutiveFailures</span>: <span class="code-keyword">number</span>;</span>
+<span class="code-line">};</span>
+<span class="code-line"></span>
+<span class="code-line"><span class="code-keyword">export const</span> DEFAULT_CHANNEL_HEALTH_POLICY: <span class="code-function">ChannelHealthPolicy</span> = {</span>
+<span class="code-line">  <span class="code-property">enabled</span>: <span class="code-keyword">true</span>,</span>
+<span class="code-line">  <span class="code-property">probeIntervalMs</span>: 60_000,</span>
+<span class="code-line">  <span class="code-property">staleThresholdMs</span>: 300_000,</span>
+<span class="code-line">  <span class="code-property">maxConsecutiveFailures</span>: 3,</span>
+<span class="code-line">};</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl"><strong>ChannelHealthPolicy</strong> = the rules for monitoring one channel&rsquo;s connection</p>
+              <p class="tl"><strong>enabled</strong> = whether to monitor at all (yes, by default)</p>
+              <p class="tl"><strong>probeIntervalMs</strong> = check every 60 seconds (60,000 ms = 1 minute)</p>
+              <p class="tl"><strong>staleThresholdMs</strong> = if no activity for 5 minutes (300,000 ms), consider the channel <span class="term" data-definition="A stale channel is one that has had no activity (no messages, no pings, no heartbeats) for longer than the staleThresholdMs threshold. The health monitor will try to reconnect it.">stale</span></p>
+              <p class="tl"><strong>maxConsecutiveFailures</strong> = declare the channel unhealthy after 3 failed checks in a row</p>
+              <p class="tl">&mdash;</p>
+              <p class="tl"><strong>DEFAULT_CHANNEL_HEALTH_POLICY</strong> = the standard settings applied to every channel</p>
+              <p class="tl">Like a smoke detector: checks regularly (every 60s) and raises an alarm if 5 minutes pass without a heartbeat</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual: health monitor state machine -->
+        <div class="animate-in" style="margin: var(--space-6) 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--space-3);">
+          <div style="text-align: center; padding: var(--space-4); background: var(--color-surface); border: 2px solid var(--color-actor-2); border-radius: var(--radius-lg);">
+            <div style="font-size: 2rem; margin-bottom: var(--space-2);">🟢</div>
+            <div style="font-weight: 700; color: var(--color-actor-2); font-size: var(--text-sm);">Healthy</div>
+            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin: var(--space-1) 0 0;">Activity within 5 min window</p>
+          </div>
+          <div style="text-align: center; padding: var(--space-4); background: var(--color-surface); border: 2px solid var(--color-actor-4); border-radius: var(--radius-lg);">
+            <div style="font-size: 2rem; margin-bottom: var(--space-2);">🟡</div>
+            <div style="font-weight: 700; color: var(--color-actor-4); font-size: var(--text-sm);">Stale</div>
+            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin: var(--space-1) 0 0;">No activity for 5+ minutes</p>
+          </div>
+          <div style="text-align: center; padding: var(--space-4); background: var(--color-surface); border: 2px solid var(--color-actor-1); border-radius: var(--radius-lg);">
+            <div style="font-size: 2rem; margin-bottom: var(--space-2);">🔴</div>
+            <div style="font-weight: 700; color: var(--color-actor-1); font-size: var(--text-sm);">Unhealthy</div>
+            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin: var(--space-1) 0 0;">3 consecutive failed <span class="term" data-definition="A probe is a lightweight check sent to verify a service is alive. Failed probes increment the consecutive failure counter.">probes</span></p>
+          </div>
+          <div style="text-align: center; padding: var(--space-4); background: var(--color-surface); border: 2px solid var(--color-actor-3); border-radius: var(--radius-lg);">
+            <div style="font-size: 2rem; margin-bottom: var(--space-2);">🔁</div>
+            <div style="font-weight: 700; color: var(--color-actor-3); font-size: var(--text-sm);">Reconnecting</div>
+            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin: var(--space-1) 0 0;">Auto-recovery triggered</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════
+           SCREEN 5 — Completion
+           ══════════════════════════════════════════════════════ -->
+      <section class="screen animate-in">
+        <!-- Course completion callout -->
+        <div class="callout callout-accent animate-in" style="border-color: var(--color-actor-2);">
+          <span class="callout-icon">🎉</span>
+          <div class="callout-content">
+            <strong class="callout-title">課程完成 &mdash; 你已經理解 OpenClaw</strong>
+            <p>你已經學會 messages 如何從手機流向 AI 再回來、plugin system 如何擴充一切、memory 如何讓 conversations 保持連貫，以及 OpenClaw 如何 24/7 維持健康。現在你已經能有信心地 configure、extend、troubleshoot OpenClaw。</p>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </div>
+</section>
+  </main>
+
+</body>
+</html>

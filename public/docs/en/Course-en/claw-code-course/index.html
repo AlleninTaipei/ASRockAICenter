@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How Claw Works: A Field Guide to AI Coding Agents</title>
+
+  <!-- Google Fonts: Bricolage Grotesque · DM Sans · JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    :root {
+      --color-accent:       #D94F30;
+      --color-accent-hover: #C4432A;
+      --color-accent-light: #FDEEE9;
+      --color-accent-muted: #E8836C;
+    }
+  </style>
+
+  <script src="main.js" defer></script>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="nav-inner">
+      <span class="nav-title">How Claw Works</span>
+      <div class="nav-dots" id="nav-dots" role="tablist">
+        <button class="nav-dot" data-target="module-1" data-tooltip="What Claw Does" role="tab" aria-label="Module 1: What Claw Does"></button>
+        <button class="nav-dot" data-target="module-2" data-tooltip="The Cast of Characters" role="tab" aria-label="Module 2: The Cast of Characters"></button>
+        <button class="nav-dot" data-target="module-3" data-tooltip="One Turn Under the Hood" role="tab" aria-label="Module 3: One Turn Under the Hood"></button>
+        <button class="nav-dot" data-target="module-4" data-tooltip="Tools &amp; Permissions" role="tab" aria-label="Module 4: Tools &amp; Permissions"></button>
+        <button class="nav-dot" data-target="module-5" data-tooltip="The Big Picture" role="tab" aria-label="Module 5: The Big Picture"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <!-- modules/*.html content is assembled here by build.sh -->
+<section class="module" id="module-1" style="background: var(--color-bg)">
+  <div class="module-content">
+
+    <header class="module-header animate-in">
+      <span class="module-number">01</span>
+      <h1 class="module-title">What Claw Does</h1>
+      <p class="module-subtitle">An AI that lives in your terminal — and can actually do things</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- Screen 1: The core product -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Imagine having a coding assistant that never sleeps</h2>
+        <p>You type a sentence. It reads your files, runs commands, edits code, searches the internet — and writes back what it did. That's <strong>Claw Code</strong>: an open-source <span class="term" data-definition="A CLI (Command-Line Interface) is a text-based program you run in your terminal — like a chat window with your computer. You type a command, press Enter, and it responds. No buttons, no mouse.">CLI</span> that puts an AI coding agent right in your terminal.</p>
+        <p>It's not a chat window. It's a <span class="term" data-definition="An agent is an AI that doesn't just answer questions — it takes actions. It can read files, run code, edit documents, and use tools on your behalf, working toward a goal step by step.">coding agent</span> — meaning it can read files, modify code, and execute commands on your computer, on your behalf.</p>
+
+        <div class="pattern-cards stagger-children animate-in" style="margin-top: var(--space-8)">
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-actor-1); color: white;">💬</div>
+            <h4 class="pattern-title">Interactive REPL</h4>
+            <p class="pattern-desc">Have a back-and-forth conversation. Ask questions, give instructions, and build on previous turns.</p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-actor-2); color: white;">⚡</div>
+            <h4 class="pattern-title">One-Shot Prompts</h4>
+            <p class="pattern-desc">Run a single command non-interactively: <code>claw prompt "summarize this repo"</code></p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-3)">
+            <div class="pattern-icon" style="background: var(--color-actor-3); color: white;">🤖</div>
+            <h4 class="pattern-title">Multi-Provider AI</h4>
+            <p class="pattern-desc">Works with Claude, GPT, Grok, Qwen, or even local models running on your own machine.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 2: The journey when you type a command -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Imagine you type: <code style="font-size: var(--text-xl); color: var(--color-accent)">claw prompt "say hello"</code></h2>
+        <p>Here's everything that happens in the next second — from your keyboard to the AI and back.</p>
+
+        <div class="step-cards animate-in">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <strong>The CLI starts up</strong>
+              <p>The <code>claw</code> binary launches, loads your config, checks your API key, and assembles a "system prompt" that tells the AI what tools it has available.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <strong>Your message is packaged</strong>
+              <p>Your text ("say hello") is wrapped into a structured message object with a role ("user") and sent to the AI over the internet via <span class="term" data-definition="HTTPS is a secure way to send data over the internet. The S stands for Secure — your data is encrypted so nobody can read it in transit. When you see a padlock in your browser, that is HTTPS.">HTTPS</span>.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <strong>The AI responds in a stream</strong>
+              <p>Rather than waiting for the whole answer, words arrive one-by-one like a live typing animation. The AI's response "streams" in as it's generated.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <strong>Rendered to your terminal</strong>
+              <p>The response is formatted — markdown converted to readable text, code blocks highlighted — and printed to your screen.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <strong>Session saved</strong>
+              <p>The whole conversation is written to a <span class="term" data-definition="A JSONL file stores data as one JSON object per line. It is easy to append to line by line — perfect for a growing conversation log. JSONL stands for JSON Lines.">JSONL</span> file so you can resume it later with <code>--resume latest</code>.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 3: Code ↔ English translation — the main.rs entry point -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The two modes, side by side</h2>
+        <p>From the CLI source code — how it decides whether you want a quick one-shot answer or a full interactive session:</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+            <pre><code><span class="code-line"><span class="code-keyword">const</span> DEFAULT_MODEL: &amp;str = <span class="code-string">"claude-opus-4-6"</span>;</span>
+<span class="code-line"></span>
+<span class="code-line"><span class="code-comment">// Build-time constants injected by build.rs</span></span>
+<span class="code-line"><span class="code-keyword">const</span> VERSION: &amp;str = <span class="code-function">env!</span>(<span class="code-string">"CARGO_PKG_VERSION"</span>);</span>
+<span class="code-line"><span class="code-keyword">const</span> GIT_SHA: <span class="code-keyword">Option</span>&lt;&amp;str&gt; = <span class="code-function">option_env!</span>(<span class="code-string">"GIT_SHA"</span>);</span>
+<span class="code-line"><span class="code-keyword">const</span> POST_TOOL_STALL_TIMEOUT: Duration =</span>
+<span class="code-line">  Duration::<span class="code-function">from_secs</span>(<span class="code-number">10</span>);</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Unless you say otherwise, use Claude Opus 4.6 — the most capable Claude model.</p>
+              <p class="tl">&nbsp;</p>
+              <p class="tl">The version number is baked into the binary at compile time — like a serial number stamped during manufacturing.</p>
+              <p class="tl">Same for the exact git commit — so you always know which build you are running.</p>
+              <p class="tl">Optional: only present if the build system set it.</p>
+              <p class="tl">If a tool runs but the AI stops responding afterward, wait 10 seconds before assuming something went wrong.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-accent animate-in">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">Why Rust?</strong>
+            <p>Claw Code is written in <span class="term" data-definition="Rust is a programming language known for being extremely fast and memory-safe — it catches entire categories of bugs at compile time that would only show up at runtime in other languages. It is the language of choice when you need something fast, reliable, and with no garbage collector.">Rust</span> — a language that compiles to a single fast binary with no runtime overhead. That means faster startup, no hidden crashes from memory bugs, and a single file you can ship anywhere. When you run <code>cargo build</code>, you get one <code>claw</code> executable that needs nothing else installed.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: The quick-start commands -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The commands that matter most</h2>
+        <p>Once you have it built, here are the three entry points you will use every day:</p>
+
+        <div class="badge-list animate-in">
+          <div class="badge-item">
+            <code class="badge-code">claw</code>
+            <span class="badge-desc">Launch the interactive <span class="term" data-definition="A REPL (Read-Eval-Print Loop) is an interactive program that reads your input, evaluates it, prints a response, and loops back to read again. Your terminal itself is a kind of REPL. In claw, it is the back-and-forth chat interface.">REPL</span> — type your message, press Enter, see the response. Works like a chat app in your terminal.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">claw prompt "…"</code>
+            <span class="badge-desc">One-shot mode — pass a single instruction and exit when done. Great for scripts and automation.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">claw --resume latest</code>
+            <span class="badge-desc">Pick up exactly where you left off — all previous context is restored from the saved session file.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">/doctor</code>
+            <span class="badge-desc">The built-in health check. Run this first after installing — it verifies your API key, permissions, and configuration are all set up correctly.</span>
+          </div>
+        </div>
+
+        <div class="callout callout-info animate-in">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-content">
+            <strong class="callout-title">One prerequisite: an API key</strong>
+            <p>Claw connects to AI models over the internet using an <span class="term" data-definition="An API key is a secret password that identifies your account when calling an external service. It is usually a long string starting with sk-ant- (Anthropic) or sk- (OpenAI). Never share it publicly — it is billed to your account.">API key</span>. You need <code>export ANTHROPIC_API_KEY="sk-ant-..."</code> in your terminal before running claw. A Claude subscription alone is NOT enough — you need a separate API key from console.anthropic.com.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+<section class="module" id="module-2" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+
+    <header class="module-header animate-in">
+      <span class="module-number">02</span>
+      <h1 class="module-title">The Cast of Characters</h1>
+      <p class="module-subtitle">Eight Rust crates, each with a distinct job — meet the team behind every claw session</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- Screen 1: The workspace map -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Claw is not one program — it is eight</h2>
+        <p>Think of it like a theatre production. The audience sees one show, but backstage there are actors, lighting engineers, sound crew, a director, and a stage manager — each with a specific role. Claw works the same way: eight <span class="term" data-definition="In Rust, a crate is a self-contained package of code — like a module or library. A workspace is a collection of crates that are developed together, sharing a common build system. Think of it as a folder of related building blocks.">crates</span> working together, each owning one responsibility.</p>
+
+        <div class="file-tree animate-in">
+          <div class="ft-folder open">
+            <span class="ft-name">rust/crates/</span>
+            <span class="ft-desc">The Rust workspace — all eight crates live here</span>
+            <div class="ft-children">
+              <div class="ft-folder">
+                <span class="ft-name">rusty-claude-cli/</span>
+                <span class="ft-desc">🎭 The director — the main binary you actually run</span>
+              </div>
+              <div class="ft-folder">
+                <span class="ft-name">runtime/</span>
+                <span class="ft-desc">🧠 The brain — conversation loop, sessions, hooks, MCP</span>
+              </div>
+              <div class="ft-folder">
+                <span class="ft-name">api/</span>
+                <span class="ft-desc">📡 The radio — talks to Anthropic, OpenAI, xAI over the internet</span>
+              </div>
+              <div class="ft-folder">
+                <span class="ft-name">tools/</span>
+                <span class="ft-desc">🔧 The hands — executes file reads, bash commands, searches</span>
+              </div>
+              <div class="ft-folder">
+                <span class="ft-name">plugins/</span>
+                <span class="ft-desc">🔌 The extension board — loads custom hooks and plugin scripts</span>
+              </div>
+              <div class="ft-folder">
+                <span class="ft-name">commands/</span>
+                <span class="ft-desc">📋 The manual — handles slash commands like /help and /status</span>
+              </div>
+              <div class="ft-folder">
+                <span class="ft-name">telemetry/</span>
+                <span class="ft-desc">📊 The ledger — tracks token usage and cost</span>
+              </div>
+              <div class="ft-folder">
+                <span class="ft-name">mock-anthropic-service/</span>
+                <span class="ft-desc">🧪 The rehearsal stage — a fake API server for testing</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 2: The three core crates in depth -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The three crates that do most of the work</h2>
+
+        <div class="icon-rows animate-in">
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-1)">🎭</div>
+            <div>
+              <strong>rusty-claude-cli — The Front Door</strong>
+              <p>This is the <code>claw</code> binary. It handles everything you see: parsing your command-line flags, drawing the spinner while the AI thinks, streaming words to your terminal as they arrive, and wiring all the other crates together. It is the only crate that knows about your screen.</p>
+            </div>
+          </div>
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-2)">🧠</div>
+            <div>
+              <strong>runtime — The Conversation Brain</strong>
+              <p>This crate owns the logic of each turn: building the message payload, deciding what tools the AI can use, enforcing permissions, saving the session to disk, running hooks before and after tool calls, and compacting long conversations so they fit in the AI&apos;s memory window.</p>
+            </div>
+          </div>
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-3)">📡</div>
+            <div>
+              <strong>api — The Network Layer</strong>
+              <p>This crate speaks to AI providers. It knows how to format a request for Anthropic&apos;s API vs. OpenAI&apos;s API, how to parse the streaming response, and how to implement prompt caching (a trick that saves money on repeated requests).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 3: Group Chat — who asks who for what -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The crates talking to each other</h2>
+        <p>Here is what happens inside claw when you type a message — as a conversation between the crates.</p>
+
+        <div class="chat-window" id="chat-module2">
+          <div class="chat-messages">
+            <div class="chat-message" data-msg="0" data-sender="cli" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">CLI</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">rusty-claude-cli</span>
+                <p>User typed "refactor my auth module". I&apos;ve read their flags and config. Runtime, please handle this turn.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="1" data-sender="runtime" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">RT</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">runtime</span>
+                <p>Got it. Loading the session file, assembling the system prompt, attaching the tool list. API — here is the full message payload, please stream the response.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="2" data-sender="api" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-3)">API</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-3)">api</span>
+                <p>Sending to Anthropic over HTTPS. Streaming back... the model wants to call the <code>read_file</code> tool on "src/auth.rs".</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="3" data-sender="runtime" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">RT</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">runtime</span>
+                <p>Tool call incoming. Checking permissions... allowed in workspace-write mode. Tools crate, execute the read.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="4" data-sender="tools" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-4)">TLS</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-4)">tools</span>
+                <p>Read 248 lines from src/auth.rs. Here is the content. Returning to runtime.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="5" data-sender="runtime" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">RT</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">runtime</span>
+                <p>Tool result appended to conversation. Sending back to API for the next model turn. CLI — stream the upcoming text response to the terminal.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="6" data-sender="cli" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">CLI</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">rusty-claude-cli</span>
+                <p>Rendering markdown to terminal. Saving session. Turn complete. Waiting for the user&apos;s next message...</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-typing" id="chat-module2-typing" style="display:none">
+            <div class="chat-avatar" id="chat-module2-typing-avatar">?</div>
+            <div class="chat-typing-dots">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+
+          <div class="chat-controls">
+            <button class="btn chat-next-btn">Next Message</button>
+            <button class="btn chat-all-btn">Play All</button>
+            <button class="btn chat-reset-btn">Replay</button>
+            <span class="chat-progress"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: Code translation — the ProviderClient enum -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">How the api crate handles multiple AI providers</h2>
+        <p>The <code>api</code> crate uses a Rust pattern called an <span class="term" data-definition="An enum (enumeration) in Rust is a type that can be one of several named variants. It is like a multiple-choice field — the variable must be exactly one of the listed options. Rust enums are extremely powerful because each variant can hold different data.">enum</span> to represent whichever AI provider is active. Here is the real code:</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE — api/src/client.rs</span>
+            <pre><code><span class="code-line"><span class="code-keyword">pub enum</span> <span class="code-function">ProviderClient</span> {</span>
+<span class="code-line">  <span class="code-function">Anthropic</span>(AnthropicClient),</span>
+<span class="code-line">  <span class="code-function">Xai</span>(OpenAiCompatClient),</span>
+<span class="code-line">  <span class="code-function">OpenAi</span>(OpenAiCompatClient),</span>
+<span class="code-line">}</span>
+<span class="code-line"></span>
+<span class="code-line"><span class="code-keyword">pub fn</span> <span class="code-function">from_model</span>(model: &amp;str)</span>
+<span class="code-line">  -&gt; <span class="code-function">Result</span>&lt;Self, ApiError&gt; {</span>
+<span class="code-line">  <span class="code-keyword">let</span> resolved = <span class="code-function">resolve_model_alias</span>(model);</span>
+<span class="code-line">  <span class="code-keyword">match</span> <span class="code-function">detect_provider_kind</span>(&amp;resolved) {</span>
+<span class="code-line">    <span class="code-function">Anthropic</span> =&gt; Ok(<span class="code-function">Self::Anthropic</span>(...)),</span>
+<span class="code-line">    <span class="code-function">Xai</span> =&gt; Ok(<span class="code-function">Self::Xai</span>(...)),</span>
+<span class="code-line">    <span class="code-function">OpenAi</span> =&gt; Ok(<span class="code-function">Self::OpenAi</span>(...)),</span>
+<span class="code-line">  }</span>
+<span class="code-line">}</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">A ProviderClient is always exactly one of three things: an Anthropic client, an xAI (Grok) client, or an OpenAI-compatible client.</p>
+              <p class="tl">Anthropic has its own client type because its API is different from OpenAI&apos;s.</p>
+              <p class="tl">xAI (Grok) uses the same wire format as OpenAI, so they share an implementation.</p>
+              <p class="tl">Same for OpenAI — one implementation serves many providers.</p>
+              <p class="tl">&nbsp;</p>
+              <p class="tl">Given a model name like "gpt-4o" or "claude-opus-4-6", figure out which provider to use...</p>
+              <p class="tl">...first expand shorthand like "opus" → "claude-opus-4-6"...</p>
+              <p class="tl">...then look at the name to decide: "claude" → Anthropic, "grok" → xAI, anything else → OpenAI-compat.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-accent animate-in">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">This is called a Strategy Pattern</strong>
+            <p>The same function call (<code>stream(request)</code>) works regardless of which provider is active underneath. The enum hides the difference. This is one of the most common design patterns in software — give different implementations the same "interface" so the rest of the code does not have to know which one it is using.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+<section class="module" id="module-3" style="background: var(--color-bg)">
+  <div class="module-content">
+
+    <header class="module-header animate-in">
+      <span class="module-number">03</span>
+      <h1 class="module-title">One Turn Under the Hood</h1>
+      <p class="module-subtitle">From your keypress to the AI's response — every step animated</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- Screen 1: The conversation loop concept -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">A conversation is a loop, not a cable</h2>
+        <p>Most people imagine AI like a telephone call — you speak, it listens, it speaks back, done. But a coding agent works more like a <strong>postal relay race</strong>: your message is a letter handed to a runner, who passes it to another, who may need to make a detour to pick up information before the reply comes back.</p>
+        <p>Each "turn" can involve <em>multiple round trips</em> — because the AI may need to call tools (read a file, run a command) before it can give you a final answer. Here is the full picture:</p>
+
+        <div class="flow-steps animate-in">
+          <div class="flow-step">
+            <div class="flow-step-num">1</div>
+            <p>You send a message</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num">2</div>
+            <p>Runtime assembles the request</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num">3</div>
+            <p>API streams the AI response</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num">4</div>
+            <p>AI calls a tool</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num">5</div>
+            <p>Tool runs, result returned</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num">6</div>
+            <p>AI writes the final answer</p>
+          </div>
+        </div>
+
+        <p style="margin-top: var(--space-4)">Steps 3–5 can repeat many times in one turn if the AI needs to use multiple tools. You watch the spinner; the loop keeps going inside.</p>
+      </section>
+
+      <!-- Screen 2: The animated data flow -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Watch a turn happen step by step</h2>
+        <p>Click "Next Step" to trace a single turn through the system — from your input to the rendered response.</p>
+
+        <div class="flow-animation" data-steps='[
+          {"highlight":"flow-actor-1","label":"You press Enter — the CLI reads your message and hands it to the runtime crate."},
+          {"highlight":"flow-actor-2","label":"Runtime loads the session history, builds the system prompt, and attaches the tool definitions list.","packet":true,"from":"actor-1","to":"actor-2"},
+          {"highlight":"flow-actor-3","label":"The api crate formats everything into a JSON request and opens a streaming connection to the AI provider.","packet":true,"from":"actor-2","to":"actor-3"},
+          {"highlight":"flow-actor-4","label":"The AI model reads the full conversation and starts generating a response — word by word, streamed back.","packet":true,"from":"actor-3","to":"actor-4"},
+          {"highlight":"flow-actor-4","label":"The AI decides to call a tool (e.g. read_file). It sends a structured tool-use block instead of plain text."},
+          {"highlight":"flow-actor-3","label":"The api crate parses the tool-use event from the stream and routes it back to runtime.","packet":true,"from":"actor-4","to":"actor-3"},
+          {"highlight":"flow-actor-2","label":"Runtime checks permissions, then delegates to the tools crate to actually execute the file read.","packet":true,"from":"actor-3","to":"actor-2"},
+          {"highlight":"flow-actor-5","label":"The tools crate reads the file from disk and returns the content.","packet":true,"from":"actor-2","to":"actor-5"},
+          {"highlight":"flow-actor-2","label":"Runtime appends the tool result to the conversation and sends it all back up to the API for another round.","packet":true,"from":"actor-5","to":"actor-2"},
+          {"highlight":"flow-actor-4","label":"The AI now has the file content. It generates the final text response.","packet":true,"from":"actor-2","to":"actor-4"},
+          {"highlight":"flow-actor-1","label":"Words stream back through api and runtime to the CLI, which renders them to your terminal in real time.","packet":true,"from":"actor-4","to":"actor-1"}
+        ]'>
+          <div class="flow-actors">
+            <div class="flow-actor" id="flow-actor-1">
+              <div class="flow-actor-icon">🖥️</div>
+              <span>CLI</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-2">
+              <div class="flow-actor-icon">🧠</div>
+              <span>runtime</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-3">
+              <div class="flow-actor-icon">📡</div>
+              <span>api</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-4">
+              <div class="flow-actor-icon">🤖</div>
+              <span>AI Model</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-5">
+              <div class="flow-actor-icon">🔧</div>
+              <span>tools</span>
+            </div>
+          </div>
+
+          <div class="flow-packet" id="flow-packet"></div>
+          <div class="flow-step-label" id="flow-label">Click "Next Step" to begin</div>
+
+          <div class="flow-controls">
+            <button class="btn flow-next-btn">Next Step</button>
+            <button class="btn flow-reset-btn">Restart</button>
+            <span class="flow-progress"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 3: Streaming — SSE -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Why the response appears word by word</h2>
+        <p>When you ask an AI a question, it does not generate the entire answer and then send it all at once. It generates <em>tokens</em> one at a time — and Claw displays each token the moment it arrives.</p>
+
+        <div class="callout callout-info animate-in">
+          <div class="callout-icon">🎬</div>
+          <div class="callout-content">
+            <strong class="callout-title">Think of it like a live sports ticker</strong>
+            <p>A sports ticker does not wait for the game to end before reporting the score. It streams live updates as they happen. <span class="term" data-definition="SSE (Server-Sent Events) is a web technology that keeps a connection open so a server can push data to you in real time, one chunk at a time. Unlike a normal web request that returns one response and closes, SSE stays open and sends events continuously.">SSE (Server-Sent Events)</span> works the same way — the connection stays open and data flows through it continuously. Claw uses an SSE decoder to parse each incoming chunk and display it immediately.</p>
+          </div>
+        </div>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE — runtime/src/conversation.rs</span>
+            <pre><code><span class="code-line"><span class="code-keyword">pub enum</span> <span class="code-function">AssistantEvent</span> {</span>
+<span class="code-line">  <span class="code-function">TextDelta</span>(String),</span>
+<span class="code-line">  <span class="code-function">ToolUse</span> {</span>
+<span class="code-line">    id: String,</span>
+<span class="code-line">    name: String,</span>
+<span class="code-line">    input: String,</span>
+<span class="code-line">  },</span>
+<span class="code-line">  <span class="code-function">Usage</span>(TokenUsage),</span>
+<span class="code-line">  <span class="code-function">MessageStop</span>,</span>
+<span class="code-line">}</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">An AssistantEvent is one of four types of things that can arrive from the AI stream.</p>
+              <p class="tl">TextDelta: a small chunk of text (could be one word, half a word, or just a space). Render it immediately.</p>
+              <p class="tl">ToolUse: the AI wants to call a tool. It includes...</p>
+              <p class="tl">...a unique ID (for tracking which tool call this is)...</p>
+              <p class="tl">...the tool name (e.g. "read_file")...</p>
+              <p class="tl">...and the arguments (e.g. which file path to read).</p>
+              <p class="tl">Usage: token counts — how many tokens were used (for billing and cost tracking).</p>
+              <p class="tl">MessageStop: the AI has finished generating. Clean up and wait for the next turn.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: Session compaction -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">What happens when conversations get too long</h2>
+        <p>AI models have a <span class="term" data-definition="A context window is the maximum amount of text an AI can hold in its working memory at once. Older messages that fall outside this window are invisible to the model. Think of it as the AI's short-term memory limit.">context window</span> — a maximum amount of text they can hold in memory. After a long session, claw automatically "compacts" the conversation.</p>
+
+        <div class="step-cards animate-in">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <strong>Estimate token usage</strong>
+              <p>Runtime counts how many tokens the current session is using. When it exceeds ~100,000 tokens, it kicks off compaction.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <strong>Ask the AI to summarize</strong>
+              <p>The AI is asked to write a compact summary of what has happened so far. Only the last 4 messages are kept verbatim.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <strong>Replace history with summary</strong>
+              <p>All the old messages are swapped out for the summary. The session continues with full context but a much smaller footprint.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-accent animate-in">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">Why this matters for you as an AI director</strong>
+            <p>When you notice claw say "this session is being continued from a previous conversation," compaction has fired. If you are mid-task, the AI may lose detail about early decisions. You can prevent this by starting new sessions for large, independent tasks — or by being explicit in your instructions about what context matters.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+<section class="module" id="module-4" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+
+    <header class="module-header animate-in">
+      <span class="module-number">04</span>
+      <h1 class="module-title">Tools &amp; the Permission System</h1>
+      <p class="module-subtitle">How the AI safely does real work on your machine — and who decides what it is allowed to do</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- Screen 1: The problem — why permissions exist -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The AI can read your files. Should it also delete them?</h2>
+        <p>Claw gives the AI real tools — it can read files, write files, run bash commands, search your codebase, and make network requests. That is enormously powerful. It is also why there is a <strong>permission system</strong> between the AI's requests and your machine.</p>
+
+        <p>Think of it like an apartment building with a key card system. The AI is a visiting contractor: it can enter rooms it is authorized for, but the building manager (the permission system) controls which doors its card opens.</p>
+
+        <div class="badge-list animate-in">
+          <div class="badge-item">
+            <code class="badge-code">read-only</code>
+            <span class="badge-desc">The AI can read files and search the codebase, but cannot write, delete, or run shell commands. Safe for exploration.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">workspace-write</code>
+            <span class="badge-desc">The AI can read and write files within the current project directory. It can also run bash commands that do not affect anything outside the workspace.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">danger-full-access</code>
+            <span class="badge-desc">No restrictions. The AI can run any command, modify any file. Use only when you fully understand and trust the task being performed.</span>
+          </div>
+        </div>
+
+        <div class="callout callout-warning animate-in">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-content">
+            <strong class="callout-title">The permission mode is not an AI setting — it is a hard boundary</strong>
+            <p>Even if you ask the AI to "please delete everything," in <code>read-only</code> mode it physically cannot — the permission enforcer will block the tool call before it executes. The AI's intent does not override the mode.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 2: The tools available -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">What tools does the AI actually have?</h2>
+        <p>The <code>tools</code> crate provides a set of built-in capabilities that the AI can request. These are declared upfront in the system prompt so the AI knows what it can do before your first message.</p>
+
+        <div class="pattern-cards stagger-children animate-in">
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-actor-1); color: white;">📄</div>
+            <h4 class="pattern-title">read_file</h4>
+            <p class="pattern-desc">Read the contents of any file. Supports offset and line limits so it can read specific sections of large files.</p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-actor-2); color: white;">✏️</div>
+            <h4 class="pattern-title">write_file / edit_file</h4>
+            <p class="pattern-desc">Create a new file or apply a precise diff to an existing one. The AI sends exact old/new strings — no guessing.</p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-3)">
+            <div class="pattern-icon" style="background: var(--color-actor-3); color: white;">🔎</div>
+            <h4 class="pattern-title">glob_search / grep_search</h4>
+            <p class="pattern-desc">Find files by pattern (e.g. <code>**/*.rs</code>) or search file contents by regex. Equivalent to <code>find</code> and <code>grep</code>.</p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-4)">
+            <div class="pattern-icon" style="background: var(--color-actor-4); color: white;">💻</div>
+            <h4 class="pattern-title">execute_bash</h4>
+            <p class="pattern-desc">Run a shell command. Requires workspace-write or higher. The output (stdout + stderr) is returned to the AI.</p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-5)">
+            <div class="pattern-icon" style="background: var(--color-actor-5); color: white;">🔌</div>
+            <h4 class="pattern-title">MCP tools</h4>
+            <p class="pattern-desc"><span class="term" data-definition="MCP (Model Context Protocol) is an open standard for connecting AI models to external services and data sources — like databases, APIs, web browsers, or custom tools. Think of it as a plugin system for AI.">MCP</span> servers can expose additional tools — database queries, web browsing, custom APIs — following the same permission model.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 3: Code translation — the permission enforcer -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">How a tool call gets checked before it runs</h2>
+        <p>Every tool invocation goes through the permission system. Here is the real data structure that represents a permission check:</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE — runtime/src/permissions.rs</span>
+            <pre><code><span class="code-line"><span class="code-keyword">pub enum</span> <span class="code-function">PermissionMode</span> {</span>
+<span class="code-line">  ReadOnly,</span>
+<span class="code-line">  WorkspaceWrite,</span>
+<span class="code-line">  DangerFullAccess,</span>
+<span class="code-line">  Prompt,</span>
+<span class="code-line">  Allow,</span>
+<span class="code-line">}</span>
+<span class="code-line"></span>
+<span class="code-line"><span class="code-keyword">pub struct</span> <span class="code-function">PermissionRequest</span> {</span>
+<span class="code-line">  <span class="code-keyword">pub</span> tool_name: String,</span>
+<span class="code-line">  <span class="code-keyword">pub</span> input: String,</span>
+<span class="code-line">  <span class="code-keyword">pub</span> current_mode: PermissionMode,</span>
+<span class="code-line">  <span class="code-keyword">pub</span> required_mode: PermissionMode,</span>
+<span class="code-line">}</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">A session is always in one of these five authorization levels.</p>
+              <p class="tl">ReadOnly: look but do not touch.</p>
+              <p class="tl">WorkspaceWrite: read and write files in the project folder.</p>
+              <p class="tl">DangerFullAccess: no restrictions whatsoever.</p>
+              <p class="tl">Prompt: ask the user before each sensitive action.</p>
+              <p class="tl">Allow: a specific override to permit one particular action.</p>
+              <p class="tl">&nbsp;</p>
+              <p class="tl">When a tool call arrives, this bundle is assembled to evaluate it.</p>
+              <p class="tl">Which tool is being requested? (e.g. "execute_bash")</p>
+              <p class="tl">What arguments? (e.g. the shell command to run)</p>
+              <p class="tl">What mode is the current session in?</p>
+              <p class="tl">What mode does this tool require? If current &lt; required → blocked.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: Hooks — the customization layer -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Hooks: run your own code before or after any tool</h2>
+        <p>The <code>plugins</code> crate lets you register shell scripts that run automatically around tool calls. Think of it like airport security — you configure it once, and every tool call passes through your checkpoint.</p>
+
+        <div class="step-cards animate-in">
+          <div class="step-card">
+            <div class="step-num">⬅</div>
+            <div class="step-body">
+              <strong>PreToolUse hook</strong>
+              <p>Fires before a tool executes. Your script can inspect the tool name and input, then output <code>allow</code>, <code>deny</code>, or <code>ask</code> to override the permission decision.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">➡</div>
+            <div class="step-body">
+              <strong>PostToolUse hook</strong>
+              <p>Fires after a tool completes successfully. Your script receives the tool output — useful for logging, auditing, or triggering side effects.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">⚠</div>
+            <div class="step-body">
+              <strong>PostToolUseFailure hook</strong>
+              <p>Fires when a tool fails. Lets you react to errors — send an alert, write to a log, or attempt recovery.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-accent animate-in">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">Hooks are how you build guardrails without modifying claw itself</strong>
+            <p>Want to prevent the AI from ever touching <code>*.env</code> files? Write a PreToolUse hook that inspects the input and outputs <code>deny</code> when it sees that pattern. Want to post a Slack notification every time the AI commits code? Add a PostToolUse hook on <code>execute_bash</code>. This is where power users customize claw for their team.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+<section class="module" id="module-5" style="background: var(--color-bg)">
+  <div class="module-content">
+
+    <header class="module-header animate-in">
+      <span class="module-number">05</span>
+      <h1 class="module-title">The Big Picture</h1>
+      <p class="module-subtitle">Multi-provider AI, autonomous agents, and what it all means for how software gets built</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- Screen 1: Multi-provider support -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Claw is not married to Claude</h2>
+        <p>One of the most strategically important features of claw is that it works with <em>any</em> major AI provider — not just Anthropic. This matters because models are evolving fast, prices change, and the best model for one task may not be the best for another.</p>
+
+        <div class="icon-rows animate-in">
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-1)">🟠</div>
+            <div>
+              <strong>Anthropic (Claude)</strong>
+              <p>The default provider. Uses the native Anthropic Messages API with streaming and prompt caching. Set <code>ANTHROPIC_API_KEY</code>.</p>
+            </div>
+          </div>
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-2)">⚡</div>
+            <div>
+              <strong>xAI (Grok)</strong>
+              <p>Elon Musk&apos;s AI lab. Uses the OpenAI-compatible wire format. Set <code>XAI_API_KEY</code> and use <code>--model grok</code>.</p>
+            </div>
+          </div>
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-3)">🔵</div>
+            <div>
+              <strong>OpenAI-compatible (GPT, OpenRouter, Ollama, Qwen…)</strong>
+              <p>Anything that speaks the OpenAI Chat Completions format works. Point <code>OPENAI_BASE_URL</code> at any compatible service, including local models.</p>
+            </div>
+          </div>
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-5)">🦙</div>
+            <div>
+              <strong>Local models via Ollama</strong>
+              <p>Run a model entirely on your own machine — no API key, no internet, no cost per token. Set <code>OPENAI_BASE_URL=http://localhost:11434/v1</code> and use any Ollama model name.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-info animate-in">
+          <div class="callout-icon">🗺️</div>
+          <div class="callout-content">
+            <strong class="callout-title">How claw picks the right provider automatically</strong>
+            <p>Model name prefixes act as routing signals. <code>claude-*</code> → Anthropic. <code>grok-*</code> → xAI. <code>openai/*</code> or <code>gpt-*</code> → OpenAI-compat. <code>qwen-*</code> → Alibaba DashScope. If none match, it falls back to whichever API key is set in your environment. You rarely need to specify the provider explicitly.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 2: The philosophy — humans + agents -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Claw is not just a tool — it is a demonstration</h2>
+        <p>The repository that contains claw was itself built <em>by AI agents</em>. Not assisted — actually built: agents planning, coding, testing, reviewing, and pushing, while humans provided direction from a Discord channel. The code is evidence; the process is the product lesson.</p>
+
+        <div class="pattern-cards stagger-children animate-in">
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-actor-1); color: white;">🦞</div>
+            <h4 class="pattern-title">clawhip</h4>
+            <p class="pattern-desc">The event router. Watches git commits, tmux sessions, GitHub events, and agent lifecycle — and delivers notifications outside the coding agent&apos;s context window.</p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-actor-2); color: white;">🤝</div>
+            <h4 class="pattern-title">oh-my-openagent</h4>
+            <p class="pattern-desc">The multi-agent coordinator. Manages planning, handoffs between Architect, Executor, and Reviewer agents, and convergence when they disagree.</p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-3)">
+            <div class="pattern-icon" style="background: var(--color-actor-3); color: white;">🔁</div>
+            <h4 class="pattern-title">oh-my-codex (OmX)</h4>
+            <p class="pattern-desc">The workflow layer. Turns short directives into structured execution: planning keywords, parallel multi-agent workflows, and persistent verification loops.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 3: Group chat — the Discord interface -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The real interface is a Discord message</h2>
+        <p>Here is how a real development cycle looks in the UltraWorkers philosophy — a human sends one sentence from a phone, and the agent system handles the rest.</p>
+
+        <div class="chat-window" id="chat-module5">
+          <div class="chat-messages">
+            <div class="chat-message" data-msg="0" data-sender="human" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-4)">H</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-4)">Human (Discord, from phone)</span>
+                <p>Add support for resuming sessions by name, not just "latest"</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="1" data-sender="omx" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-3)">OmX</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-3)">oh-my-codex (OmX)</span>
+                <p>Directive received. Breaking into tasks: (1) design session naming schema, (2) implement --resume flag changes, (3) write tests, (4) update docs. Spinning up Architect agent.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="2" data-sender="architect" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">ARC</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">Architect Agent</span>
+                <p>Analyzed session.rs and main.rs. Proposing: sessions get a unique slug from the first prompt. --resume accepts slug or "latest". Session index written to .claw/sessions/index.json.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="3" data-sender="executor" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">EXE</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">Executor Agent</span>
+                <p>Implementing per the plan. Writing changes to session.rs, updating CLI flag parsing in main.rs, adding index serialization. Running cargo test now.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="4" data-sender="clawhip" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-5)">CHP</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-5)">clawhip (event router)</span>
+                <p>Tests passed. Commit pushed to feature branch. Notifying Reviewer. PR opened: ultraworkers/claw-code#147.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="5" data-sender="human" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-4)">H</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-4)">Human (Discord, from phone)</span>
+                <p>Looks good. Ship it.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-typing" id="chat-module5-typing" style="display:none">
+            <div class="chat-avatar" id="chat-module5-typing-avatar">?</div>
+            <div class="chat-typing-dots">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+
+          <div class="chat-controls">
+            <button class="btn chat-next-btn">Next Message</button>
+            <button class="btn chat-all-btn">Play All</button>
+            <button class="btn chat-reset-btn">Replay</button>
+            <span class="chat-progress"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: What this means for you -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">What the bottleneck actually is now</h2>
+        <p>When agent systems can rebuild a codebase in hours, the scarce resource is no longer typing speed. Understanding this changes how you should spend your time.</p>
+
+        <div class="icon-rows animate-in">
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-1)">🧭</div>
+            <div>
+              <strong>Direction</strong>
+              <p>Knowing what to build — and why it matters — is more valuable than knowing how to build it. Agents are fast; bad direction is expensive to undo.</p>
+            </div>
+          </div>
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-2)">🔬</div>
+            <div>
+              <strong>Decomposition</strong>
+              <p>Breaking a big goal into well-scoped tasks that can be parallelized is a skill machines do not yet have. This is your leverage.</p>
+            </div>
+          </div>
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-3)">🎯</div>
+            <div>
+              <strong>Taste</strong>
+              <p>Recognizing when an AI-generated solution is correct but wrong — technically working but architecturally bad — requires judgment that only comes from understanding the system.</p>
+            </div>
+          </div>
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-5)">🔤</div>
+            <div>
+              <strong>Vocabulary</strong>
+              <p>Using the right terms — <span class="term" data-definition="A context window is the maximum text an AI can hold in working memory at one time.">context window</span>, <span class="term" data-definition="SSE (Server-Sent Events) lets a server stream data to you in real time over an open connection.">SSE</span>, <span class="term" data-definition="A crate in Rust is a self-contained package of code — like a module or library.">crate</span>, <span class="term" data-definition="An enum (enumeration) is a type that can be one of several named variants — like a multiple-choice field in code.">enum</span>, <span class="term" data-definition="Permission mode controls what actions an AI agent is allowed to take: read-only, workspace-write, or full access.">permission mode</span> — means you can give agents precise, unambiguous instructions. Imprecise language leads to imprecise work.">precise vocabulary</span> — means you can give agents precise, unambiguous instructions. Imprecise language leads to imprecise work.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-accent animate-in">
+          <div class="callout-icon">🦞</div>
+          <div class="callout-content">
+            <strong class="callout-title">The job of the human is not to out-type the machine</strong>
+            <p>From the Claw Code philosophy document: "The job of the human is to decide what deserves to exist." Claw and the tools around it are a live demonstration of this. The code in this repository was produced by agents. The direction, taste, and judgment behind it came from people.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+  </main>
+
+</body>
+</html>
