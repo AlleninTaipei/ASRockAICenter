@@ -331,6 +331,83 @@ h2::after {
     color: rgba(255, 255, 255, 0.95);
 }
 
+/* Success Stories Grid */
+.success-stories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 70px;
+}
+
+.success-story-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(74, 158, 255, 0.2);
+    border-radius: 20px;
+    padding: 35px 30px;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.success-story-card:hover {
+    transform: translateY(-12px) scale(1.01);
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(74, 158, 255, 0.6);
+    box-shadow: 0 25px 60px rgba(74, 158, 255, 0.3), 0 0 40px rgba(74, 158, 255, 0.15);
+}
+
+.story-quote {
+    font-size: 15px;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.75);
+    border-left: 3px solid #4A9EFF;
+    padding-left: 14px;
+    margin: 16px 0 20px;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+}
+
+.story-metrics {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+    position: relative;
+    z-index: 1;
+}
+
+.story-metric-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(74, 158, 255, 0.1);
+    border: 1px solid rgba(74, 158, 255, 0.25);
+    border-radius: 10px;
+    padding: 7px 12px;
+}
+
+.story-metric-icon {
+    font-size: 14px;
+}
+
+.story-metric-value {
+    font-size: 15px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #4A9EFF, #00D4FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.story-metric-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
 /* Links Grid */
 .links-grid {
     display: grid;
@@ -473,6 +550,20 @@ h2::after {
         grid-template-columns: 1fr;
         gap: 25px;
         margin-bottom: 60px;
+    }
+
+    .success-stories-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        margin-bottom: 60px;
+    }
+
+    .success-story-card {
+        padding: 28px 25px;
+    }
+
+    .story-metrics {
+        gap: 8px;
     }
 
     .app-card {

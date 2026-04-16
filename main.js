@@ -41,6 +41,33 @@ function renderProcess(t) {
   `).join('');
 }
 
+function renderSuccessStories(t) {
+  const grid = document.getElementById('success-stories-grid');
+  if (!grid || !t.successStories) return;
+  grid.innerHTML = t.successStories.map(story => `
+    <div class="success-story-card">
+      <div class="app-header">
+        <div class="app-icon">${story.icon}</div>
+        <div class="app-title-group">
+          <h3 class="app-name">${story.company}</h3>
+          <span class="app-subtitle">${story.industry}</span>
+        </div>
+      </div>
+      <p class="story-quote">"${story.quote}"</p>
+      <div class="story-metrics">
+        ${story.metrics.map(m => `
+          <div class="story-metric-item">
+            <span class="story-metric-icon">${m.icon}</span>
+            <span class="story-metric-value">${m.value}</span>
+            <span class="story-metric-label">${m.label}</span>
+          </div>
+        `).join('')}
+      </div>
+      <p class="app-description">${story.desc}</p>
+    </div>
+  `).join('');
+}
+
 function renderResources(t) {
   const grid = document.getElementById('resources-grid');
   if (!grid) return;
@@ -93,6 +120,7 @@ function applyLocale(lang) {
   // Dynamic grids
   renderProcess(t);
   renderApps(t);
+  renderSuccessStories(t);
   renderResources(t);
   renderContact(t);
 
@@ -128,7 +156,7 @@ function attachScrollReveal() {
   }, observerOptions);
 
   setTimeout(() => {
-    document.querySelectorAll('.app-card, .link-card, .process-step, .section').forEach(el => {
+    document.querySelectorAll('.app-card, .success-story-card, .link-card, .process-step, .section').forEach(el => {
       observer.observe(el);
     });
   }, 100);
