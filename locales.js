@@ -92,6 +92,23 @@ const LOCALES = {
         "desc": "SquadForge transforms your organization into an AI-native workforce by deploying dedicated agents for every employee—running entirely on your on-prem AI infrastructure. While others depend on external APIs and pay per token, you operate on owned compute: predictable, scalable, and fully under your control. No external dependencies. No data exposure. Just continuous, autonomous execution powered by your own systems. This is not SaaS. This is your AI factory."
       }
     ],
+    successStoriesSection: {
+      title: "Success Stories"
+    },
+    successStories: [
+      {
+        icon: "🏥",
+        company: "Healthcare Provider",
+        industry: "Medical / Patient Education",
+        quote: "Turning patient education into true understanding",
+        metrics: [
+          { icon: "⏱", value: "30hrs", label: "saved per nurse/month" },
+          { icon: "✅", value: "Consistent", label: "education delivery" },
+          { icon: "📈", value: "↑", label: "care adherence" }
+        ],
+        desc: "An AI-powered personalized education system built on a medical knowledge base. Adapts content to each patient's literacy level, supports multilingual Q&A, and generates take-home materials."
+      }
+    ],
     resources: {
       title: "Related Resources",
       items: [
@@ -252,6 +269,23 @@ const LOCALES = {
         "subtitle": "企業級 AI，在你的算力上運行",
         "tagline": "「在 AI 時代，算力就是戰略。掌握它。」",
         "desc": "SquadForge 讓你的組織轉型為 AI 原生團隊，為每位員工部署專屬 AI 代理，全面運行於企業自有的本地 AI 基礎設施之上。當他人依賴外部 API、按 token 付費時，你運行的是自有算力：可預測、可擴展、完全掌控。無外部依賴，無資料外流。所有任務持續、自主地在你的系統中執行。這不是 SaaS，而是你的 AI 生產體系。"
+      }
+    ],
+    successStoriesSection: {
+      title: "成功案例"
+    },
+    successStories: [
+      {
+        icon: "🏥",
+        company: "醫療院所",
+        industry: "醫療 / 病患衛教",
+        quote: "讓每一位病患，都能真正「聽懂」自己的病情",
+        metrics: [
+          { icon: "⏱", value: "30hrs", label: "護理師每月節省" },
+          { icon: "✅", value: "一致性", label: "衛教內容標準化" },
+          { icon: "📈", value: "↑", label: "照護依從性提升" }
+        ],
+        desc: "AI 驅動的個人化衛教系統，整合醫療知識庫，依病患理解程度自動調整內容，支援多語語音問答，並產出個人化帶回資料。"
       }
     ],
     resources: {
