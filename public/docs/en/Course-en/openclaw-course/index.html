@@ -308,6 +308,114 @@
         </div>
       </section>
 
+      <!-- ═══════════════════════════════════════════════════════
+           SCREEN 5 — Quiz
+           ══════════════════════════════════════════════════════ -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Check Your Understanding</h2>
+
+        <p>
+          These questions test how you apply the three-tier mental model — not whether you memorized definitions.
+          Use what you just learned to reason through each scenario.
+        </p>
+
+        <div class="quiz-container animate-in" id="quiz-module1">
+
+          <!-- Question 1 -->
+          <div class="quiz-question-block"
+               data-correct="a"
+               data-explanation-right="Exactly. OpenClaw is local-first. The Gateway runs on your hardware, which means your messages never leave your network unless the AI API call itself goes to an external service."
+               data-explanation-wrong="OpenClaw is the opposite of a cloud service — it runs entirely on your machine. The AI API calls go out, but the Gateway, routing, and session history all stay local.">
+            <p class="quiz-question">
+              You installed OpenClaw on your laptop. Where does it actually run — on your machine, or in the cloud?
+            </p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                On your own machine — OpenClaw runs <span class="term" data-definition="Software that stores and processes data on the user's own device rather than sending it to remote servers. OpenClaw's Gateway and session history are local-first.">locally</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                In Anthropic's <span class="term" data-definition="A third-party company's remote servers. Claude.ai is a cloud service — OpenClaw is not.">cloud</span>, like Claude.ai
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                On a shared server managed by the OpenClaw team
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <!-- Question 2 -->
+          <div class="quiz-question-block"
+               data-correct="b"
+               data-explanation-right="Good instinct. Since Telegram works, the Pi Agent and AI provider are fine. The problem is specific to the WhatsApp channel — either the connection dropped or the credentials expired."
+               data-explanation-wrong="The clue here is that only WhatsApp is affected. If the Pi Agent or model provider were broken, both Telegram AND WhatsApp would fail. The 3-tier mental model helps you narrow this down fast.">
+
+            <div class="scenario-block">
+              <div class="scenario-context">
+                <span class="scenario-label">Scenario</span>
+                <p>A user says &ldquo;my bot stopped replying on WhatsApp but Telegram still works.&rdquo; Which layer do you investigate first?</p>
+              </div>
+            </div>
+
+            <p class="quiz-question">Which layer is the most likely culprit?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                The <span class="term" data-definition="The AI runner — holds history, calls the model, runs tools. If broken, ALL channels would fail, not just one.">Pi Agent</span> — the AI brain might be broken
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                The WhatsApp <span class="term" data-definition="A channel plugin translates between OpenClaw and one specific messaging app. If WhatsApp's channel plugin loses its connection or credentials, only WhatsApp stops working.">Channel</span> — it is a channel-specific issue
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                The AI <span class="term" data-definition="The company providing the AI model — Anthropic, OpenAI, Google. If the provider's API were down, all channels would fail simultaneously.">model provider</span> — maybe it is rate-limited
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <!-- Question 3 -->
+          <div class="quiz-question-block"
+               data-correct="c"
+               data-explanation-right="Exactly! Channels are the layer that handles specific messaging apps. LINE support is already built-in (src/channels/). For a brand-new app, you would build it as a channel plugin."
+               data-explanation-wrong="Channels are the layer responsible for connecting to specific messaging platforms. The Pi Agent only cares about thinking and replying — not which app the message came from.">
+
+            <div class="scenario-block">
+              <div class="scenario-context">
+                <span class="scenario-label">Scenario</span>
+                <p>You want the AI to reply to messages from a different app — say, LINE. Where would that new capability live?</p>
+              </div>
+            </div>
+
+            <p class="quiz-question">Which layer gets the new capability?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                In the <span class="term" data-definition="The AI runner — it handles thinking and replying but is app-agnostic. It does not know or care which messaging app sent the message.">Pi Agent</span> — you add it to the AI brain
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                In the <span class="term" data-definition="The central WebSocket control plane — it routes messages but does not speak any specific app's protocol. New app support is not added here.">Gateway</span> — you configure it in the control plane
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                As a <span class="term" data-definition="A channel plugin bridges OpenClaw to one specific messaging platform — handling that platform's API, auth, and message format. Adding LINE means adding a LINE channel plugin.">Channel</span> — either built-in or as a <span class="term" data-definition="A self-contained npm package that adds a new capability to OpenClaw at runtime. Channel plugins, provider plugins, and tool plugins all ship as plugins.">plugin</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div style="display: flex; gap: var(--space-3); margin-top: var(--space-6);">
+            <button class="quiz-check-btn" onclick="checkQuiz('quiz-module1')">Check Answers</button>
+            <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module1')">Try Again</button>
+          </div>
+
+        </div><!-- /#quiz-module1 -->
+      </section>
+
     </div><!-- /.module-body -->
   </div><!-- /.module-content -->
 </section>
@@ -655,6 +763,87 @@
         </div>
       </section>
 
+      <!-- ═══════════════════════════════════════════════════════
+           SCREEN 5 — Drag-and-drop quiz
+           ══════════════════════════════════════════════════════ -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Match each job to its character</h2>
+
+        <p>
+          Drag each character name to the zone that describes its job.
+          If you get stuck, re-read the icon rows on the first screen of this module.
+        </p>
+
+        <div class="dnd-container animate-in" id="dnd-module2">
+
+          <!-- Chips -->
+          <div class="dnd-chips">
+            <div class="dnd-chip" draggable="true" data-answer="Router">Router</div>
+            <div class="dnd-chip" draggable="true" data-answer="Pi Agent">Pi Agent</div>
+            <div class="dnd-chip" draggable="true" data-answer="Gateway">Gateway</div>
+            <div class="dnd-chip" draggable="true" data-answer="Channel">Channel</div>
+            <div class="dnd-chip" draggable="true" data-answer="Plugin">Plugin</div>
+          </div>
+
+          <!-- Drop zones -->
+          <div class="dnd-zones">
+
+            <div class="dnd-zone" data-correct="Router">
+              <div class="dnd-zone-label">
+                Produces a <span class="term" data-definition="A unique string that encodes agent, channel, and account IDs — used to find and load the right conversation history.">session key</span> and routes each message to the right AI agent
+              </div>
+              <div class="dnd-zone-target">Drop here</div>
+            </div>
+
+            <div class="dnd-zone" data-correct="Pi Agent">
+              <div class="dnd-zone-label">
+                Runs the AI <span class="term" data-definition="The large language model — Claude, GPT, Gemini — that generates text responses when given a prompt.">model</span>, holds conversation history, executes <span class="term" data-definition="Functions the AI can call during a reply — web search, code execution, calendar access.">tools</span>
+              </div>
+              <div class="dnd-zone-target">Drop here</div>
+            </div>
+
+            <div class="dnd-zone" data-correct="Gateway">
+              <div class="dnd-zone-label">
+                The central <span class="term" data-definition="WebSocket — a persistent full-duplex connection protocol. The Gateway listens on this protocol so all components can connect in real time.">WebSocket</span> hub everything connects through
+              </div>
+              <div class="dnd-zone-target">Drop here</div>
+            </div>
+
+            <div class="dnd-zone" data-correct="Channel">
+              <div class="dnd-zone-label">
+                Translates between OpenClaw and a specific messaging app — handles <span class="term" data-definition="Converting a platform-native message format (e.g. Telegram JSON) into OpenClaw's internal envelope format so all channels look the same to the router.">normalization</span> and delivery
+              </div>
+              <div class="dnd-zone-target">Drop here</div>
+            </div>
+
+            <div class="dnd-zone" data-correct="Plugin">
+              <div class="dnd-zone-label">
+                An optional <span class="term" data-definition="Node Package Manager — the standard JavaScript/TypeScript package registry. OpenClaw plugins are distributed as npm packages.">npm</span> package that extends capabilities (new channels, providers, tools)
+              </div>
+              <div class="dnd-zone-target">Drop here</div>
+            </div>
+
+          </div><!-- /.dnd-zones -->
+
+          <div style="display: flex; gap: var(--space-3); margin-top: var(--space-6);">
+            <button class="quiz-check-btn" onclick="checkDnD('dnd-module2')">Check Answers</button>
+            <button class="quiz-reset-btn" onclick="resetDnD('dnd-module2')">Reset</button>
+          </div>
+
+        </div><!-- /#dnd-module2 -->
+
+        <div class="callout callout-info animate-in" style="margin-top: var(--space-8);">
+          <span class="callout-icon">🗺️</span>
+          <div class="callout-content">
+            <span class="callout-title">Next up</span>
+            <p>
+              Now that you know the five characters, the next modules will show how they communicate — the <span class="term" data-definition="The typed message format the Gateway uses to talk to channels, agents, and CLI clients over WebSocket. Every command and event has a defined schema.">wire protocol</span>, the message journey, memory and sessions, and how plugins extend everything.
+            </p>
+          </div>
+        </div>
+
+      </section>
+
     </div><!-- /.module-body -->
   </div><!-- /.module-content -->
 </section>
@@ -961,6 +1150,125 @@
       </div>
     </section>
 
+    <!-- ════════════════════════════════════════════════════════════
+         SCREEN 6 — Quiz
+         ════════════════════════════════════════════════════════════ -->
+    <section class="screen animate-in">
+      <h3 class="screen-heading">Apply what you learned</h3>
+
+      <p>
+        Use your knowledge of the message journey to diagnose three realistic scenarios.
+        Each question has one best answer based on how the pipeline actually works.
+      </p>
+
+      <div class="quiz-container animate-in" id="quiz-module3">
+
+        <!-- Question 1 -->
+        <div class="quiz-question-block"
+             data-correct="b"
+             data-explanation-right="Exactly. The draft stream loop sends partial text as it arrives. If the final complete reply arrived and was also sent before the loop stopped, you get a duplicate. This is a known edge case in streaming delivery."
+             data-explanation-wrong="The draft stream loop is the culprit here. It sends chunks as they arrive, and if the timing is off, the final complete reply can overlap with the last streaming chunk.">
+
+          <div class="scenario-block">
+            <div class="scenario-context">
+              <span class="scenario-label">Scenario</span>
+              <p>A user notices messages sometimes get two replies — the first one streamed slowly, then a second sudden complete reply appeared.</p>
+            </div>
+          </div>
+
+          <p class="quiz-question">What is the most likely explanation?</p>
+
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+              <span class="quiz-option-radio"></span>
+              The AI model returned the same answer twice
+            </button>
+            <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+              <span class="quiz-option-radio"></span>
+              The <span class="term" data-definition="A throttled loop that flushes partial AI text to the channel as it arrives, updating the message in place rather than sending a new one each time.">draft stream loop</span> sent partial text, then the full text arrived before the loop stopped
+            </button>
+            <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+              <span class="quiz-option-radio"></span>
+              There are two Pi Agents running for the same <span class="term" data-definition="A unique string that identifies one conversation thread, encoding agent, channel, account, and peer IDs.">session</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="quiz-question-block"
+             data-correct="b"
+             data-explanation-right="Session keys are the unique conversation identifiers. If two users share a session key — usually from a misconfigured routing binding — they share a conversation history. Fix the routing config."
+             data-explanation-wrong="The session key is what separates conversations. Mixed-up histories almost always point to session key collision — check your routing bindings in the config.">
+
+          <div class="scenario-block">
+            <div class="scenario-context">
+              <span class="scenario-label">Scenario</span>
+              <p>Messages from two different Telegram users are getting mixed up — user A is seeing user B&rsquo;s conversation history.</p>
+            </div>
+          </div>
+
+          <p class="quiz-question">What went wrong?</p>
+
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+              <span class="quiz-option-radio"></span>
+              The Pi Agent has a memory leak
+            </button>
+            <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+              <span class="quiz-option-radio"></span>
+              The <span class="term" data-definition="A unique string that identifies one conversation thread, encoding agent, channel, account, and peer IDs. Two conversations with the same key share the same history file.">session keys</span> are resolving to the same value for both users
+            </button>
+            <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+              <span class="quiz-option-radio"></span>
+              The <span class="term" data-definition="The central orchestrator process running on your machine. It starts up channels, manages sessions, and dispatches replies.">Gateway</span> is routing both users to the same WebSocket
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="quiz-question-block"
+             data-correct="b"
+             data-explanation-right="The Channel layer is perfect for pre-routing inspection. It receives normalized messages before the Router assigns a session, so you get clean, structured data and you do not have to modify the Router or Pi Agent."
+             data-explanation-wrong="While the Pi Agent does see all messages, it is the wrong place for logging — it is deep in the pipeline after routing. The Channel layer intercepts messages in their normalized form, before routing decisions are made.">
+
+          <div class="scenario-block">
+            <div class="scenario-context">
+              <span class="scenario-label">Scenario</span>
+              <p>You want to add a feature that logs every message to a file before routing.</p>
+            </div>
+          </div>
+
+          <p class="quiz-question">Which layer in the pipeline is the best place to add this?</p>
+
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+              <span class="quiz-option-radio"></span>
+              The Pi Agent — it sees all messages anyway
+            </button>
+            <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+              <span class="quiz-option-radio"></span>
+              The <span class="term" data-definition="A plugin that bridges an external messaging platform to OpenClaw's internal pipeline. It handles webhooks, parsing, normalization, and reply delivery.">Channel</span> layer — messages pass through here in
+              <span class="term" data-definition="Converting a message from a platform-native format (like Telegram JSON) into OpenClaw's standard internal envelope format, stripping platform-specific quirks.">normalized</span>
+              form before routing
+            </button>
+            <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+              <span class="quiz-option-radio"></span>
+              The Gateway WebSocket handler — it receives raw bytes
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div style="display: flex; gap: var(--space-3); margin-top: var(--space-6);">
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module3')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module3')">Try Again</button>
+        </div>
+
+      </div><!-- /#quiz-module3 -->
+    </section>
+
   </div><!-- /.module-content -->
 </section>
 <section class="module" id="module-4" style="background: var(--color-bg-warm)">
@@ -1251,6 +1559,136 @@
       </div>
     </section>
 
+    <!-- ════════════════════════════════════════════════════════════
+         SCREEN 5 — Quiz
+         ════════════════════════════════════════════════════════════ -->
+    <section class="screen animate-in">
+      <h3 class="screen-heading">Apply what you learned</h3>
+
+      <p>
+        Use your knowledge of the Pi Agent internals to work through three real-world scenarios.
+        Each question has one best answer based on how the system actually behaves.
+      </p>
+
+      <div class="quiz-container animate-in" id="quiz-module4">
+
+        <!-- Question 1 -->
+        <div class="quiz-question-block"
+             data-correct="b"
+             data-explanation-right="Correct. When compaction runs, the oldest messages are replaced by a synopsis. If the introduction was old enough, it got folded into a summary that did not preserve the specific detail. This is a known limitation of context window management."
+             data-explanation-wrong="Compaction is the most likely culprit. Introductions and personal details from early in long conversations are precisely what gets compressed away when the context window fills up.">
+
+          <div class="scenario-block">
+            <div class="scenario-context">
+              <span class="scenario-label">Scenario</span>
+              <p>A user complains the bot replied to &ldquo;what is my name?&rdquo; with &ldquo;I do not have that information&rdquo; — even though they introduced themselves 300 messages ago.</p>
+            </div>
+          </div>
+
+          <p class="quiz-question">What most likely happened?</p>
+
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+              <span class="quiz-option-radio"></span>
+              The Pi Agent deleted the
+              <span class="term" data-definition="A stored record of one conversation thread, saved as a JSONL file on disk.">session</span>
+              history
+            </button>
+            <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+              <span class="quiz-option-radio"></span>
+              <span class="term" data-definition="The process of summarizing old conversation messages into a compact synopsis when the history grows too large for the AI's context window.">Compaction</span>
+              summarized away the introduction message
+            </button>
+            <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+              <span class="quiz-option-radio"></span>
+              The
+              <span class="term" data-definition="A unique string that identifies one conversation thread, encoding agent, channel, account, and peer IDs.">session key</span>
+              changed between conversations
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="quiz-question-block"
+             data-correct="b"
+             data-explanation-right="Exactly. Model failover is a core feature. OpenClaw tries each configured provider in sequence. As long as at least one provider is available, replies keep flowing."
+             data-explanation-wrong="Model failover does not just retry the same provider — it tries ALL configured providers in sequence. You only lose replies if every single configured model fails simultaneously.">
+
+          <div class="scenario-block">
+            <div class="scenario-context">
+              <span class="scenario-label">Scenario</span>
+              <p>Your primary Claude account hits its
+                <span class="term" data-definition="A limit imposed by an API provider on how many requests can be made in a time window. Exceeding it causes HTTP 429 errors.">rate limit</span>
+                at 2am.</p>
+            </div>
+          </div>
+
+          <p class="quiz-question">Will OpenClaw stop replying to messages?</p>
+
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+              <span class="quiz-option-radio"></span>
+              Yes — if the primary model fails, all replies stop
+            </button>
+            <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+              <span class="quiz-option-radio"></span>
+              No — model failover automatically tries the next configured provider
+            </button>
+            <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+              <span class="quiz-option-radio"></span>
+              It depends on whether you have a backup account configured
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="quiz-question-block"
+             data-correct="c"
+             data-explanation-right="Tools live in the Pi Agent. The browser tool already exists (it is built in). Adding a new capability means registering a new tool entry with a name, description, input schema, and handler function."
+             data-explanation-wrong="Tools are the Pi Agent's domain. The Gateway routes messages; the Router assigns sessions. The Pi Agent is the one that actually calls external services and runs code on your behalf.">
+
+          <div class="scenario-block">
+            <div class="scenario-context">
+              <span class="scenario-label">Scenario</span>
+              <p>You want to let the AI control a web browser to research things for you.</p>
+            </div>
+          </div>
+
+          <p class="quiz-question">Which part of the OpenClaw architecture do you extend?</p>
+
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+              <span class="quiz-option-radio"></span>
+              The
+              <span class="term" data-definition="The central orchestrator process running on your machine. It starts channels, manages sessions, and dispatches replies — it does not execute tools.">Gateway</span>
+              — add a new HTTP endpoint
+            </button>
+            <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+              <span class="quiz-option-radio"></span>
+              The
+              <span class="term" data-definition="The component that reads your configuration and decides which AI agent handles each incoming message. It assigns session keys, not tool capabilities.">Router</span>
+              — add a new binding rule
+            </button>
+            <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+              <span class="quiz-option-radio"></span>
+              The Pi Agent — add it as a new
+              <span class="term" data-definition="A function the AI is allowed to call during a conversation — for example web search, code execution, or browser control. Registered in the Pi Agent's tools catalog.">tool</span>
+              in the tools catalog
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div style="display: flex; gap: var(--space-3); margin-top: var(--space-6);">
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module4')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module4')">Try Again</button>
+        </div>
+
+      </div><!-- /#quiz-module4 -->
+    </section>
+
   </div><!-- /.module-content -->
 </section>
 <section class="module" id="module-5" style="background: var(--color-bg)">
@@ -1524,6 +1962,106 @@
             <p>When an agent starts a conversation, it reads all installed skill Markdown files and prepends their content to the system prompt. The AI sees the skill instructions as standing orders before any user message arrives &mdash; making skills persistent, always-on context.</p>
           </div>
         </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════
+           SCREEN 5 — Quiz
+           ══════════════════════════════════════════════════════ -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Check Your Understanding</h2>
+
+        <div class="quiz-container animate-in" id="quiz-module5">
+
+          <!-- Question 1 -->
+          <div class="quiz-question-block"
+               data-correct="b"
+               data-explanation-right="Correct. Channel support is always implemented as a channel plugin &mdash; either bundled in extensions/ or as a third-party npm package. LINE is actually already built-in (src/channels/). New channels never go in the Gateway or Pi Agent."
+               data-explanation-wrong="Channels are always plugins (or channel implementations in src/channels/). The Pi Agent only cares about thinking &mdash; not which app the message came from. Adding a new app to the Gateway would break the architecture boundary.">
+            <p class="quiz-question">
+              You want OpenClaw to support LINE messaging (a popular app in Asia). Where does that logic live in the architecture?
+            </p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                In the <span class="term" data-definition="The Pi Agent handles AI inference — it thinks and replies. It does not know about specific messaging platforms; that is the job of channel plugins.">Pi Agent</span> &mdash; add a LINE handler to the inference loop
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                As a <span class="term" data-definition="A channel plugin bridges a specific messaging platform to OpenClaw. LINE, Matrix, Zalo, and other platforms all live as channel plugins.">channel plugin</span> &mdash; either built-in or as an npm package
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                In the <span class="term" data-definition="The Gateway is the routing and orchestration layer. It should not contain messaging platform logic — that belongs in channel plugins.">Gateway</span> directly &mdash; add a new WebSocket route
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <!-- Question 2 -->
+          <div class="quiz-question-block"
+               data-correct="c"
+               data-explanation-right="Skills are designed for exactly this. A Markdown file with your checklist gets injected into every conversation's system prompt &mdash; the AI reads it as instructions before responding. No code changes needed."
+               data-explanation-wrong="A tool is the wrong shape for this &mdash; tools respond to specific AI requests, not standing instructions. A skill is the right pattern: it gives the AI persistent, always-on context for every conversation.">
+            <p class="quiz-question">
+              You want your AI to automatically follow your company&rsquo;s pull request review checklist every time someone asks for a code review. What is the most appropriate way to implement this?
+            </p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                Edit the Pi Agent source code to include the checklist logic
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                Add a new <span class="term" data-definition="A tool responds to specific AI requests — the AI calls it when needed. Tools are the wrong shape for standing instructions like checklists.">tool</span> that returns the checklist when called
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                Create a <span class="term" data-definition="A skill is a Markdown file injected into the AI system prompt. It gives the AI persistent, always-on instructions — perfect for checklists, processes, and standing orders.">skill</span> (Markdown file with the checklist) that gets injected into the system prompt
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <!-- Question 3 -->
+          <div class="quiz-question-block"
+               data-correct="b"
+               data-explanation-right="Plugin activation failures usually come down to two things: a broken or outdated manifest (check openclaw.plugin.json for the plugin) or the plugin being disabled in your config (check plugins.*.enabled). The doctor command can also help."
+               data-explanation-wrong="Before reinstalling or restarting, check the manifest validity and config. 'Listed but not activating' almost always points to a manifest parse error or explicit disablement in config &mdash; both visible without restarting anything.">
+            <p class="quiz-question">
+              A third-party OpenClaw plugin you installed stopped working after an update. You see the plugin listed in <code>openclaw status</code> but it is not activating. What two things should you check first?
+            </p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                Reinstall OpenClaw entirely
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                Check if the plugin <span class="term" data-definition="The manifest (openclaw.plugin.json) is the identity card a plugin must provide. If the manifest is invalid or outdated, the Gateway will list the plugin but refuse to activate it.">manifest</span> is valid and if the plugin is enabled in config
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                Restart the Gateway and check the <span class="term" data-definition="A WebSocket is a persistent two-way connection. The Gateway uses WebSockets to communicate with channel plugins, but a plugin not activating is rarely a WebSocket issue.">WebSocket</span> connection
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div style="display: flex; gap: var(--space-3); margin-top: var(--space-6);">
+            <button class="quiz-check-btn" onclick="checkQuiz('quiz-module5')">Check Answers</button>
+            <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module5')">Try Again</button>
+          </div>
+
+        </div>
+
+        <div class="callout callout-accent animate-in" style="margin-top: var(--space-8);">
+          <span class="callout-icon">➡️</span>
+          <div class="callout-content">
+            <strong class="callout-title">Up Next: Staying Healthy</strong>
+            <p>You now know how to extend OpenClaw with tools, plugins, and skills. The final module covers how OpenClaw monitors itself, reloads config on the fly, and auto-repairs problems so your AI stays online 24/7.</p>
+          </div>
+        </div>
+
       </section>
 
     </div>
@@ -1846,6 +2384,136 @@
             <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin: var(--space-1) 0 0;">Auto-recovery triggered</p>
           </div>
         </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════
+           SCREEN 5 — Capstone Quiz
+           ══════════════════════════════════════════════════════ -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Capstone: Check Your Understanding</h2>
+
+        <p>
+          These questions cover concepts from all six modules. Apply what you have learned to diagnose and solve realistic OpenClaw scenarios.
+        </p>
+
+        <div class="quiz-container animate-in" id="quiz-module6">
+
+          <!-- Question 1 -->
+          <div class="quiz-question-block"
+               data-correct="b"
+               data-explanation-right="Exactly. The Channel Health Monitor runs continuously and triggers a reconnect if a channel goes stale (no activity for 5 minutes by default). A dropped WhatsApp connection overnight is a classic health monitor scenario."
+               data-explanation-wrong="The Channel Health Monitor is the right answer. The Router handles routing decisions; the Pi Agent handles AI inference. Connection recovery is the health monitor's job.">
+            <p class="quiz-question">
+              Your WhatsApp connection drops overnight. You wake up and messages from last night were not delivered. Which system should have detected and recovered from this automatically?
+            </p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                The <span class="term" data-definition="The Router maps incoming messages to the correct AI agent based on routing.bindings config. It does not handle connection recovery.">Router</span> &mdash; it should have rerouted to a backup channel
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                The <span class="term" data-definition="The Channel Health Monitor probes each channel connection and triggers automatic reconnects when a channel becomes stale or unhealthy.">Channel Health Monitor</span> &mdash; it probes and reconnects stale channels
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                The <span class="term" data-definition="The Pi Agent handles AI inference — thinking and replying. It does not manage channel connections or delivery retries.">Pi Agent</span> &mdash; it retries failed deliveries
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <!-- Question 2 -->
+          <div class="quiz-question-block"
+               data-correct="a"
+               data-explanation-right="Correct. Routing bindings are hot-reloadable. Save your config and OpenClaw applies the new routing rule within seconds &mdash; no restart needed. Only low-level things like the port number require a restart."
+               data-explanation-wrong="Most config changes, including routing bindings, are hot-reloadable. OpenClaw watches the config file and applies the diff. Only infrastructure-level settings like gateway.port require a full restart.">
+            <p class="quiz-question">
+              You added a new routing rule to your config to send all Discord messages to a specialized AI agent. Does OpenClaw need to restart for this to take effect?
+            </p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                No &mdash; <span class="term" data-definition="routing.bindings is the config key that maps incoming messages to AI agents. It is hot-reloadable — changes apply within seconds of saving the config file.">routing.bindings</span> is a hot-reloadable config key
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                Yes &mdash; routing changes always require a restart
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                It depends on whether the specialized agent is already running
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <!-- Question 3 -->
+          <div class="quiz-question-block"
+               data-correct="b"
+               data-explanation-right="dmPolicy=open disables the pairing gate. Anyone who finds the bot can interact with it. Switch back to dmPolicy=pairing (the default) and run 'openclaw doctor' to verify the fix."
+               data-explanation-wrong="The DM policy gate is what controls who can talk to your bot. With dmPolicy=open, there is no challenge &mdash; anyone can get through. The fix is restoring the default dmPolicy=pairing.">
+            <p class="quiz-question">
+              A stranger found your Telegram bot and is getting AI replies without your permission. Which config setting is most likely misconfigured?
+            </p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                The <span class="term" data-definition="The Gateway port is the network port it listens on. This does not control who can message the bot.">Gateway port</span> is exposed to the public internet
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                <span class="term" data-definition="dmPolicy controls who can DM your bot. 'open' means anyone can interact; 'pairing' (default) requires a challenge; 'allowFrom' requires an explicit allowlist.">dmPolicy</span> is set to <code>open</code> instead of <code>pairing</code>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                The <span class="term" data-definition="A session key identifies a specific conversation thread. It does not control who can initiate a conversation.">session key</span> is not being set correctly
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <!-- Question 4 -->
+          <div class="quiz-question-block"
+               data-correct="c"
+               data-explanation-right="The doctor command is built for exactly this scenario. It inspects your config and credentials for known legacy patterns, reports what it found, and with --fix it auto-repairs many of them. Start here before any manual intervention."
+               data-explanation-wrong="Reinstalling or deleting config files are last resorts. 'openclaw doctor --fix' is the first step &mdash; it was designed specifically for post-upgrade migration issues and auto-repairs many common problems.">
+            <p class="quiz-question">
+              After upgrading OpenClaw, one channel stops connecting and logs show a warning about a &lsquo;legacy config key&rsquo;. What is the first command to run?
+            </p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                <code>npm install -g openclaw@latest</code> to reinstall
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                Delete the config file and start fresh
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <span class="quiz-option-radio"></span>
+                <code>openclaw doctor --fix</code> to detect and auto-repair <span class="term" data-definition="Legacy config keys are old config settings from previous versions that have been renamed or removed. The doctor command detects them and --fix migrates them to the current format.">legacy config</span> issues
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div style="display: flex; gap: var(--space-3); margin-top: var(--space-6);">
+            <button class="quiz-check-btn" onclick="checkQuiz('quiz-module6')">Check Answers</button>
+            <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module6')">Try Again</button>
+          </div>
+
+        </div>
+
+        <!-- Course completion callout -->
+        <div class="callout callout-accent animate-in" style="margin-top: var(--space-8); border-color: var(--color-actor-2);">
+          <span class="callout-icon">🎉</span>
+          <div class="callout-content">
+            <strong class="callout-title">Course Complete &mdash; You now understand OpenClaw</strong>
+            <p>You have learned how messages flow from phone to AI and back, how the plugin system extends everything, how memory keeps conversations coherent, and how OpenClaw keeps itself healthy 24/7. You are now equipped to configure, extend, and troubleshoot OpenClaw with confidence.</p>
+          </div>
+        </div>
+
       </section>
 
     </div>

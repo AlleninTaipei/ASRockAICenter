@@ -313,6 +313,238 @@
   <!-- ============================================================
        SCREEN 4 — THE CONVERSATION THAT CHANGES FILES
   ============================================================ -->
+  <div class="screen" id="module-1-screen-4">
+    <div class="screen-inner">
+
+      <div class="screen-heading animate-in">
+        <span class="screen-number">04</span>
+        <h2>The Conversation That Changes Files</h2>
+      </div>
+
+      <p class="screen-intro animate-in">
+        Under the hood, OpenCode is a group chat between the
+        <span class="term" data-definition="The session is the container that manages your conversation — storing messages, assembling context, and routing messages between you, the LLM, and tools.">Session</span>,
+        the
+        <span class="term" data-definition="The LLM (Large Language Model) is the AI reasoning engine — it reads messages, decides what tools to call, and generates the final response.">LLM</span>,
+        and the tools. Watch how "add a login button" actually gets done.
+      </p>
+
+      <div class="chat-window animate-in" id="chat-module1">
+
+        <div class="chat-messages">
+
+          <div class="chat-message" data-msg="0" data-sender="session" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-2)">S</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-2)">Session</span>
+              <p>Here are your tools: read, edit, bash, grep, webfetch. You have 15 files in context. The user asked: add a login button.</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="1" data-sender="llm" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-3)">AI</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-3)">LLM</span>
+              <p>I need to see the existing component structure first. Calling read tool on src/App.tsx...</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="2" data-sender="tool" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-4)">T</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-4)">Bash Tool</span>
+              <p>Read complete. File has 47 lines. Found existing Button component at line 12.</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="3" data-sender="llm" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-3)">AI</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-3)">LLM</span>
+              <p>Got it. Now calling edit tool — inserting LoginButton component after line 12.</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="4" data-sender="tool" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-4)">T</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-4)">Bash Tool</span>
+              <p>Edit applied. 3 lines added. File saved.</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="5" data-sender="llm" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-3)">AI</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-3)">LLM</span>
+              <p>Done! I added a LoginButton component after your existing Button. It uses your current styling — let me know if you want to connect it to authentication logic.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="chat-typing" style="display:none">
+          <div class="chat-avatar" id="chat-module1-typing-avatar">?</div>
+          <div class="chat-typing-dots">
+            <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+          </div>
+        </div>
+
+        <div class="chat-controls">
+          <button class="btn chat-next-btn">Next Message</button>
+          <button class="btn chat-all-btn">Play All</button>
+          <button class="btn chat-reset-btn">Replay</button>
+          <span class="chat-progress"></span>
+        </div>
+
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">🔍</div>
+        <div class="callout-content">
+          <strong class="callout-title">Read Before You Write</strong>
+          <p>
+            Notice the LLM <strong>reads first, edits second</strong>. This is intentional — the AI cannot safely modify code it has not seen. Every tool call costs time, but skipping the read step causes bad edits.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN 5 — QUIZ
+  ============================================================ -->
+  <div class="screen" id="module-1-screen-5">
+    <div class="screen-inner">
+
+      <div class="screen-heading animate-in">
+        <span class="screen-number">05</span>
+        <h2>Check Your Understanding</h2>
+      </div>
+
+      <p class="screen-intro animate-in">Three quick scenarios. Choose the best explanation for each.</p>
+
+      <div class="quiz-container animate-in" id="quiz-module1">
+
+        <!-- Q1 -->
+        <div class="quiz-question-block"
+             data-correct="option-b"
+             data-explanation-right="Long sessions hit the context window limit — the AI can only hold so many messages at once. For large tasks, break them into smaller sessions or use the compaction feature."
+             data-explanation-wrong="The AI understands 'refactor' just fine. The issue is the context window — the AI can only remember a limited amount of conversation history. When it gets too long, earlier files fall out of memory.">
+          <h3 class="quiz-question">
+            You asked OpenCode to
+            "<span class="term" data-definition="Refactor means to restructure existing code — improving its design, readability, or performance — without changing what it does externally.">refactor</span>
+            all
+            <span class="term" data-definition="An API (Application Programming Interface) is a defined way for two programs to talk to each other. API calls are the lines of code that request data or actions from another service.">API</span>
+            calls to use
+            <span class="term" data-definition="async/await is a JavaScript/TypeScript syntax for writing asynchronous code (code that waits for things like network requests) in a way that reads like normal, sequential code.">async/await</span>."
+            OpenCode says it is done, but when you check the files, only 2 of the 8 files were changed. What is the most likely reason?
+          </h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>The AI got confused by the word "refactor"</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>The session ran out of
+                <span class="term" data-definition="The context window is the maximum amount of text (messages, code, tool results) an LLM can hold in memory at once. When a conversation exceeds this limit, older messages are dropped.">context</span>
+                space and the AI stopped keeping track of the remaining files</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>The Edit tool has a 2-file limit</span>
+            </button>
+            <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>OpenCode only works on small codebases</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="quiz-question-block"
+             data-correct="option-b"
+             data-explanation-right="This is normal reasoning behavior. The AI 'thinks out loud' by calling tools. Reading the file multiple times may mean it is checking different aspects before deciding what to change."
+             data-explanation-wrong="Multiple reads are usually intentional reasoning, not a bug. The AI uses tools to think — reading a file is how it understands what it is working with before acting.">
+          <h3 class="quiz-question">
+            You notice OpenCode read the same file three times in a row before making any edits. Why might it do this?
+          </h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>It is a bug in OpenCode</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>The AI is making multiple tool calls while reasoning through the problem — reading first to understand context before acting</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>The Read tool only shows part of the file at a time</span>
+            </button>
+            <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>OpenCode does not cache file reads</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="quiz-question-block"
+             data-correct="option-c"
+             data-explanation-right="The permission system lets you define exactly what OpenCode can do autonomously vs. what requires your approval. You can allow reads freely but require confirmation for edits or bash commands."
+             data-explanation-wrong="The model choice matters less than the permission configuration. You can set OpenCode to ask before making any change — giving you full control even when you are not watching.">
+          <h3 class="quiz-question">
+            You want to give OpenCode a task and walk away. When you come back, it made changes you did not want. Going forward, what would help most?
+          </h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Use smaller font in the terminal</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Switch to a different AI model</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Configure permissions to require confirmation before running bash commands or editing certain files</span>
+            </button>
+            <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Only use OpenCode for one file at a time</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-actions">
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module1')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module1')">Try Again</button>
+        </div>
+
+      </div>
+
+      <!-- Module completion callout -->
+      <div class="callout callout-accent animate-in" style="margin-top: 2rem;">
+        <div class="callout-icon">✅</div>
+        <div class="callout-content">
+          <strong class="callout-title">Module 1 Complete</strong>
+          <p>
+            You now understand the full loop: your words → session → LLM → tool calls → file changes → response.
+            In
+            <span class="term" data-definition="Module 2 will explore how OpenCode reads and understands your entire codebase — building a map of your project before it touches a single file.">Module 2</span>,
+            we go deeper into how OpenCode reads and maps your entire codebase before writing a single line.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
 </section>
 <section class="module" id="module-2" style="background: var(--color-bg)">
@@ -706,6 +938,112 @@
           of the ReAct loop adds new information, making the next decision smarter than if the AI had acted on assumptions alone.
         </p>
       </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       SCREEN 5 — Quiz
+       ════════════════════════════════════════════════════════ -->
+  <div class="module-screen animate-in">
+    <h3 class="screen-title animate-in">Check Your Understanding</h3>
+    <p class="screen-intro animate-in">
+      Three questions to confirm the key ideas from this module.
+    </p>
+
+    <div class="quiz-container animate-in" id="quiz-module2">
+
+      <!-- Q1 -->
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="Plan mode is read-only by design. It is the safe choice when you want to explore or analyze without any risk of unintended changes."
+           data-explanation-wrong="Build mode can make changes, which is risky for pure exploration. Plan mode is the right tool — it is read-only and designed exactly for understanding code before acting.">
+        <h3 class="quiz-question">
+          You want to explore a large codebase to understand how it is structured — without any risk of accidentally changing files. Which agent mode should you use?
+        </h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Build mode — it is the most capable</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Plan mode — it is read-only so it cannot make changes</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>General mode — it is designed for search tasks</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>None — always use the default</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="quiz-question-block"
+           data-correct="option-c"
+           data-explanation-right="Every LLM has a context window limit — a maximum amount of text it can process at once. Long sessions push old messages out. The solution is compaction (which summarizes old history) or starting a new session with a brief summary of the key decisions."
+           data-explanation-wrong="This is the context window limit in action. The AI can only hold so many messages at once. When the limit is reached, the oldest messages fall off — including that key decision from two hours ago.">
+        <h3 class="quiz-question">
+          Your OpenCode session is very long and the AI seems to have forgotten a key decision you made two hours ago. What is happening?
+        </h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>OpenCode has a 2-hour session limit</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>The AI model was swapped mid-session</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>The conversation history filled the context window — older messages were dropped to make room for new ones</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>You need to save the session manually</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="The ReAct loop means the AI uses tools as a way to think. Multiple reads often mean it is checking the file for different things — first for structure, then for specific functions, then for imports. This is intentional reasoning, not a bug."
+           data-explanation-wrong="Multiple tool calls are usually intentional. The AI uses tools to gather information in steps, like a person who looks at a diagram multiple times while solving a problem. It is reasoning behavior, not inefficiency.">
+        <h3 class="quiz-question">
+          The AI called the Read tool 4 times on the same file before making any edits. A friend says this is a bug. You say...
+        </h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>You are right, that is inefficient and OpenCode should be smarter</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It depends — multiple reads might mean the AI is reasoning carefully, checking different aspects before acting. This is normal ReAct behavior.</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>The file must be corrupted</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>OpenCode does not cache reads so it always re-reads</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <div class="quiz-actions">
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module2')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module2')">Try Again</button>
+      </div>
+
     </div>
   </div>
 
@@ -1105,6 +1443,111 @@
 
     </div>
   </div>
+
+  <!-- ============================================================
+       SCREEN 6 — QUIZ
+  ============================================================ -->
+  <div class="screen" id="module-3-screen-6">
+    <div class="screen-inner">
+
+      <div class="screen-heading animate-in">
+        <span class="screen-number">06</span>
+        <h2>Check Your Understanding</h2>
+      </div>
+
+      <p class="screen-intro animate-in">Three questions to confirm the key ideas from this module.</p>
+
+      <div class="quiz-container animate-in" id="quiz-module3">
+
+        <!-- Q1 -->
+        <div class="quiz-question-block"
+          data-correct="option-b"
+          data-explanation-right="Glob patterns let you create precise rules per file path. allow for src/** means free editing in your source folder. ask for *.env* means you get a confirmation prompt before any env file is touched."
+          data-explanation-wrong="The permission system supports glob pattern matching — you can have different rules for different file paths. allow for src/**, and ask for *.env* gives you exactly this behavior.">
+          <h3 class="quiz-question">You want OpenCode to freely edit files in your src/ folder, but require confirmation before touching any .env file. Which permission configuration achieves this?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Set edit to deny for everything</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Allow edit for src/**, and ask for *.env*</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>There is no way to have different rules for different file patterns</span>
+            </button>
+            <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Set all permissions to ask</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="quiz-question-block"
+          data-correct="option-c"
+          data-explanation-right="Setting bash to ask with a wildcard (*) means you see and approve every command before it runs. You keep the capability but regain control."
+          data-explanation-wrong="Denying or disabling bash removes a lot of power. The right balance is ask with a wildcard — you see every command before it runs, and you can approve or deny case by case.">
+          <h3 class="quiz-question">OpenCode ran a bash command you did not expect. What setting would prevent unexpected bash commands going forward?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Disable the bash tool entirely</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Set bash permission to deny for everything</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Set bash permission to ask for all commands (*) so you are shown a confirmation before any command runs</span>
+            </button>
+            <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Switch from Build mode to Plan mode</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="quiz-question-block"
+          data-correct="option-b"
+          data-explanation-right="MCP servers are exactly for this — wrapping custom internal tools so the AI can use them safely. You control what the MCP server exposes and what authentication it requires."
+          data-explanation-wrong="The MCP extension system is designed for this. Build a small MCP server that wraps ship-it, configure it in OpenCode, and the AI gets access to your deployment tool with proper authentication and logging.">
+          <h3 class="quiz-question">Your company has a proprietary deployment tool called ship-it that only works on your internal network. You want OpenCode to be able to run deployments. What is the best approach?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Add ship-it to the bash allow list</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Build an MCP server that wraps ship-it and connect it to OpenCode</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>This is not possible — OpenCode only supports 43 built-in tools</span>
+            </button>
+            <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Write the deployment logic directly into OpenCode source code</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module3')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module3')">Try Again</button>
+
+      </div>
+
+    </div>
+  </div>
+
 </section>
 <section class="module" id="module-4" style="background: var(--color-bg)">
 
@@ -1413,6 +1856,170 @@
   <!-- ============================================================
        SCREEN 4 — REVERT, FORK, SHARE
   ============================================================ -->
+  <div class="screen" id="module-4-screen-4">
+    <div class="screen-inner">
+
+      <div class="screen-heading animate-in">
+        <span class="screen-number">04</span>
+        <h2>Revert, Fork, Share</h2>
+      </div>
+
+      <p class="animate-in">Because every change is recorded, OpenCode can give you three superpowers that would be impossible without the database.</p>
+
+      <div class="step-cards animate-in stagger-children">
+
+        <div class="step-card animate-in">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong><span class="term" data-definition="Revert means to undo all changes made after a specific checkpoint, restoring your files to exactly the state they were in at that point in time.">Revert</span></strong>
+            <p>Go back to any message checkpoint. All file changes made after that point are undone. Like time travel for your codebase. Use this when OpenCode went in the wrong direction.</p>
+          </div>
+        </div>
+
+        <div class="step-card animate-in">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong><span class="term" data-definition="A fork is a new session that branches off from an existing session at a specific point. The original session continues unchanged while the fork explores a different approach.">Fork</span></strong>
+            <p>Create a new session that branches off at a specific point. Try approach A in one branch, approach B in another. Each branch has its own history and can be reverted independently.</p>
+          </div>
+        </div>
+
+        <div class="step-card animate-in">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Share</strong>
+            <p>Generate an encrypted link to this session. Anyone with the link can see exactly what you asked and what changed. Useful for reviewing AI work with a colleague or reporting a bug.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">⏪</div>
+        <div class="callout-content">
+          <strong class="callout-title">How Revert Actually Works</strong>
+          <p>Revert does not just undo the AI messages — it restores the actual files on disk to the state they were in at that checkpoint. The file
+            <span class="term" data-definition="A diff (difference) is a record of exactly what changed between two versions of a file. It lists added lines (+) and removed lines (-). Replaying a diff in reverse means re-applying the removals as additions and vice versa.">diff</span>
+            stored in the database is replayed in reverse.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">🌿</div>
+        <div class="callout-content">
+          <strong class="callout-title">Fork vs. Git Branch</strong>
+          <p>A session fork is different from a
+            <span class="term" data-definition="A git branch is a parallel line of development in a version-control repository. Multiple branches can exist at the same time, each with their own commits.">git branch</span>.
+            Forks live inside OpenCode's own history — they track the conversation and all AI actions, not just the file state. You can have a fork per idea, then revert the ones that did not work, all without touching your git history.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN 5 — QUIZ
+  ============================================================ -->
+  <div class="screen" id="module-4-screen-5">
+    <div class="screen-inner">
+
+      <div class="screen-heading animate-in">
+        <span class="screen-number">05</span>
+        <h2>Check Your Understanding</h2>
+      </div>
+
+      <p class="animate-in">Three questions to lock in what you learned about OpenCode's memory and configuration.</p>
+
+      <div class="quiz-container animate-in" id="quiz-module4">
+
+        <!-- Q1 -->
+        <div class="quiz-question-block"
+             data-correct="option-b"
+             data-explanation-right="Revert replays the stored file diffs in reverse, restoring all files to their state at the chosen checkpoint. It is faster and more reliable than manually undoing changes."
+             data-explanation-wrong="Revert is the right tool here. It uses the stored file diffs to precisely undo every change OpenCode made. You can pick the exact checkpoint before things went wrong.">
+          <h3 class="quiz-question">OpenCode made a large refactor that introduced bugs. You want to undo all the changes it made and start fresh. Which feature should you use?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Delete the session and re-open the files manually</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Use the Revert feature to go back to the checkpoint before the refactor started</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Use <code>git reset</code></span>
+            </button>
+            <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Ask OpenCode to undo its own changes</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="quiz-question-block"
+             data-correct="option-b"
+             data-explanation-right="The user-level config at ~/.opencode/config.jsonc applies to ALL projects. Set the .env permission rule there once and it applies everywhere."
+             data-explanation-wrong="The user-level config (~/.opencode/config.jsonc) is exactly for cross-project settings. Configure your .env permission rule there and it automatically applies to every project you open.">
+          <h3 class="quiz-question">You want OpenCode to always require confirmation before editing any <code>.env</code> file, across every project you work on. Which config file should you edit?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>The project-level <code>.opencode/config.jsonc</code> in each project</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>The user-level <code>~/.opencode/config.jsonc</code> — it applies to all projects</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>You cannot set this globally — it must be configured per project</span>
+            </button>
+            <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>The system MDM config</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="quiz-question-block"
+             data-correct="option-c"
+             data-explanation-right="The Share feature creates an encrypted link that shows the complete session — messages, tool calls, and file diffs — in a clean, readable format. No terminal output scraping needed."
+             data-explanation-wrong="The Share feature is built exactly for this. It generates an encrypted link with the full session history — your colleague can browse the conversation and see every file change without any setup.">
+          <h3 class="quiz-question">A teammate wants to review the exact conversation you had with OpenCode — what you asked, what tools it called, and what files it changed. What is the cleanest way to share this?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Copy and paste the terminal output</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Send them the SQLite database file</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Use the Share feature to generate an encrypted session link</span>
+            </button>
+            <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Export to a text file</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module4')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module4')">Try Again</button>
+
+      </div>
+
+    </div>
+  </div>
 
 </section>
 <section class="module" id="module-5" style="background: var(--color-bg-warm)">
@@ -1870,6 +2477,111 @@
 
     </div>
   </div>
+
+  <!-- ============================================================
+       SCREEN 6 — QUIZ
+  ============================================================ -->
+  <div class="screen" id="module-5-screen-6">
+    <div class="screen-inner">
+
+      <div class="screen-heading animate-in">
+        <span class="screen-number">06</span>
+        <h2>Check Your Understanding</h2>
+      </div>
+
+      <p class="screen-intro animate-in">Three questions to confirm the key ideas from this final module.</p>
+
+      <div class="quiz-container animate-in" id="quiz-module5">
+
+        <!-- Q1 -->
+        <div class="quiz-question-block"
+          data-correct="option-c"
+          data-explanation-right="The REST API is the programmatic interface to OpenCode. Your bot starts a session, sends a message, and subscribes to the WebSocket stream — all via standard HTTP/WebSocket calls."
+          data-explanation-wrong="The REST API is how external programs interact with OpenCode. Start a session, send a message, listen to the WebSocket — your bot uses the same API that the web UI uses.">
+          <h3 class="quiz-question">You want to build a Slack bot that automatically asks OpenCode to review every new pull request. What component of OpenCode does your bot primarily interact with?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>The SQLite database directly</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>The Terminal UI (TUI)</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>The REST API — POST /sessions to start, POST messages to ask, WebSocket to receive results</span>
+            </button>
+            <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>The VS Code extension</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="quiz-question-block"
+          data-correct="option-b"
+          data-explanation-right="Both clients subscribe to the same WebSocket endpoint on the local server. When the engine publishes an event (file edited, tool called, message added), every connected client receives it simultaneously."
+          data-explanation-wrong="Both clients are connected to the same local HTTP server via WebSocket. The server acts as the single source of truth and pushes events to all connected clients simultaneously.">
+          <h3 class="quiz-question">You are using OpenCode in the terminal and a colleague opens the same session in their browser. They see your terminal is working on a file — the browser view updates in real time. How?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>The terminal periodically pushes updates to the browser</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Both the terminal and browser are connected to the same local server via WebSocket and receive the same events as they happen</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>The files are synced via the file system</span>
+            </button>
+            <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>This is not possible — each client has its own session</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="quiz-question-block"
+          data-correct="option-b"
+          data-explanation-right="The project-level .opencode/config.jsonc is checked into the repo alongside your code. Every team member who clones the repo gets the same MCP servers, permission rules, and model settings automatically."
+          data-explanation-wrong="Committing .opencode/config.jsonc to the repo is the simplest team solution. Everyone clones the project, gets the config, and uses OpenCode consistently — no manual setup per developer.">
+          <h3 class="quiz-question">Your team of 5 engineers all want to use OpenCode with the same set of approved MCP servers and permission rules. What is the most maintainable approach?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Each engineer configures their own ~/.opencode/config.jsonc manually</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Commit a .opencode/config.jsonc to the project repository — everyone gets the same settings automatically when they clone</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Use a system-level MDM config</span>
+            </button>
+            <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>There is no way to share settings across a team</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module5')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module5')">Try Again</button>
+
+      </div>
+
+    </div>
+  </div>
+
 </section>
   </main>
 

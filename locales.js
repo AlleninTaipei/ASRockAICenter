@@ -169,6 +169,12 @@ const LOCALES = {
         desc: "Trace what happens under the hood when you type a request in OpenCode — from message to code. Covers the three-agent reasoning loop (Build / Plan / General), tool architecture, memory system, and multi-interface engine.",
         link: "public/docs/en/Course-en/opencode-course/index.html",
         type: "html"
+      },
+      {
+        title: "Autoresearch: How AI Teaches Itself",
+        desc: "Discover how an AI agent runs 100 experiments overnight and gets smarter each time. Covers the three-file architecture (train.py, prepare.py, program.md), the automated experiment loop, and how val_bpb drives every decision.",
+        link: "public/docs/en/Course-en/autoresearch-course/index.html",
+        type: "html"
       }
     ],
     youtubeSection: {
