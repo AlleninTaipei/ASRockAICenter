@@ -140,32 +140,37 @@ const LOCALES = {
           link: "public/docs/en/nvidia_gpu_product_lines_en.html",
           type: "html"
         },
-        {
-          title: "Building with the Claude API",
-          desc: "Walk through fundamental API operations, advanced prompting techniques, tool integration, and architectural patterns for building AI-powered systems.",
-          link: "public/docs/en/Building%20with%20the%20Claude%20API.html",
-          type: "html"
-        },
-        {
-          title: "How Claw Works: A Field Guide to AI Coding Agents",
-          desc: "An interactive course exploring Claw — an AI coding agent that lives in your terminal and can actually do things. Covers its Rust crate architecture, tool & permission system, and multi-provider AI design.",
-          link: "public/docs/en/Course-en/claw-code-course/index.html",
-          type: "html"
-        },
-        {
-          title: "How OpenClaw Works — An Interactive Course",
-          desc: "A deep-dive into OpenClaw, your AI across every channel. Learn how a single brain can reply on WhatsApp, iPhone, and Mac — and how its five core characters, plugin system, and 24/7 health monitoring hold it all together.",
-          link: "public/docs/en/Course-en/openclaw-course/index.html",
-          type: "html"
-        },
-        {
-          title: "How OpenCode Works",
-          desc: "Trace what happens under the hood when you type a request in OpenCode — from message to code. Covers the three-agent reasoning loop (Build / Plan / General), tool architecture, memory system, and multi-interface engine.",
-          link: "public/docs/en/Course-en/opencode-course/index.html",
-          type: "html"
-        }
       ]
     },
+    coursesSection: {
+      title: "Developer Courses"
+    },
+    courses: [
+      {
+        title: "Building with the Claude API",
+        desc: "Walk through fundamental API operations, advanced prompting techniques, tool integration, and architectural patterns for building AI-powered systems.",
+        link: "public/docs/en/Building%20with%20the%20Claude%20API.html",
+        type: "html"
+      },
+      {
+        title: "How Claw Works: A Field Guide to AI Coding Agents",
+        desc: "An interactive course exploring Claw — an AI coding agent that lives in your terminal and can actually do things. Covers its Rust crate architecture, tool & permission system, and multi-provider AI design.",
+        link: "public/docs/en/Course-en/claw-code-course/index.html",
+        type: "html"
+      },
+      {
+        title: "How OpenClaw Works — An Interactive Course",
+        desc: "A deep-dive into OpenClaw, your AI across every channel. Learn how a single brain can reply on WhatsApp, iPhone, and Mac — and how its five core characters, plugin system, and 24/7 health monitoring hold it all together.",
+        link: "public/docs/en/Course-en/openclaw-course/index.html",
+        type: "html"
+      },
+      {
+        title: "How OpenCode Works",
+        desc: "Trace what happens under the hood when you type a request in OpenCode — from message to code. Covers the three-agent reasoning loop (Build / Plan / General), tool architecture, memory system, and multi-interface engine.",
+        link: "public/docs/en/Course-en/opencode-course/index.html",
+        type: "html"
+      }
+    ],
     youtubeSection: {
       title: "On-premise AI Videos",
       query: "On-premise AI",
@@ -319,31 +324,10 @@ const LOCALES = {
           link: "public/docs/zh-TW/nvidia_gpu_product_lines_zh.html",
           type: "html"
         },
-        {
-          title: "使用 Claude API 開發 — 入門指南",
-          desc: "涵蓋 API 的基本操作、進階提示技巧、工具整合以及建立 AI 系統的架構模式。",
-          link: "public/docs/zh-TW/Building%20with%20the%20Claude%20API.html",
-          type: "html"
-        },
-        {
-          title: "Claw 如何運作：AI Coding Agent 實地指南",
-          desc: "互動式課程，深入探索住在 terminal 裡的 AI coding agent — Claw。涵蓋其 Rust crate 架構、工具與權限系統，以及多 AI provider 設計原理。",
-          link: "public/docs/zh-TW/Course-zh/claw-code-course/index.html",
-          type: "html"
-        },
-        {
-          title: "OpenClaw 如何運作 — 互動式課程",
-          desc: "深度解析 OpenClaw — 你的 AI 無所不在。了解同一個 brain 如何跨 WhatsApp、iPhone 與 Mac 回覆，以及五大核心角色、plugin system 與 24/7 健康監控如何協同運作。",
-          link: "public/docs/zh-TW/Course-zh/openclaw-course/index.html",
-          type: "html"
-        },
-        {
-          title: "OpenCode 如何運作",
-          desc: "追蹤你在 OpenCode 輸入 request 後底層發生的一切。涵蓋三種 agent 推理迴圈（Build / Plan / General）、工具架構、記憶體系統與多介面引擎。",
-          link: "public/docs/zh-TW/Course-zh/opencode-course/index.html",
-          type: "html"
-        }
       ]
+    },
+    coursesSection: {
+      title: "開發者課程"
     },
     youtubeSection: {
       title: "本地部署 AI 影片",
