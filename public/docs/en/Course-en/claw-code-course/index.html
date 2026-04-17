@@ -192,6 +192,60 @@
         </div>
       </section>
 
+      <!-- Screen 5: Quiz -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Check your understanding</h2>
+
+        <div class="quiz-container" id="quiz-module1">
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Right — the session is saved as a JSONL file so claw can reconstruct the full conversation history next time you use --resume."
+               data-explanation-wrong="Not quite. That feature keeps context alive between sessions. The key mechanism is writing the conversation to a file on disk after each turn.">
+            <h3 class="quiz-question">You close your terminal in the middle of a claw session. Tomorrow you want to continue the same conversation. What makes this possible?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The AI remembers your conversation automatically because it is stateful</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Claw saves every conversation turn to a JSONL file on disk, which is replayed on resume</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Claw syncs your conversation to Anthropic&apos;s servers</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Exactly — API keys authenticate your account for direct API access. A Claude.ai subscription gives you the web chat, not programmatic access."
+               data-explanation-wrong="A subscription to claude.ai gives you the web interface only. Claw calls the Anthropic API directly and needs a separate API key from console.anthropic.com.">
+            <h3 class="quiz-question">Your team has a Claude subscription but claw keeps returning a 401 error. What is the most likely fix?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Upgrade to a higher Claude subscription tier</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Run <code>/doctor</code> to fix the subscription link</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Get a separate API key from console.anthropic.com and set ANTHROPIC_API_KEY</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module1')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module1')">Try Again</button>
+        </div>
+      </section>
+
     </div>
   </div>
 </section>
@@ -406,6 +460,60 @@
         </div>
       </section>
 
+      <!-- Screen 5: Quiz -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Put the pieces together</h2>
+
+        <div class="quiz-container" id="quiz-module2">
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Correct — the runtime crate owns the conversation loop, session saving, and permission checking. The CLI just renders what runtime tells it."
+               data-explanation-wrong="The CLI (rusty-claude-cli) handles rendering and user input, but it delegates all the conversation logic to runtime. Think of the CLI as the face and runtime as the brain.">
+            <h3 class="quiz-question">A user reports that resuming a session with --resume latest is not working — the previous conversation is not being loaded. Which crate would you look at first?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>rusty-claude-cli — it handles the --resume flag</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>runtime — it owns session persistence and loading</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>api — the session is probably cached on the server side</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Exactly — the api crate handles all provider communication. You would add a new variant to the ProviderClient enum and implement the same interface."
+               data-explanation-wrong="The tools crate handles local execution (file ops, bash). Adding a new AI provider means adding a new ProviderClient variant in the api crate.">
+            <h3 class="quiz-question">You want to add support for a new AI provider (say, Mistral). Which crate would you modify?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>tools — it handles all external connections</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>runtime — it decides which model to use</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>api — it owns the ProviderClient enum and all provider backends</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module2')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module2')">Try Again</button>
+        </div>
+      </section>
+
     </div>
   </div>
 </section>
@@ -594,6 +702,60 @@
         </div>
       </section>
 
+      <!-- Screen 5: Quiz -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Apply what you learned</h2>
+
+        <div class="quiz-container" id="quiz-module3">
+          <div class="quiz-question-block"
+               data-correct="option-a"
+               data-explanation-right="Right — streaming (SSE) is why words appear one at a time. The AI generates tokens sequentially and claw renders each as it arrives, rather than waiting for the full response."
+               data-explanation-wrong="Think about what makes a response appear word by word in real time. The AI generates tokens sequentially and they are pushed over an open connection the moment they are ready.">
+            <h3 class="quiz-question">A user says claw feels "slow" because they see words appearing gradually. Another says it feels fast for the same reason. What is actually happening?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Streaming — words appear as they are generated rather than waiting for the full response, making it feel faster even though total time is the same</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Network throttling — slow internet causes the gradual appearance</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Markdown rendering — the CLI waits to parse the whole response before displaying</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Exactly — compaction fires when the session grows beyond a token budget. The AI writes a summary and old messages are replaced, freeing up context space for continued work."
+               data-explanation-wrong="Compaction is not about conversation quality — it is a memory management mechanism. When the session hits a token limit, old messages are summarized and removed to stay within the context window.">
+            <h3 class="quiz-question">You are 2 hours into a complex debugging session with claw when you see: "This session is being continued from a previous conversation." What just happened and should you be worried?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Claw crashed and restarted — you should start over</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Session compaction fired — old messages were summarized to stay within the AI context window. You can continue, but the AI may have lost granular detail.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The API connection timed out and reconnected — no information was lost</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module3')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module3')">Try Again</button>
+        </div>
+      </section>
+
     </div>
   </div>
 </section>
@@ -751,6 +913,60 @@
             <strong class="callout-title">Hooks are how you build guardrails without modifying claw itself</strong>
             <p>Want to prevent the AI from ever touching <code>*.env</code> files? Write a PreToolUse hook that inspects the input and outputs <code>deny</code> when it sees that pattern. Want to post a Slack notification every time the AI commits code? Add a PostToolUse hook on <code>execute_bash</code>. This is where power users customize claw for their team.</p>
           </div>
+        </div>
+      </section>
+
+      <!-- Screen 5: Quiz -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Test your instincts</h2>
+
+        <div class="quiz-container" id="quiz-module4">
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Correct — a PreToolUse hook lets you inspect every tool call before it executes and deny it if the input matches a sensitive pattern. This is exactly what hooks are designed for."
+               data-explanation-wrong="Permission modes control broad categories (read vs write) but not specific file patterns. Hooks give you the fine-grained control to intercept a tool call and inspect its exact arguments before it runs.">
+            <h3 class="quiz-question">You are giving an AI agent access to your codebase but you never want it to read or write your <code>.env</code> file (which contains secrets). What is the right mechanism?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Set the permission mode to read-only</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Write a PreToolUse hook that checks the file path and returns deny when it sees .env</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Delete the .env file before running claw and restore it afterward</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Right — execute_bash requires at minimum workspace-write. In read-only mode the permission check fails and the tool call is blocked before anything runs."
+               data-explanation-wrong="Consider what read-only mode actually restricts. The execute_bash tool requires a higher permission level, so the enforcer blocks it before it can run — regardless of what command was requested.">
+            <h3 class="quiz-question">You launch claw with <code>--permission-mode read-only</code> and ask it to run your test suite. The AI tries to call <code>execute_bash</code> with <code>cargo test</code>. What happens?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The tests run because cargo test only reads files</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The AI skips the tests and describes what it would have done</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The permission enforcer blocks the tool call — execute_bash requires workspace-write or higher</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module4')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module4')">Try Again</button>
         </div>
       </section>
 
@@ -948,6 +1164,66 @@
             <strong class="callout-title">The job of the human is not to out-type the machine</strong>
             <p>From the Claw Code philosophy document: "The job of the human is to decide what deserves to exist." Claw and the tools around it are a live demonstration of this. The code in this repository was produced by agents. The direction, taste, and judgment behind it came from people.</p>
           </div>
+        </div>
+      </section>
+
+      <!-- Screen 5: Final quiz -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Final check</h2>
+
+        <div class="quiz-container" id="quiz-module5">
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Correct — the model name prefix is the routing signal. claude-* goes to Anthropic automatically. You do not need to set any additional flag."
+               data-explanation-wrong="Claw uses model name prefixes as routing signals. claude-* always routes to Anthropic. You just need the right API key set — no extra flag required.">
+            <h3 class="quiz-question">You have both <code>ANTHROPIC_API_KEY</code> and <code>OPENAI_API_KEY</code> set in your environment. You run <code>claw --model claude-sonnet-4-6 prompt "hello"</code>. Which provider does claw use?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>OpenAI, because OPENAI_API_KEY is also set and takes priority</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Anthropic, because the claude- prefix in the model name wins</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>It fails with an ambiguity error — you must specify --provider</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-a"
+               data-explanation-right="Exactly — the philosophy is that humans set direction and agents do the labor. Your most valuable contribution is clear, well-scoped direction — not implementation details."
+               data-explanation-wrong="Think about what the claw philosophy says about the bottleneck. When agents can write code fast, the scarce resource shifts away from implementation speed toward something humans still provide best.">
+            <h3 class="quiz-question">You are starting a new project and want to use an AI coding agent system like claw effectively. Where should you invest your own time and energy?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Defining clear goals, decomposing tasks, and reviewing output for taste and correctness</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Learning Rust so you can modify claw when it does something wrong</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Writing detailed technical specs for every function before the agent writes a line of code</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module5')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module5')">Try Again</button>
+        </div>
+
+        <div style="margin-top: var(--space-12); text-align: center; padding: var(--space-8); background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+          <p style="font-family: var(--font-display); font-size: var(--text-2xl); font-weight: 700; margin-bottom: var(--space-3);">You now understand how Claw works.</p>
+          <p style="color: var(--color-text-secondary); max-width: 500px; margin: 0 auto;">You can read the source code, understand why decisions were made, and give more precise instructions to AI coding agents. That is exactly what this course was for.</p>
+          <div style="margin-top: var(--space-6); font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-accent);">🦞 claw doctor — run it and see what you find</div>
         </div>
       </section>
 

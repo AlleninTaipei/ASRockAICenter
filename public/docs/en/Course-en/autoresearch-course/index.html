@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autoresearch: How AI Teaches Itself</title>
+
+  <!-- Google Fonts: Bricolage Grotesque · DM Sans · JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Teal accent palette -->
+  <style>
+    :root {
+      --color-accent:       #2A7B9B;
+      --color-accent-hover: #1F6280;
+      --color-accent-light: #E4F2F7;
+      --color-accent-muted: #5A9DB8;
+    }
+  </style>
+
+  <script src="main.js" defer></script>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="nav-inner">
+      <span class="nav-title">Autoresearch: How AI Teaches Itself</span>
+      <div class="nav-dots" id="nav-dots" role="tablist">
+        <button class="nav-dot" data-target="module-1" data-tooltip="The Overnight Lab" role="tab" aria-label="Module 1: The Overnight Lab"></button>
+        <button class="nav-dot" data-target="module-2" data-tooltip="The Three Files" role="tab" aria-label="Module 2: The Three Files"></button>
+        <button class="nav-dot" data-target="module-3" data-tooltip="Teaching Computers to Read" role="tab" aria-label="Module 3: Teaching Computers to Read"></button>
+        <button class="nav-dot" data-target="module-4" data-tooltip="The 5-Minute Race" role="tab" aria-label="Module 4: The 5-Minute Race"></button>
+        <button class="nav-dot" data-target="module-5" data-tooltip="Steering the AI" role="tab" aria-label="Module 5: Steering the AI"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <!-- modules/*.html content is assembled here by build.sh -->
+<section class="module" id="module-1" style="background: var(--color-bg)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">01</span>
+      <h1 class="module-title">The Overnight Lab</h1>
+      <p class="module-subtitle">You press one button before bed. By morning, an AI has run 100 experiments — and gotten smarter each time.</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- Screen 1: What is autoresearch? -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">What just happened while you slept?</h2>
+        <p>Imagine leaving a very determined intern in a lab overnight. Their job: try every idea they can think of to improve a machine. They keep what works, throw out what doesn't, and never stop — even at 3am.</p>
+        <p><strong>Autoresearch is that intern, but the machine is an AI — and the AI is experimenting on <em>itself</em>.</strong></p>
+
+        <div class="step-cards animate-in">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <strong>The AI agent reads the training code</strong>
+              <p>It looks at <code>train.py</code> — the file that defines how the model learns — and decides what to change.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <strong>It runs a 5-minute experiment</strong>
+              <p>The modified code trains a small language model on real text data for exactly 300 seconds.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <strong>It checks the score</strong>
+              <p>One number — <span class="term" data-definition="val_bpb stands for validation bits per byte. It measures how surprised the model is by text it has never seen. Lower is better — it means the model predicts text more accurately.">val_bpb</span> — tells if the model improved. Lower is better.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <strong>Keep or discard — then repeat forever</strong>
+              <p>If the score improved, keep the change and continue. If not, revert and try something else.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 2: Why this is remarkable -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Why is this a big deal?</h2>
+        <p>Normally, AI research takes teams of PhD scientists months — reading papers, designing experiments, waiting for results. Autoresearch compresses that cycle to <strong>5 minutes per experiment</strong>.</p>
+
+        <div class="pattern-cards animate-in stagger-children">
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-accent-light)">⚡</div>
+            <h4 class="pattern-title">~12 experiments/hour</h4>
+            <p class="pattern-desc">While you sleep 8 hours, the agent runs roughly 100 experiments — more than most human researchers run in a month.</p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-accent-light)">🎯</div>
+            <h4 class="pattern-title">One metric to rule them all</h4>
+            <p class="pattern-desc">Every experiment is judged by the same single score. No subjective judgment — just "did it improve?"</p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-3)">
+            <div class="pattern-icon" style="background: var(--color-accent-light)">🔁</div>
+            <h4 class="pattern-title">Self-directed research</h4>
+            <p class="pattern-desc">The AI decides what to try next. It reads its own code, forms a hypothesis, and tests it — without human guidance on each step.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-accent animate-in">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">Key Insight: The experiment loop is the product</strong>
+            <p>You are not building a better model directly. You are building an <em>environment</em> where better models emerge automatically. The agent does the research; you design the rules of the game.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 3: End-to-end trace -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Follow one experiment, start to finish</h2>
+        <p>Here is what actually happens on your computer during a single experiment run:</p>
+
+        <div class="flow-animation animate-in" data-steps='[
+          {"highlight":"flow-actor-1","label":"Agent reads train.py and forms an idea: increase the learning rate from 0.02 to 0.04"},
+          {"highlight":"flow-actor-1","label":"Agent edits train.py and makes a git commit to record the change","packet":true,"from":"actor-1","to":"actor-2"},
+          {"highlight":"flow-actor-2","label":"Training begins: the model reads thousands of text documents and adjusts its weights"},
+          {"highlight":"flow-actor-2","label":"300 seconds pass. Timer runs out — training stops automatically"},
+          {"highlight":"flow-actor-3","label":"Evaluation: the model is tested on text it has never seen","packet":true,"from":"actor-2","to":"actor-3"},
+          {"highlight":"flow-actor-3","label":"val_bpb score is calculated and printed to the log file"},
+          {"highlight":"flow-actor-1","label":"Agent reads the score. Improved? Keep the commit. Worse? git reset and try something else","packet":true,"from":"actor-3","to":"actor-1"}
+        ]'>
+          <div class="flow-actors">
+            <div class="flow-actor" id="flow-actor-1">
+              <div class="flow-actor-icon">🤖</div>
+              <span>AI Agent</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-2">
+              <div class="flow-actor-icon">🏋️</div>
+              <span>Training</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-3">
+              <div class="flow-actor-icon">📊</div>
+              <span>Evaluation</span>
+            </div>
+          </div>
+          <div class="flow-packet" id="flow-packet"></div>
+          <div class="flow-step-label" id="flow-label">Click "Next Step" to begin</div>
+          <div class="flow-controls">
+            <button class="btn flow-next-btn">Next Step</button>
+            <button class="btn flow-reset-btn">Restart</button>
+            <span class="flow-progress"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: Quiz -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Check your understanding</h2>
+
+        <div class="quiz-container" id="quiz-module1">
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Right! The agent never stops on its own — it only stops when you interrupt it. Each 5-minute experiment ends, but immediately the agent starts thinking up the next one."
+               data-explanation-wrong="Not quite. The experiment loop keeps running indefinitely. The TIME_BUDGET is per experiment — not a global limit. The agent keeps going until you manually stop it.">
+            <h3 class="quiz-question">You start autoresearch before bed. What happens while you sleep?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>One 5-minute experiment runs, then the program stops and waits for you</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The agent runs dozens of experiments automatically — keeping improvements, discarding failures — until you stop it</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The agent downloads a pre-trained model from the internet</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Exactly. val_bpb is the single ground truth — lower means the model predicts text more accurately. It removes all subjectivity from the decision."
+               data-explanation-wrong="Not quite. The agent does not judge improvements by how fast training was, or by how complex the change was. It uses one objective score: val_bpb on unseen text.">
+            <h3 class="quiz-question">The agent tries a change and it makes training 10% faster but val_bpb gets slightly worse. What should happen?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Keep the change — faster training is clearly better</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Keep the change — the speed improvement might pay off in future experiments</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Discard the change — val_bpb is the only metric that matters</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module1')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module1')">Try Again</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+<section class="module" id="module-2" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">02</span>
+      <h1 class="module-title">The Three Files</h1>
+      <p class="module-subtitle">The entire project lives in three files — and each one has a completely different job.</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- Screen 1: The cast -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Three files, three roles</h2>
+        <p>Think of this project like a theatrical production. There is the <strong>stage crew</strong> (invisible but essential), the <strong>performer</strong> (what the audience sees change), and the <strong>director's script</strong> (the instructions that guide everything). Each file plays exactly one role — and they never swap.</p>
+
+        <div class="icon-rows animate-in stagger-children">
+          <div class="icon-row animate-in">
+            <div class="icon-circle" style="background: var(--color-actor-3)">🔧</div>
+            <div>
+              <strong>prepare.py — The Stage Crew</strong>
+              <p>Downloads data, trains the <span class="term" data-definition="A tokenizer converts text into numbers so a computer can process it. Think of it as a code book: every word or word-piece gets assigned a unique number.">tokenizer</span>, builds the <span class="term" data-definition="A dataloader is the system that feeds batches of data to the model during training — like a conveyor belt delivering raw material to a factory.">dataloader</span>, and runs the final evaluation. You never modify this file. It is locked.</p>
+            </div>
+          </div>
+          <div class="icon-row animate-in">
+            <div class="icon-circle" style="background: var(--color-actor-1)">✏️</div>
+            <div>
+              <strong>train.py — The Performer</strong>
+              <p>The only file the agent edits. Contains the full GPT model architecture, the optimizer, and the training loop. Every experiment is a new version of this file.</p>
+            </div>
+          </div>
+          <div class="icon-row animate-in">
+            <div class="icon-circle" style="background: var(--color-actor-2)">📋</div>
+            <div>
+              <strong>program.md — The Director's Script</strong>
+              <p>A <span class="term" data-definition="Markdown is a simple way to write formatted text using plain characters — like using **bold** for bold text. AI agents can read it as natural language instructions.">Markdown</span> file written in plain English that tells the AI agent exactly what to do, how to evaluate results, and what rules to follow.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 2: Visual file tree + what's locked -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The project structure</h2>
+        <p>Here is the complete project. Three core files and almost nothing else — intentionally minimal so the agent can focus.</p>
+
+        <div class="file-tree animate-in">
+          <div class="ft-folder open">
+            <span class="ft-name">autoresearch/</span>
+            <span class="ft-desc">The whole project</span>
+            <div class="ft-children">
+              <div class="ft-file">
+                <span class="ft-name">prepare.py</span>
+                <span class="ft-desc" style="color: var(--color-actor-3)">🔒 Read-only — data pipeline &amp; evaluation harness</span>
+              </div>
+              <div class="ft-file">
+                <span class="ft-name">train.py</span>
+                <span class="ft-desc" style="color: var(--color-actor-1)">✏️ Agent modifies this — model, optimizer, training loop</span>
+              </div>
+              <div class="ft-file">
+                <span class="ft-name">program.md</span>
+                <span class="ft-desc" style="color: var(--color-actor-2)">📋 Human modifies this — instructions for the AI agent</span>
+              </div>
+              <div class="ft-file">
+                <span class="ft-name">pyproject.toml</span>
+                <span class="ft-desc">Dependencies list — also locked, no new packages allowed</span>
+              </div>
+              <div class="ft-file">
+                <span class="ft-name">results.tsv</span>
+                <span class="ft-desc">Experiment log — tab-separated, written by agent after each run</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-info animate-in">
+          <div class="callout-icon">🔒</div>
+          <div class="callout-content">
+            <strong class="callout-title">Why lock prepare.py?</strong>
+            <p>If the agent could change the evaluation, it could cheat — like a student changing the answer key instead of studying. Locking prepare.py guarantees every experiment is judged by the same fair standard.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 3: Code translation — prepare.py constants -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The fixed rules — prepare.py constants</h2>
+        <p>Three constants in <code>prepare.py</code> set the ground rules for every experiment. No experiment can change them.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+            <pre><code>
+<span class="code-line"><span class="code-comment"># Constants (fixed, do not modify)</span></span>
+<span class="code-line"><span class="code-property">MAX_SEQ_LEN</span> <span class="code-operator">=</span> <span class="code-number">2048</span>      <span class="code-comment"># context length</span></span>
+<span class="code-line"><span class="code-property">TIME_BUDGET</span> <span class="code-operator">=</span> <span class="code-number">300</span>       <span class="code-comment"># training time in seconds</span></span>
+<span class="code-line"><span class="code-property">EVAL_TOKENS</span> <span class="code-operator">=</span> <span class="code-number">40</span> <span class="code-operator">*</span> <span class="code-number">524288</span> <span class="code-comment"># ~20M tokens for val eval</span></span>
+            </code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">These three numbers are the rulebook — every experiment plays by them.</p>
+              <p class="tl"><strong>MAX_SEQ_LEN = 2048</strong>: The model can read 2,048 tokens at once — roughly 1,500 words of context.</p>
+              <p class="tl"><strong>TIME_BUDGET = 300</strong>: Training always stops after exactly 5 minutes. No more, no less.</p>
+              <p class="tl"><strong>EVAL_TOKENS</strong>: The test uses about 20 million tokens of text the model has never seen. More tokens = more reliable score.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: The group chat — files talking to each other -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">How the files work together</h2>
+        <p>When an experiment runs, the three files pass control back and forth like colleagues in a group chat:</p>
+
+        <div class="chat-window" id="chat-module2">
+          <div class="chat-messages">
+            <div class="chat-message" data-msg="0" data-sender="agent" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">A</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">AI Agent</span>
+                <p>I have an idea — let me increase the learning rate in train.py and commit the change.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="1" data-sender="train" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">T</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">train.py</span>
+                <p>Starting training... I need the dataloader. Hey prepare.py, give me batches of text!</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="2" data-sender="prepare" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-3)">P</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-3)">prepare.py</span>
+                <p>Here is your first batch. I will keep streaming data until you stop asking.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="3" data-sender="train" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">T</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">train.py</span>
+                <p>300 seconds are up. Training complete. prepare.py, run the evaluation now.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="4" data-sender="prepare" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-3)">P</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-3)">prepare.py</span>
+                <p>Running evaluate_bpb()... done. val_bpb = 0.9921. Printing to stdout now.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="5" data-sender="agent" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">A</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">AI Agent</span>
+                <p>Previous best was 0.9979. New score is 0.9921 — that is an improvement! I will keep this commit and try the next idea.</p>
+              </div>
+            </div>
+          </div>
+          <div class="chat-typing" style="display:none">
+            <div class="chat-avatar" id="chat-module2-typing-avatar">?</div>
+            <div class="chat-typing-dots">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+          <div class="chat-controls">
+            <button class="btn chat-next-btn">Next Message</button>
+            <button class="btn chat-all-btn">Play All</button>
+            <button class="btn chat-reset-btn">Replay</button>
+            <span class="chat-progress"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 5: Quiz -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Check your understanding</h2>
+
+        <div class="quiz-container" id="quiz-module2">
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Exactly. train.py is the one file the agent is allowed to edit. prepare.py is locked so the evaluation can never be gamed."
+               data-explanation-wrong="Not quite. program.md gives instructions to the agent in plain English — the agent reads it but does not modify it during experiments. And prepare.py is locked to ensure fair evaluation.">
+            <h3 class="quiz-question">You want to try a new model architecture in autoresearch. Which file do you edit?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>program.md — that is where the agent gets its instructions</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>train.py — that is the only file agents are allowed to modify</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>prepare.py — that is where the model is defined</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Correct. program.md is the file the human writes to guide the agent's research strategy. You could make it more or less aggressive, add domain knowledge, or change how it evaluates tradeoffs."
+               data-explanation-wrong="Think about who writes each file. train.py is written/modified by the agent. prepare.py is fixed infrastructure. program.md is the instructions — and you write the instructions.">
+            <h3 class="quiz-question">You want the agent to be more cautious about memory usage — prioritize val_bpb improvements only if they use less than 5% more VRAM. Where do you encode this rule?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>train.py — add a VRAM check in the training loop</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>prepare.py — add a memory threshold to the evaluation harness</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>program.md — write the rule in plain English so the agent follows it</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module2')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module2')">Try Again</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+<section class="module" id="module-3" style="background: var(--color-bg)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">03</span>
+      <h1 class="module-title">Teaching Computers to Read</h1>
+      <p class="module-subtitle">Inside train.py lives a GPT model — a system that learns to predict text by seeing billions of examples.</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- Screen 1: Tokens — the alphabet of AI -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">First: turning words into numbers</h2>
+        <p>Computers only understand numbers. So before any learning can happen, every word must be converted into a number. This is the job of the <strong>tokenizer</strong>.</p>
+
+        <p>The tokenizer in this project breaks text into small chunks — usually whole words or common word-pieces — and assigns each one a number from 0 to 8,191 (the <span class="term" data-definition="Vocabulary size is the total number of unique tokens a model knows. Like a dictionary — this model has 8,192 entries. Any text can be expressed as a sequence of these tokens.">vocabulary size</span> is 8,192).</p>
+
+        <div class="callout callout-info animate-in">
+          <div class="callout-icon">🔤</div>
+          <div class="callout-content">
+            <strong class="callout-title">Example: "Hello world" → [4521, 1204]</strong>
+            <p>The word "Hello" maps to token 4521. "world" maps to token 1204. The model only ever sees these numbers — never raw text. The tokenizer is the translation layer between human language and machine numbers.</p>
+          </div>
+        </div>
+
+        <p>Once text is converted to token numbers, it flows into the model layer by layer — like an assembly line where each station adds a bit more understanding.</p>
+      </section>
+
+      <!-- Screen 2: The model architecture overview -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The GPT assembly line</h2>
+        <p>The model transforms raw token numbers into a prediction of "what comes next" through a series of layers. Each layer refines the understanding a little more.</p>
+
+        <div class="arch-diagram animate-in">
+          <div class="arch-zone" style="border-color: var(--color-accent-muted)">
+            <h4 class="arch-zone-label">Step 1 — Input</h4>
+            <div class="arch-component"
+                 data-desc="Embedding lookup: converts each token number into a rich vector of 512 numbers. Think of it as looking up a word in a thesaurus — except each entry is not words but a list of numbers that capture meaning."
+                 onclick="showArchDesc(this)">
+              <div class="arch-icon">📥</div>
+              <span>Token Embeddings (wte)</span>
+            </div>
+          </div>
+          <div class="arch-zone" style="border-color: var(--color-accent-muted)">
+            <h4 class="arch-zone-label">Step 2 — 8 Transformer Blocks (repeated)</h4>
+            <div class="arch-component"
+                 data-desc="Attention: each token looks at all surrounding tokens (up to 2048 tokens back) and decides which ones are most relevant. Like a student who highlights the most important sentences before answering a question."
+                 onclick="showArchDesc(this)">
+              <div class="arch-icon">👁️</div>
+              <span>Attention</span>
+            </div>
+            <div class="arch-component"
+                 data-desc="MLP (Multi-Layer Perceptron): a feedforward neural network that processes each token independently after attention. If attention gathers context, MLP processes it. Together they form one complete 'layer of understanding.'"
+                 onclick="showArchDesc(this)">
+              <div class="arch-icon">🧠</div>
+              <span>MLP</span>
+            </div>
+          </div>
+          <div class="arch-zone" style="border-color: var(--color-accent-muted)">
+            <h4 class="arch-zone-label">Step 3 — Output</h4>
+            <div class="arch-component"
+                 data-desc="Language Model Head: takes the final vector and converts it into a probability score for each of the 8,192 possible next tokens. The highest-scoring token is the model's prediction for what comes next."
+                 onclick="showArchDesc(this)">
+              <div class="arch-icon">📤</div>
+              <span>LM Head (prediction)</span>
+            </div>
+          </div>
+          <div class="arch-description" id="arch-desc">Click any component to learn what it does</div>
+        </div>
+      </section>
+
+      <!-- Screen 3: Code translation — the forward pass -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The forward pass in code</h2>
+        <p>The <span class="term" data-definition="A forward pass is one trip through the model from input to output. You feed in tokens, and the model produces predictions. It is called 'forward' because data flows forward through the layers, not backward.">forward pass</span> is the core computation. Here is the key section of the <code>GPT.forward()</code> method from <code>train.py</code>:</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+            <pre><code>
+<span class="code-line"><span class="code-keyword">def</span> <span class="code-function">forward</span>(<span class="code-keyword">self</span>, idx, targets<span class="code-operator">=</span><span class="code-keyword">None</span>):</span>
+<span class="code-line">    x <span class="code-operator">=</span> <span class="code-keyword">self</span>.transformer.wte(idx)</span>
+<span class="code-line">    x <span class="code-operator">=</span> <span class="code-function">norm</span>(x)</span>
+<span class="code-line">    x0 <span class="code-operator">=</span> x</span>
+<span class="code-line">    <span class="code-keyword">for</span> i, block <span class="code-keyword">in</span> <span class="code-function">enumerate</span>(<span class="code-keyword">self</span>.transformer.h):</span>
+<span class="code-line">        x <span class="code-operator">=</span> <span class="code-keyword">self</span>.resid_lambdas[i] <span class="code-operator">*</span> x <span class="code-operator">+</span> <span class="code-keyword">self</span>.x0_lambdas[i] <span class="code-operator">*</span> x0</span>
+<span class="code-line">        x <span class="code-operator">=</span> <span class="code-function">block</span>(x, ve, cos_sin, window_sizes[i])</span>
+<span class="code-line">    logits <span class="code-operator">=</span> <span class="code-keyword">self</span>.lm_head(x)</span>
+            </code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">This function takes token numbers in, returns predictions out.</p>
+              <p class="tl">Look up each token in the embedding table — convert numbers to rich vectors of meaning.</p>
+              <p class="tl">Normalize the vectors so they have consistent scale (prevents runaway math).</p>
+              <p class="tl">Save a copy of the starting representation — we will use it as an anchor later.</p>
+              <p class="tl">Run the data through each of the 8 transformer blocks in sequence.</p>
+              <p class="tl">Blend the current representation with the original anchor — helps the model remember where it started.</p>
+              <p class="tl">Each block (attention + MLP) refines the understanding one level deeper.</p>
+              <p class="tl">Convert the final representation into prediction scores for every possible next token.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: Attention + clever tricks -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The clever tricks inside the model</h2>
+        <p>This is not a plain GPT. It has several engineering improvements baked in. Think of them as upgrades to a standard camera — same basic design, better optics.</p>
+
+        <div class="pattern-cards animate-in stagger-children">
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-accent-light)">🌀</div>
+            <h4 class="pattern-title">Rotary Embeddings</h4>
+            <p class="pattern-desc">Instead of adding a position number to each token, the position is "rotated" into the token's meaning vector. This lets the model handle sequences it was never trained on.</p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-accent-light)">🪟</div>
+            <h4 class="pattern-title">Sliding Window Attention</h4>
+            <p class="pattern-desc">Most layers only look at nearby tokens (half the context window). This is faster and works surprisingly well — like reading a paragraph without looking back to page 1 every time.</p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-3)">
+            <div class="pattern-icon" style="background: var(--color-accent-light)">📐</div>
+            <h4 class="pattern-title">RMSNorm</h4>
+            <p class="pattern-desc">Normalization keeps the numbers at a sane scale throughout training. RMSNorm is a simpler, faster version of LayerNorm — it scales without centering.</p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-4)">
+            <div class="pattern-icon" style="background: var(--color-accent-light)">🎚️</div>
+            <h4 class="pattern-title">Value Embeddings (ResFormer)</h4>
+            <p class="pattern-desc">Every other layer gets a direct shortcut from the original token embeddings into the attention values. This helps the model remember what tokens meant at the start.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-accent animate-in">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">Key Insight: You do not need to understand these to steer the AI</strong>
+            <p>The agent can try adding or removing these features by changing a few lines in train.py. Your job as the human is to set the rules in program.md — the agent figures out which tricks help.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 5: Quiz -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Check your understanding</h2>
+
+        <div class="quiz-container" id="quiz-module3">
+          <div class="quiz-question-block"
+               data-correct="option-a"
+               data-explanation-right="Correct. The model only processes numbers — never text directly. The tokenizer is the bridge that converts text to token IDs before anything else happens."
+               data-explanation-wrong="Not quite. The model never sees raw text. Everything must be converted to token numbers first. The tokenizer handles this translation before training begins.">
+            <h3 class="quiz-question">You want to train the model on a new text dataset. Before train.py can use it, what has to happen first?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The text must be tokenized — converted to sequences of numbers using the vocabulary</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The text can be fed directly into the model — it processes raw strings</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The text needs to be translated into English first</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Right. DEPTH controls the number of transformer blocks. More blocks = more layers of understanding, but also more computation. It is the primary knob for controlling model complexity."
+               data-explanation-wrong="Not quite. DEPTH is the number of transformer layers (blocks) stacked on top of each other. More depth means more capacity to learn complex patterns — but also slower training.">
+            <h3 class="quiz-question">The agent wants to make the model more powerful. It decides to increase <code>DEPTH</code> from 8 to 12. What does this do?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Makes the attention window larger so the model reads more context</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Adds more transformer blocks — more layers of understanding, more parameters, slower training</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Increases the vocabulary size so the model knows more words</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module3')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module3')">Try Again</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+<section class="module" id="module-4" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">04</span>
+      <h1 class="module-title">The 5-Minute Race</h1>
+      <p class="module-subtitle">How does a model actually learn? And why does the training stop at exactly 300 seconds?</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- Screen 1: Learning = adjusting numbers -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Learning is just adjusting numbers</h2>
+        <p>The model contains millions of numbers — its <span class="term" data-definition="Model weights (or parameters) are the millions of numbers stored inside a neural network. Training adjusts these numbers until the model gets good at predicting text. Think of them as the tuning knobs of a giant equalizer.">weights</span>. At the start, these numbers are random. Training adjusts them one tiny step at a time until the model gets good at predicting text.</p>
+
+        <p>The core loop is simple: show the model some text, ask it to predict the next word, measure how wrong it was, then adjust the weights to be a little less wrong next time.</p>
+
+        <div class="step-cards animate-in">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <strong>Feed: show the model a batch of text</strong>
+              <p>128 sequences of 2,048 tokens each — about 262,000 tokens per step.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <strong>Predict: model guesses the next token at every position</strong>
+              <p>For each of the 2,048 positions, the model outputs 8,192 probability scores.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <strong>Measure: calculate the loss</strong>
+              <p><span class="term" data-definition="Loss is a single number measuring how wrong the model was. High loss = very wrong predictions. Low loss = good predictions. The goal of training is to minimize loss.">Loss</span> is the average surprise — how far off were the predictions from the real answers?</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <strong>Adjust: backpropagation updates the weights</strong>
+              <p>Math figures out which weights caused the errors and nudges them in the right direction. This is <span class="term" data-definition="Gradient descent is the optimization algorithm that adjusts model weights to reduce loss. Think of it like rolling a ball downhill — the ball always moves toward lower ground (lower loss).">gradient descent</span>.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <strong>Repeat — hundreds of times in 5 minutes</strong>
+              <p>The training loop runs about 900 steps in 300 seconds on an H100 GPU.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 2: Code translation — the training loop -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The training loop in code</h2>
+        <p>Here is the heart of <code>train.py</code> — the main training loop. It keeps running until the 5-minute clock runs out:</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+            <pre><code>
+<span class="code-line"><span class="code-keyword">while</span> <span class="code-keyword">True</span>:</span>
+<span class="code-line">    <span class="code-keyword">for</span> micro_step <span class="code-keyword">in</span> <span class="code-function">range</span>(grad_accum_steps):</span>
+<span class="code-line">        <span class="code-keyword">with</span> autocast_ctx:</span>
+<span class="code-line">            loss <span class="code-operator">=</span> <span class="code-function">model</span>(x, y)</span>
+<span class="code-line">        loss.backward()</span>
+<span class="code-line">        x, y, epoch <span class="code-operator">=</span> <span class="code-function">next</span>(train_loader)</span>
+<span class="code-line">    optimizer.step()</span>
+<span class="code-line">    <span class="code-keyword">if</span> total_training_time <span class="code-operator">&gt;=</span> TIME_BUDGET:</span>
+<span class="code-line">        <span class="code-keyword">break</span></span>
+            </code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Keep looping until we decide to stop.</p>
+              <p class="tl">For each mini-batch (we accumulate several before updating)...</p>
+              <p class="tl">Use efficient bfloat16 math to save memory and speed things up.</p>
+              <p class="tl">Run the model on input x, compare to target y, get the loss.</p>
+              <p class="tl">Compute gradients — figure out how each weight contributed to the error.</p>
+              <p class="tl">Load the next batch of text from the dataloader while we compute.</p>
+              <p class="tl">Update all model weights using the accumulated gradients.</p>
+              <p class="tl">Check if 300 seconds of training time have passed.</p>
+              <p class="tl">If time is up, exit the loop.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 3: The two optimizers -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Two optimizers for different jobs</h2>
+        <p>Most models use one optimizer. This project uses two — one for big weight matrices, one for everything else. Think of it like a construction crew: different tools for different materials.</p>
+
+        <div class="icon-rows animate-in stagger-children">
+          <div class="icon-row animate-in">
+            <div class="icon-circle" style="background: var(--color-actor-1)">🏗️</div>
+            <div>
+              <strong>Muon — for the big matrices (attention + MLP weights)</strong>
+              <p>Muon uses a mathematical trick called <span class="term" data-definition="Orthogonalization is a mathematical technique that makes gradient updates more efficient by making them perpendicular (orthogonal) to each other. This avoids redundant updates and speeds up learning.">orthogonalization</span> to make gradient updates more efficient. It is especially good for the large 2D weight matrices in transformer layers.</p>
+            </div>
+          </div>
+          <div class="icon-row animate-in">
+            <div class="icon-circle" style="background: var(--color-actor-2)">🔧</div>
+            <div>
+              <strong>AdamW — for embeddings, biases, and scalars</strong>
+              <p><span class="term" data-definition="AdamW is the most widely used optimizer in deep learning. It adapts the learning rate for each parameter individually and adds weight decay to prevent overfitting.">AdamW</span> is the workhorse of modern AI training — it adapts the learning rate per parameter. Used here for embeddings and scalars where Muon would be overkill.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: val_bpb explained -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">What does val_bpb actually measure?</h2>
+        <p>Every experiment ends with one number: <strong>val_bpb</strong>. Understanding this number helps you make smarter decisions about what to change.</p>
+
+        <div class="callout callout-info animate-in">
+          <div class="callout-icon">📐</div>
+          <div class="callout-content">
+            <strong class="callout-title">Bits Per Byte (BPB) — a vocabulary-independent measure</strong>
+            <p>BPB measures how many bits of information the model needs to encode each byte of text. A perfect model would need 0 bits (it predicts everything correctly). A random model needs about 8 bits per byte. Lower is better.</p>
+          </div>
+        </div>
+
+        <p>The key word is <strong>validation</strong> — val_bpb is measured on text the model has never seen during training. This prevents <span class="term" data-definition="Overfitting happens when a model memorizes its training data instead of learning general patterns. It performs great on training data but poorly on new text. Validation on held-out data catches this.">overfitting</span> — a model that simply memorized training text would score terribly on the validation set.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+            <pre><code>
+<span class="code-line"><span class="code-keyword">def</span> <span class="code-function">evaluate_bpb</span>(model, tokenizer, batch_size):</span>
+<span class="code-line">    steps <span class="code-operator">=</span> EVAL_TOKENS <span class="code-operator">//</span> (batch_size <span class="code-operator">*</span> MAX_SEQ_LEN)</span>
+<span class="code-line">    total_nats <span class="code-operator">=</span> <span class="code-number">0.0</span></span>
+<span class="code-line">    total_bytes <span class="code-operator">=</span> <span class="code-number">0</span></span>
+<span class="code-line">    <span class="code-keyword">for</span> _ <span class="code-keyword">in</span> <span class="code-function">range</span>(steps):</span>
+<span class="code-line">        loss_flat <span class="code-operator">=</span> <span class="code-function">model</span>(x, y, reduction<span class="code-operator">=</span><span class="code-string">'none'</span>).view(<span class="code-operator">-</span><span class="code-number">1</span>)</span>
+<span class="code-line">        nbytes <span class="code-operator">=</span> token_bytes[y_flat]</span>
+<span class="code-line">        total_nats <span class="code-operator">+=</span> (loss_flat <span class="code-operator">*</span> mask).sum().item()</span>
+<span class="code-line">    <span class="code-keyword">return</span> total_nats <span class="code-operator">/</span> (math.log(<span class="code-number">2</span>) <span class="code-operator">*</span> total_bytes)</span>
+            </code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">This function calculates the final score on unseen data.</p>
+              <p class="tl">How many evaluation steps needed to cover ~20 million tokens?</p>
+              <p class="tl">Track total loss in nats (a unit for information).</p>
+              <p class="tl">Track total bytes of text we evaluated on.</p>
+              <p class="tl">Loop through all the validation batches.</p>
+              <p class="tl">Get the loss for each token — how surprised was the model?</p>
+              <p class="tl">Look up how many bytes each predicted token represents.</p>
+              <p class="tl">Sum up all the surprise × only count tokens with real bytes.</p>
+              <p class="tl">Divide total surprise by total bytes, convert to bits. That is val_bpb.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 5: The learning rate schedule -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Warming up and cooling down</h2>
+        <p>The learning rate — how big each weight adjustment is — is not constant. It follows a schedule, like a runner who warms up before a race and slows down near the finish.</p>
+
+        <div class="badge-list animate-in">
+          <div class="badge-item">
+            <code class="badge-code">WARMUP_RATIO = 0.0</code>
+            <span class="badge-desc">No warmup phase (currently disabled — training starts at full learning rate immediately)</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">WARMDOWN_RATIO = 0.5</code>
+            <span class="badge-desc">In the last 50% of training time, the learning rate gradually decreases to zero — letting the model settle on its best weights</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">FINAL_LR_FRAC = 0.0</code>
+            <span class="badge-desc">By the end of training, the learning rate reaches zero — the model stops changing at the very end</span>
+          </div>
+        </div>
+
+        <div class="callout callout-accent animate-in">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">Key Insight: Learning rate is one of the most impactful knobs</strong>
+            <p>Too high: the model overshoots and never converges. Too low: training is slow and inefficient. The warmdown trick — decaying the LR in the second half — is one of the most reliable ways to squeeze extra performance out of a fixed time budget.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 6: Quiz -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Check your understanding</h2>
+
+        <div class="quiz-container" id="quiz-module4">
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Exactly. val_bpb is measured on data the model never saw during training. If the validation score is good but you suspect overfitting, it means the model learned general patterns — not just the training data."
+               data-explanation-wrong="Not quite. The key protection against overfitting is the validation set — text that was never used in training. If val_bpb is low, the model learned to generalize, not just memorize.">
+            <h3 class="quiz-question">A model achieves a very low loss on training data but a much worse val_bpb. What is probably happening?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The evaluation function has a bug in it</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The learning rate is too low</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The model is overfitting — it memorized training data instead of learning general patterns</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Correct. Muon is designed for 2D weight matrices in transformer layers (attention + MLP). AdamW handles embeddings and scalars. Mixing them up would be less efficient."
+               data-explanation-wrong="Not quite. Each optimizer is assigned to specific parameter types. Muon orthogonalizes gradients and is designed for big matrices. AdamW adapts learning rates per parameter and works better for embeddings.">
+            <h3 class="quiz-question">The model has two types of parameters: 2D weight matrices and 1D embeddings. Which optimizer handles each?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>AdamW handles matrices; Muon handles embeddings</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Muon handles matrices; AdamW handles embeddings</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Both optimizers work on all parameters equally</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module4')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module4')">Try Again</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+<section class="module" id="module-5" style="background: var(--color-bg)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">05</span>
+      <h1 class="module-title">Steering the AI</h1>
+      <p class="module-subtitle">Now that you understand the system, here is how to actually influence what it does — and what to watch for when things go wrong.</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- Screen 1: The hyperparameter control panel -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Your control panel: the hyperparameters</h2>
+        <p>All the dials you can turn in <code>train.py</code> are listed at the top of the file as plain variables. Think of it like a cockpit: each lever controls a specific system, and they interact with each other in non-obvious ways.</p>
+
+        <div class="badge-list animate-in">
+          <div class="badge-item">
+            <code class="badge-code">DEPTH = 8</code>
+            <span class="badge-desc">Number of transformer layers. Higher = smarter but slower. The primary knob for model capacity.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">ASPECT_RATIO = 64</code>
+            <span class="badge-desc">Controls model width relative to depth. model_dim = depth × aspect_ratio. Bigger = more parameters per layer.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">TOTAL_BATCH_SIZE = 2**19</code>
+            <span class="badge-desc">Total tokens processed per optimizer step (~524K). Larger batches are more stable but take longer per step.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">MATRIX_LR = 0.04</code>
+            <span class="badge-desc">Learning rate for the Muon optimizer (weight matrices). The most impactful LR to tune.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">WARMDOWN_RATIO = 0.5</code>
+            <span class="badge-desc">Fraction of training time to spend decaying the learning rate. Higher = more time settling.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">WINDOW_PATTERN = "SSSL"</code>
+            <span class="badge-desc">Attention window pattern per layer. S = short (half context), L = full context. SSSL = 3 short + 1 full, repeating.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 2: The agent's decision process — chat -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">How the agent decides what to change</h2>
+        <p>The agent reads <code>program.md</code>, forms a hypothesis, makes a change, runs the experiment, and logs the result. Here is what that looks like:</p>
+
+        <div class="chat-window" id="chat-module5">
+          <div class="chat-messages">
+            <div class="chat-message" data-msg="0" data-sender="agent" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">A</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">AI Agent</span>
+                <p>Current val_bpb: 0.9979. The MATRIX_LR is 0.04. Literature suggests higher LR can help with Muon. Let me try 0.06.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="1" data-sender="agent" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">A</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">AI Agent</span>
+                <p>Editing train.py: MATRIX_LR = 0.06. Committing to branch autoresearch/apr17. Running experiment...</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="2" data-sender="train" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">T</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">train.py (running)</span>
+                <p>step 00100 (12.3%) | loss: 3.412 | lrm: 1.00 | tok/sec: 1,247,382...</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="3" data-sender="train" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">T</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">train.py (done)</span>
+                <p>val_bpb: 0.9921 — that is better! Memory: 45.1 GB peak.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="4" data-sender="agent" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">A</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">AI Agent</span>
+                <p>Improvement! 0.9979 → 0.9921. Logging to results.tsv: "increase MATRIX_LR from 0.04 to 0.06". Keeping commit. Next experiment...</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="5" data-sender="agent" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">A</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">AI Agent</span>
+                <p>New hypothesis: try removing value embeddings (ResFormer). Simpler = better if val_bpb stays the same...</p>
+              </div>
+            </div>
+          </div>
+          <div class="chat-typing" style="display:none">
+            <div class="chat-avatar" id="chat-module5-typing-avatar">?</div>
+            <div class="chat-typing-dots">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+          <div class="chat-controls">
+            <button class="btn chat-next-btn">Next Message</button>
+            <button class="btn chat-all-btn">Play All</button>
+            <button class="btn chat-reset-btn">Replay</button>
+            <span class="chat-progress"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 3: What to look for when things break -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">When things go wrong — fast-fail protection</h2>
+        <p>The training loop has two built-in safety checks that abort immediately if something goes badly wrong. Understanding them helps you debug when the agent hits a wall.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+            <pre><code>
+<span class="code-line"><span class="code-comment"># Fast fail: abort if loss is exploding or NaN</span></span>
+<span class="code-line"><span class="code-keyword">if</span> math.<span class="code-function">isnan</span>(train_loss_f) <span class="code-keyword">or</span> train_loss_f <span class="code-operator">&gt;</span> <span class="code-number">100</span>:</span>
+<span class="code-line">    <span class="code-function">print</span>(<span class="code-string">"FAIL"</span>)</span>
+<span class="code-line">    <span class="code-function">exit</span>(<span class="code-number">1</span>)</span>
+            </code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">After every training step, check two failure conditions.</p>
+              <p class="tl"><strong>NaN (Not a Number)</strong>: the math produced a nonsense result — usually from a learning rate that is too high or a numerical instability.</p>
+              <p class="tl"><strong>Loss above 100</strong>: the model is catastrophically wrong — something fundamental broke. Normal loss starts around 3-5 and improves.</p>
+              <p class="tl">If either happens: print FAIL and crash immediately. Do not waste 5 minutes on a broken run.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-warning animate-in">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-content">
+            <strong class="callout-title">Debugging tip: NaN usually means the learning rate is too high</strong>
+            <p>If you see FAIL or NaN in the log, the first thing to try is halving MATRIX_LR or EMBEDDING_LR. The model is taking steps so large it is flying off the rails.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: How to write better program.md instructions -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Writing better instructions in program.md</h2>
+        <p><code>program.md</code> is the lever that humans control. The better your instructions, the smarter the agent's research strategy. Think of yourself as writing the playbook for a sports team: you set the philosophy, they run the plays.</p>
+
+        <div class="pattern-cards animate-in stagger-children">
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-5)">
+            <div class="pattern-icon" style="background: var(--color-accent-light)">🎯</div>
+            <h4 class="pattern-title">Add domain knowledge</h4>
+            <p class="pattern-desc">Tell the agent about promising research directions: "Try increasing model depth before width" or "Muon typically benefits from higher LR than AdamW."</p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-4)">
+            <div class="pattern-icon" style="background: var(--color-accent-light)">⚖️</div>
+            <h4 class="pattern-title">Set tradeoff rules</h4>
+            <p class="pattern-desc">Define what makes a "good" experiment beyond just val_bpb: "Reject if VRAM increases by more than 10%" or "Prefer simpler changes over marginal gains."</p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-accent-light)">🗺️</div>
+            <h4 class="pattern-title">Guide the search space</h4>
+            <p class="pattern-desc">Steer the agent away from dead ends: "Do not increase DEPTH beyond 16 — training becomes too slow." Constraints save wasted experiments.</p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-accent-light)">📝</div>
+            <h4 class="pattern-title">Define the log format</h4>
+            <p class="pattern-desc">The results.tsv format is defined in program.md. You could add columns, change what gets logged, or ask the agent to write a hypothesis before each run.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 5: Final quiz -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Final check: applying everything</h2>
+
+        <div class="quiz-container" id="quiz-module5">
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Right. The agent reads program.md for its research strategy — it is the only way to communicate intent to the agent without touching train.py directly. Adding constraints and guidance there shapes what experiments the agent runs."
+               data-explanation-wrong="Changing train.py directly would work for one experiment, but it would not guide the agent's future decisions. For persistent strategy changes, program.md is the right place — it shapes all future experiments, not just one.">
+            <h3 class="quiz-question">You notice the agent keeps trying changes that increase memory use. You want it to stop doing that. What is the right fix?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Manually edit train.py after each experiment to revert memory-heavy changes</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Add a rule to program.md: "Reject any change that increases peak_vram_mb by more than 5%"</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Change the TIME_BUDGET in prepare.py to give the agent less time to try big models</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-a"
+               data-explanation-right="Exactly. The training loop aborts on NaN or loss above 100. NaN almost always comes from a learning rate that is too large — the math overflows. The first debugging step is always to reduce the learning rates."
+               data-explanation-wrong="Not quite. When you see FAIL printed immediately at the start, the fast-fail check triggered — either NaN or catastrophic loss. This is most commonly caused by a learning rate that is far too high for the model size.">
+            <h3 class="quiz-question">The agent tries an experiment and the log shows "FAIL" after just a few steps. What is the most likely cause?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The learning rate is too high — the model is producing NaN or loss above 100</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The TIME_BUDGET was exceeded — training ran for too long</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The validation data was corrupted — evaluate_bpb returned an error</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Correct. Simpler code changes that keep val_bpb the same are a win — they reduce complexity without sacrificing quality. program.md explicitly says: removing code and getting equal or better results is a great outcome."
+               data-explanation-wrong="Not quite. program.md has a simplicity criterion: all else being equal, simpler is better. A change that removes code without hurting performance is explicitly valued — it makes the codebase easier to reason about and future experiments easier to run.">
+            <h3 class="quiz-question">The agent removes a feature from the model and val_bpb is exactly the same as before. According to the project rules, should it keep or discard this change?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Discard — there was no improvement, so it was not worth doing</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Run 3 more experiments to confirm it is not just random variance</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Keep it — simpler code with the same performance is a win</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module5')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module5')">Try Again</button>
+        </div>
+
+        <div class="callout callout-accent animate-in" style="margin-top: var(--space-10)">
+          <div class="callout-icon">🚀</div>
+          <div class="callout-content">
+            <strong class="callout-title">You now have the full picture</strong>
+            <p>You understand what autoresearch is, what each file does, how the model learns, and how to steer the agent. The research org is yours to command — start it with one message: <em>"Have a look at program.md and let's kick off a new experiment!"</em></p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+  </main>
+
+</body>
+</html>
