@@ -79,6 +79,19 @@ function renderResources(t) {
   `).join('');
 }
 
+function renderCourses(t) {
+  const grid = document.getElementById('courses-grid');
+  if (!grid) return;
+  // Always use English content and links regardless of language
+  const items = LOCALES['en'].courses;
+  grid.innerHTML = items.map(item => `
+    <a href="${item.link}" class="link-card" data-type="${item.type || 'external'}" target="_blank" rel="noreferrer">
+      <div class="link-title">${item.title}</div>
+      <div class="link-description">${item.desc}</div>
+    </a>
+  `).join('');
+}
+
 function renderContact(t) {
   const container = document.getElementById('contact-cards');
   if (!container) return;
@@ -122,6 +135,7 @@ function applyLocale(lang) {
   renderApps(t);
   renderSuccessStories(t);
   renderResources(t);
+  renderCourses(t);
   renderContact(t);
 
   // Language toggle button label
