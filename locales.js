@@ -113,14 +113,8 @@ const LOCALES = {
       title: "Related Resources",
       items: [
         {
-          title: "AI Workstation Chassis Thermal Recommendation",
-          desc: "Fan Configuration: What Actually Works in Real-World Builds",
-          link: "public/docs/en/ai-workstation-thermal-guide-en.html",
-          type: "html"
-        },
-        {
           title: "Master Ai - Your own local AI Workstation",
-          desc: "In the arena of AI computing, there is no absolute winner\u2014only the choice that best fits your needs. Master Ai embodies our team's elite \"Two-Way Player\" expertise, mirroring the versatility of Shohei Ohtani by delivering peak performance across both NVIDIA CUDA and AMD ROCm ecosystems.",
+          desc: "In the arena of AI computing, there is no absolute winner\u2014only the choice that best fits your needs. Master Ai embodies our team’s elite \"Two-Way Player\" expertise, mirroring the versatility of Shohei Ohtani by delivering peak performance across both NVIDIA CUDA and AMD ROCm ecosystems.",
           link: "public/docs/en/MasterAi_en.html",
           type: "html"
         },
@@ -135,15 +129,21 @@ const LOCALES = {
           link: "https://www.asrockind.com/en-gb/ai-edge-computer-"
         },
         {
-          title: "Building with the Claude API",
-          desc: "Walk through fundamental API operations, advanced prompting techniques, tool integration, and architectural patterns for building AI-powered systems.",
-          link: "public/docs/en/Building%20with%20the%20Claude%20API.html",
+          title: "AI Workstation Chassis Thermal Recommendation",
+          desc: "Fan Configuration: What Actually Works in Real-World Builds",
+          link: "public/docs/en/ai-workstation-thermal-guide-en.html",
           type: "html"
         },
         {
           title: "NVIDIA GPU Product Lines - Hopper to Blackwell",
-          desc: "A strategic guide to NVIDIA's GPU lineup, covering the evolution from Hopper (H100) to Blackwell (B200). This document clarifies key terminology (RTX, HGX, DGX) and technical specs to simplify hardware selection.",
+          desc: "A strategic guide to NVIDIA’s GPU lineup, covering the evolution from Hopper (H100) to Blackwell (B200). This document clarifies key terminology (RTX, HGX, DGX) and technical specs to simplify hardware selection.",
           link: "public/docs/en/nvidia_gpu_product_lines_en.html",
+          type: "html"
+        },
+        {
+          title: "Building with the Claude API",
+          desc: "Walk through fundamental API operations, advanced prompting techniques, tool integration, and architectural patterns for building AI-powered systems.",
+          link: "public/docs/en/Building%20with%20the%20Claude%20API.html",
           type: "html"
         },
         {
@@ -292,12 +292,6 @@ const LOCALES = {
       title: "相關資源",
       items: [
         {
-          title: "AI 工作站機殼散熱建議",
-          desc: "風扇配置：實際可行的實戰方案",
-          link: "public/docs/zh-TW/ai-workstation-thermal-guide-zh.html",
-          type: "html"
-        },
-        {
           title: "Master Ai - 您的專屬在地 AI 工作站",
           desc: "在 AI 運算的賽場上，沒有絕對的勝負，只有最適合您的選擇。Master Ai 象徵著我們團隊具備如大谷翔平般的「二刀流」頂尖實力，在 NVIDIA CUDA 與 AMD ROCm 兩大生態系中都能展現極致的運算表現。",
           link: "public/docs/zh-TW/MasterAi_zh.html",
@@ -314,15 +308,21 @@ const LOCALES = {
           link: "https://www.asrockind.com/zh-tw/ai-edge-computer-"
         },
         {
-          title: "使用 Claude API 開發 — 入門指南",
-          desc: "涵蓋 API 的基本操作、進階提示技巧、工具整合以及建立 AI 系統的架構模式。",
-          link: "public/docs/zh-TW/Building%20with%20the%20Claude%20API.html",
+          title: "AI 工作站機殼散熱建議",
+          desc: "風扇配置：實際可行的實戰方案",
+          link: "public/docs/zh-TW/ai-workstation-thermal-guide-zh.html",
           type: "html"
         },
         {
           title: "NVIDIA GPU 產品線 - Hopper 到 Blackwell",
           desc: "本文件系統化梳理 NVIDIA 從 Hopper (H100) 到 Blackwell (B200) 的產品架構與階層。透過釐清 RTX、HGX、DGX 等核心術語與規格對比，協助您快速掌握硬體選型邏輯。",
           link: "public/docs/zh-TW/nvidia_gpu_product_lines_zh.html",
+          type: "html"
+        },
+        {
+          title: "使用 Claude API 開發 — 入門指南",
+          desc: "涵蓋 API 的基本操作、進階提示技巧、工具整合以及建立 AI 系統的架構模式。",
+          link: "public/docs/zh-TW/Building%20with%20the%20Claude%20API.html",
           type: "html"
         },
         {
