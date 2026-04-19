@@ -175,6 +175,12 @@ const LOCALES = {
         desc: "Discover how an AI agent runs 100 experiments overnight and gets smarter each time. Covers the three-file architecture (train.py, prepare.py, program.md), the automated experiment loop, and how val_bpb drives every decision.",
         link: "public/docs/en/Course-en/autoresearch-course/index.html",
         type: "html"
+      },
+      {
+        title: "Inside Hermes Agent",
+        desc: "Trace exactly what happens the moment you send a message to Hermes — a self-improving AI agent. Covers the six-actor architecture, the learning loop that makes it smarter over time, multi-channel deployment, and the smart tricks behind context management and tool routing.",
+        link: "public/docs/en/Course-en/hermes-course/index.html",
+        type: "html"
       }
     ],
     youtubeSection: {

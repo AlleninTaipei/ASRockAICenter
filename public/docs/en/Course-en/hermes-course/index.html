@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inside Hermes Agent</title>
+
+  <!-- Google Fonts: Bricolage Grotesque · DM Sans · JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Teal accent — Hermes the messenger god who travels between worlds -->
+  <style>
+    :root {
+      --color-accent:       #2A7B9B;
+      --color-accent-hover: #1F6280;
+      --color-accent-light: #E4F2F7;
+      --color-accent-muted: #5A9DB8;
+    }
+  </style>
+
+  <script src="main.js" defer></script>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="nav-inner">
+      <span class="nav-title">Inside Hermes Agent</span>
+      <div class="nav-dots" id="nav-dots" role="tablist">
+        <button class="nav-dot" data-target="module-1" data-tooltip="What is Hermes?" role="tab" aria-label="Module 1: What is Hermes?"></button>
+        <button class="nav-dot" data-target="module-2" data-tooltip="The Cast of Characters" role="tab" aria-label="Module 2: The Cast of Characters"></button>
+        <button class="nav-dot" data-target="module-3" data-tooltip="The Learning Loop" role="tab" aria-label="Module 3: The Learning Loop"></button>
+        <button class="nav-dot" data-target="module-4" data-tooltip="Hermes Everywhere" role="tab" aria-label="Module 4: Hermes Everywhere"></button>
+        <button class="nav-dot" data-target="module-5" data-tooltip="The Smart Tricks" role="tab" aria-label="Module 5: The Smart Tricks"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <!-- modules/*.html content is assembled here by build.sh -->
+<section class="module" id="module-1" style="background: var(--color-bg)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">01</span>
+      <h1 class="module-title">What is Hermes?</h1>
+      <p class="module-subtitle">Meet the self-improving AI agent — and trace exactly what happens the moment you type a message.</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- Screen 1: The product -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">An agent that gets smarter the more you use it</h2>
+        <p>Hermes is an <span class="term" data-definition="An AI agent is a program that can take actions on your behalf — not just answer questions, but actually DO things: search the web, run code, write files, send messages, and more.">AI agent</span> built by Nous Research. Unlike a chatbot that just types back words, Hermes can use tools — it browses the web, writes and runs code, manages files, and talks to you on Telegram, Discord, or Slack.</p>
+        <p>What makes it unusual: Hermes <em>learns from every conversation.</em> It builds a memory of who you are, creates new skills after complex tasks, and searches its own past sessions to recall what it figured out before. Run it on a $5 server and talk to it from your phone while it works.</p>
+
+        <div class="pattern-cards stagger-children">
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-actor-1)">🧠</div>
+            <h4 class="pattern-title">Remembers You</h4>
+            <p class="pattern-desc">Builds a persistent memory of your preferences, projects, and past work — across every session.</p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-actor-2)">🛠️</div>
+            <h4 class="pattern-title">40+ Tools</h4>
+            <p class="pattern-desc">Web search, terminal, file editing, browser automation, image generation, code execution, and more.</p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-3)">
+            <div class="pattern-icon" style="background: var(--color-actor-3)">📱</div>
+            <h4 class="pattern-title">Lives Anywhere</h4>
+            <p class="pattern-desc">Talk to it from Telegram, Discord, Slack, or the terminal. One agent, every platform.</p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-4)">
+            <div class="pattern-icon" style="background: var(--color-actor-4)">⚡</div>
+            <h4 class="pattern-title">Self-Improves</h4>
+            <p class="pattern-desc">Creates reusable skills after hard tasks. Skills improve themselves during future use.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 2: The journey of a message -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">What happens the moment you press Enter?</h2>
+        <p>Imagine you type: <em>"Search the web for the latest news about AI and summarize it."</em> That one message kicks off a precise sequence of events inside Hermes. Let's trace it step by step.</p>
+
+        <div class="step-cards">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <strong>Your message lands in the TUI</strong>
+              <p>The <span class="term" data-definition="TUI stands for Terminal User Interface — the interactive text-based interface you see in your terminal when you run 'hermes'. It handles your keystrokes and displays streaming output.">TUI</span> (cli.py) captures your text and passes it to the AIAgent in run_agent.py.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <strong>Memory is checked</strong>
+              <p>Before calling the AI, the MemoryManager fetches relevant past context — your preferences, past conversations — and prepends it to the request.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <strong>The AI model decides what to do</strong>
+              <p>The message (plus memory + tools list) is sent to the <span class="term" data-definition="LLM stands for Large Language Model — the AI brain (like Claude, GPT-4, or Llama) that reads your message and decides what to respond or which tool to use.">LLM</span>. Instead of just answering, it decides: &ldquo;I should call the web_search tool.&rdquo;</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <strong>The tool runs</strong>
+              <p>Hermes calls the web_search tool, gets results back, and feeds them into the next AI call — this loop repeats until the task is done.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <strong>The response streams back to you</strong>
+              <p>The final answer streams back token by token. The session is saved to the SQLite database for future recall.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 3: Data flow animation -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Watch the message travel</h2>
+        <p>Click <strong>Next Step</strong> to animate the exact path your message takes through the system.</p>
+
+        <div class="flow-animation" data-steps='[
+          {"highlight":"flow-actor-1","label":"You press Enter — the TUI captures your message in cli.py"},
+          {"highlight":"flow-actor-2","label":"AIAgent in run_agent.py receives the message and checks memory","packet":true,"from":"actor-1","to":"actor-2"},
+          {"highlight":"flow-actor-3","label":"Memory context is fetched and prepended to the prompt","packet":true,"from":"actor-2","to":"actor-3"},
+          {"highlight":"flow-actor-2","label":"Full prompt (message + memory + tool list) sent to the LLM API","packet":true,"from":"actor-3","to":"actor-2"},
+          {"highlight":"flow-actor-4","label":"LLM decides to call a tool — e.g. web_search","packet":true,"from":"actor-2","to":"actor-4"},
+          {"highlight":"flow-actor-2","label":"Tool result returned; AIAgent loops back to the LLM","packet":true,"from":"actor-4","to":"actor-2"},
+          {"highlight":"flow-actor-1","label":"Final answer streams back to you in the TUI","packet":true,"from":"actor-2","to":"actor-1"},
+          {"highlight":"flow-actor-5","label":"Session saved to SQLite — the conversation is now searchable","packet":true,"from":"actor-2","to":"actor-5"}
+        ]'>
+          <div class="flow-actors">
+            <div class="flow-actor" id="flow-actor-1">
+              <div class="flow-actor-icon">🖥️</div>
+              <span>You (TUI)</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-2">
+              <div class="flow-actor-icon">🤖</div>
+              <span>AIAgent</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-3">
+              <div class="flow-actor-icon">🧠</div>
+              <span>Memory</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-4">
+              <div class="flow-actor-icon">🔧</div>
+              <span>Tools</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-5">
+              <div class="flow-actor-icon">🗄️</div>
+              <span>Database</span>
+            </div>
+          </div>
+          <div class="flow-packet" id="flow-packet"></div>
+          <div class="flow-step-label" id="flow-label">Click &ldquo;Next Step&rdquo; to begin</div>
+          <div class="flow-controls">
+            <button class="btn flow-next-btn">Next Step</button>
+            <button class="btn flow-reset-btn">Restart</button>
+            <span class="flow-progress"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: The tool-calling loop code translation -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The loop that makes everything work</h2>
+        <p>The magic is in a loop in <code>run_agent.py</code>. The AI keeps calling tools and feeding results back to itself until the task is complete — like a contractor who keeps checking their work order until the job is done.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE — run_agent.py</span>
+            <pre><code>
+<span class="code-line"><span class="code-keyword">while</span> <span class="code-function">len</span>(tool_calls) > <span class="code-number">0</span>:</span>
+<span class="code-line">    tool_results = []</span>
+<span class="code-line">    <span class="code-keyword">for</span> tool_call <span class="code-keyword">in</span> tool_calls:</span>
+<span class="code-line">        result = <span class="code-keyword">await</span> <span class="code-function">handle_function_call</span>(</span>
+<span class="code-line">            tool_call.function.name,</span>
+<span class="code-line">            tool_call.function.arguments,</span>
+<span class="code-line">        )</span>
+<span class="code-line">        tool_results.<span class="code-function">append</span>(result)</span>
+<span class="code-line">    response = <span class="code-keyword">await</span> <span class="code-function">call_api</span>(messages + tool_results)</span>
+<span class="code-line">    tool_calls = response.tool_calls</span>
+</code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl"><strong>Keep looping</strong> as long as the AI wants to use a tool...</p>
+              <p class="tl">Start a fresh list to collect the tool results this round.</p>
+              <p class="tl">For each tool the AI asked to use...</p>
+              <p class="tl">...actually run that tool (web search, file read, terminal command, etc.).</p>
+              <p class="tl">The tool name tells us which one to run.</p>
+              <p class="tl">The arguments are the inputs (e.g., the search query).</p>
+              <p class="tl">Save the result from the tool.</p>
+              <p class="tl">Collect all results so we can hand them back.</p>
+              <p class="tl">Send the conversation + tool results back to the AI for its next decision.</p>
+              <p class="tl">Check if the AI wants to call another tool — if not, the loop ends.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">Key Insight: The Agent Loop</strong>
+            <p>This pattern — call AI → execute tool → feed result back → repeat — is the fundamental building block of every AI agent in existence. Engineers call it the &ldquo;agent loop&rdquo; or &ldquo;ReAct pattern.&rdquo; When you tell an AI coding tool to &ldquo;fix this bug,&rdquo; this exact loop is what runs behind the scenes.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+<section class="module" id="module-2" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">02</span>
+      <h1 class="module-title">The Cast of Characters</h1>
+      <p class="module-subtitle">Every actor in the Hermes system — who they are, what they own, and how they talk to each other.</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- Screen 1: The six actors -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Six main characters, one coordinated performance</h2>
+        <p>Hermes is not a single program — it's a cast of <span class="term" data-definition="In software, a 'module' or 'component' is a self-contained piece of code with a specific job. Like a member of a team, each module has a role and communicates with others through defined interfaces.">modules</span>, each with a distinct role. Think of it like a TV newsroom: the anchor (AIAgent) is the face, but behind them are researchers (Memory), producers (Skills), editors (Context Engine), logistics (Gateway), and archives (State DB).</p>
+
+        <div class="icon-rows stagger-children">
+          <div class="icon-row animate-in">
+            <div class="icon-circle" style="background: var(--color-actor-1)">🤖</div>
+            <div>
+              <strong>AIAgent — <code>run_agent.py</code></strong>
+              <p>The conductor. Runs the main conversation loop, calls tools, manages the prompt, and coordinates everyone else.</p>
+            </div>
+          </div>
+          <div class="icon-row animate-in">
+            <div class="icon-circle" style="background: var(--color-actor-2)">📡</div>
+            <div>
+              <strong>Gateway — <code>gateway/</code></strong>
+              <p>The front door. Routes messages from Telegram, Discord, Slack, and other platforms into AIAgent sessions.</p>
+            </div>
+          </div>
+          <div class="icon-row animate-in">
+            <div class="icon-circle" style="background: var(--color-actor-3)">🧠</div>
+            <div>
+              <strong>MemoryManager — <code>agent/memory_manager.py</code></strong>
+              <p>The historian. Fetches relevant memories before each turn and saves new ones after.</p>
+            </div>
+          </div>
+          <div class="icon-row animate-in">
+            <div class="icon-circle" style="background: var(--color-actor-4)">🛠️</div>
+            <div>
+              <strong>Tools — <code>tools/</code></strong>
+              <p>The hands. 40+ tools the agent can call: web search, terminal, file editor, browser, image generator, and more.</p>
+            </div>
+          </div>
+          <div class="icon-row animate-in">
+            <div class="icon-circle" style="background: var(--color-actor-5)">📚</div>
+            <div>
+              <strong>Skills — <code>skills/</code></strong>
+              <p>The playbooks. Reusable step-by-step guides the agent can invoke via slash commands like <code>/github</code> or <code>/deploy</code>.</p>
+            </div>
+          </div>
+          <div class="icon-row animate-in">
+            <div class="icon-circle" style="background: #9E9790">🗄️</div>
+            <div>
+              <strong>State DB — <code>hermes_state.py</code></strong>
+              <p>The archive. A SQLite database that stores every session, message, and tool call — searchable across all conversations.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 2: The file tree -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Where each actor lives in the code</h2>
+        <p>Here's the project laid out as a map. Each folder is a department — you can tell what a file does just by where it lives.</p>
+
+        <div class="file-tree animate-in">
+          <div class="ft-folder open">
+            <span class="ft-name">hermes-agent/</span>
+            <span class="ft-desc">Project root</span>
+            <div class="ft-children">
+              <div class="ft-file">
+                <span class="ft-name">run_agent.py</span>
+                <span class="ft-desc">🤖 AIAgent — the main conversation loop</span>
+              </div>
+              <div class="ft-file">
+                <span class="ft-name">cli.py</span>
+                <span class="ft-desc">🖥️ Terminal UI — the interface you type into</span>
+              </div>
+              <div class="ft-file">
+                <span class="ft-name">hermes_state.py</span>
+                <span class="ft-desc">🗄️ SQLite session storage with full-text search</span>
+              </div>
+              <div class="ft-folder">
+                <span class="ft-name">agent/</span>
+                <span class="ft-desc">🧠 Memory, context compression, prompt building</span>
+              </div>
+              <div class="ft-folder">
+                <span class="ft-name">tools/</span>
+                <span class="ft-desc">🛠️ Every tool Hermes can use (40+)</span>
+              </div>
+              <div class="ft-folder">
+                <span class="ft-name">gateway/</span>
+                <span class="ft-desc">📡 Telegram, Discord, Slack integration</span>
+              </div>
+              <div class="ft-folder">
+                <span class="ft-name">skills/</span>
+                <span class="ft-desc">📚 Reusable slash-command playbooks</span>
+              </div>
+              <div class="ft-folder">
+                <span class="ft-name">cron/</span>
+                <span class="ft-desc">⏰ Scheduled task runner</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">📌</div>
+          <div class="callout-content">
+            <strong class="callout-title">Why this matters when directing AI</strong>
+            <p>When you ask an AI coding tool to "add memory to the agent," knowing the file is <code>agent/memory_manager.py</code> lets you say exactly that — instead of &ldquo;put it somewhere in the memory stuff.&rdquo; Precise file names = precise instructions = less back-and-forth.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 3: Group chat between characters -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Watch the characters talk to each other</h2>
+        <p>When you ask Hermes to "search GitHub for my open PRs and summarize them," here's the internal conversation that happens. Click <strong>Next Message</strong> to watch it unfold.</p>
+
+        <div class="chat-window" id="chat-module2">
+          <div class="chat-messages">
+            <div class="chat-message" data-msg="0" data-sender="tui" style="display:none">
+              <div class="chat-avatar" style="background: #9E9790">U</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: #9E9790">You (TUI)</span>
+                <p>Search GitHub for my open PRs and summarize them.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="1" data-sender="aiagent" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">A</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">AIAgent</span>
+                <p>Got it. Let me check your memory first — do I know your GitHub username?</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="2" data-sender="memory" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-3)">M</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-3)">MemoryManager</span>
+                <p>Yes — your GitHub username is in memory: &ldquo;allenintaipei&rdquo;. Also, you prefer concise bullet-point summaries.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="3" data-sender="aiagent" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">A</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">AIAgent</span>
+                <p>Perfect. Calling web_search with &ldquo;GitHub API allenintaipei open pull requests&rdquo;...</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="4" data-sender="tools" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-4)">T</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-4)">Tools (web_search)</span>
+                <p>Found 3 open PRs. Here are the titles and URLs...</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="5" data-sender="aiagent" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">A</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">AIAgent</span>
+                <p>Got the results. Composing a bullet-point summary per your preference...</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="6" data-sender="statedb" style="display:none">
+              <div class="chat-avatar" style="background: #9E9790">DB</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: #9E9790">State DB</span>
+                <p>Session saved. This conversation is now searchable with /search or the session_search tool.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="7" data-sender="tui" style="display:none">
+              <div class="chat-avatar" style="background: #9E9790">U</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: #9E9790">You (TUI)</span>
+                <p>&#128516; Here are your 3 open PRs: • Fix login timeout (3 days old) • Add dark mode... (great, thanks!)</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-typing" id="chat-typing" style="display:none">
+            <div class="chat-avatar" id="chat-module2-typing-avatar" style="background: var(--color-accent)">?</div>
+            <div class="chat-typing-dots">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+
+          <div class="chat-controls">
+            <button class="btn chat-next-btn">Next Message</button>
+            <button class="btn chat-all-btn">Play All</button>
+            <button class="btn chat-reset-btn">Replay</button>
+            <span class="chat-progress"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: Toolsets code translation -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">How the agent knows which tools it has</h2>
+        <p>Tools aren't loaded randomly — they're organized into <span class="term" data-definition="A toolset is a named group of tools. Instead of listing individual tools one by one, you say 'give me the web toolset' and it loads web_search + web_extract together. Like a toolkit bag for a specific job.">toolsets</span>. The core toolset includes everything Hermes needs for daily use, defined in <code>toolsets.py</code>.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE — toolsets.py</span>
+            <pre><code>
+<span class="code-line">_HERMES_CORE_TOOLS = [</span>
+<span class="code-line">    <span class="code-comment"># Web</span></span>
+<span class="code-line">    <span class="code-string">"web_search"</span>, <span class="code-string">"web_extract"</span>,</span>
+<span class="code-line">    <span class="code-comment"># Terminal + process management</span></span>
+<span class="code-line">    <span class="code-string">"terminal"</span>, <span class="code-string">"process"</span>,</span>
+<span class="code-line">    <span class="code-comment"># File manipulation</span></span>
+<span class="code-line">    <span class="code-string">"read_file"</span>, <span class="code-string">"write_file"</span>, <span class="code-string">"patch"</span>,</span>
+<span class="code-line">    <span class="code-comment"># Planning &amp; memory</span></span>
+<span class="code-line">    <span class="code-string">"todo"</span>, <span class="code-string">"memory"</span>,</span>
+<span class="code-line">    <span class="code-comment"># Code execution + delegation</span></span>
+<span class="code-line">    <span class="code-string">"execute_code"</span>, <span class="code-string">"delegate_task"</span>,</span>
+<span class="code-line">    <span class="code-comment"># Cronjob management</span></span>
+<span class="code-line">    <span class="code-string">"cronjob"</span>,</span>
+<span class="code-line">]</span>
+</code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">This list defines the tools every Hermes session gets by default.</p>
+              <p class="tl">———</p>
+              <p class="tl">Search the internet for information; extract full text from a webpage.</p>
+              <p class="tl">———</p>
+              <p class="tl">Run shell commands; manage background processes.</p>
+              <p class="tl">———</p>
+              <p class="tl">Read a file; write to a file; make targeted edits (like a surgical find-and-replace).</p>
+              <p class="tl">———</p>
+              <p class="tl">Keep track of a to-do list; read and write persistent memory notes.</p>
+              <p class="tl">———</p>
+              <p class="tl">Run Python or shell code in a sandbox; spawn a sub-agent to handle a subtask.</p>
+              <p class="tl">———</p>
+              <p class="tl">Create, list, and manage scheduled recurring tasks.</p>
+              <p class="tl">End of the core tool list.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">Key Insight: Toolsets as Capability Profiles</strong>
+            <p>Toolsets let you create "profiles" — a research session gets web tools, a coding session gets terminal + file tools, a messaging session gets send_message. When directing AI agents, knowing toolsets exist means you can say "disable terminal for this session" instead of "remove all the command-line stuff."</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 5: Quiz -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Check your understanding</h2>
+
+        <div class="quiz-container" id="quiz-module2">
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Exactly — gateway/ is the front door that converts platform-specific messages (Telegram updates, Discord events) into a format AIAgent understands. AIAgent doesn't know or care which platform you are on."
+               data-explanation-wrong="Not quite. Think about which module handles the translation between Telegram messages and AIAgent sessions. The job of 'understanding Telegram' belongs to one specific module.">
+            <h3 class="quiz-question">You want to add WeChat as a new messaging platform for Hermes. Which part of the codebase would you tell your AI coding tool to modify?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>run_agent.py — because that's where the main logic lives</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>gateway/ — it handles platform-specific message routing</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>tools/ — WeChat is a tool the agent would use</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>skills/ — add a WeChat skill for sending messages</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Correct! hermes_state.py manages the SQLite database — that's where sessions are stored. The State DB is the archive, not the conversational logic."
+               data-explanation-wrong="Think about the actor whose job is archiving — storing every message and making sessions searchable. Which file is responsible for the database?">
+            <h3 class="quiz-question">A user reports they can't search their past conversations. Based on what you learned, where would you look first to diagnose the issue?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>agent/memory_manager.py — memory is broken</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>run_agent.py — the main loop must be crashing</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>hermes_state.py — that's where session storage and search live</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>cli.py — the terminal UI is probably not displaying results</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module2')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module2')">Try Again</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+<section class="module" id="module-3" style="background: var(--color-bg)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">03</span>
+      <h1 class="module-title">The Learning Loop</h1>
+      <p class="module-subtitle">How Hermes gets smarter with every conversation — memory, skills, and session search.</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- Screen 1: The three memory systems -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Three ways Hermes remembers</h2>
+        <p>Most AI tools forget everything the moment a conversation ends. Hermes has three distinct systems for holding onto knowledge. Think of it like a person who has a notepad (memory files), a recipe book (skills), and a diary (session archive).</p>
+
+        <div class="pattern-cards stagger-children">
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-actor-1)">📝</div>
+            <h4 class="pattern-title">Memory Files</h4>
+            <p class="pattern-desc">Markdown files stored in <code>~/.hermes/memory/</code>. The agent writes and reads these directly — like sticky notes it leaves for its future self.</p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-actor-2)">📚</div>
+            <h4 class="pattern-title">Skills</h4>
+            <p class="pattern-desc">Markdown playbooks with step-by-step instructions. Created after complex tasks, invoked with slash commands. Reusable across all future sessions.</p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-3)">
+            <div class="pattern-icon" style="background: var(--color-actor-3)">🔍</div>
+            <h4 class="pattern-title">Session Archive</h4>
+            <p class="pattern-desc">Every conversation stored in SQLite with <span class="term" data-definition="FTS5 is SQLite's full-text search engine. It lets you search thousands of conversations in milliseconds — like a search engine built into the database.">FTS5</span> full-text search. Ask &ldquo;what did I figure out about Docker last week?&rdquo; and Hermes searches its own history.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 2: How memory injection works -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">How memory gets injected into every conversation</h2>
+        <p>Before each AI call, the MemoryManager wraps relevant memory in a special <span class="term" data-definition="A fence or wrapper tag is a piece of text that marks a section as 'special.' Here, the memory-context tag tells the AI: treat this as background information, not something the user just said.">fence tag</span> and inserts it into the prompt. The AI sees it — but the tag prevents it from treating your past notes as new user input.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE — agent/memory_manager.py</span>
+            <pre><code>
+<span class="code-line"><span class="code-keyword">def</span> <span class="code-function">build_memory_context_block</span>(raw_context: <span class="code-function">str</span>) -> <span class="code-function">str</span>:</span>
+<span class="code-line">    <span class="code-keyword">if</span> <span class="code-keyword">not</span> raw_context <span class="code-keyword">or not</span> raw_context.<span class="code-function">strip</span>():</span>
+<span class="code-line">        <span class="code-keyword">return</span> <span class="code-string">""</span></span>
+<span class="code-line">    clean = <span class="code-function">sanitize_context</span>(raw_context)</span>
+<span class="code-line">    <span class="code-keyword">return</span> (</span>
+<span class="code-line">        <span class="code-string">"&lt;memory-context&gt;\n"</span></span>
+<span class="code-line">        <span class="code-string">"[System note: The following is recalled memory context, "</span></span>
+<span class="code-line">        <span class="code-string">"NOT new user input. Treat as informational background data.]\n\n"</span></span>
+<span class="code-line">        <span class="code-string">f"{clean}\n"</span></span>
+<span class="code-line">        <span class="code-string">"&lt;/memory-context&gt;"</span></span>
+<span class="code-line">    )</span>
+</code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">This function wraps recalled memory in a labeled container.</p>
+              <p class="tl">If there is no memory to inject, skip it — return an empty string.</p>
+              <p class="tl">———</p>
+              <p class="tl">First, strip any old fence tags from the memory so they don&rsquo;t nest.</p>
+              <p class="tl">Now wrap the cleaned memory in an XML-like tag.</p>
+              <p class="tl">Open the memory-context tag.</p>
+              <p class="tl">Include a system note: &ldquo;AI — this is background info, NOT what the user just said.&rdquo;</p>
+              <p class="tl">Insert a blank line, then the actual memory content.</p>
+              <p class="tl">Use an f-string to interpolate the cleaned memory text.</p>
+              <p class="tl">Close the memory-context tag. The AI receives this before every turn.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">🧪</div>
+          <div class="callout-content">
+            <strong class="callout-title">Why the fence tag matters</strong>
+            <p>Without the fence, the AI might confuse past memory with your current message — and respond to something you said three sessions ago as if you just said it. The tag is a form of "context hygiene" that keeps the AI focused on the right thing.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 3: How skills work -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Skills: reusable playbooks that self-improve</h2>
+        <p>When Hermes solves a complex multi-step problem, it can save the solution as a <span class="term" data-definition="A skill is a Markdown file with step-by-step instructions. The agent reads it at the start of a task — like a chef reading a recipe before cooking. Skills are stored in ~/.hermes/skills/ and invoked with /skillname.">skill</span>. The next time a similar problem comes up, it just loads the skill. Skills also update themselves when they find a better way to do something.</p>
+
+        <div class="step-cards">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <strong>You complete a complex task</strong>
+              <p>E.g., "set up a GitHub Actions pipeline for my Python project"</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <strong>Hermes notices it was complex and multi-step</strong>
+              <p>The agent decides this would be worth packaging as a reusable skill.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <strong>A Markdown skill file is written</strong>
+              <p>Saved to <code>~/.hermes/skills/github-actions.md</code> — step-by-step instructions for next time.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <strong>Future sessions can invoke it with /github-actions</strong>
+              <p>Hermes reads the skill file and follows the recipe — no re-inventing the wheel.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <strong>The skill self-improves</strong>
+              <p>If Hermes finds a better approach, it updates the Markdown file — the skill gets smarter each use.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: FTS5 session search — the diary -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The searchable diary: FTS5 session storage</h2>
+        <p>Every conversation is stored in a <span class="term" data-definition="SQLite is a lightweight database that lives in a single file on your computer. It doesn't need a separate server — it's like a very powerful spreadsheet that software can query with precise questions.">SQLite</span> database with FTS5 full-text search. Think of it as a searchable diary: instead of browsing all your old notes by hand, you can ask &ldquo;what did I figure out about Docker port forwarding?&rdquo; and get an answer in milliseconds.</p>
+
+        <div class="arch-diagram animate-in">
+          <div class="arch-zone" style="border-color: var(--color-border)">
+            <h4 class="arch-zone-label">State Database (hermes_state.py)</h4>
+            <div style="display:flex;flex-wrap:wrap;gap:var(--space-2)">
+              <div class="arch-component"
+                   data-desc="Stores metadata for every conversation: start time, end time, which model was used, token counts, and which platform (CLI, Telegram, etc.) the session came from."
+                   onclick="showArchDesc(this)">
+                <div class="arch-icon">📋</div>
+                <span>sessions table</span>
+              </div>
+              <div class="arch-component"
+                   data-desc="Stores every single message (yours and the AI's) with timestamps, role, and content. Each message links back to its session."
+                   onclick="showArchDesc(this)">
+                <div class="arch-icon">💬</div>
+                <span>messages table</span>
+              </div>
+              <div class="arch-component"
+                   data-desc="FTS5 is SQLite's full-text search index. It reads all messages and builds an index so you can search 'Docker port forwarding' and find the exact conversation in milliseconds — no scanning every row."
+                   onclick="showArchDesc(this)">
+                <div class="arch-icon">🔍</div>
+                <span>FTS5 search index</span>
+              </div>
+              <div class="arch-component"
+                   data-desc="Tracks how many tokens (roughly, words) were used per session — input, output, and how many were served from the cache vs freshly generated. Used for cost tracking."
+                   onclick="showArchDesc(this)">
+                <div class="arch-icon">📊</div>
+                <span>token usage</span>
+              </div>
+            </div>
+          </div>
+          <div class="arch-description" id="arch-desc">Click any component to learn what it does</div>
+        </div>
+      </section>
+
+      <!-- Screen 5: Chat of the memory loop -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The memory loop in action</h2>
+        <p>Every conversation turn, memory quietly works in the background — before and after the AI responds. Click through to see the full loop.</p>
+
+        <div class="chat-window" id="chat-module3">
+          <div class="chat-messages">
+            <div class="chat-message" data-msg="0" data-sender="user" style="display:none">
+              <div class="chat-avatar" style="background: #9E9790">U</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: #9E9790">You</span>
+                <p>What was the Python virtual environment approach we settled on for my data project?</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="1" data-sender="memory" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-3)">M</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-3)">MemoryManager (pre-turn)</span>
+                <p>Fetching relevant memory... Found: &ldquo;User uses uv for Python env management. Data project uses Python 3.11. Virtual env lives in .venv/.&rdquo;</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="2" data-sender="aiagent" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">A</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">AIAgent</span>
+                <p>Based on my notes: you use <strong>uv</strong> for environment management on that project. The venv lives in <code>.venv/</code> and you're on Python 3.11. Run <code>uv run python script.py</code> to use it.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="3" data-sender="memory" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-3)">M</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-3)">MemoryManager (post-turn)</span>
+                <p>Syncing... No new facts to save this turn. Session archived to SQLite.</p>
+              </div>
+            </div>
+          </div>
+          <div class="chat-typing" id="chat-typing-m3" style="display:none">
+            <div class="chat-avatar" id="chat-module3-typing-avatar" style="background: var(--color-accent)">?</div>
+            <div class="chat-typing-dots">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+          <div class="chat-controls">
+            <button class="btn chat-next-btn">Next Message</button>
+            <button class="btn chat-all-btn">Play All</button>
+            <button class="btn chat-reset-btn">Replay</button>
+            <span class="chat-progress"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 6: Quiz -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Put it to the test</h2>
+
+        <div class="quiz-container" id="quiz-module3">
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Exactly. Skills are reusable procedural playbooks — they get invoked by slash command and self-improve. Memory files hold facts about you (preferences, project details). Skills hold how-to instructions."
+               data-explanation-wrong="Think about what kind of information needs to persist. &lsquo;Steps for doing X&rsquo; is a process — that sounds more like a reusable playbook than a personal fact.">
+            <h3 class="quiz-question">You&rsquo;ve worked out the exact steps to deploy a Flask app to DigitalOcean. You want Hermes to remember them forever. Which system should store this?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Memory files — save it as a note in ~/.hermes/memory/</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Skills — save it as a reusable playbook invoked with /deploy-flask</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>SQLite session archive — it&rsquo;ll be searchable anyway</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Right! The fence tag is what prevents the AI from confusing old memory with what you just said. Without it, the AI might respond to a remembered message as if it's happening right now."
+               data-explanation-wrong="The fence tag's job is specifically about preventing confusion between types of input. Think about what happens without it — the AI can't tell memory from your current message.">
+            <h3 class="quiz-question">Why does build_memory_context_block wrap recalled memory in a &lt;memory-context&gt; tag?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>To compress the memory so it uses fewer tokens</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>To mark it for deletion after the session ends</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>So the AI treats it as background context, not as something the user just said</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>To make it searchable in the FTS5 index</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module3')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module3')">Try Again</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+<section class="module" id="module-4" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">04</span>
+      <h1 class="module-title">Hermes Everywhere</h1>
+      <p class="module-subtitle">How one agent lives on Telegram, Discord, Slack, your terminal, and a $5 server simultaneously.</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- Screen 1: The gateway concept -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">One agent, six inboxes</h2>
+        <p>Most AI tools are locked to a single app. Hermes runs a <span class="term" data-definition="A gateway is a middleman that translates messages between different systems. Like a hotel concierge who receives calls in five languages and passes them to the same kitchen — the kitchen only speaks one language, but the concierge handles all the translation.">gateway</span> process that listens on Telegram, Discord, Slack, WhatsApp, Signal, and Email simultaneously. Every platform sends its messages into the same AIAgent — your conversation continues seamlessly no matter which app you switch to.</p>
+
+        <div class="icon-rows stagger-children">
+          <div class="icon-row animate-in">
+            <div class="icon-circle" style="background: #229ED9">✈️</div>
+            <div>
+              <strong>Telegram</strong>
+              <p>Most popular gateway. Supports photos, voice memos (auto-transcribed), and inline menus. Bot setup via BotFather.</p>
+            </div>
+          </div>
+          <div class="icon-row animate-in">
+            <div class="icon-circle" style="background: #5865F2">🎮</div>
+            <div>
+              <strong>Discord</strong>
+              <p>Guild-based. Each channel becomes a separate conversation context. Bot permissions control access.</p>
+            </div>
+          </div>
+          <div class="icon-row animate-in">
+            <div class="icon-circle" style="background: #4A154B">💼</div>
+            <div>
+              <strong>Slack</strong>
+              <p>Workspace integration. Direct messages and channels both work. Good for team deployments.</p>
+            </div>
+          </div>
+          <div class="icon-row animate-in">
+            <div class="icon-circle" style="background: var(--color-actor-5)">📧</div>
+            <div>
+              <strong>Email</strong>
+              <p>Send an email, get a reply. Slower but works anywhere — even where app installs aren&rsquo;t possible.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 2: Session management in the gateway -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">How the gateway keeps conversations separate</h2>
+        <p>When you message Hermes from Telegram and your colleague messages from Discord, they&rsquo;re not in the same conversation — even though they hit the same agent. The gateway uses a <span class="term" data-definition="A session store is like a coat check — each platform user gets a numbered ticket (session ID) and their conversation is stored separately. When they come back, their session is retrieved by that ticket.">session store</span> to isolate conversations by platform + user ID.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE — gateway/__init__.py</span>
+            <pre><code>
+<span class="code-line"><span class="code-comment">"""</span></span>
+<span class="code-line"><span class="code-comment">Hermes Gateway - Multi-platform messaging integration.</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="code-comment">- Session management</span></span>
+<span class="code-line"><span class="code-comment">  (persistent conversations with reset policies)</span></span>
+<span class="code-line"><span class="code-comment">- Dynamic context injection</span></span>
+<span class="code-line"><span class="code-comment">  (agent knows where messages come from)</span></span>
+<span class="code-line"><span class="code-comment">- Delivery routing</span></span>
+<span class="code-line"><span class="code-comment">  (cron job outputs to appropriate channels)</span></span>
+<span class="code-line"><span class="code-comment">- Platform-specific toolsets</span></span>
+<span class="code-line"><span class="code-comment">  (different capabilities per platform)</span></span>
+<span class="code-line"><span class="code-comment">"""</span></span>
+</code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">This is the module description — the gateway&rsquo;s four jobs.</p>
+              <p class="tl">———</p>
+              <p class="tl"><strong>Job 1:</strong> Keep conversations alive between messages. Your Telegram chat persists — it&rsquo;s not a new session every time.</p>
+              <p class="tl">A reset policy decides when to start fresh (e.g., after 24 hours of silence).</p>
+              <p class="tl"><strong>Job 2:</strong> Tell the agent which platform and user each message comes from.</p>
+              <p class="tl">The agent can respond differently on Telegram vs CLI.</p>
+              <p class="tl"><strong>Job 3:</strong> When a cron job finishes, route its output to the right place.</p>
+              <p class="tl">A scheduled report goes to Telegram; an error alert goes to your email.</p>
+              <p class="tl"><strong>Job 4:</strong> Different platforms get different tool capabilities.</p>
+              <p class="tl">A Telegram session might have fewer tools than a desktop terminal session.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 3: The cron scheduler -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The built-in alarm clock: cron scheduling</h2>
+        <p>Hermes has a built-in <span class="term" data-definition="A cron job (from 'chronos', Greek for time) is a task that runs automatically on a schedule — every day at 9am, every hour, every Monday, etc. The cron scheduler checks every 60 seconds if anything needs to run.">cron scheduler</span> that runs tasks automatically — no human required. Think of it as a trusted assistant who follows standing orders: &ldquo;Every Monday, check my GitHub issues and send me a summary on Telegram.&rdquo;</p>
+
+        <div class="flow-animation" data-steps='[
+          {"highlight":"flow-actor-1","label":"The gateway daemon ticks every 60 seconds — checking if any jobs are due"},
+          {"highlight":"flow-actor-2","label":"Scheduler finds a job due to run: &quot;Daily report at 9am&quot;","packet":true,"from":"actor-1","to":"actor-2"},
+          {"highlight":"flow-actor-3","label":"A fresh isolated AIAgent session starts — no prior conversation context","packet":true,"from":"actor-2","to":"actor-3"},
+          {"highlight":"flow-actor-3","label":"The agent runs the job: fetches data, generates report"},
+          {"highlight":"flow-actor-4","label":"Job output is routed to the delivery target (e.g. Telegram)","packet":true,"from":"actor-3","to":"actor-4"},
+          {"highlight":"flow-actor-5","label":"You receive the report on your phone — while the agent ran on a server","packet":true,"from":"actor-4","to":"actor-5"}
+        ]'>
+          <div class="flow-actors">
+            <div class="flow-actor" id="flow-actor-1">
+              <div class="flow-actor-icon">⏰</div>
+              <span>Tick (60s)</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-2">
+              <div class="flow-actor-icon">📅</div>
+              <span>Scheduler</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-3">
+              <div class="flow-actor-icon">🤖</div>
+              <span>AIAgent</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-4">
+              <div class="flow-actor-icon">📡</div>
+              <span>Gateway</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-5">
+              <div class="flow-actor-icon">📱</div>
+              <span>Your Phone</span>
+            </div>
+          </div>
+          <div class="flow-packet" id="flow-packet"></div>
+          <div class="flow-step-label" id="flow-label">Click &ldquo;Next Step&rdquo; to begin</div>
+          <div class="flow-controls">
+            <button class="btn flow-next-btn">Next Step</button>
+            <button class="btn flow-reset-btn">Restart</button>
+            <span class="flow-progress"></span>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">Why isolated sessions matter for cron</strong>
+            <p>Each cron job runs in its own fresh session — no memory of previous conversations bleed in. This prevents a nightly backup job from being confused by what you were discussing that afternoon. Isolation is a fundamental safety pattern in distributed systems.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: Terminal backends -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Where the code actually runs: terminal backends</h2>
+        <p>When Hermes runs a shell command, <em>where</em> does it run? That depends on the <span class="term" data-definition="A terminal backend is the environment where commands actually execute. It could be your local machine, a Docker container, a remote server via SSH, or a serverless cloud environment that wakes up on demand and costs nothing when idle.">terminal backend</span> you configure. This is one of the most powerful choices in the system — it lets Hermes work safely, remotely, and cheaply.</p>
+
+        <div class="badge-list animate-in">
+          <div class="badge-item">
+            <code class="badge-code">local</code>
+            <span class="badge-desc">Runs directly on your machine. Fast, no overhead, but commands can affect your real files.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">docker</code>
+            <span class="badge-desc">Commands run inside an isolated container — like a sandbox. Your machine is untouched even if the agent runs wild.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">ssh</code>
+            <span class="badge-desc">Runs on a remote server. Great for $5 VPS deployments — your laptop stays closed while Hermes works.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">daytona</code>
+            <span class="badge-desc">Serverless persistent dev environment. Hibernates when idle (near-zero cost), wakes in seconds on demand.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">modal</code>
+            <span class="badge-desc">Serverless cloud runner. Pay per second. Ideal for bursty tasks — like processing 1000 files once a week.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 5: Group chat — multi-platform scenario -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">One message in, two platforms receive</h2>
+        <p>A cron job finishes at 3am and needs to deliver results. Watch the delivery routing in action.</p>
+
+        <div class="chat-window" id="chat-module4">
+          <div class="chat-messages">
+            <div class="chat-message" data-msg="0" data-sender="cron" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-4)">⏰</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-4)">Cron Scheduler (3am)</span>
+                <p>Job &ldquo;nightly-github-audit&rdquo; is due. Spawning an isolated agent session...</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="1" data-sender="agent" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">A</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">AIAgent (isolated session)</span>
+                <p>Running audit... Found 3 stale PRs, 1 failing CI pipeline, 2 security alerts. Preparing summary.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="2" data-sender="gateway" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">G</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">Delivery Router (gateway)</span>
+                <p>Job config says: send to Telegram @allenintaipei AND post to #alerts Discord channel.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="3" data-sender="telegram" style="display:none">
+              <div class="chat-avatar" style="background: #229ED9">T</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: #229ED9">Telegram</span>
+                <p>📊 Nightly GitHub Audit — 3 stale PRs, 1 failing CI, 2 security alerts. (You receive this at 3am on your phone)</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="4" data-sender="discord" style="display:none">
+              <div class="chat-avatar" style="background: #5865F2">D</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: #5865F2">Discord #alerts</span>
+                <p>🔔 Nightly GitHub Audit — same report, posted to team channel for visibility.</p>
+              </div>
+            </div>
+          </div>
+          <div class="chat-typing" id="chat-typing-m4" style="display:none">
+            <div class="chat-avatar" id="chat-module4-typing-avatar" style="background: var(--color-accent)">?</div>
+            <div class="chat-typing-dots">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+          <div class="chat-controls">
+            <button class="btn chat-next-btn">Next Message</button>
+            <button class="btn chat-all-btn">Play All</button>
+            <button class="btn chat-reset-btn">Replay</button>
+            <span class="chat-progress"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 6: Quiz -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Check your understanding</h2>
+
+        <div class="quiz-container" id="quiz-module4">
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Exactly. Docker isolates command execution in a container — your actual files and system are untouched. This is the key safety guarantee: the agent can run any command without affecting the host machine."
+               data-explanation-wrong="Think about which backend specifically provides sandbox isolation — a container that separates the agent's activity from your real machine.">
+            <h3 class="quiz-question">Your client wants to let Hermes run automated terminal commands on their server, but they&rsquo;re worried it might accidentally delete files. Which terminal backend should you recommend?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>local — it&rsquo;s the fastest option</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>docker — commands run in an isolated container, protecting real files</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>modal — it&rsquo;s serverless so nothing persists</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Correct! Cron jobs run in isolated sessions — no conversation history carries over. This is intentional: a nightly backup job should not be influenced by what you were discussing that afternoon."
+               data-explanation-wrong="Think about the isolation design of cron jobs. Each job gets a fresh session specifically to prevent context from one conversation bleeding into an unrelated automated task.">
+            <h3 class="quiz-question">You set up a cron job to generate a daily report. You notice it doesn&rsquo;t remember anything from your regular conversations. Why?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>It&rsquo;s a bug — cron jobs should share the main session</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Memory is disabled for cron jobs to save tokens</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>By design — each cron job runs in a fresh isolated session to prevent context bleed</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module4')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module4')">Try Again</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+<section class="module" id="module-5" style="background: var(--color-bg)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">05</span>
+      <h1 class="module-title">The Smart Tricks</h1>
+      <p class="module-subtitle">Context compression, model switching, delegation, and everything that separates Hermes from a basic chatbot.</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- Screen 1: Context compression -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The sliding window problem — and how Hermes solves it</h2>
+        <p>Every AI model has a <span class="term" data-definition="A context window is the maximum amount of text an AI model can 'see' at once. Think of it like a spotlight — the model can only process what's inside the spotlight. Long conversations eventually fall outside the window and are forgotten.">context window</span> — a limit on how much text it can process at once. Long conversations eventually hit this limit. Most tools crash or silently forget things. Hermes compresses the conversation automatically — like a rolling news ticker that condenses old headlines into a summary while keeping the latest news in full.</p>
+
+        <div class="flow-steps animate-in">
+          <div class="flow-step">
+            <div class="flow-step-num">1</div>
+            <p>Context reaches 75% of the model&rsquo;s limit</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num">2</div>
+            <p>Context Engine detects threshold crossed</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num">3</div>
+            <p>Old messages summarized into a compact block</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num">4</div>
+            <p>Summary replaces raw history — conversation continues</p>
+          </div>
+        </div>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE — agent/context_engine.py</span>
+            <pre><code>
+<span class="code-line"><span class="code-keyword">class</span> <span class="code-function">ContextEngine</span>(<span class="code-function">ABC</span>):</span>
+<span class="code-line">    <span class="code-comment">"""Base class all context engines must implement."""</span></span>
+<span class="code-line"></span>
+<span class="code-line">    last_prompt_tokens: <span class="code-function">int</span> = <span class="code-number">0</span></span>
+<span class="code-line">    last_total_tokens: <span class="code-function">int</span> = <span class="code-number">0</span></span>
+<span class="code-line">    threshold_tokens: <span class="code-function">int</span> = <span class="code-number">0</span></span>
+<span class="code-line">    context_length: <span class="code-function">int</span> = <span class="code-number">0</span></span>
+<span class="code-line">    compression_count: <span class="code-function">int</span> = <span class="code-number">0</span></span>
+<span class="code-line">    threshold_percent: <span class="code-function">float</span> = <span class="code-number">0.75</span></span>
+</code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Define a blueprint (abstract class) all context engines must follow.</p>
+              <p class="tl">This is the rulebook — concrete engines implement the actual logic.</p>
+              <p class="tl">———</p>
+              <p class="tl">Track how many tokens the current prompt used.</p>
+              <p class="tl">Track the total tokens used this turn (input + output).</p>
+              <p class="tl">The token count that triggers compression.</p>
+              <p class="tl">The maximum token capacity of the chosen model.</p>
+              <p class="tl">How many times this session has been compressed already.</p>
+              <p class="tl">Compress when we hit 75% of the model&rsquo;s capacity — not 100%.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">Key Insight: Plugin Architecture</strong>
+            <p>ContextEngine is an <span class="term" data-definition="An abstract class is a template that defines what methods a component MUST have, without implementing them. It's a contract — any engine that says 'I'm a ContextEngine' must implement compress(), should_compress(), etc.">abstract class</span> — meaning it's a rulebook, not actual code. Third parties can write their own compression engine (like an LCM-based graph compressor) and plug it in without touching Hermes&rsquo;s core. This is called a plugin architecture.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 2: Model switching -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">No lock-in: switch models with one command</h2>
+        <p>Most AI tools are locked to a single model. Hermes talks to an <span class="term" data-definition="An OpenAI-compatible API is an interface that follows the same message format as OpenAI's API — so any model provider that uses this format can be swapped in without changing the code. It's like a universal power adapter.">OpenAI-compatible API</span> and supports 200+ models via OpenRouter, Anthropic, Google, and others. Run <code>hermes model</code> and switch — no code changes, no redeployment.</p>
+
+        <div class="pattern-cards stagger-children">
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-actor-1)">🌐</div>
+            <h4 class="pattern-title">OpenRouter</h4>
+            <p class="pattern-desc">200+ models including Llama, Mistral, DeepSeek, Gemini. One API key, all providers.</p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-actor-2)">🏛️</div>
+            <h4 class="pattern-title">Anthropic Claude</h4>
+            <p class="pattern-desc">Direct API access to Claude Opus, Sonnet, Haiku. Used for high-quality reasoning tasks.</p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-3)">
+            <div class="pattern-icon" style="background: var(--color-actor-3)">🔬</div>
+            <h4 class="pattern-title">Local Models</h4>
+            <p class="pattern-desc">Point to localhost:11434 (Ollama) or any local server. Fully offline, no API costs.</p>
+          </div>
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-4)">
+            <div class="pattern-icon" style="background: var(--color-actor-4)">🏗️</div>
+            <h4 class="pattern-title">Nous Portal</h4>
+            <p class="pattern-desc">First-party access to Nous Research models, including specialized Hermes model variants.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 3: Delegation — spawning sub-agents -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Delegation: spawning sub-agents for parallel work</h2>
+        <p>When a task is too big or has independent subtasks, Hermes can <span class="term" data-definition="Delegation means spawning a sub-agent — a separate, isolated AI session that handles one specific job. The main agent waits for the result. This is like a manager assigning work to a contractor: the manager doesn't do it themselves, they orchestrate.">delegate</span> work to sub-agents. Think of it like a general contractor — instead of doing all the plumbing, electrical, and framing themselves, they hire specialists and coordinate the results.</p>
+
+        <div class="chat-window" id="chat-module5">
+          <div class="chat-messages">
+            <div class="chat-message" data-msg="0" data-sender="user" style="display:none">
+              <div class="chat-avatar" style="background: #9E9790">U</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: #9E9790">You</span>
+                <p>Analyze all 500 customer feedback emails from last month and give me a sentiment breakdown.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="1" data-sender="main-agent" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">A</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">Main AIAgent</span>
+                <p>500 emails is too much for one context window. I&rsquo;ll split this into 5 batches of 100 and delegate each to a sub-agent.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="2" data-sender="sub1" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-3)">S1</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-3)">Sub-agent 1 (emails 1-100)</span>
+                <p>Analyzing batch 1... Done. 67% positive, 23% neutral, 10% negative. Top complaint: shipping speed.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="3" data-sender="sub2" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-4)">S2</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-4)">Sub-agent 2 (emails 101-200)</span>
+                <p>Batch 2 complete. 71% positive, 18% neutral, 11% negative. Top complaint: packaging damage.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="4" data-sender="main-agent" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">A</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">Main AIAgent</span>
+                <p>All 5 batches complete. Aggregating results... Overall: 69% positive. Top issues: shipping (31%), packaging (18%), product quality (12%). Full report attached.</p>
+              </div>
+            </div>
+          </div>
+          <div class="chat-typing" id="chat-typing-m5" style="display:none">
+            <div class="chat-avatar" id="chat-module5-typing-avatar" style="background: var(--color-accent)">?</div>
+            <div class="chat-typing-dots">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+          <div class="chat-controls">
+            <button class="btn chat-next-btn">Next Message</button>
+            <button class="btn chat-all-btn">Play All</button>
+            <button class="btn chat-reset-btn">Replay</button>
+            <span class="chat-progress"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: Smart error recovery -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">When things go wrong: error recovery</h2>
+        <p>Every AI agent fails sometimes — rate limits, network timeouts, model errors. Hermes classifies errors and recovers intelligently, rather than crashing. Like a flight navigator who has backup routes ready before the plane even takes off.</p>
+
+        <div class="badge-list animate-in">
+          <div class="badge-item">
+            <code class="badge-code">rate_limit</code>
+            <span class="badge-desc">Backs off with <span class="term" data-definition="Jitter means adding a random delay to a retry. Without jitter, all clients retry at the same moment — overwhelming the server again. With jitter, retries spread out in time, giving the server room to recover.">jittered</span> exponential delays and retries automatically — you never see this.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">context_overflow</code>
+            <span class="badge-desc">Triggers the context engine to compress before the next API call — the conversation continues without interruption.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">model_unavailable</code>
+            <span class="badge-desc">Smart model routing tries the next available provider automatically via <code>agent/smart_model_routing.py</code>.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">tool_error</code>
+            <span class="badge-desc">Tool failures are reported back to the AI as results — the model decides whether to retry, use a different approach, or explain the failure to you.</span>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">🔧</div>
+          <div class="callout-content">
+            <strong class="callout-title">Why this matters for debugging AI agents</strong>
+            <p>When your AI coding session gets stuck in a loop, it&rsquo;s often hitting one of these error categories. Knowing they exist helps you intervene: you can say &ldquo;stop retrying and try a different approach&rdquo; or &ldquo;switch to a different model.&rdquo; Understanding failure modes is how you escape AI debugging loops.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 5: Prompt caching -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Prompt caching: the token cost trick</h2>
+        <p>Every API call costs money — measured in <span class="term" data-definition="Tokens are the units AI models count when charging you. Roughly 1 token = 0.75 words. A short sentence is ~20 tokens. A long document might be 50,000 tokens. Costs add up fast on long conversations.">tokens</span>. Hermes uses <span class="term" data-definition="Prompt caching means the API provider stores the beginning of your prompt on their servers for a few minutes. The next time you send a similar prompt, they serve the cached portion for free (or at a deep discount) instead of processing it from scratch.">prompt caching</span> to dramatically reduce costs on long conversations. If the system prompt and tools list (which are identical on every call) are cached, you only pay for the new message — not the entire history every time.</p>
+
+        <div class="flow-steps animate-in">
+          <div class="flow-step">
+            <div class="flow-step-num">1</div>
+            <p>First call: full system prompt + tools = $0.015</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num">2</div>
+            <p>Cache stored at the API (5-minute TTL)</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num">3</div>
+            <p>Next call: only new message charged = $0.001</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num">4</div>
+            <p>90%+ cost reduction on active sessions</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 6: Final quiz — applying everything -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Final challenge: apply what you know</h2>
+        <p>These questions cover the entire course — not just this module.</p>
+
+        <div class="quiz-container" id="quiz-module5">
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Perfect! Context compression kicks in at 75% — the old messages are summarized, replaced with a compact block, and the conversation continues. The agent doesn&rsquo;t crash or forget silently."
+               data-explanation-wrong="Think about what the context engine is designed to do when it detects the limit is approaching. It has a specific recovery mechanism built in.">
+            <h3 class="quiz-question">Your Hermes session has been running for 4 hours on a long research task. The model&rsquo;s context window is almost full. What happens next?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The session crashes with an error</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Old messages are silently deleted and forgotten</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The context engine compresses old messages into a summary and continues</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Hermes automatically switches to a model with a larger context window</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Exactly. The delegate_task tool spawns an isolated sub-agent — it gets its own session, tools, and context. The main agent waits for the result and aggregates it. This is how parallel workstreams work in Hermes."
+               data-explanation-wrong="Think about which actor handles the actual execution of a parallel subtask. The main agent doesn&rsquo;t run it directly — it spawns something to handle it.">
+            <h3 class="quiz-question">You ask Hermes to &ldquo;process these 10 documents in parallel.&rdquo; Which Hermes mechanism makes true parallelism possible?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The cron scheduler runs each document as a separate job</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The delegate_task tool spawns isolated sub-agents that each handle one document</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The gateway routes each document to a different messaging platform</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The toolset system loads 10 different tools simultaneously</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-a"
+               data-explanation-right="Right! Prompt caching means the system prompt and tool list (the same on every call) are cached at the provider. Only the new message is charged at full rate. This is a 90%+ cost reduction on active long sessions."
+               data-explanation-wrong="Consider what exactly gets cached — and what doesn&rsquo;t. The part that&rsquo;s identical across all calls in a session is the candidate for caching.">
+            <h3 class="quiz-question">You notice Hermes&rsquo;s API costs are much lower than expected for a 2-hour session. Why?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Prompt caching means the system prompt + tools are served from cache on repeat calls — only new content is charged</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Context compression removes old messages, reducing token counts</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The gateway throttles calls to stay under the free tier limit</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module5')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module5')">Try Again</button>
+        </div>
+
+        <div class="callout callout-accent" style="margin-top: var(--space-10)">
+          <div class="callout-icon">🎓</div>
+          <div class="callout-content">
+            <strong class="callout-title">You now understand Hermes from the inside out</strong>
+            <p>You&rsquo;ve traced a message end-to-end, met all six actors, seen how memory and skills work, and learned about context compression, multi-platform delivery, and parallel delegation. Use this knowledge to give sharper instructions to AI coding tools, debug faster, and make better architectural decisions for your own projects.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+  </main>
+
+</body>
+</html>
