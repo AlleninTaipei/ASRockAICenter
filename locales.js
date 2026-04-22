@@ -181,6 +181,12 @@ const LOCALES = {
         desc: "Trace exactly what happens the moment you send a message to Hermes — a self-improving AI agent. Covers the six-actor architecture, the learning loop that makes it smarter over time, multi-channel deployment, and the smart tricks behind context management and tool routing.",
         link: "public/docs/en/Course-en/hermes-course/index.html",
         type: "html"
+      },
+      {
+        title: "Inside n8n: How Workflow Automation Really Works",
+        desc: "Discover how n8n turns a visual canvas into a live automation engine. Covers the node-and-connection model, trigger types, the execution pipeline, credential management, and the AI Agent node — with interactive demos at every step.",
+        link: "public/docs/en/Course-en/n8n-course/index.html",
+        type: "html"
       }
     ],
     youtubeSection: {

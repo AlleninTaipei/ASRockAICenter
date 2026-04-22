@@ -1,0 +1,2713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inside n8n: How Workflow Automation Really Works</title>
+
+  <!-- Google Fonts: Bricolage Grotesque · DM Sans · JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- coral accent — close to n8n's brand palette -->
+  <style>
+    :root {
+      --color-accent:       #E06B56;
+      --color-accent-hover: #C85A47;
+      --color-accent-light: #FDECEA;
+      --color-accent-muted: #E89585;
+    }
+  </style>
+
+  <script src="main.js" defer></script>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="nav-inner">
+      <span class="nav-title">Inside n8n</span>
+      <div class="nav-dots" id="nav-dots" role="tablist">
+        <button class="nav-dot" data-target="module-1" data-tooltip="What Is n8n?" role="tab" aria-label="Module 1: What Is n8n?"></button>
+        <button class="nav-dot" data-target="module-2" data-tooltip="The Five Characters" role="tab" aria-label="Module 2: The Five Characters"></button>
+        <button class="nav-dot" data-target="module-3" data-tooltip="How a Workflow Runs" role="tab" aria-label="Module 3: How a Workflow Runs"></button>
+        <button class="nav-dot" data-target="module-4" data-tooltip="Nodes: The Building Blocks" role="tab" aria-label="Module 4: Nodes"></button>
+        <button class="nav-dot" data-target="module-5" data-tooltip="Expressions &amp; AI" role="tab" aria-label="Module 5: Expressions &amp; AI"></button>
+        <button class="nav-dot" data-target="module-6" data-tooltip="When Things Break" role="tab" aria-label="Module 6: When Things Break"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <!-- modules/*.html content is assembled here by build.sh -->
+<section class="module" id="module-1" style="background: var(--color-bg)">
+  <div class="module-content">
+
+    <!-- MODULE HEADER -->
+    <header class="module-header animate-in">
+      <span class="module-number">01</span>
+      <h1 class="module-title">What Is n8n?</h1>
+      <p class="module-subtitle">You built something. Now let us see how it works.</p>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 1: THE BIG PICTURE
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">You built something. Now let us see how it works.</h2>
+
+      <p class="animate-in">
+        n8n is a <span class="term" data-definition="Workflow automation means connecting apps together so that when something happens in one place, things automatically happen in other places — no manual clicking required.">workflow automation</span> platform.
+        You connect apps by dragging <span class="term" data-definition="A node is a single building block in n8n. Each node does one specific job: receive a webhook, send a Slack message, filter data, call an API, etc. Think of it like a specialist worker on an assembly line.">nodes</span> onto a
+        <span class="term" data-definition="The canvas is the visual workspace in n8n where you drag, drop, and wire nodes together to build your workflow. It is like a digital whiteboard for automation logic.">canvas</span> — and when a
+        <span class="term" data-definition="A trigger is the starting gun for a workflow. Something happens in the world — a form is submitted, a timer fires, a webhook arrives — and that event wakes up your workflow.">trigger</span> fires,
+        data flows through those nodes automatically.
+      </p>
+
+      <p class="animate-in">
+        No code required — but understanding the internals means you can steer AI assistants precisely,
+        debug issues fast, and make smart architectural decisions.
+      </p>
+
+      <div class="pattern-cards stagger-children">
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-1)">
+          <div class="pattern-icon" style="background: var(--color-actor-1)">📋</div>
+          <h4 class="pattern-title">Lead Capture</h4>
+          <p class="pattern-desc">New lead in form → Add to
+            <span class="term" data-definition="A CRM (Customer Relationship Management) system is software that stores information about your customers and leads — like HubSpot or Salesforce.">CRM</span>
+            → Send welcome email</p>
+        </div>
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-2)">
+          <div class="pattern-icon" style="background: var(--color-actor-2)">🤖</div>
+          <h4 class="pattern-title">AI Morning Brief</h4>
+          <p class="pattern-desc">
+            <span class="term" data-definition="AI in n8n means connecting to models like OpenAI, Anthropic, or Google Gemini through n8n nodes to summarize text, classify data, generate content, and more.">AI</span>
+            summarizes Slack messages every morning</p>
+        </div>
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-3)">
+          <div class="pattern-icon" style="background: var(--color-actor-3)">📊</div>
+          <h4 class="pattern-title">Spreadsheet Sync</h4>
+          <p class="pattern-desc">Google Sheet row added → Create Notion page</p>
+        </div>
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-4)">
+          <div class="pattern-icon" style="background: var(--color-actor-4)">⚡</div>
+          <h4 class="pattern-title">Data Pipeline</h4>
+          <p class="pattern-desc">
+            <span class="term" data-definition="A webhook is a URL that n8n gives you. When an external service sends an HTTP POST to that URL, your workflow wakes up and runs. Think of it as a doorbell for your automation.">Webhook</span>
+            fires → Process data → Send to database</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 2: NODES AND CONNECTIONS
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Nodes are specialists. Connections are the wires.</h2>
+
+      <p class="animate-in">
+        Think of a circuit board — each component (<span class="term" data-definition="A node is a single building block in n8n. Each node does one specific job: receive data, transform it, call an API, send a message. It runs in sequence, one at a time.">node</span>) does one thing,
+        and copper traces (<span class="term" data-definition="A connection in n8n is the wire between two nodes. It tells n8n which node to run next and carries the output data from one node into the input of the next.">connections</span>) carry the signal from one to the next.
+        n8n is your circuit board designer.
+      </p>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">🔌</div>
+        <div class="callout-content">
+          <strong class="callout-title">How Data Moves</strong>
+          <p>Every node has an
+            <span class="term" data-definition="Input is the data a node receives from the previous node (or from the trigger). Each input is a list of items — JSON objects — that the node will process.">INPUT</span>
+            and an
+            <span class="term" data-definition="Output is the data a node produces after doing its job. It passes this list of items to the next connected node.">OUTPUT</span>.
+            Data arrives as a list of
+            <span class="term" data-definition="An item in n8n is one unit of data — usually a JSON object with key-value pairs. A node receives a list of items, processes each one, and outputs a new list.">items</span>,
+            gets processed, then passes to the next node.</p>
+        </div>
+      </div>
+
+      <div class="step-cards animate-in">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Trigger Node fires</strong>
+            <p>Something happened in the world — a webhook arrived, a timer went off, someone clicked Execute.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>First node receives the data items</strong>
+            <p>The trigger node outputs its data as a list of items. Each item is a JSON object with fields.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Node transforms, filters, or enriches the data</strong>
+            <p>Each subsequent node does its specific job — filter, rename, look up, call an API, run AI.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <strong>Output passes to the next node</strong>
+            <p>The processed items flow forward along the connection wire — or the workflow ends at the last node.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code ↔ English translation: what a node's data looks like -->
+      <h3 class="screen-heading animate-in" style="font-size: var(--text-xl); margin-top: var(--space-10)">What data actually looks like inside a node.</h3>
+      <p class="animate-in">Every node receives and outputs data in the same shape: a
+        <span class="term" data-definition="An array is an ordered list. In n8n, every node receives an array of items — even if there is only one item. This consistent shape means every node can be written the same way regardless of how many records it processes.">array</span>
+        of items, where each item has a <code>json</code> field containing your data as key-value pairs.</p>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>
+<span class="code-line"><span class="code-comment">// What one item looks like</span></span>
+<span class="code-line">{</span>
+<span class="code-line">  <span class="code-property">json</span>: {</span>
+<span class="code-line">    <span class="code-property">name</span>: <span class="code-string">"Alice"</span>,</span>
+<span class="code-line">    <span class="code-property">email</span>: <span class="code-string">"alice@example.com"</span>,</span>
+<span class="code-line">    <span class="code-property">score</span>: <span class="code-number">92</span></span>
+<span class="code-line">  }</span>
+<span class="code-line">}</span>
+<span class="code-line"></span>
+<span class="code-line"><span class="code-comment">// What the engine passes between nodes</span></span>
+<span class="code-line"><span class="code-keyword">const</span> items = [item1, item2, item3];</span>
+<span class="code-line"><span class="code-keyword">const</span> result = <span class="code-keyword">await</span> <span class="code-function">node.execute</span>(items);</span>
+          </code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">One item is a wrapper around your data — the <strong>json</strong> field holds the actual key-value pairs you work with in expressions</p>
+            <p class="tl">Each data record from your trigger (a form response, a spreadsheet row, a webhook payload) becomes one item in the list</p>
+            <p class="tl">The engine hands the full list to the node and waits for it to return a new list</p>
+            <p class="tl"><strong>await</strong> means: pause here and wait for the node to finish before moving to the next one</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 3: TYPES OF TRIGGERS
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Every workflow starts with a trigger.</h2>
+
+      <p class="animate-in">
+        The first node in every workflow is always a trigger node — it decides <em>when</em> the workflow runs.
+        Pick the wrong trigger type and your automation will never fire (or fire at the wrong time).
+      </p>
+
+      <div class="icon-rows stagger-children">
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-1)">🌐</div>
+          <div>
+            <strong>Webhook Trigger</strong>
+            <p>An external service calls n8n directly via
+              <span class="term" data-definition="HTTP (HyperText Transfer Protocol) is the language of the web. When one service sends an HTTP request to another, it is sending a message over the internet — like calling a phone number and leaving a message.">HTTP</span>.
+              You give the third-party service your unique n8n
+              <span class="term" data-definition="A webhook URL is a unique web address n8n generates for you. When any service sends data to that address, your workflow immediately wakes up and runs.">webhook URL</span>,
+              and whenever that service has something to tell you, it sends a POST request.</p>
+          </div>
+        </div>
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-2)">⏰</div>
+          <div>
+            <strong>Schedule Trigger</strong>
+            <p>Runs automatically every N minutes, hours, or days — no external call needed.
+              n8n uses a
+              <span class="term" data-definition="A cron expression is a compact notation for describing a schedule — like '0 9 * * 1-5' means every weekday at 9am. n8n uses these internally to schedule workflows.">cron schedule</span>
+              to wake up the workflow at exactly the right time.</p>
+          </div>
+        </div>
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-3)">👆</div>
+          <div>
+            <strong>Manual Trigger</strong>
+            <p>You click <em>Execute Workflow</em> in the editor to test.
+              Great during development — you control exactly when it runs and can inspect every node output immediately.</p>
+          </div>
+        </div>
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-4)">📱</div>
+          <div>
+            <strong>App Event Trigger</strong>
+            <p>A specific service fires when something happens — new email, new row, new ticket.
+              Uses the service long-polling or push
+              <span class="term" data-definition="An API (Application Programming Interface) is a set of rules that lets two apps talk to each other. When n8n uses a service's API, it is using that service's official communication channel.">API</span>
+              to detect the event.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 4: GROUP CHAT — ACTIVATING A WORKFLOW
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">When you activate a workflow, here is what happens.</h2>
+
+      <p class="animate-in">
+        Toggling a workflow to "Active" kicks off a surprisingly coordinated sequence of events.
+        Watch the four components talk to each other in real time.
+      </p>
+
+      <div class="chat-window animate-in" id="chat-module1">
+        <div class="chat-messages">
+          <div class="chat-message" data-msg="0" data-sender="user" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-1)">U</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-1)">User</span>
+              <p>I just toggled the workflow to Active!</p>
+            </div>
+          </div>
+          <div class="chat-message" data-msg="1" data-sender="editor" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-2)">E</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-2)">Editor</span>
+              <p>Sending activation request to
+                <span class="term" data-definition="The backend is the server-side part of n8n — it runs on your server or n8n cloud, handles all the business logic, and stores data. The editor in your browser is the front end; everything else is backend.">backend</span>
+                via REST API...</p>
+            </div>
+          </div>
+          <div class="chat-message" data-msg="2" data-sender="backend" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-3)">B</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-3)">Backend</span>
+              <p>Got it. Registering webhook path with the
+                <span class="term" data-definition="An Express server is the web server that n8n runs. Express is a Node.js framework that listens for incoming HTTP requests and routes them to the right handler.">Express server</span>
+                so external services can reach it...</p>
+            </div>
+          </div>
+          <div class="chat-message" data-msg="3" data-sender="backend" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-3)">B</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-3)">Backend</span>
+              <p>Registering cron schedule in the
+                <span class="term" data-definition="A job queue holds tasks that need to run later or asynchronously. n8n uses a job queue to schedule timed workflow executions without blocking other work.">job queue</span>
+                if this workflow has a schedule trigger...</p>
+            </div>
+          </div>
+          <div class="chat-message" data-msg="4" data-sender="scheduler" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-4)">S</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-4)">Scheduler</span>
+              <p>Schedule registered. Will fire at the next interval. I am watching the clock.</p>
+            </div>
+          </div>
+          <div class="chat-message" data-msg="5" data-sender="backend" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-3)">B</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-3)">Backend</span>
+              <p>Workflow is live. Waiting for triggers. The
+                <span class="term" data-definition="Execution history is the log n8n keeps of every time a workflow ran — when it started, what data flowed through each node, whether it succeeded, and any errors.">execution history</span>
+                will record every run from here.</p>
+            </div>
+          </div>
+        </div>
+        <div class="chat-typing" style="display:none">
+          <div class="chat-avatar" id="chat-module1-typing-avatar">?</div>
+          <div class="chat-typing-dots">
+            <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+          </div>
+        </div>
+        <div class="chat-controls">
+          <button class="btn chat-next-btn">Next Message</button>
+          <button class="btn chat-all-btn">Play All</button>
+          <button class="btn chat-reset-btn">Replay</button>
+          <span class="chat-progress"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 5: FLOW ANIMATION — WEBHOOK FIRES
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">You get a webhook. Here is what happens in 200ms.</h2>
+
+      <p class="animate-in">
+        From the moment an external service sends a POST request to your n8n URL, five components spring into action.
+        Each one has a specific responsibility — and understanding this chain is the key to debugging any webhook issue.
+      </p>
+
+      <div class="flow-animation animate-in" data-steps='[
+        {"highlight":"flow-webhook","label":"External service sends HTTP POST to your n8n webhook URL — the workflow is now waking up."},
+        {"highlight":"flow-server","label":"Express Server receives the request and looks up which workflow owns this webhook URL.","packet":true,"from":"webhook","to":"server"},
+        {"highlight":"flow-runner","label":"WorkflowRunner picks up the job and places it in the execution queue.","packet":true,"from":"server","to":"runner"},
+        {"highlight":"flow-engine","label":"Execution Engine starts running nodes one by one — trigger first, then each connected node in order.","packet":true,"from":"runner","to":"engine"},
+        {"highlight":"flow-result","label":"All nodes complete — execution data is stored in the execution log for debugging.","packet":true,"from":"engine","to":"result"},
+        {"highlight":"flow-result","label":"HTTP 200 response sent back to the external service. The full round-trip is done."}
+      ]'>
+        <div class="flow-actors">
+          <div class="flow-actor" id="flow-webhook">
+            <div class="flow-actor-icon">🌐</div>
+            <span>Webhook</span>
+          </div>
+          <div class="flow-actor" id="flow-server">
+            <div class="flow-actor-icon">⚙️</div>
+            <span>Express Server</span>
+          </div>
+          <div class="flow-actor" id="flow-runner">
+            <div class="flow-actor-icon">🏃</div>
+            <span>Workflow Runner</span>
+          </div>
+          <div class="flow-actor" id="flow-engine">
+            <div class="flow-actor-icon">⚡</div>
+            <span>Execution Engine</span>
+          </div>
+          <div class="flow-actor" id="flow-result">
+            <div class="flow-actor-icon">✅</div>
+            <span>Result</span>
+          </div>
+        </div>
+        <div class="flow-packet" id="flow-packet"></div>
+        <div class="flow-step-label" id="flow-label">Click "Next Step" to begin</div>
+        <div class="flow-controls">
+          <button class="btn flow-next-btn">Next Step</button>
+          <button class="btn flow-reset-btn">Restart</button>
+          <span class="flow-progress"></span>
+        </div>
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">💡</div>
+        <div class="callout-content">
+          <strong class="callout-title">Key Insight</strong>
+          <p>When a webhook workflow seems to run but nothing happened, work backwards through this chain:
+            Did the HTTP request arrive at all? Did the right workflow get matched? Did the nodes execute?
+            The execution log answers all three questions.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 6: QUIZ
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Check your understanding.</h2>
+
+      <p class="animate-in">
+        These questions are scenario-based — the kind of thinking you will use when debugging real workflows or
+        directing an AI assistant to solve a problem.
+      </p>
+
+      <div class="quiz-container animate-in" id="quiz-module1">
+
+        <!-- Q1 -->
+        <div class="quiz-question-block"
+             data-correct="option-b"
+             data-explanation-right="A schedule trigger fires at a fixed time — every day at 9am exactly. The Slack node at the end of the workflow handles the actual sending."
+             data-explanation-wrong="Think about what needs to initiate this workflow — is it an external call or a timer?">
+          <h3 class="quiz-question">You want n8n to run a workflow every day at 9am and send a Slack summary. What type of trigger should the first node be?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>Webhook — someone pings n8n to kick it off</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>Schedule — set it to fire at 9am daily</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>Manual — click Execute Workflow each morning</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="quiz-question-block"
+             data-correct="option-c"
+             data-explanation-right="Execution history shows every time the workflow ran, what data flowed through each node, and exactly where it stopped — the perfect first stop for any debugging session."
+             data-explanation-wrong="Before checking any node's settings, you need to know if the workflow ran at all. Start with execution history.">
+          <h3 class="quiz-question">A user reports "my workflow ran but nothing happened in Slack." You want to check if the workflow even started. Where do you look first?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>The Slack node settings</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>The webhook URL configuration</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>The execution history log</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="quiz-question-block"
+             data-correct="option-c"
+             data-explanation-right="Each node passes its output — even if empty — to the next node. If the filter removes all items, the Slack node receives zero items and sends zero messages, silently."
+             data-explanation-wrong="n8n does not error on empty data by default, and it does not revert filtered data. Think about what an empty list means to the next node.">
+          <h3 class="quiz-question">You have a workflow: Trigger → Filter → Slack. The filter removes items that do not match. What does the Slack node receive when no items pass the filter?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>An error — n8n cannot continue with nothing</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>The original unfiltered data — n8n reverts it</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>An empty list of items — Slack node sends nothing</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module1')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module1')">Try Again</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="module" id="module-2" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+
+    <!-- MODULE HEADER -->
+    <header class="module-header animate-in">
+      <span class="module-number">02</span>
+      <h1 class="module-title">The Five Characters</h1>
+      <p class="module-subtitle">Every system has players. Know who does what before you touch anything.</p>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 1: MEET THE FIVE CHARACTERS
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Five moving parts. One automation platform.</h2>
+
+      <p class="animate-in">
+        Before tracing how n8n works, meet the five key players and what each one is responsible for.
+        Think of them like a film production — Director, Producer, Crew Chief, Archivist, and Cast.
+        Each has a job, and when they coordinate well, the movie gets made.
+      </p>
+
+      <div class="icon-rows stagger-children">
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-1)">🖥️</div>
+          <div>
+            <strong>Frontend (Editor UI)</strong>
+            <p>The visual canvas where you drag nodes and build workflows. Built in
+              <span class="term" data-definition="Vue 3 is a JavaScript framework for building user interfaces. It powers the n8n canvas — the drag-and-drop editor you see in your browser. It handles all the visual logic: what you see and click on.">Vue 3</span>.
+              It lives entirely in your browser and communicates with the backend via REST calls.</p>
+          </div>
+        </div>
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-2)">⚡</div>
+          <div>
+            <strong>Backend API</strong>
+            <p>The
+              <span class="term" data-definition="Express.js is a lightweight Node.js web framework. n8n uses it to build its REST API server — the thing that receives every save, load, and execute command from the editor and coordinates the response.">Express.js</span>
+              server that receives every command from the editor and coordinates the system.
+              It is the manager — it delegates work to other components.</p>
+          </div>
+        </div>
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-3)">🏃</div>
+          <div>
+            <strong>Workflow Engine</strong>
+            <p>The
+              <span class="term" data-definition="The executor is the component that actually runs your workflow. It reads the workflow definition, finds the trigger, then executes each node in order, passing data from one to the next.">executor</span>
+              that actually runs your workflow, node by node, when a trigger fires.
+              This is where your automation logic becomes reality.</p>
+          </div>
+        </div>
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-4)">🗄️</div>
+          <div>
+            <strong>Database</strong>
+            <p>Stores every workflow definition,
+              <span class="term" data-definition="A credential in n8n is a stored, encrypted set of authentication details — like an API key, username/password, or OAuth token. n8n encrypts these before saving so they are never stored in plain text.">credential</span>,
+              and execution record.
+              Supports
+              <span class="term" data-definition="SQLite is a lightweight file-based database. n8n uses it by default for single-user or small setups — no installation needed, the database is just a file on disk.">SQLite</span>
+              for simple setups and
+              <span class="term" data-definition="PostgreSQL (also called Postgres) is a powerful open-source relational database. n8n recommends it for production deployments because it handles higher traffic and more data reliably.">PostgreSQL</span>
+              for production.</p>
+          </div>
+        </div>
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-5)">🔌</div>
+          <div>
+            <strong>Nodes</strong>
+            <p>The 400+ integrations: Gmail, Slack, Google Sheets, OpenAI, HTTP Request, and everything else.
+              Each node is a TypeScript class with an
+              <span class="term" data-definition="execute() is the main method inside every n8n node. When the workflow engine runs a node, it calls execute() — which is where the actual API call, data transformation, or logic happens.">execute()</span>
+              method that does the actual work.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 2: CODE TRANSLATION — SERVER ENTRY POINT
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Where the backend wakes up.</h2>
+
+      <p class="animate-in">
+        When n8n starts, it boots an
+        <span class="term" data-definition="Express.js is the web server framework n8n uses. On startup, it registers all API routes, sets up middleware for authentication and logging, and starts listening for incoming HTTP requests.">Express.js server</span>
+        that loads every
+        <span class="term" data-definition="A controller in n8n is a file that handles a group of related API routes. For example, auth.controller.ts handles all login and logout routes. It is the gatekeeper between incoming HTTP requests and the business logic.">controller</span>,
+        registers every
+        <span class="term" data-definition="A webhook route is a URL pattern that the Express server registers. When a request arrives matching that pattern, Express routes it to the right handler function.">webhook route</span>,
+        and starts listening for requests.
+        Here is the real code from <code>packages/cli/src/server.ts</code>.
+      </p>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>
+<span class="code-line"><span class="code-keyword">import</span> <span class="code-string">'@/controllers/auth.controller'</span>;</span>
+<span class="code-line"><span class="code-keyword">import</span> <span class="code-string">'@/controllers/binary-data.controller'</span>;</span>
+<span class="code-line"><span class="code-keyword">import</span> <span class="code-string">'@/controllers/ai.controller'</span>;</span>
+<span class="code-line"><span class="code-keyword">import</span> <span class="code-string">'@/controllers/users.controller'</span>;</span>
+<span class="code-line"><span class="code-keyword">import</span> <span class="code-string">'@/credentials/credentials.controller'</span>;</span>
+<span class="code-line"><span class="code-keyword">import</span> <span class="code-string">'@/executions/executions.controller'</span>;</span>
+<span class="code-line"><span class="code-keyword">import</span> <span class="code-string">'@/license/license.controller'</span>;</span>
+          </code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">Load the <strong>authentication</strong> controller — handles login and session tokens</p>
+            <p class="tl">Load the <strong>binary data</strong> controller — handles file uploads and downloads</p>
+            <p class="tl">Load the <strong>AI assistant</strong> controller — handles requests from the AI chat panel</p>
+            <p class="tl">Load the <strong>users</strong> controller — handles user management and roles</p>
+            <p class="tl">Load the <strong>credentials</strong> controller — handles stored API keys and passwords</p>
+            <p class="tl">Load the <strong>executions</strong> controller — handles execution history and logs</p>
+            <p class="tl">Load the <strong>license</strong> controller — handles enterprise license validation</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">💡</div>
+        <div class="callout-content">
+          <strong class="callout-title">Side-Effect Imports</strong>
+          <p>This import pattern is called <em>side-effect imports</em> — just importing the file causes the controller to register itself with the Express
+            <span class="term" data-definition="A router in Express is an object that maps URL patterns to handler functions. When a controller file is imported, it registers its routes onto the Express router automatically — no extra wiring needed.">router</span>.
+            It is a common pattern in large
+            <span class="term" data-definition="Node.js is the JavaScript runtime that powers n8n's backend. It lets JavaScript code run on a server (not just in a browser), enabling n8n to handle HTTP requests, file operations, and database queries.">Node.js</span>
+            apps.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 3: ARCHITECTURE DIAGRAM
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">The full picture — click any component.</h2>
+
+      <p class="animate-in">
+        Three zones, five actors, one platform. Click any box to learn what it does and which
+        <span class="term" data-definition="A package in the n8n monorepo is an independent unit of code with its own dependencies and build configuration. For example, packages/cli is the backend package, packages/editor-ui is the frontend.">package</span>
+        in the codebase it lives in.
+      </p>
+
+      <div class="arch-diagram animate-in">
+
+        <div class="arch-zone">
+          <div class="arch-zone-label">Zone 1 — Browser</div>
+          <div class="arch-component"
+               data-desc="Canvas Editor: The Vue 3 app that renders your workflow visually. Lives in packages/editor-ui. Everything you see, drag, and click lives here — but it has no execution power of its own.">
+            <span class="arch-icon">🖼️</span>
+            <span>Canvas Editor</span>
+          </div>
+          <div class="arch-component"
+               data-desc="Node Panel: The searchable sidebar that lists all 400+ available nodes. It reads node metadata from the backend and lets you drag nodes onto the canvas. Also lives in packages/editor-ui.">
+            <span class="arch-icon">📦</span>
+            <span>Node Panel</span>
+          </div>
+        </div>
+
+        <div class="arch-zone">
+          <div class="arch-zone-label">Zone 2 — Backend Server (packages/cli)</div>
+          <div class="arch-component"
+               data-desc="REST API: The Express.js HTTP server that handles every command from the editor — save workflow, load workflow, trigger execution, manage users. Lives in packages/cli/src/controllers/.">
+            <span class="arch-icon">🔌</span>
+            <span>REST API</span>
+          </div>
+          <div class="arch-component"
+               data-desc="Webhook Handler: Listens for incoming HTTP calls from external services. When a POST arrives at /webhook/{id}, it looks up the matching workflow and starts an execution. Lives in packages/cli/src/webhooks/.">
+            <span class="arch-icon">🌐</span>
+            <span>Webhook Handler</span>
+          </div>
+          <div class="arch-component"
+               data-desc="Workflow Runner: Queues and dispatches workflow executions. It decides whether to run workflows directly or queue them for a worker process. Lives in packages/cli/src/workflow-runner.ts.">
+            <span class="arch-icon">🏃</span>
+            <span>Workflow Runner</span>
+          </div>
+        </div>
+
+        <div class="arch-zone">
+          <div class="arch-zone-label">Zone 3 — Data Layer</div>
+          <div class="arch-component"
+               data-desc="Database: Stores workflows, users, encrypted credentials, and full execution logs. Uses TypeORM so it works with both SQLite (development) and PostgreSQL (production). Entities live in packages/cli/src/databases/.">
+            <span class="arch-icon">🗄️</span>
+            <span>Database</span>
+          </div>
+          <div class="arch-component"
+               data-desc="Execution Engine: The core package (packages/core) that actually runs nodes. It reads the workflow graph, resolves expressions, calls each node's execute() method in order, and passes data between them.">
+            <span class="arch-icon">⚡</span>
+            <span>Execution Engine</span>
+          </div>
+        </div>
+
+        <div class="arch-description">Click any component to learn what it does</div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 4: VISUAL FILE TREE
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Where to find things in the codebase.</h2>
+
+      <p class="animate-in">
+        n8n is a
+        <span class="term" data-definition="A monorepo (monolithic repository) is a single git repository that contains multiple packages. n8n uses this pattern — all its packages live in the same repo but can be built and published independently.">monorepo</span>
+        managed with
+        <span class="term" data-definition="pnpm is a fast Node.js package manager. n8n uses it with workspaces — a feature that lets multiple packages in the same repo share dependencies and run commands across all packages at once.">pnpm workspaces</span>.
+        When you ask an AI to write code for n8n, specifying the correct package is the difference between a working change and a dead end.
+      </p>
+
+      <div class="step-cards animate-in">
+        <div class="step-card">
+          <div class="step-num" style="background: var(--color-actor-1)">UI</div>
+          <div class="step-body">
+            <strong>packages/editor-ui/</strong>
+            <p>The
+              <span class="term" data-definition="Vue 3 is a JavaScript framework for building user interfaces. The n8n editor canvas, all panels, modals, and visual workflow tools are built with Vue 3 components.">Vue 3</span>
+              frontend canvas — this is what you see in your browser. Node rendering, drag-and-drop, the sidebar, all UI text.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num" style="background: var(--color-actor-2)">CLI</div>
+          <div class="step-body">
+            <strong>packages/cli/</strong>
+            <p>The Express backend — REST API, webhooks, workflow runner. If you want to add a new API endpoint or change how executions are stored, this is your package.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num" style="background: var(--color-actor-2)">CTL</div>
+          <div class="step-body">
+            <strong>packages/cli/src/controllers/</strong>
+            <p>One file per API route group: auth, users, workflows, credentials, executions, license. Each file wires URL patterns to business logic functions.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num" style="background: var(--color-actor-2)">EXE</div>
+          <div class="step-body">
+            <strong>packages/cli/src/executions/</strong>
+            <p>Everything about running and storing workflow executions — the controller, repository, and
+              <span class="term" data-definition="A service in n8n backend is a class that holds business logic. Controllers call services; services call repositories. Services are the middle layer — they orchestrate operations without touching HTTP or the database directly.">service</span>
+              that manages execution lifecycle.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num" style="background: var(--color-actor-3)">WF</div>
+          <div class="step-body">
+            <strong>packages/workflow/</strong>
+            <p>Core types and the Workflow class — shared by both frontend and backend. When you see a
+              <span class="term" data-definition="TypeScript is a typed superset of JavaScript. n8n is written entirely in TypeScript, which means every variable and function has a declared type — helping catch bugs at build time rather than runtime.">TypeScript</span>
+              interface like IWorkflow or INode, it lives here.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num" style="background: var(--color-actor-3)">ENG</div>
+          <div class="step-body">
+            <strong>packages/core/</strong>
+            <p>The execution engine — runs nodes, manages data flow, handles
+              <span class="term" data-definition="Credential resolution is the process where the execution engine looks up and decrypts stored credentials before passing them to a node. The node never stores credentials itself.">credential resolution</span>.
+              This is the heart of n8n.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num" style="background: var(--color-actor-5)">NOD</div>
+          <div class="step-body">
+            <strong>packages/nodes-base/</strong>
+            <p>All 400+ built-in node integrations — one subfolder per integration.
+              Each node implements the
+              <span class="term" data-definition="INodeType is the TypeScript interface every n8n node must implement. It defines the node's description (name, icon, inputs, outputs, properties) and its execute() method.">INodeType</span>
+              interface with a description and an execute() method.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">🗺️</div>
+        <div class="callout-content">
+          <strong class="callout-title">Why This Matters for AI-Assisted Coding</strong>
+          <p>The monorepo pattern means each package can be worked on independently. When AI writes code for n8n, it needs to know <em>which package</em> to put it in — now you do. Always tell your AI: "This change goes in packages/cli/src/controllers/" rather than just "add it to n8n."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 5: GROUP CHAT — SAVING A WORKFLOW
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">You save a workflow. Here is the conversation.</h2>
+
+      <p class="animate-in">
+        A single click of the Save button in your browser triggers a chain of communication between four components.
+        Watch how the
+        <span class="term" data-definition="A REST API (Representational State Transfer API) is a style of web API where every resource has a URL, and you interact with it using standard HTTP verbs: GET to read, POST to create, PUT to update, DELETE to remove.">REST API</span>
+        pattern works in practice — request goes in, confirmation comes back.
+      </p>
+
+      <div class="chat-window animate-in" id="chat-module2">
+        <div class="chat-messages">
+          <div class="chat-message" data-msg="0" data-sender="user" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-5)">U</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-5)">User</span>
+              <p>I just clicked Save.</p>
+            </div>
+          </div>
+          <div class="chat-message" data-msg="1" data-sender="editor" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-1)">E</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-1)">Editor</span>
+              <p>Sending
+                <span class="term" data-definition="PUT is an HTTP verb that means 'replace this resource with what I am sending.' n8n uses PUT /rest/workflows/{id} to save a workflow — the backend replaces the old version with the new one.">PUT</span>
+                /rest/workflows/{id} with the full workflow
+                <span class="term" data-definition="JSON (JavaScript Object Notation) is a text format for storing structured data. n8n represents workflows as JSON objects — nodes, connections, settings all described as nested key-value pairs.">JSON</span>
+                to the backend...</p>
+            </div>
+          </div>
+          <div class="chat-message" data-msg="2" data-sender="backend" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-2)">B</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-2)">Backend API</span>
+              <p>Request received. Validating the workflow structure —
+                <span class="term" data-definition="Schema validation checks that incoming data matches the expected shape. For example, it verifies that every node has a required 'type' field, and that connections reference valid node names.">schema validation</span>
+                passed. User is authorized to edit this workflow. Proceeding...</p>
+            </div>
+          </div>
+          <div class="chat-message" data-msg="3" data-sender="backend" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-2)">B</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-2)">Backend API</span>
+              <p>Calling the
+                <span class="term" data-definition="A repository in n8n is a class that talks directly to the database. It handles all SQL queries for a specific data type. The workflow repository handles SELECT, INSERT, UPDATE, DELETE for workflow rows.">workflows repository</span>
+                to update the database row...</p>
+            </div>
+          </div>
+          <div class="chat-message" data-msg="4" data-sender="database" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-4)">D</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-4)">Database</span>
+              <p>Saved. Row updated in the workflows table. The
+                <span class="term" data-definition="updatedAt is a timestamp column in the database that automatically updates whenever a row is changed. n8n uses it to show you when a workflow was last saved.">updatedAt</span>
+                timestamp is refreshed. Transaction committed.</p>
+            </div>
+          </div>
+          <div class="chat-message" data-msg="5" data-sender="backend" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-2)">B</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-2)">Backend API</span>
+              <p>Sending
+                <span class="term" data-definition="HTTP 200 OK is the status code meaning the request succeeded. The response body contains the updated workflow object so the editor can confirm what was saved.">200 OK</span>
+                back to the editor with the updated workflow object.</p>
+            </div>
+          </div>
+          <div class="chat-message" data-msg="6" data-sender="editor" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-1)">E</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-1)">Editor</span>
+              <p>Workflow saved! Updating the canvas state in the
+                <span class="term" data-definition="Pinia is the state management library for Vue 3. n8n uses Pinia stores to hold the current workflow, execution data, and UI state in the browser. When a save completes, Pinia is updated so the UI reflects the new state.">Pinia store</span>
+                and showing the green saved indicator to the user.</p>
+            </div>
+          </div>
+        </div>
+        <div class="chat-typing" style="display:none">
+          <div class="chat-avatar" id="chat-module2-typing-avatar">?</div>
+          <div class="chat-typing-dots">
+            <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+          </div>
+        </div>
+        <div class="chat-controls">
+          <button class="btn chat-next-btn">Next Message</button>
+          <button class="btn chat-all-btn">Play All</button>
+          <button class="btn chat-reset-btn">Replay</button>
+          <span class="chat-progress"></span>
+        </div>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">🔒</div>
+        <div class="callout-content">
+          <strong class="callout-title">Security Note</strong>
+          <p>Credentials are <em>never</em> saved through this same path in plain text. They go through the credentials controller, where they are encrypted server-side before being written to the database. The encryption key never leaves the server.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 5b: DATA FLOW ANIMATION
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">How a save request travels through all five characters.</h2>
+
+      <p class="animate-in">
+        Watch the request move from your browser through each layer — frontend, API, engine, and data store —
+        and come back as a confirmed save.
+      </p>
+
+      <div class="flow-animation animate-in" data-steps='[
+        {"highlight":"flow-browser","label":"You click Save in the editor. The Vue 3 frontend packages the workflow into a JSON object."},
+        {"highlight":"flow-api","label":"The editor sends PUT /rest/workflows/{id} to the Express backend server.","packet":true,"from":"browser","to":"api"},
+        {"highlight":"flow-api","label":"The backend validates the request: is the user authenticated? Does the workflow schema look correct?"},
+        {"highlight":"flow-db","label":"The backend calls the workflows repository to write the updated row to the database.","packet":true,"from":"api","to":"db"},
+        {"highlight":"flow-db","label":"Database confirms the write. The updatedAt timestamp is refreshed."},
+        {"highlight":"flow-browser","label":"Backend sends 200 OK back to the editor. The Pinia store is updated and the saved indicator appears.","packet":true,"from":"api","to":"browser"}
+      ]'>
+        <div class="flow-actors">
+          <div class="flow-actor" id="flow-browser">
+            <div class="flow-actor-icon">🖥️</div>
+            <span>Browser (Editor)</span>
+          </div>
+          <div class="flow-actor" id="flow-api">
+            <div class="flow-actor-icon">⚡</div>
+            <span>Backend API</span>
+          </div>
+          <div class="flow-actor" id="flow-db">
+            <div class="flow-actor-icon">🗄️</div>
+            <span>Database</span>
+          </div>
+        </div>
+        <div class="flow-packet" id="flow-packet"></div>
+        <div class="flow-step-label" id="flow-label">Click "Next Step" to begin</div>
+        <div class="flow-controls">
+          <button class="btn flow-next-btn">Next Step</button>
+          <button class="btn flow-reset-btn">Restart</button>
+          <span class="flow-progress"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 6: QUIZ
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Who does what?</h2>
+
+      <p class="animate-in">
+        These three scenarios test whether you can map a problem to the right character.
+        Knowing this is the fastest way to give an AI precise, actionable instructions.
+      </p>
+
+      <div class="quiz-container animate-in" id="quiz-module2">
+
+        <!-- Q1 -->
+        <div class="quiz-question-block"
+             data-correct="option-b"
+             data-explanation-right="The backend REST API lives in packages/cli/src/controllers/. Each controller file handles a group of related routes. A new GET /rest/my-feature route belongs in a controller file there."
+             data-explanation-wrong="Check which character handles HTTP route definitions — it is not the visual editor or the type definitions package.">
+          <h3 class="quiz-question">You want to add a new REST API endpoint to n8n — for example, GET /rest/my-feature. Which package do you tell your AI to look in?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>packages/editor-ui — the frontend canvas</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>packages/cli — the backend REST API</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>packages/workflow — core types and the Workflow class</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="quiz-question-block"
+             data-correct="option-c"
+             data-explanation-right="The credentials controller in packages/cli encrypts keys using a server-side encryption key before they ever touch the database. Credentials are encrypted server-side — never in the browser."
+             data-explanation-wrong="Think about security: which character is trusted with secret operations that should never happen in the browser?">
+          <h3 class="quiz-question">A credential (like an API key for Slack) is stored in n8n. Which component encrypts it before saving?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>The Frontend editor — it handles the form</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>The Workflow Engine — it uses credentials at runtime</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>The Backend API — before writing to the database</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="quiz-question-block"
+             data-correct="option-b"
+             data-explanation-right="The Workflow Engine (packages/core) is where nodes actually execute and data transforms. Wrong outputs almost always trace back to a node execute() function or how data is passed between nodes."
+             data-explanation-wrong="Wrong outputs come from processing, not from storing or displaying. Which character actually runs the nodes and transforms the data?">
+          <h3 class="quiz-question">You are debugging a workflow that seems to run but produces wrong output. Which character is most likely where the bug lives?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>The Frontend Editor — it renders the results</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>The Workflow Engine — it runs the nodes</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>The Database — it stores the output</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module2')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module2')">Try Again</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="module" id="module-3" style="background: var(--color-bg)">
+  <div class="module-content">
+
+    <!-- MODULE HEADER -->
+    <header class="module-header animate-in">
+      <span class="module-number">03</span>
+      <h1 class="module-title">How a Workflow Runs</h1>
+      <p class="module-subtitle">From trigger to completion — the six-step sequence every n8n builder should know.</p>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 1: THE BIG PICTURE
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">A trigger fires. What happens next?</h2>
+
+      <p class="animate-in">
+        From the moment a
+        <span class="term" data-definition="A webhook is a URL that n8n gives you. When an external service sends an HTTP POST to that URL, your workflow immediately wakes up and runs. Think of it as a doorbell for your automation.">webhook</span>
+        arrives to the moment
+        <span class="term" data-definition="An execution is one complete run of a workflow — from trigger to the final node. n8n records every execution with a unique ID, timestamps, and all data that flowed through each node.">execution</span>
+        is complete, n8n runs through a precise 6-step sequence — and knowing this sequence is your superpower for debugging.
+      </p>
+
+      <div class="step-cards animate-in">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Trigger detected</strong>
+            <p>A
+              <span class="term" data-definition="A webhook is an HTTP endpoint n8n creates for you. External services call it to wake up your workflow. Webhooks are 'push' — the service comes to you.">webhook</span>,
+              schedule, or manual click fires — the workflow is woken from sleep.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>WorkflowRunner picks up the job</strong>
+            <p>The
+              <span class="term" data-definition="WorkflowRunner is the n8n service responsible for validating a workflow before it executes — checking that nodes are valid, credentials exist, and the workflow is properly connected.">WorkflowRunner</span>
+              validates the workflow and checks that all
+              <span class="term" data-definition="A credential in n8n is an encrypted set of access keys for an external service — like an API token or OAuth token. Nodes use credentials to authenticate without exposing raw secrets.">credentials</span>
+              are present.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Execution record created</strong>
+            <p>A unique ID is assigned, status is set to "running," and the run is written to the database so you can inspect it later.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <strong>Trigger node runs first</strong>
+            <p>The first node generates the initial
+              <span class="term" data-definition="Data items are the unit of data in n8n. Every node receives a list of items (each is a JSON object), does its work, and outputs a new list. Like rows in a spreadsheet, one item per record.">data items</span>
+              — the raw payload from the webhook, schedule metadata, or whatever the trigger produced.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <strong>Each subsequent node runs in order</strong>
+            <p>Each node receives the output items from the previous node, transforms them, and outputs new items — one workstation at a time along the assembly line.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">6</div>
+          <div class="step-body">
+            <strong>Execution complete</strong>
+            <p>Status is updated to "success" or "error," results are saved, and if triggered by a webhook, the HTTP response is sent back to the caller.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">🏭</div>
+        <div class="callout-content">
+          <strong class="callout-title">The Factory Metaphor</strong>
+          <p>Think of a factory assembly line. A product (the data) enters at one end (the trigger), passes through each workstation (node) in sequence, gets transformed at each step, and exits at the other end. The Workflow Engine is the factory floor manager deciding what order things happen.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 2: THE DATA FORMAT — INodeExecutionData
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Data always travels as a list of items.</h2>
+
+      <p class="animate-in">
+        Imagine a spreadsheet: each row is one
+        <span class="term" data-definition="An item is one unit of data in n8n — a JSON object with key-value pairs, optionally carrying binary files. A node receives a list of items and processes each one individually.">item</span>,
+        with columns for
+        <span class="term" data-definition="JSON (JavaScript Object Notation) is the data format n8n uses internally. It looks like: { name: 'Alice', age: 30 }. Every item's main content lives in its json field.">JSON</span>
+        data (the content) and
+        <span class="term" data-definition="Binary data in n8n means file content — images, PDFs, spreadsheets — stored alongside the JSON fields of an item. The binary field is optional; most items only have JSON.">binary data</span>
+        (files). Every node receives rows, processes them, and returns new rows.
+      </p>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>
+<span class="code-line"><span class="code-keyword">export interface</span> <span class="code-property">INodeExecutionData</span> {</span>
+<span class="code-line">  <span class="code-property">json</span>: <span class="code-property">IDataObject</span>;</span>
+<span class="code-line">  <span class="code-property">binary</span>?: <span class="code-property">IBinaryKeyData</span>;</span>
+<span class="code-line">  <span class="code-property">pairedItem</span>?: <span class="code-property">IPairedItemData</span> | <span class="code-property">IPairedItemData</span>[] | <span class="code-keyword">number</span>;</span>
+<span class="code-line">  <span class="code-property">error</span>?: <span class="code-property">NodeApiError</span> | <span class="code-property">NodeOperationError</span>;</span>
+<span class="code-line">  <span class="code-property">index</span>?: <span class="code-keyword">number</span>;</span>
+<span class="code-line">}</span>
+          </code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">Every item has a <strong>json</strong> field — this is the actual data: an object with key-value pairs like <code>{ name: "Alice", score: 42 }</code>.</p>
+            <p class="tl">Optionally, an item can carry <strong>binary data</strong> (files, images, PDFs) alongside the JSON — the <code>?</code> means this field is not always present.</p>
+            <p class="tl"><strong>pairedItem</strong> links an output item back to which input item it came from — useful when merging two branches or debugging where data originated.</p>
+            <p class="tl">If this item represents an error, the <strong>error</strong> field holds details about what went wrong — so errors travel as items too, not as crashes.</p>
+            <p class="tl"><strong>index</strong> tracks this item's position when processing — used for batch operations and loop tracking.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">💡</div>
+        <div class="callout-content">
+          <strong class="callout-title">When You Write <code>{{ $json.name }}</code></strong>
+          <p>You are reading from the <code>json</code> field of the current item. When AI writes
+            <span class="term" data-definition="An expression in n8n is a dynamic value wrapped in double curly braces {{ }}. It lets you reference data from previous nodes, do math, format dates, and more. Powered by JavaScript.">expressions</span>
+            for you, it is working with this exact structure — the <code>INodeExecutionData</code> interface is the contract that every node in n8n must follow.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 3: CODE TRANSLATION — THE EXECUTION STACK
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">How the engine decides what to run next.</h2>
+
+      <p class="animate-in">
+        The
+        <span class="term" data-definition="The Workflow Engine is the core component that reads the execution stack, runs each node in order, and manages the flow of data between nodes. It is the factory floor manager.">Workflow Engine</span>
+        uses a
+        <span class="term" data-definition="A stack is a data structure like a to-do list — you add items to the top and take from the top. The execution stack holds nodes waiting to run, starting with the trigger node.">stack</span>
+        (like a to-do list) to track which nodes still need to run. Here is the real code from the n8n codebase.
+      </p>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>
+<span class="code-line"><span class="code-keyword">const</span> nodeExecutionStack: <span class="code-property">IExecuteData</span>[] = [</span>
+<span class="code-line">  {</span>
+<span class="code-line">    <span class="code-property">node</span>,</span>
+<span class="code-line">    <span class="code-property">data</span>: {</span>
+<span class="code-line">      <span class="code-property">main</span>: data,</span>
+<span class="code-line">    },</span>
+<span class="code-line">    <span class="code-property">source</span>: <span class="code-keyword">null</span>,</span>
+<span class="code-line">  },</span>
+<span class="code-line">];</span>
+<span class="code-line"></span>
+<span class="code-line"><span class="code-keyword">const</span> executionData = <span class="code-property">createRunExecutionData</span>({</span>
+<span class="code-line">  <span class="code-property">executionData</span>: {</span>
+<span class="code-line">    <span class="code-property">nodeExecutionStack</span>,</span>
+<span class="code-line">  },</span>
+<span class="code-line">});</span>
+          </code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">Create a list of nodes waiting to run — initially contains just the starting (trigger) node.</p>
+            <p class="tl"><strong>node</strong> — the node that should run next (the trigger to start).</p>
+            <p class="tl"><strong>data.main</strong> — the data to feed into that node. "main" is the primary input connection type in n8n.</p>
+            <p class="tl"><strong>source: null</strong> — no parent node. This is the start of the chain; nothing fed data to the trigger.</p>
+            <p class="tl">Wrap the stack in the full execution data structure that the engine reads throughout the run.</p>
+            <p class="tl">The engine will keep pulling nodes off this stack, running them, and pushing their connected children back on — until the stack is empty.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">🔍</div>
+        <div class="callout-content">
+          <strong class="callout-title">Why This Matters for Debugging</strong>
+          <p>When you tell an AI assistant "node X never ran," you are saying it was never added to the execution stack. The most common reason: there was no data item coming from its parent node — an empty list stops the chain.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 4: FLOW ANIMATION — EXECUTION STEP BY STEP
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Watch the execution unfold.</h2>
+
+      <p class="animate-in">
+        Five components work together every time a workflow runs. Click through each step to see exactly who does what — and in what order.
+      </p>
+
+      <div class="flow-animation animate-in" data-steps='[
+        {"highlight":"flow-m3-trigger","label":"Webhook arrives — a POST request lands on the n8n server, carrying data in its body and headers."},
+        {"highlight":"flow-m3-runner","label":"WorkflowRunner validates the workflow and creates an execution record in the database — status set to running.","packet":true,"from":"m3-trigger","to":"m3-runner"},
+        {"highlight":"flow-m3-engine","label":"Execution Engine starts — builds the node execution stack with the trigger node first.","packet":true,"from":"m3-runner","to":"m3-engine"},
+        {"highlight":"flow-m3-nodea","label":"Trigger node runs first — generates the initial list of data items from the incoming request.","packet":true,"from":"m3-engine","to":"m3-nodea"},
+        {"highlight":"flow-m3-nodea","label":"Node A processes all items — transforms, filters, or enriches the data according to its configuration."},
+        {"highlight":"flow-m3-nodeb","label":"Output items from Node A become the input items for Node B — the data flows downstream.","packet":true,"from":"m3-nodea","to":"m3-nodeb"},
+        {"highlight":"flow-m3-nodeb","label":"Node B finishes — execution stack is empty, execution complete, result saved to database."}
+      ]'>
+        <div class="flow-actors">
+          <div class="flow-actor" id="flow-m3-trigger">
+            <div class="flow-actor-icon">🌐</div>
+            <span>Trigger</span>
+          </div>
+          <div class="flow-actor" id="flow-m3-runner">
+            <div class="flow-actor-icon">🏃</div>
+            <span>Workflow Runner</span>
+          </div>
+          <div class="flow-actor" id="flow-m3-engine">
+            <div class="flow-actor-icon">⚡</div>
+            <span>Execution Engine</span>
+          </div>
+          <div class="flow-actor" id="flow-m3-nodea">
+            <div class="flow-actor-icon">🔵</div>
+            <span>Node A</span>
+          </div>
+          <div class="flow-actor" id="flow-m3-nodeb">
+            <div class="flow-actor-icon">🟢</div>
+            <span>Node B</span>
+          </div>
+        </div>
+        <div class="flow-packet" id="flow-packet"></div>
+        <div class="flow-step-label" id="flow-label">Click "Next Step" to begin</div>
+        <div class="flow-controls">
+          <button class="btn flow-next-btn">Next Step</button>
+          <button class="btn flow-reset-btn">Restart</button>
+          <span class="flow-progress"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 5: GROUP CHAT — NODES PASSING DATA
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Inside the engine, nodes pass data like relay runners.</h2>
+
+      <p class="animate-in">
+        Follow a live execution from the moment a webhook fires to the moment the database records the result — through the eyes of the components themselves.
+      </p>
+
+      <div class="chat-window animate-in" id="chat-module3">
+        <div class="chat-messages">
+
+          <div class="chat-message" data-msg="0" data-sender="webhook" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-1)">W</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-1)">Webhook Node</span>
+              <p>I received a POST request. Turning it into 1 data item with <code>json: { body: {...}, headers: {...} }</code></p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="1" data-sender="engine" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-2)">E</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-2)">Execution Engine</span>
+              <p>Got it. Marking webhook node as done. Checking for connected nodes downstream...</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="2" data-sender="engine" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-2)">E</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-2)">Execution Engine</span>
+              <p>Found Slack node connected downstream. Sending 1 item to Slack node now.</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="3" data-sender="slack" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-3)">S</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-3)">Slack Node</span>
+              <p>Received 1 item. Reading <code>{{ $json.message }}</code> from the item. Calling Slack API now...</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="4" data-sender="slack" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-3)">S</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-3)">Slack Node</span>
+              <p>Slack API returned success. Outputting 1 item with the Slack response data attached.</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="5" data-sender="database" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-4)">D</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-4)">Database</span>
+              <p>Execution complete. Storing the full run log — every input, every output, every node. Status: success.</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="chat-typing" style="display:none">
+          <div class="chat-avatar" id="chat-module3-typing-avatar">?</div>
+          <div class="chat-typing-dots">
+            <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+          </div>
+        </div>
+        <div class="chat-controls">
+          <button class="btn chat-next-btn">Next Message</button>
+          <button class="btn chat-all-btn">Play All</button>
+          <button class="btn chat-reset-btn">Replay</button>
+          <span class="chat-progress"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 6: QUIZ
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Check your understanding.</h2>
+
+      <p class="animate-in">
+        These are scenario-based questions — the kind of thinking you will use when debugging real workflows or directing an AI assistant to solve a problem.
+      </p>
+
+      <div class="quiz-container animate-in" id="quiz-module3">
+
+        <!-- Q1 -->
+        <div class="quiz-question-block"
+             data-correct="option-b"
+             data-explanation-right="Each item is processed independently. This is why n8n is powerful for bulk operations — one workflow run can send 50 emails, one per item. The Set node, Slack node, and most action nodes run once per item by default."
+             data-explanation-wrong="Each item gets processed — if Split into Batches sends 50 items downstream, Send Email runs for each one. The number depends on the items flowing through, not the trigger type.">
+          <h3 class="quiz-question">You have a workflow: Webhook → Split into Batches → Send Email. The webhook brings in 50 items. How many times does the Send Email node run?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>Once — a workflow execution is one run regardless of item count</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>50 times — once per item in the list</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>It depends on the webhook — different triggers behave differently</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="quiz-question-block"
+             data-correct="option-c"
+             data-explanation-right="If a node receives zero items, it has nothing to process and passes zero items downstream. This is why a filter node can effectively stop a workflow branch — it does not error, it just outputs nothing."
+             data-explanation-wrong="n8n does not error on empty data by default, and each node gets its direct parent output only. If that output is empty, the child receives empty data and produces nothing — it does not reach back to earlier nodes.">
+          <h3 class="quiz-question">A node in your workflow produces empty output (zero items). What happens to nodes connected after it?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>They error out — n8n cannot continue with nothing to process</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>They run with the previous node's data — n8n falls back automatically</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>They receive zero items and do not execute their main logic</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="quiz-question-block"
+             data-correct="option-b"
+             data-explanation-right="The Set node is designed for adding or modifying fields on each item. You can add a debug_timestamp or status field to every item passing through — it is the standard n8n tool for field manipulation mid-flow."
+             data-explanation-wrong="The Webhook node handles incoming HTTP requests and does not transform data mid-flow. The Execute Workflow node calls a separate workflow rather than modifying fields on items in the current flow.">
+          <h3 class="quiz-question">You want to add a debugging field called <code>processed_at</code> to every item as it flows through your workflow. Which built-in node would you use?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>Webhook node — it handles the initial data shaping</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>Set node — it adds or modifies fields on each item</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>Execute Workflow node — it lets you run sub-workflows that process items</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module3')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module3')">Try Again</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="module" id="module-4" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+
+    <!-- MODULE HEADER -->
+    <header class="module-header animate-in">
+      <span class="module-number">04</span>
+      <h1 class="module-title">Nodes: The 400+ Building Blocks</h1>
+      <p class="module-subtitle">Every node is a specialist. Learn to speak their language and AI can build anything for you.</p>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 1: WHAT IS A NODE?
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Every node is a specialist with one job.</h2>
+
+      <p class="animate-in">
+        Whether it is Gmail, Slack, Google Sheets, or a custom
+        <span class="term" data-definition="An HTTP call (or API call) is a request sent from n8n to an external service over the internet. It is how n8n talks to Slack, Google, Stripe, and thousands of other services.">HTTP call</span>
+        — every node in n8n follows the same contract: receive
+        <span class="term" data-definition="Items are the unit of data in n8n. Each item is a JSON object. A node receives a list of items, processes each one, and outputs a new list — like rows flowing through a spreadsheet formula.">items</span>,
+        process them, return items.
+      </p>
+
+      <div class="pattern-cards stagger-children">
+
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-1)">
+          <div class="pattern-icon" style="background: var(--color-actor-1)">⚡</div>
+          <h4 class="pattern-title">Trigger Nodes</h4>
+          <p class="pattern-desc">Start the workflow. Fire when something happens — a
+            <span class="term" data-definition="A webhook is an HTTP endpoint n8n creates for you. External services POST data to it to wake up your workflow — like a doorbell for automation.">webhook</span>,
+            a schedule, a new email, a new row. Always the first node.
+          </p>
+        </div>
+
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-2)">
+          <div class="pattern-icon" style="background: var(--color-actor-2)">🔧</div>
+          <h4 class="pattern-title">Action Nodes</h4>
+          <p class="pattern-desc">Do something: send a message, create a record, call an
+            <span class="term" data-definition="An API (Application Programming Interface) is the official channel a service provides for other software to interact with it programmatically — for example, the Slack API lets you send messages by code.">API</span>.
+            The workhorses of automation.
+          </p>
+        </div>
+
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-3)">
+          <div class="pattern-icon" style="background: var(--color-actor-3)">🔀</div>
+          <h4 class="pattern-title">Transform Nodes</h4>
+          <p class="pattern-desc">Reshape data: filter items, merge branches, set fields, split lists.
+            No API call — pure data manipulation. The Set, Filter, and Merge nodes are in this family.
+          </p>
+        </div>
+
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-4)">
+          <div class="pattern-icon" style="background: var(--color-actor-4)">🤖</div>
+          <h4 class="pattern-title">AI / Logic Nodes</h4>
+          <p class="pattern-desc">
+            <span class="term" data-definition="LangChain is an open-source framework for building AI-powered applications. n8n ships LangChain-powered nodes that let you connect to language models, run agents, and chain AI operations.">LangChain</span>-powered:
+            chat with AI models, run agents, classify text, generate content. Found in the AI section of the node panel.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 2: NODE ANATOMY — CODE TRANSLATION
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">What a node looks like under the hood.</h2>
+
+      <p class="animate-in">
+        Every node is a
+        <span class="term" data-definition="A TypeScript class is a blueprint for an object — it defines what data it holds and what functions it can run. Every n8n node is a class with a description and an execute() method.">TypeScript class</span>
+        with a
+        <span class="term" data-definition="A description object is the metadata block inside a node — it defines the node's name, icon, parameters, and how it appears in the editor UI. Think of it as the node's configuration spec.">description</span>
+        (its configuration) and an
+        <span class="term" data-definition="The execute() method is the function that runs when the workflow reaches this node. It receives the input items, does the node's work, and returns output items.">execute()</span>
+        method. Here is the real HttpRequest node from the n8n codebase.
+      </p>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>
+<span class="code-line"><span class="code-keyword">export class</span> <span class="code-property">HttpRequest</span> <span class="code-keyword">extends</span> <span class="code-property">VersionedNodeType</span> {</span>
+<span class="code-line">  <span class="code-property">constructor</span>() {</span>
+<span class="code-line">    <span class="code-keyword">const</span> baseDescription: <span class="code-property">INodeTypeBaseDescription</span> = {</span>
+<span class="code-line">      <span class="code-property">displayName</span>: <span class="code-keyword">'HTTP Request'</span>,</span>
+<span class="code-line">      <span class="code-property">name</span>: <span class="code-keyword">'httpRequest'</span>,</span>
+<span class="code-line">      <span class="code-property">icon</span>: <span class="code-keyword">'node:http-request'</span>,</span>
+<span class="code-line">      <span class="code-property">group</span>: [<span class="code-keyword">'output'</span>],</span>
+<span class="code-line">      <span class="code-property">description</span>: <span class="code-keyword">'Makes an HTTP request and returns the response data'</span>,</span>
+<span class="code-line">      <span class="code-property">defaultVersion</span>: <span class="code-keyword">4.4</span>,</span>
+<span class="code-line">    };</span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="code-keyword">const</span> nodeVersions = {</span>
+<span class="code-line">      <span class="code-property">1</span>: <span class="code-keyword">new</span> <span class="code-property">HttpRequestV1</span>(baseDescription),</span>
+<span class="code-line">      <span class="code-property">4.4</span>: <span class="code-keyword">new</span> <span class="code-property">HttpRequestV3</span>(baseDescription),</span>
+<span class="code-line">    };</span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="code-keyword">super</span>(nodeVersions, baseDescription);</span>
+<span class="code-line">  }</span>
+<span class="code-line">}</span>
+          </code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">Define a new node class called <strong>HttpRequest</strong> — a versioned node that can have multiple implementations.</p>
+            <p class="tl"><strong>displayName</strong> is what appears in the node search panel when you type "HTTP".</p>
+            <p class="tl"><strong>name</strong> is the internal ID stored in workflow JSON files — never shown to users, but referenced in code.</p>
+            <p class="tl">This node belongs to the <strong>output</strong> group — meaning it sends data out to external services.</p>
+            <p class="tl">The human-readable <strong>description</strong> shown as a subtitle in the node editor.</p>
+            <p class="tl">The current default <strong>version</strong> is 4.4 — new workflows use this version automatically.</p>
+            <p class="tl">Map version numbers to actual implementation classes — version 1 uses the old code, version 4.4 uses the modern rewrite.</p>
+            <p class="tl">Old workflows keep working because they pin to the version they were built with — upgrades never break existing automations.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">💡</div>
+        <div class="callout-content">
+          <strong class="callout-title">Versioned Nodes: Your Safety Net</strong>
+          <p>Versioned nodes are why you can safely upgrade n8n without breaking existing workflows. Old workflows continue to use the exact version they were built with — the new version only activates for newly created nodes.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 3: DRAG-AND-DROP — MATCH NODE TYPES
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">What would you use?</h2>
+
+      <p class="animate-in">
+        Drag each node chip to the job description it matches. This is the mental model that will help you describe the right node to an AI assistant.
+      </p>
+
+      <div class="dnd-container animate-in" id="dnd-module4">
+
+        <div class="dnd-chips">
+          <div class="dnd-chip" draggable="true" data-answer="webhook-chip">Webhook</div>
+          <div class="dnd-chip" draggable="true" data-answer="slack-chip">Slack</div>
+          <div class="dnd-chip" draggable="true" data-answer="set-chip">Set</div>
+          <div class="dnd-chip" draggable="true" data-answer="openai-chip">OpenAI</div>
+        </div>
+
+        <div class="dnd-zones">
+
+          <div class="dnd-zone" data-correct="webhook-chip">
+            <div class="dnd-zone-label">Receives an HTTP POST and starts the workflow</div>
+            <div class="dnd-zone-target">Drop here</div>
+          </div>
+
+          <div class="dnd-zone" data-correct="slack-chip">
+            <div class="dnd-zone-label">Sends a message to a channel</div>
+            <div class="dnd-zone-target">Drop here</div>
+          </div>
+
+          <div class="dnd-zone" data-correct="set-chip">
+            <div class="dnd-zone-label">Adds a field called <code>processed: true</code> to every item</div>
+            <div class="dnd-zone-target">Drop here</div>
+          </div>
+
+          <div class="dnd-zone" data-correct="openai-chip">
+            <div class="dnd-zone-label">Calls GPT-4 and returns the AI response as a new item</div>
+            <div class="dnd-zone-target">Drop here</div>
+          </div>
+
+        </div>
+
+        <div class="dnd-actions">
+          <button class="btn" onclick="checkDnD('dnd-module4')">Check Matches</button>
+          <button class="btn" onclick="resetDnD('dnd-module4')">Reset</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 4: HOW CREDENTIALS WORK
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Credentials: your keys, encrypted and safe.</h2>
+
+      <p class="animate-in">
+        A
+        <span class="term" data-definition="A credential in n8n is an encrypted set of access keys for an external service — like an API token, username/password, or OAuth token. You configure it once and nodes use it without ever seeing the raw value.">credential</span>
+        is like a key card in a hotel — you configure it once at the front desk (n8n settings), and every node that needs access uses the same card without you having to hand over the actual key each time.
+      </p>
+
+      <div class="step-cards animate-in">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>You add a credential</strong>
+            <p>You paste a Slack
+              <span class="term" data-definition="An API token is a secret string that proves your identity to an external service. Like a password, but designed for machine-to-machine communication. Keep them secret — anyone with the token has your access.">API token</span>
+              into n8n's credential form and click Save.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>n8n encrypts it immediately</strong>
+            <p>The token is
+              <span class="term" data-definition="Encryption transforms readable data into an unreadable scramble using a secret key. Only someone with the key can reverse it. n8n encrypts credentials so the raw value is never stored as plain text.">encrypted</span>
+              using the server-side encryption key before anything is written to disk.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>The encrypted blob is stored</strong>
+            <p>The database stores only the scrambled version — never the raw token. This is called
+              <span class="term" data-definition="Encryption at rest means data is encrypted while stored on disk — not just during transmission. Even if someone steals the database file, they cannot read the credentials without the encryption key.">encryption at rest</span>.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <strong>Decrypted in memory at execution time</strong>
+            <p>When a workflow runs, the engine
+              <span class="term" data-definition="Decrypting means reversing the encryption — turning the scrambled blob back into the readable token. n8n does this in memory only, during execution, so the raw value is never written anywhere.">decrypts</span>
+              the credential in memory for that one execution only.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <strong>Node uses it — then it is gone</strong>
+            <p>The node receives the decrypted value, makes the API call, and the plaintext is discarded. It never touches the filesystem.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">🔒</div>
+        <div class="callout-content">
+          <strong class="callout-title">Why You Cannot See Your Token After Saving</strong>
+          <p>The value is encrypted at rest. If someone steals your database file, they cannot read your credentials without the encryption key — which lives separately on the server. This is intentional, not a bug.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 5: GROUP CHAT — A NODE CALLING AN EXTERNAL SERVICE
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Execution Engine, Slack Node, and the Slack API walk into a bar...</h2>
+
+      <p class="animate-in">
+        Every time an action node runs, it goes through a precise four-party handshake. Watch it happen in real time.
+      </p>
+
+      <div class="chat-window animate-in" id="chat-module4">
+        <div class="chat-messages">
+
+          <div class="chat-message" data-msg="0" data-sender="engine" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-2)">E</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-2)">Execution Engine</span>
+              <p>Slack node, it is your turn. Here are 3 items to process.</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="1" data-sender="slack" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-3)">S</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-3)">Slack Node</span>
+              <p>Got them. I need the Slack credential first. Credential Store, can you help?</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="2" data-sender="cred" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-4)">C</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-4)">Credential Store</span>
+              <p>Decrypting... done. Here is the Bearer token for this execution. It will not be written to disk.</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="3" data-sender="slack" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-3)">S</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-3)">Slack Node</span>
+              <p>Thanks. Making 3 API calls to <code>chat.postMessage</code>, one per item...</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="4" data-sender="api" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-5)">A</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-5)">Slack API</span>
+              <p>Message 1: 200 OK. Message 2: 200 OK. Message 3: 200 OK.</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="5" data-sender="slack" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-3)">S</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-3)">Slack Node</span>
+              <p>All done. Outputting 3 items with the Slack API response data attached to each.</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="6" data-sender="engine" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-2)">E</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-2)">Execution Engine</span>
+              <p>Slack node complete. Moving to the next node in the stack.</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="chat-typing" style="display:none">
+          <div class="chat-avatar" id="chat-module4-typing-avatar">?</div>
+          <div class="chat-typing-dots">
+            <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+          </div>
+        </div>
+        <div class="chat-controls">
+          <button class="btn chat-next-btn">Next Message</button>
+          <button class="btn chat-all-btn">Play All</button>
+          <button class="btn chat-reset-btn">Replay</button>
+          <span class="chat-progress"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 6: FLOW ANIMATION — NODE EXECUTION LIFECYCLE
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">One node executing, step by step.</h2>
+
+      <p class="animate-in">
+        When the Execution Engine reaches a node, it does not just "run" it — there is a precise sequence of calls involving four other components. Step through it below.
+      </p>
+
+      <div class="flow-animation animate-in" data-steps='[
+        {"highlight":"flow-m4-engine","label":"Execution Engine pulls the next node off the stack — it is the Slack node turn."},
+        {"highlight":"flow-m4-credstore","label":"Engine requests the decrypted credential for this node from the Credential Store.","packet":true,"from":"m4-engine","to":"m4-credstore"},
+        {"highlight":"flow-m4-nodeexec","label":"Node receives items and credential — begins its execute() method.","packet":true,"from":"m4-credstore","to":"m4-nodeexec"},
+        {"highlight":"flow-m4-extapi","label":"Node makes an API call to the external service — Slack, Gmail, Stripe, etc.","packet":true,"from":"m4-nodeexec","to":"m4-extapi"},
+        {"highlight":"flow-m4-nodeexec","label":"External service responds — node wraps the response data into output items.","packet":true,"from":"m4-extapi","to":"m4-nodeexec"},
+        {"highlight":"flow-m4-output","label":"Node returns output items to the Engine — which passes them to the next connected node.","packet":true,"from":"m4-nodeexec","to":"m4-output"}
+      ]'>
+        <div class="flow-actors">
+          <div class="flow-actor" id="flow-m4-engine">
+            <div class="flow-actor-icon">⚙️</div>
+            <span>Engine</span>
+          </div>
+          <div class="flow-actor" id="flow-m4-credstore">
+            <div class="flow-actor-icon">🔐</div>
+            <span>Credential Store</span>
+          </div>
+          <div class="flow-actor" id="flow-m4-nodeexec">
+            <div class="flow-actor-icon">🔌</div>
+            <span>Node Execute</span>
+          </div>
+          <div class="flow-actor" id="flow-m4-extapi">
+            <div class="flow-actor-icon">🌐</div>
+            <span>External API</span>
+          </div>
+          <div class="flow-actor" id="flow-m4-output">
+            <div class="flow-actor-icon">📤</div>
+            <span>Output</span>
+          </div>
+        </div>
+        <div class="flow-packet" id="flow-packet"></div>
+        <div class="flow-step-label" id="flow-label">Click "Next Step" to begin</div>
+        <div class="flow-controls">
+          <button class="btn flow-next-btn">Next Step</button>
+          <button class="btn flow-reset-btn">Restart</button>
+          <span class="flow-progress"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 7: QUIZ
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Check your understanding.</h2>
+
+      <p class="animate-in">
+        Scenario-based questions about nodes and credentials — the vocabulary you need to direct an AI assistant precisely.
+      </p>
+
+      <div class="quiz-container animate-in" id="quiz-module4">
+
+        <!-- Q1 -->
+        <div class="quiz-question-block"
+             data-correct="option-b"
+             data-explanation-right="The Google Sheets node fetches the data first, producing one item per row. Then the Slack node loops through those items and sends one message per row. Data always flows left to right — each node needs its input from the previous one."
+             data-explanation-wrong="Order matters in n8n — data flows in one direction, left to right. Each node needs its input from the previous one. The Slack node needs the data that Google Sheets will fetch.">
+          <h3 class="quiz-question">You want to send a Slack message for every row in a Google Sheet. Your workflow will have two action nodes. Which should come first?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>Slack node — send the message prompt and let Slack decide what to fetch</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>Google Sheets node — fetch the rows first, then Slack sends per row</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>Either order works — n8n figures out the dependencies automatically</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="quiz-question-block"
+             data-correct="option-b"
+             data-explanation-right="The engine checks that credentials exist before running a node. A missing credential causes an immediate execution error — the Slack node never runs. You will see this clearly in the execution log."
+             data-explanation-wrong="n8n does not cache credentials outside of an active execution, and nodes cannot skip silently when authentication is missing. The engine validates credential existence before the node even starts.">
+          <h3 class="quiz-question">You accidentally deleted your Slack credential in n8n. The workflow that used it tries to run. What happens?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>The workflow runs anyway using a cached copy of the credential</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>n8n throws an error before the Slack node executes</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>The Slack node skips gracefully and the next node runs</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="quiz-question-block"
+             data-correct="option-b"
+             data-explanation-right="Every n8n node is a class with two things: a description object (metadata, parameters) and an execute() method (the actual logic). That is the entire contract — no database tables, no Vue components needed."
+             data-explanation-wrong="Custom nodes are self-contained TypeScript classes — the UI is generated automatically from the description object. You do not need Vue components, database tables, or REST controllers.">
+          <h3 class="quiz-question">You want to build a custom node that calls an internal API your company built. What is the minimum you need to define?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>A database table and a REST controller to store the node's config</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>A node class with a description object and an execute() method</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>A Vue component for the UI and a backend service for the logic</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module4')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module4')">Try Again</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="module" id="module-5" style="background: var(--color-bg)">
+  <div class="module-content">
+
+    <!-- MODULE HEADER -->
+    <header class="module-header animate-in">
+      <span class="module-number">05</span>
+      <h1 class="module-title">Expressions &amp; AI</h1>
+      <p class="module-subtitle">The {{ }} that makes every workflow dynamic — and the AI nodes that let your automations think.</p>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 1: WHAT ARE EXPRESSIONS?
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">That <code>{{ }}</code> is not decoration — it is code running live.</h2>
+
+      <p class="animate-in">
+        <span class="term" data-definition="An expression is a dynamic value written inside double curly braces {{ }}. Instead of a fixed string, it is a tiny JavaScript program that runs at execution time and is replaced by its result.">Expressions</span>
+        let you make node
+        <span class="term" data-definition="A parameter is a configurable field on a node — like the 'To' address on an email node or the 'URL' field on an HTTP request node. Parameters can hold fixed values or expressions.">parameters</span>
+        dynamic — instead of typing a fixed value, you write a tiny program inside double curly braces that runs at
+        <span class="term" data-definition="Runtime is the moment when the workflow is actually executing — as opposed to design time when you are building it. Expressions are evaluated at runtime, so they see the real live data.">execution time</span>.
+        The result replaces the expression, giving each item its own personalized value.
+      </p>
+
+      <p class="animate-in">
+        Think of it like a mail merge in Microsoft Word — instead of typing each person's name into 1000 letters, you write <code>{{name}}</code> and the system fills it in for each recipient.
+        n8n
+        <span class="term" data-definition="An expression in n8n is a dynamic value wrapped in double curly braces {{ }}. It lets you reference data from previous nodes, do math, format dates, and more. Powered by JavaScript.">expressions</span>
+        work the same way: <code>{{ $json.email }}</code> gets replaced at runtime with the actual email from each data item.
+      </p>
+
+      <div class="pattern-cards stagger-children animate-in">
+
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-1)">
+          <div class="pattern-icon" style="background: var(--color-actor-1)">📦</div>
+          <h4 class="pattern-title">$json</h4>
+          <p class="pattern-desc">The current item's
+            <span class="term" data-definition="JSON (JavaScript Object Notation) is the data format n8n uses internally. It looks like { name: 'Alice', age: 30 }. The $json variable gives you direct access to the current item's JSON fields.">JSON</span>
+            data. <code>{{ $json.email }}</code> reads the 'email' field from the current item being processed.</p>
+        </div>
+
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-2)">
+          <div class="pattern-icon" style="background: var(--color-actor-2)">🔗</div>
+          <h4 class="pattern-title">$node</h4>
+          <p class="pattern-desc">Data from any previous node by name.
+            <code>{{ $node['HTTP Request'].json.status }}</code> reaches back to an earlier node in the workflow regardless of how many steps away it is.</p>
+        </div>
+
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-3)">
+          <div class="pattern-icon" style="background: var(--color-actor-3)">⚙️</div>
+          <h4 class="pattern-title">$workflow</h4>
+          <p class="pattern-desc">Workflow-level info.
+            <code>{{ $workflow.id }}</code> and <code>{{ $workflow.name }}</code> give you
+            <span class="term" data-definition="Metadata is data about data — information that describes the workflow itself rather than the items flowing through it, such as the workflow's name, ID, or creation date.">metadata</span>
+            about the workflow itself.</p>
+        </div>
+
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">💡</div>
+        <div class="callout-content">
+          <strong class="callout-title">Any JavaScript Is Valid</strong>
+          <p>You can write any
+            <span class="term" data-definition="JavaScript is a programming language that runs in web browsers and on Node.js servers. n8n uses JavaScript as the language inside expressions — so any valid JavaScript expression works inside {{ }}.">JavaScript</span>
+            inside <code>{{ }}</code>. Math, string manipulation, date formatting — it is all valid. <code>{{ new Date().toISOString() }}</code> gives you the current timestamp in ISO format.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 2: CODE TRANSLATION — THE EXPRESSION EVALUATOR
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">How expressions actually get evaluated.</h2>
+
+      <p class="animate-in">
+        When a node runs and encounters <code>{{ $json.name }}</code>, the
+        <span class="term" data-definition="The expression engine is the component in n8n that parses and evaluates expressions. It runs both in the browser (for live preview) and on the server (during actual execution).">expression engine</span>
+        kicks in. Here is what happens behind the scenes in
+        <span class="term" data-definition="packages/workflow/src/expression.ts is the source file in the n8n codebase that contains the core expression evaluation logic — the code that turns {{ $json.name }} into an actual value."><code>packages/workflow/src/expression.ts</code></span>.
+      </p>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>
+<span class="code-line"><span class="code-keyword">const</span> IS_FRONTEND = <span class="code-keyword">typeof</span> process === <span class="code-string">'undefined'</span> || IS_FRONTEND_IN_DEV_MODE;</span>
+<span class="code-line"></span>
+<span class="code-line"><span class="code-keyword">const</span> isSyntaxError = (error: <span class="code-keyword">unknown</span>): error <span class="code-keyword">is</span> <span class="code-property">SyntaxError</span> =></span>
+<span class="code-line">  error <span class="code-keyword">instanceof</span> <span class="code-property">SyntaxError</span> || (error <span class="code-keyword">instanceof</span> <span class="code-property">Error</span> &amp;&amp; error.name === <span class="code-string">'SyntaxError'</span>);</span>
+<span class="code-line"></span>
+<span class="code-line"><span class="code-keyword">const</span> isExpressionError = (error: <span class="code-keyword">unknown</span>): error <span class="code-keyword">is</span> <span class="code-property">ExpressionError</span> =></span>
+<span class="code-line">  error <span class="code-keyword">instanceof</span> <span class="code-property">ExpressionError</span> || error <span class="code-keyword">instanceof</span> <span class="code-property">ExpressionExtensionError</span>;</span>
+          </code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">Detect whether we are running in the browser or on the server — expressions evaluate in both places, which is how the editor shows you a live preview before running.</p>
+            <p class="tl">A helper that checks: is this error a
+              <span class="term" data-definition="A SyntaxError is what you get when your code has a typo or structural mistake — like missing a closing bracket or using an invalid operator. In n8n expressions, it means the {{ }} content is not valid JavaScript.">JavaScript syntax error</span>
+              (like a typo in your expression)?</p>
+            <p class="tl">It checks both: is the error an actual SyntaxError object, or does it have the name 'SyntaxError' — because different environments create errors differently.</p>
+            <p class="tl">A different helper: is this error specifically an
+              <span class="term" data-definition="An ExpressionError is a runtime error that occurs when an expression tries to do something invalid — like reading a field that does not exist on the current item, or calling a function that is not available.">expression evaluation error</span>
+              (like referencing a field that does not exist)?</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-warning animate-in">
+        <div class="callout-icon">⚠️</div>
+        <div class="callout-content">
+          <strong class="callout-title">Dual-Environment Design</strong>
+          <p>This dual-environment design is why you can preview expression results in the editor before running the workflow — the same
+            <span class="term" data-definition="An evaluator is the part of the expression engine that actually executes the JavaScript code inside {{ }}. It takes the template string, runs the code, and returns the result.">evaluator</span>
+            runs in your browser for the preview and on the server for the real execution.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 3: GROUP CHAT — EXPRESSION EVALUATION IN ACTION
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">You type <code>{{ $json.email }}</code>. Here is what happens.</h2>
+
+      <p class="animate-in">
+        Follow the exact sequence of events from the moment a node encounters an expression to the moment the resolved value is used — through the eyes of the components themselves.
+      </p>
+
+      <div class="chat-window animate-in" id="chat-module5">
+        <div class="chat-messages">
+
+          <div class="chat-message" data-msg="0" data-sender="node" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-1)">N</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-1)">Node</span>
+              <p>Processing item 1. The 'To' field contains: <code>{{ $json.email }}</code></p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="1" data-sender="expr-engine" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-2)">X</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-2)">Expression Engine</span>
+              <p>Found an expression. Spinning up a sandboxed evaluator...</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="2" data-sender="expr-engine" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-2)">X</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-2)">Expression Engine</span>
+              <p>Requesting current item data from the Data Proxy...</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="3" data-sender="data-proxy" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-3)">P</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-3)">Data Proxy</span>
+              <p>Here is the current item: <code>{ email: 'alice@example.com', name: 'Alice' }</code></p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="4" data-sender="expr-engine" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-2)">X</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-2)">Expression Engine</span>
+              <p>Evaluating <code>$json.email</code> against that data... result is <code>'alice@example.com'</code></p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="5" data-sender="result" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-4)">R</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-4)">Result</span>
+              <p>Expression resolved. The To field is now: <code>alice@example.com</code></p>
+            </div>
+          </div>
+
+        </div>
+        <div class="chat-typing" style="display:none">
+          <div class="chat-avatar" id="chat-module5-typing-avatar">?</div>
+          <div class="chat-typing-dots">
+            <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+          </div>
+        </div>
+        <div class="chat-controls">
+          <button class="btn chat-next-btn">Next Message</button>
+          <button class="btn chat-all-btn">Play All</button>
+          <button class="btn chat-reset-btn">Replay</button>
+          <span class="chat-progress"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 4: FLOW ANIMATION — EXPRESSION RESOLVING
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Tracing an expression from template to value.</h2>
+
+      <p class="animate-in">
+        Five components work together every time an expression is evaluated. Click through to trace the exact path from the raw <code>{{ $json.name }}</code> template to the resolved output value.
+      </p>
+
+      <div class="flow-animation animate-in" data-steps='[
+        {"highlight":"flow-m5-param","label":"Node parameter contains {{ $json.name }} — the engine detects the double curly braces and identifies it as an expression"},
+        {"highlight":"flow-m5-engine","label":"Expression Engine receives the template string and begins processing","packet":true,"from":"m5-param","to":"m5-engine"},
+        {"highlight":"flow-m5-proxy","label":"Engine requests current item data from the Data Proxy — the component that safely exposes item data to expressions","packet":true,"from":"m5-engine","to":"m5-proxy"},
+        {"highlight":"flow-m5-sandbox","label":"Item data loaded into an isolated evaluation sandbox — the sandbox prevents expressions from accessing dangerous APIs","packet":true,"from":"m5-proxy","to":"m5-sandbox"},
+        {"highlight":"flow-m5-sandbox","label":"JavaScript evaluates $json.name — looks up the name field on the current item and returns its value"},
+        {"highlight":"flow-m5-output","label":"Resolved value replaces the expression in the node parameter — the node now has a concrete value to work with","packet":true,"from":"m5-sandbox","to":"m5-output"}
+      ]'>
+        <div class="flow-actors">
+          <div class="flow-actor" id="flow-m5-param">
+            <div class="flow-actor-icon">📝</div>
+            <span>Node Parameter</span>
+          </div>
+          <div class="flow-actor" id="flow-m5-engine">
+            <div class="flow-actor-icon">⚡</div>
+            <span>Expression Engine</span>
+          </div>
+          <div class="flow-actor" id="flow-m5-proxy">
+            <div class="flow-actor-icon">🔍</div>
+            <span>Data Proxy</span>
+          </div>
+          <div class="flow-actor" id="flow-m5-sandbox">
+            <div class="flow-actor-icon">🏖️</div>
+            <span>Sandbox</span>
+          </div>
+          <div class="flow-actor" id="flow-m5-output">
+            <div class="flow-actor-icon">✅</div>
+            <span>Output</span>
+          </div>
+        </div>
+        <div class="flow-packet" id="flow-packet"></div>
+        <div class="flow-step-label" id="flow-label">Click "Next Step" to begin</div>
+        <div class="flow-controls">
+          <button class="btn flow-next-btn">Next Step</button>
+          <button class="btn flow-reset-btn">Restart</button>
+          <span class="flow-progress"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 5: AI NODES AND LANGCHAIN
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">n8n meets AI — building intelligent workflows.</h2>
+
+      <p class="animate-in">
+        n8n ships with a full
+        <span class="term" data-definition="LangChain is an open-source framework for building applications powered by large language models (LLMs). n8n integrates LangChain natively, giving you agents, memory, tools, and model connectors as visual nodes.">LangChain</span>
+        integration, letting you build workflows that use AI models to classify, generate, summarize, and reason — all connected to your real data.
+      </p>
+
+      <div class="icon-rows stagger-children">
+
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-1)">🤖</div>
+          <div>
+            <strong>AI Agent node</strong>
+            <p>A
+              <span class="term" data-definition="ReAct (Reasoning + Acting) is an AI agent pattern where the model alternates between reasoning about a problem and taking an action (like calling a tool), then observing the result and repeating until done.">ReAct</span>-style
+              <span class="term" data-definition="An agentic workflow is one where an AI model makes decisions about what steps to take next — choosing which tools to call, in what order — rather than following a fixed predefined sequence.">agent</span>
+              that can use tools, make decisions, and loop until it has an answer.</p>
+          </div>
+        </div>
+
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-2)">💬</div>
+          <div>
+            <strong>Chat Model nodes</strong>
+            <p>Connect to OpenAI, Anthropic, Google Gemini, Ollama — any
+              <span class="term" data-definition="An LLM (Large Language Model) is an AI model trained on vast amounts of text that can understand and generate human language. Examples include GPT-4, Claude, and Gemini.">LLM</span>
+              with a simple swap of the chat model node.</p>
+          </div>
+        </div>
+
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-3)">🧠</div>
+          <div>
+            <strong>Memory nodes</strong>
+            <p>Give your AI agent conversation history — buffer memory, summary memory,
+              <span class="term" data-definition="A vector store is a database that stores data as numerical vectors (embeddings), enabling semantic similarity search. Used in AI workflows to give agents long-term memory or to search through large knowledge bases.">vector store</span>
+              memory.</p>
+          </div>
+        </div>
+
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-4)">🔧</div>
+          <div>
+            <strong>Tool nodes</strong>
+            <p>Give agents capabilities: search the web, query a database, call an HTTP endpoint, run code — tools are what turn an AI from a chatbot into an
+              <span class="term" data-definition="An autonomous agent is an AI system that can plan and execute multi-step tasks on its own, using tools and making decisions, without needing a human to specify every step.">autonomous agent</span>.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">🤖</div>
+        <div class="callout-content">
+          <strong class="callout-title">The AI Agent Node — Describe the Goal, the AI Figures Out the Steps</strong>
+          <p>The AI Agent node is how n8n builds
+            <span class="term" data-definition="Agentic means the AI is acting autonomously — making its own decisions about what to do next, which tools to call, and how to handle unexpected situations, rather than following a fixed script.">agentic</span>
+            workflows — the agent decides which tools to call, in what order, until it has solved the task. You describe the goal; the AI figures out the steps.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 6: QUIZ
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Check your understanding.</h2>
+
+      <p class="animate-in">
+        These are scenario-based questions — the kind of thinking you will use when debugging real expressions or directing AI to build intelligent workflows.
+      </p>
+
+      <div class="quiz-container animate-in" id="quiz-module5">
+
+        <!-- Q1 -->
+        <div class="scenario-block">
+          <div class="scenario-context">
+            <span class="scenario-label">Scenario</span>
+            <p>Your email node has 'Subject: Hello {{ $json.firstName }}'. You run the workflow and the email arrives with subject 'Hello undefined'. What is the most likely cause?</p>
+          </div>
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Exactly! When an expression references a field that does not exist on the item, it returns undefined. Check the output of the previous node to see the actual field name — it might be 'first_name' or 'name' instead."
+               data-explanation-wrong="Look at the data, not the syntax. {{ $json.firstName }} is valid syntax — the issue is that the item does not have a field with that exact name.">
+            <h3 class="quiz-question">What is the most likely cause of 'Hello undefined' appearing in the subject?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div><span>The expression syntax is wrong</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div><span>The item does not have a field called 'firstName' — it might be 'first_name' or 'name'</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div><span>n8n does not support expressions in email subjects</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="quiz-question-block"
+             data-correct="option-b"
+             data-explanation-right="Exactly! The AI Agent node is designed for decision-making tasks. You give it tools (like a Slack node to escalate or a Gmail node to reply) and it chooses which to call based on the ticket content."
+             data-explanation-wrong="Think about which node type is built for autonomous decision-making, not just data transformation or direct API calls.">
+          <h3 class="quiz-question">You want to build a workflow where an AI reads a support ticket and decides whether to escalate it or auto-reply. Which n8n node type is designed for this?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>HTTP Request node calling the OpenAI API directly</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>AI Agent node with escalation and reply tools attached</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span>Set node with a condition checking ticket keywords</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="quiz-question-block"
+             data-correct="option-b"
+             data-explanation-right="Exactly! The $node[] syntax lets you reach back to any previous node by its display name. This is how you access data from branches or earlier stages of a long workflow."
+             data-explanation-wrong="Remember: $input refers to the immediately previous node, and $workflow gives workflow metadata — neither lets you reference an arbitrary named node.">
+          <h3 class="quiz-question">You want to reuse the output of a node called 'Fetch Customer' in three different downstream nodes. What expression prefix accesses it by name?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span><code>{{ $input.json.field }}</code></span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span><code>{{ $node['Fetch Customer'].json.field }}</code></span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div><span><code>{{ $workflow.data.field }}</code></span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module5')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module5')">Try Again</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="module" id="module-6" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+
+    <!-- MODULE HEADER -->
+    <header class="module-header animate-in">
+      <span class="module-number">06</span>
+      <h1 class="module-title">When Things Break</h1>
+      <p class="module-subtitle">Every workflow fails eventually. Here is how to read the evidence, freeze the moment, and never miss a failure again.</p>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 1: THE EXECUTION LOG — YOUR BLACK BOX
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Every workflow run is recorded. Every one.</h2>
+
+      <p class="animate-in">
+        When something breaks, you do not need to reproduce it — n8n already captured it.
+        The
+        <span class="term" data-definition="The execution log is n8n's record of every workflow run. It shows each run's trigger time, duration, status (success or error), and the exact input and output data of every node — like a flight data recorder for your automations.">execution log</span>
+        shows you every run: what triggered it, what data flowed through each node, where it failed, and what the error was.
+      </p>
+
+      <p class="animate-in">
+        Think of it like a flight data recorder — the black box that captures every moment of a flight so investigators can reconstruct exactly what happened.
+        n8n's
+        <span class="term" data-definition="An execution is one complete run of a workflow — from trigger to the final node. n8n records every execution with a unique ID, timestamps, status, and all node input/output data.">execution</span>
+        log is your black box: it records the input,
+        <span class="term" data-definition="Output is the list of data items a node produces after running. You can see exactly what each node output in the execution log — this is how you confirm a node did what you expected.">output</span>,
+        and status of every node in every run, letting you replay the exact moment things went wrong.
+      </p>
+
+      <div class="step-cards animate-in">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Go to the Executions panel</strong>
+            <p>You will see a list of every recent run with status — green checkmark for success, red X for error, and the exact timestamp of each.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>Click the failed execution</strong>
+            <p>The workflow canvas opens, showing which node failed highlighted in red — you instantly see where in the chain the problem occurred.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Click the failed node</strong>
+            <p>See the exact
+              <span class="term" data-definition="Input items are the list of data items a node received before it ran. Seeing a node's input is the key to understanding whether the problem was with the data coming in or with the node's own logic.">input items</span>
+              it received and the full error message — including the stack trace from the external API if one was thrown.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <strong>Compare with a successful execution</strong>
+            <p>Open a previous working execution and compare the node's input — find what was different in the data that caused this run to fail.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <strong>Fix, pin, and re-run</strong>
+            <p>Fix the issue,
+              <span class="term" data-definition="Pinning data means saving a node's output so it always returns that saved data instead of making a live call. This lets you iterate on downstream nodes without re-triggering the workflow from scratch.">pin</span>
+              the problem data to reproduce it instantly, and re-run to verify your fix works.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 2: PINNED DATA — FREEZE AND TEST
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Pinned data: stop time and test with real inputs.</h2>
+
+      <p class="animate-in">
+        Imagine being able to pause a movie at the exact frame where something went wrong, then re-run every scene after that frame with the same frozen input.
+        That is what
+        <span class="term" data-definition="Pinned data is a saved snapshot of a node's output. When data is pinned, the node does not actually execute — it just returns the saved data. This is the professional way to iterate on workflow logic during development.">pinned data</span>
+        does in n8n — you freeze the upstream output and iterate on the downstream logic at full speed.
+      </p>
+
+      <div class="icon-rows stagger-children">
+
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-1)">📌</div>
+          <div>
+            <strong>Freeze a node's output</strong>
+            <p>Right-click any node and pin its output. It will always return that saved data instead of making a live call — perfect for testing expensive or hard-to-reproduce scenarios.</p>
+          </div>
+        </div>
+
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-2)">🔁</div>
+          <div>
+            <strong>Re-run downstream safely</strong>
+            <p>With the trigger and early nodes pinned, you can click Execute Workflow and only the unpinned nodes actually run — dramatically faster
+              <span class="term" data-definition="Iteration in development means running the workflow repeatedly, making small changes each time, until the output is correct. Pinned data makes iteration fast because you skip the slow live API calls.">iteration</span>.</p>
+          </div>
+        </div>
+
+        <div class="icon-row animate-in">
+          <div class="icon-circle" style="background: var(--color-actor-3)">🧪</div>
+          <div>
+            <strong>Simulate edge cases</strong>
+            <p>You can manually edit pinned data to inject
+              <span class="term" data-definition="An edge case is an unusual input scenario that might not occur often in production but can reveal bugs — like an empty array, a null field, an extremely long string, or a missing required key.">edge cases</span>:
+              empty arrays, missing fields, unusual values — test your error handling without waiting for real bad data.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">💡</div>
+        <div class="callout-content">
+          <strong class="callout-title">The Professional Way to Test</strong>
+          <p>Pinned data is the professional way to test n8n workflows. Instead of manually triggering a
+            <span class="term" data-definition="A webhook is a URL that n8n gives you. External services POST data to it to trigger your workflow. Triggering it repeatedly during testing is slow and can cause rate limits or side effects.">webhook</span>
+            20 times while debugging, pin the good output once and iterate on the logic as fast as you can type.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 3: ERROR WORKFLOWS — NEVER MISS A FAILURE
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">What happens when a workflow crashes?</h2>
+
+      <p class="animate-in">
+        By default, a failed workflow execution just silently logs the error. But you can attach an
+        <span class="term" data-definition="An Error Workflow is a separate n8n workflow that automatically runs whenever the main workflow fails. It receives the error details, execution ID, and workflow name — use it to send Slack alerts, create tickets, or page on-call engineers.">Error Workflow</span>
+        — a separate workflow that automatically runs when the first one fails and can alert your team immediately.
+      </p>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>
+<span class="code-line"><span class="code-keyword">export class</span> <span class="code-property">WorkflowExecutionService</span> {</span>
+<span class="code-line">  <span class="code-keyword">constructor</span>(</span>
+<span class="code-line">    <span class="code-keyword">private readonly</span> logger: <span class="code-property">Logger</span>,</span>
+<span class="code-line">    <span class="code-keyword">private readonly</span> errorReporter: <span class="code-property">ErrorReporter</span>,</span>
+<span class="code-line">    <span class="code-keyword">private readonly</span> failedRunFactory: <span class="code-property">FailedRunFactory</span>,</span>
+<span class="code-line">    <span class="code-keyword">private readonly</span> eventService: <span class="code-property">EventService</span>,</span>
+<span class="code-line">  ) {}</span>
+          </code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">This
+              <span class="term" data-definition="A service is a class that handles a specific area of responsibility in the application. WorkflowExecutionService manages running workflows — it is injected with the helpers it needs via dependency injection.">service</span>
+              handles running workflows — it needs several helpers injected at construction time.</p>
+            <p class="tl"><strong>Logger</strong>: records what happens for debugging — writes lines to the application log file.</p>
+            <p class="tl"><strong>ErrorReporter</strong>: sends errors to monitoring systems (like Sentry) so your engineering team sees production problems.</p>
+            <p class="tl"><strong>FailedRunFactory</strong>: builds the data object for a failed execution record — formats all the error details into the structure saved to the database.</p>
+            <p class="tl"><strong>EventService</strong>: publishes events so other parts of the system know what happened — this is what triggers the Error Workflow to fire.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">📡</div>
+        <div class="callout-content">
+          <strong class="callout-title">One Event, Many Reactions</strong>
+          <p>The
+            <span class="term" data-definition="Publish-subscribe (pub-sub) is a messaging pattern where one component publishes an event and multiple other components can subscribe to react to it — without the publisher knowing who is listening.">EventService publish-subscribe</span>
+            pattern means when a workflow fails, multiple systems can react: the Error Workflow fires, the execution log updates, monitoring alerts trigger — all from one event.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 4: GROUP CHAT — WHEN A WORKFLOW ERRORS
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">A workflow crashes. Here is who gets notified.</h2>
+
+      <p class="animate-in">
+        Follow the cascade of events from the moment a node throws an error to the moment your team receives a Slack alert — nothing falls through the cracks.
+      </p>
+
+      <div class="chat-window animate-in" id="chat-module6">
+        <div class="chat-messages">
+
+          <div class="chat-message" data-msg="0" data-sender="node" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-1)">N</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-1)">Node</span>
+              <p>I got an error! The Slack API returned 401 Unauthorized.</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="1" data-sender="exec-engine" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-2)">E</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-2)">Execution Engine</span>
+              <p>Catching the error. Marking this execution as failed.</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="2" data-sender="exec-engine" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-2)">E</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-2)">Execution Engine</span>
+              <p>Saving the full execution log — input data, error details, stack trace.</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="3" data-sender="exec-engine" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-2)">E</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-2)">Execution Engine</span>
+              <p>Checking if this workflow has an Error Workflow attached...</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="4" data-sender="err-reporter" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-3)">R</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-3)">Error Reporter</span>
+              <p>Sending error details to the monitoring system.</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="5" data-sender="err-workflow" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-4)">W</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-4)">Error Workflow</span>
+              <p>Triggered! I will send a Slack alert to the ops team.</p>
+            </div>
+          </div>
+
+          <div class="chat-message" data-msg="6" data-sender="err-workflow" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-4)">W</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-4)">Error Workflow</span>
+              <p>Alert sent: Workflow XYZ failed at 14:32. Error: Slack 401 Unauthorized.</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="chat-typing" style="display:none">
+          <div class="chat-avatar" id="chat-module6-typing-avatar">?</div>
+          <div class="chat-typing-dots">
+            <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+          </div>
+        </div>
+        <div class="chat-controls">
+          <button class="btn chat-next-btn">Next Message</button>
+          <button class="btn chat-all-btn">Play All</button>
+          <button class="btn chat-reset-btn">Replay</button>
+          <span class="chat-progress"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 5: FLOW ANIMATION — DEBUGGING WORKFLOW
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">From failure to fix — the debugging flow.</h2>
+
+      <p class="animate-in">
+        Five stages take you from a broken execution to a verified fix. Click through to trace the professional debugging path that n8n is designed to support.
+      </p>
+
+      <div class="flow-animation animate-in" data-steps='[
+        {"highlight":"flow-m6-fail","label":"Workflow execution fails — status marked as error in the database, all node inputs and outputs already saved"},
+        {"highlight":"flow-m6-log","label":"Open the execution log — find the failed run, click it to see the workflow canvas with the failed node highlighted in red","packet":true,"from":"m6-fail","to":"m6-log"},
+        {"highlight":"flow-m6-pin","label":"Pin the output of the node before the failure — this freezes that data so downstream nodes always receive the same input","packet":true,"from":"m6-log","to":"m6-pin"},
+        {"highlight":"flow-m6-fix","label":"Edit the broken node — fix the expression, URL, or parameter based on what the execution log revealed","packet":true,"from":"m6-pin","to":"m6-fix"},
+        {"highlight":"flow-m6-fix","label":"Re-run the workflow — only unpinned nodes execute, using the pinned data as input — fast iteration with real data"},
+        {"highlight":"flow-m6-verify","label":"Execution succeeds — output matches expectations, fix is confirmed","packet":true,"from":"m6-fix","to":"m6-verify"},
+        {"highlight":"flow-m6-verify","label":"Unpin data and deploy the fixed workflow to production — the debugging session is complete"}
+      ]'>
+        <div class="flow-actors">
+          <div class="flow-actor" id="flow-m6-fail">
+            <div class="flow-actor-icon">💥</div>
+            <span>Failed Execution</span>
+          </div>
+          <div class="flow-actor" id="flow-m6-log">
+            <div class="flow-actor-icon">📋</div>
+            <span>Execution Log</span>
+          </div>
+          <div class="flow-actor" id="flow-m6-pin">
+            <div class="flow-actor-icon">📌</div>
+            <span>Pinned Data</span>
+          </div>
+          <div class="flow-actor" id="flow-m6-fix">
+            <div class="flow-actor-icon">🔧</div>
+            <span>Fixed Node</span>
+          </div>
+          <div class="flow-actor" id="flow-m6-verify">
+            <div class="flow-actor-icon">✅</div>
+            <span>Verified Run</span>
+          </div>
+        </div>
+        <div class="flow-packet" id="flow-packet"></div>
+        <div class="flow-step-label" id="flow-label">Click "Next Step" to begin</div>
+        <div class="flow-controls">
+          <button class="btn flow-next-btn">Next Step</button>
+          <button class="btn flow-reset-btn">Restart</button>
+          <span class="flow-progress"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 6: THE VOCABULARY YOU NOW HAVE
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">You can now talk to AI in precise engineering terms.</h2>
+
+      <p class="animate-in">
+        The most valuable skill from this course is
+        <span class="term" data-definition="Vocabulary in a technical domain gives you precision — instead of describing a vague symptom, you can name the exact component, pattern, or mechanism involved. AI coding assistants respond dramatically better to precise technical terms.">vocabulary</span>.
+        When you describe a problem or request a feature in precise technical terms, AI coding assistants give dramatically better answers.
+      </p>
+
+      <div class="pattern-cards stagger-children">
+
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-1)">
+          <div class="pattern-icon" style="background: var(--color-actor-1)">🔄</div>
+          <h4 class="pattern-title">Instead of: "make it loop"</h4>
+          <p class="pattern-desc">Say: "use a
+            <span class="term" data-definition="SplitInBatches is an n8n node that breaks a large list of items into smaller chunks (batches) and processes each batch one at a time — ideal for rate-limited APIs or large datasets.">SplitInBatches node</span>
+            and process 10 items per batch"</p>
+        </div>
+
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-2)">
+          <div class="pattern-icon" style="background: var(--color-actor-2)">📎</div>
+          <h4 class="pattern-title">Instead of: "get the email from the last step"</h4>
+          <p class="pattern-desc">Say: "use
+            <code>{{ $node['NodeName'].json.email }}</code>
+            to reference the email field from the HTTP Request node"</p>
+        </div>
+
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-3)">
+          <div class="pattern-icon" style="background: var(--color-actor-3)">🚨</div>
+          <h4 class="pattern-title">Instead of: "when something goes wrong, tell me"</h4>
+          <p class="pattern-desc">Say: "attach an
+            <span class="term" data-definition="An Error Workflow is a separate n8n workflow that fires automatically when the main workflow fails. It receives $execution.id and the error message as inputs.">Error Workflow</span>
+            that sends a Slack message with <code>$execution.id</code> and the error message"</p>
+        </div>
+
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-4)">
+          <div class="pattern-icon" style="background: var(--color-actor-4)">🤖</div>
+          <h4 class="pattern-title">Instead of: "connect to AI"</h4>
+          <p class="pattern-desc">Say: "add an
+            <span class="term" data-definition="The AI Agent node in n8n is a ReAct-style agent that uses an LLM as its brain and can call attached tool nodes to perform actions — like sending Slack messages, querying databases, or making HTTP requests.">AI Agent node</span>
+            with GPT-4 as the chat model and a Slack tool so it can send messages"</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 7: FINAL QUIZ
+         ═══════════════════════════════════════════════ -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Final quiz — debugging in the real world.</h2>
+
+      <p class="animate-in">
+        Three scenarios you will actually encounter. Use everything from this module to reason through the right answer.
+      </p>
+
+      <div class="quiz-container animate-in" id="quiz-module6">
+
+        <!-- Q1 -->
+        <div class="scenario-block">
+          <div class="scenario-context">
+            <span class="scenario-label">Scenario</span>
+            <p>Your workflow runs successfully in execution history but the Google Sheet was not updated. The Sheet node shows green (no error).</p>
+          </div>
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Exactly! A green node means no error, but it might have received zero items (and therefore updated zero rows) or had the wrong data. Clicking the node in the execution log shows exactly what it received and what it did."
+               data-explanation-wrong="The workflow ran and appears in execution history, so activity is not the issue — inspect the node data in the execution log to find out what actually happened.">
+            <h3 class="quiz-question">What do you check next?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div><span>Check if the workflow is active</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div><span>Click the Sheet node in the execution to see its input and output items</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div><span>Delete and recreate the workflow</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="scenario-block">
+          <div class="scenario-context">
+            <span class="scenario-label">Scenario</span>
+            <p>You want to test how your workflow handles a missing 'email' field in the input data, but you cannot easily reproduce that case with real data.</p>
+          </div>
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Exactly! Pinned data is editable. You can craft any edge case by modifying the pinned JSON directly — no need for a real trigger to produce that bad data."
+               data-explanation-wrong="There is a built-in feature designed exactly for this use case — it is faster and more reliable than a separate workflow or waiting for production errors.">
+            <h3 class="quiz-question">What is the fastest way to test with a missing field?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div><span>Write a separate test workflow that generates bad data</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div><span>Pin the trigger output, edit the pinned data to remove the email field, then re-run</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div><span>Deploy to production and wait for real bad data</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="scenario-block">
+          <div class="scenario-context">
+            <span class="scenario-label">Scenario</span>
+            <p>Your production workflow fails occasionally but not consistently. You want to be alerted immediately on Slack whenever it fails.</p>
+          </div>
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Exactly! Create a separate workflow with a Workflow Error Trigger, then attach it to your main workflow. Whenever the main workflow fails, the error workflow fires automatically and sends a Slack alert with the execution ID and error details."
+               data-explanation-wrong="Think about the feature built specifically for this — it reacts automatically to failures without any manual checking or in-flow data manipulation.">
+            <h3 class="quiz-question">What do you set up to get immediate Slack alerts on failure?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div><span>Check the execution log manually every morning</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div><span>Set up an Error Workflow with a Workflow Error Trigger and a Slack node</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div><span>Use a Set node to catch errors inside the workflow</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </div>
+
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module6')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module6')">Try Again</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+  </main>
+
+</body>
+</html>
