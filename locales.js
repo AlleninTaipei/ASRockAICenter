@@ -147,15 +147,21 @@ const LOCALES = {
     },
     courses: [
       {
+        title: "Building with the Claude API",
+        desc: "Walk through fundamental API operations, advanced prompting techniques, tool integration, and architectural patterns for building AI-powered systems.",
+        link: "public/docs/en/Building%20with%20the%20Claude%20API.html",
+        type: "html"
+      },
+      {
         title: "The Anatomy of an Agent Harness",
         desc: "Explore how an agent harness turns a raw LLM into a reliable task-solving machine. Covers the core loop, tool execution, context compression (ACON), self-optimization, and the verification patterns that push benchmark scores from outside top 30 into the top 5.",
         link: "public/docs/en/Course-en/Agent_Harness_Dashboard.html",
         type: "html"
       },
       {
-        title: "Building with the Claude API",
-        desc: "Walk through fundamental API operations, advanced prompting techniques, tool integration, and architectural patterns for building AI-powered systems.",
-        link: "public/docs/en/Building%20with%20the%20Claude%20API.html",
+        title: "Inside n8n: How Workflow Automation Really Works",
+        desc: "Discover how n8n turns a visual canvas into a live automation engine. Covers the node-and-connection model, trigger types, the execution pipeline, credential management, and the AI Agent node — with interactive demos at every step.",
+        link: "public/docs/en/Course-en/n8n-course/index.html",
         type: "html"
       },
       {
@@ -165,21 +171,15 @@ const LOCALES = {
         type: "html"
       },
       {
-        title: "How OpenClaw Works — An Interactive Course",
-        desc: "A deep-dive into OpenClaw, your AI across every channel. Learn how a single brain can reply on WhatsApp, iPhone, and Mac — and how its five core characters, plugin system, and 24/7 health monitoring hold it all together.",
-        link: "public/docs/en/Course-en/openclaw-course/index.html",
-        type: "html"
-      },
-      {
         title: "How OpenCode Works",
         desc: "Trace what happens under the hood when you type a request in OpenCode — from message to code. Covers the three-agent reasoning loop (Build / Plan / General), tool architecture, memory system, and multi-interface engine.",
         link: "public/docs/en/Course-en/opencode-course/index.html",
         type: "html"
       },
       {
-        title: "Autoresearch: How AI Teaches Itself",
-        desc: "Discover how an AI agent runs 100 experiments overnight and gets smarter each time. Covers the three-file architecture (train.py, prepare.py, program.md), the automated experiment loop, and how val_bpb drives every decision.",
-        link: "public/docs/en/Course-en/autoresearch-course/index.html",
+        title: "How OpenClaw Works — An Interactive Course",
+        desc: "A deep-dive into OpenClaw, your AI across every channel. Learn how a single brain can reply on WhatsApp, iPhone, and Mac — and how its five core characters, plugin system, and 24/7 health monitoring hold it all together.",
+        link: "public/docs/en/Course-en/openclaw-course/index.html",
         type: "html"
       },
       {
@@ -189,9 +189,9 @@ const LOCALES = {
         type: "html"
       },
       {
-        title: "Inside n8n: How Workflow Automation Really Works",
-        desc: "Discover how n8n turns a visual canvas into a live automation engine. Covers the node-and-connection model, trigger types, the execution pipeline, credential management, and the AI Agent node — with interactive demos at every step.",
-        link: "public/docs/en/Course-en/n8n-course/index.html",
+        title: "Autoresearch: How AI Teaches Itself",
+        desc: "Discover how an AI agent runs 100 experiments overnight and gets smarter each time. Covers the three-file architecture (train.py, prepare.py, program.md), the automated experiment loop, and how val_bpb drives every decision.",
+        link: "public/docs/en/Course-en/autoresearch-course/index.html",
         type: "html"
       }
     ],
