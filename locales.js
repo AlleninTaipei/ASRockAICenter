@@ -195,6 +195,31 @@ const LOCALES = {
         type: "html"
       }
     ],
+    blogsSection: {
+      title: "Blogs Worth Reading"
+    },
+    blogs: [
+      {
+        title: "Letters from Andrew Ng",
+        desc: "Weekly letters on AI trends, research, and the broader impact of machine learning — from one of the field's most respected voices.",
+        link: "https://www.deeplearning.ai/the-batch/tag/letters/"
+      },
+      {
+        title: "Andrej Karpathy",
+        desc: "Deep dives into LLMs, neural networks, and AI systems from the former Tesla AI director and OpenAI co-founder.",
+        link: "https://karpathy.ai/"
+      },
+      {
+        title: "antirez",
+        desc: "Software craftsmanship and systems thinking from the creator of Redis — on code quality, design, and the philosophy of building software.",
+        link: "https://antirez.com/latest/0"
+      },
+      {
+        title: "Peter Steinberger",
+        desc: "Perspectives on Apple platforms, AI integration, and developer tooling from the founder of PSPDFKit.",
+        link: "https://steipete.me/"
+      }
+    ],
     youtubeSection: {
       title: "On-premise AI Videos",
       query: "On-premise AI",

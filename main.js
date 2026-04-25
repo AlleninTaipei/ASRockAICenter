@@ -92,6 +92,18 @@ function renderCourses(t) {
   `).join('');
 }
 
+function renderBlogs() {
+  const grid = document.getElementById('blogs-grid');
+  if (!grid) return;
+  const items = LOCALES['en'].blogs;
+  grid.innerHTML = items.map(item => `
+    <a href="${item.link}" class="link-card" data-type="external" target="_blank" rel="noopener noreferrer">
+      <div class="link-title">${item.title}</div>
+      <div class="link-description">${item.desc}</div>
+    </a>
+  `).join('');
+}
+
 function renderContact(t) {
   const container = document.getElementById('contact-cards');
   if (!container) return;
@@ -136,6 +148,7 @@ function applyLocale(lang) {
   renderSuccessStories(t);
   renderResources(t);
   renderCourses(t);
+  renderBlogs();
   renderContact(t);
 
   // Language toggle button label
