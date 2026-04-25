@@ -147,6 +147,12 @@ const LOCALES = {
     },
     courses: [
       {
+        title: "The Anatomy of an Agent Harness",
+        desc: "Explore how an agent harness turns a raw LLM into a reliable task-solving machine. Covers the core loop, tool execution, context compression (ACON), self-optimization, and the verification patterns that push benchmark scores from outside top 30 into the top 5.",
+        link: "public/docs/en/Course-en/Agent_Harness_Dashboard.html",
+        type: "html"
+      },
+      {
         title: "Building with the Claude API",
         desc: "Walk through fundamental API operations, advanced prompting techniques, tool integration, and architectural patterns for building AI-powered systems.",
         link: "public/docs/en/Building%20with%20the%20Claude%20API.html",
