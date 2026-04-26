@@ -107,6 +107,18 @@ const LOCALES = {
           { icon: "📈", value: "↑", label: "care adherence" }
         ],
         desc: "An AI-powered personalized education system built on a medical knowledge base. Adapts content to each patient's literacy level, supports multilingual Q&A, and generates take-home materials."
+      },
+      {
+        icon: "🎨",
+        company: "Hardware Brand Team",
+        industry: "Consumer Electronics / Marketing & Design",
+        quote: "From ideas to visuals in seconds — not weeks",
+        metrics: [
+          { icon: "⏱", value: "80%", label: "faster visual iteration" },
+          { icon: "💰", value: "↓", label: "outsourcing cost" },
+          { icon: "🔁", value: "∞", label: "creative variations" }
+        ],
+        desc: "An AI-powered visual generation and collaboration platform built for internal teams. Enables anyone to instantly create, share, and remix high-quality visuals without design or AI expertise. Combines templated workflows, shared galleries, and parameter-aware remixing to turn individual outputs into reusable team knowledge, accelerating alignment and creative production across departments."
       }
     ],
     resources: {
@@ -322,7 +334,7 @@ const LOCALES = {
         "name": "SquadForge", "icon": "🦞",
         "subtitle": "企業級 AI，在你的算力上運行",
         "tagline": "「在 AI 時代，算力就是戰略。掌握它。」",
-        "desc": "SquadForge 讓你的組織轉型為 AI 原生團隊，為每位員工部署專屬 AI 代理，全面運行於企業自有的本地 AI 基礎設施之上。當他人依賴外部 API、按 token 付費時，你運行的是自有算力：可預測、可擴展、完全掌控。無外部依賴，無資料外流。所有任務持續、自主地在你的系統中執行。這不是 SaaS，而是你的 AI 生產體系。"
+        "desc": "為每位員工部署專屬 AI 代理，全面運行於企業自有的本地 AI 基礎設施之上。當他人依賴外部 API、按 token 付費時，你運行的是自有算力：可預測、可擴展、完全掌控。無外部依賴，無資料外流。所有任務持續、自主地在你的系統中執行。這不是 SaaS，而是你的 AI 生產體系。"
       }
     ],
     successStoriesSection: {
@@ -340,6 +352,18 @@ const LOCALES = {
           { icon: "📈", value: "↑", label: "照護依從性提升" }
         ],
         desc: "AI 驅動的個人化衛教系統，整合醫療知識庫，依病患理解程度自動調整內容，支援多語語音問答，並產出個人化帶回資料。"
+      },
+      {
+        icon: "🎨",
+        company: "硬體品牌行銷團隊",
+        industry: "消費性電子 / 行銷與設計",
+        quote: "從想法到視覺，只需幾秒，而不是幾週",
+        metrics: [
+          { icon: "⏱", value: "80%", label: "視覺迭代速度提升" },
+          { icon: "💰", value: "↓", label: "外包成本降低" },
+          { icon: "🔁", value: "∞", label: "創意變體產出" }
+        ],
+        desc: "一套為企業內部打造的 AI 視覺生成與協作平台，讓任何人無需設計或 AI 背景，即可快速產出高品質視覺內容。透過模板化工作流程、共享圖庫與參數可追溯的 Remix 機制，將個人創作轉化為團隊可累積與複用的視覺知識，大幅提升跨部門溝通效率與創意產出速度。"
       }
     ],
     resources: {
