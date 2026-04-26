@@ -129,7 +129,8 @@ const LOCALES = {
           { "icon": "⏱", "value": "80%", "label": "faster subtitle turnaround" },
           { "icon": "💰", "value": "↓60%", "label": "translation cost" },
           { "icon": "🔒", "value": "100%", "label": "on-prem data privacy" }
-        ]
+        ],
+        "desc": "Powered by an on-prem AI workstation, the automated subtitle pipeline integrates speech recognition, translation, and timeline alignment into a single streamlined workflow. What once took days of manual effort can now be completed in just a few hours. With built-in context optimization and a fast human-in-the-loop editing interface, teams can maintain high quality while dramatically increasing output speed—turning multilingual publishing into a scalable, repeatable process without exposing sensitive content."
       }
     ],
     resources: {
