@@ -119,6 +119,17 @@ const LOCALES = {
           { icon: "🔁", value: "∞", label: "creative variations" }
         ],
         desc: "An AI-powered visual generation and collaboration platform built for internal teams. Enables anyone to instantly create, share, and remix high-quality visuals without design or AI expertise. Combines templated workflows, shared galleries, and parameter-aware remixing to turn individual outputs into reusable team knowledge, accelerating alignment and creative production across departments."
+      },
+      {
+        "icon": "🏭",
+        "company": "Digital Media Publisher",
+        "industry": "Content Publishing / Localization",
+        "quote": "Turning content localization into a real-time production pipeline",
+        "metrics": [
+          { "icon": "⏱", "value": "80%", "label": "faster subtitle turnaround" },
+          { "icon": "💰", "value": "↓60%", "label": "translation cost" },
+          { "icon": "🔒", "value": "100%", "label": "on-prem data privacy" }
+        ]
       }
     ],
     resources: {
@@ -364,6 +375,18 @@ const LOCALES = {
           { icon: "🔁", value: "∞", label: "創意變體產出" }
         ],
         desc: "一套為企業內部打造的 AI 視覺生成與協作平台，讓任何人無需設計或 AI 背景，即可快速產出高品質視覺內容。透過模板化工作流程、共享圖庫與參數可追溯的 Remix 機制，將個人創作轉化為團隊可累積與複用的視覺知識，大幅提升跨部門溝通效率與創意產出速度。"
+      },
+      {
+        "icon": "🏭",
+        "company": "數位媒體出版業者",
+        "industry": "內容出版 / 多語在地化",
+        "quote": "讓每一支內容，都能在最短時間內跨語言觸及更多受眾",
+        "metrics": [
+          { "icon": "⏱", "value": "80%", "label": "字幕產出時間縮短" },
+          { "icon": "💰", "value": "↓60%", "label": "翻譯與製作成本降低" },
+          { "icon": "🔒", "value": "100%", "label": "內容全程本地處理" }
+        ],
+        "desc": "導入本地AI工作站與自動化字幕處理管線，整合語音辨識、機器翻譯與時間軸對齊技術，將原本需多日的人工作業壓縮至數小時內完成。系統支援內容語境優化與快速人工校對介面，確保品質與一致性，同時避免敏感素材外流，打造高效率且可控的多語內容生產流程。"
       }
     ],
     resources: {
