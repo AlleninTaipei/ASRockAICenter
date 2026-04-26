@@ -131,6 +131,30 @@ const LOCALES = {
           { "icon": "🔒", "value": "100%", "label": "on-prem data privacy" }
         ],
         "desc": "Powered by an on-prem AI workstation, the automated subtitle pipeline integrates speech recognition, translation, and timeline alignment into a single streamlined workflow. What once took days of manual effort can now be completed in just a few hours. With built-in context optimization and a fast human-in-the-loop editing interface, teams can maintain high quality while dramatically increasing output speed—turning multilingual publishing into a scalable, repeatable process without exposing sensitive content."
+      },
+      {
+        "icon": "📘",
+        "company": "K-12 Test Prep Publisher",
+        "industry": "Education / Learning Content",
+        "quote": "From static textbooks to personalized learning experiences",
+        "metrics": [
+          { "icon": "⏱", "value": "70%", "label": "content production time reduced" },
+          { "icon": "🎯", "value": "+40%", "label": "student engagement" },
+          { "icon": "📈", "value": "↑", "label": "learning outcomes" }
+        ],
+        "desc": "By integrating AI into their content workflow, the publisher transforms traditional test prep materials into interactive, personalized learning experiences. The system automatically generates explanations, practice variations, and adaptive learning paths based on student performance. What was once static content is now a dynamic learning platform that continuously adapts to each learner’s needs."
+      },
+      {
+        "icon": "⚽",
+        "company": "Amateur Football Team",
+        "industry": "Sports / Team Performance",
+        "quote": "From match footage to real coaching insights — without a full-time analyst",
+        "metrics": [
+          { "icon": "⏱", "value": "90%", "label": "analysis time reduced" },
+          { "icon": "🎯", "value": "+35%", "label": "tactical execution" },
+          { "icon": "📊", "value": "Weekly", "label": "player performance reports" }
+        ],
+        "desc": "Using an AI-powered video analysis system, the team automatically transforms match and training footage into actionable coaching insights. The system detects player positioning, tactical execution, and key mistakes, generating annotated video highlights and concise analysis summaries. What once required hours of manual review is now delivered as fast, continuous feedback — enabling the team to improve with every game."
       }
     ],
     resources: {
@@ -388,6 +412,30 @@ const LOCALES = {
           { "icon": "🔒", "value": "100%", "label": "內容全程本地處理" }
         ],
         "desc": "導入本地AI工作站與自動化字幕處理管線，整合語音辨識、機器翻譯與時間軸對齊技術，將原本需多日的人工作業壓縮至數小時內完成。系統支援內容語境優化與快速人工校對介面，確保品質與一致性，同時避免敏感素材外流，打造高效率且可控的多語內容生產流程。"
+      },
+      {
+        "icon": "📘",
+        "company": "高中參考書出版業者",
+        "industry": "教育 / 學習內容",
+        "quote": "讓每一本參考書，都能變成真正因材施教的學習系統",
+        "metrics": [
+          { "icon": "⏱", "value": "70%", "label": "內容製作時間縮短" },
+          { "icon": "🎯", "value": "+40%", "label": "學生學習投入度提升" },
+          { "icon": "📈", "value": "↑", "label": "學習成效提升" }
+        ],
+        "desc": "透過AI技術，將傳統參考書內容轉化為互動式與個人化的學習體驗。系統可自動生成題目解析、延伸練習與分層學習路徑，並依據學生表現動態調整內容難度。讓原本靜態的教材升級為持續進化的學習平台，不僅提升學習效率，也強化學生理解與應用能力。"
+      },
+      {
+        "icon": "⚽",
+        "company": "業餘足球隊",
+        "industry": "運動 / 球隊表現提升",
+        "quote": "沒有專職分析師，也能做出像職業隊一樣的戰術檢討",
+        "metrics": [
+          { "icon": "⏱", "value": "90%", "label": "影片分析時間縮短" },
+          { "icon": "🎯", "value": "+35%", "label": "戰術執行成功率提升" },
+          { "icon": "📊", "value": "每週產出", "label": "球員表現報告" }
+        ],
+        "desc": "透過AI影片分析系統，球隊將比賽與訓練影片自動轉換為可行動的教練洞察。系統能辨識球員跑位、戰術執行情況與關鍵失誤，自動生成標註影片與分析摘要，並產出個人與團隊報告。讓原本需耗費數小時的人工作業，轉變為即時且持續的數據回饋，幫助球隊在每一場比賽中持續進步。"
       }
     ],
     resources: {
