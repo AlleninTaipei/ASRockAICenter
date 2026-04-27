@@ -93,7 +93,8 @@ const LOCALES = {
       }
     ],
     successStoriesSection: {
-      title: "Success Stories"
+      title: "Pilot Projects",
+      subtitle: "Our Pilot Projects represent collaborative efforts to explore cutting-edge solutions in specific industries. Some projects are focused on technical validation and R&D."
     },
     successStories: [
       {
@@ -374,7 +375,8 @@ const LOCALES = {
       }
     ],
     successStoriesSection: {
-      title: "成功案例"
+      title: "領航專案",
+      subtitle: "領航專案代表我們與特定產業共同探索前瞻方案的成果，部分專案著重於技術驗證與研發合作。"
     },
     successStories: [
       {

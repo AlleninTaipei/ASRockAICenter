@@ -331,6 +331,16 @@ h2::after {
     color: rgba(255, 255, 255, 0.95);
 }
 
+/* Success Stories Section Subtitle */
+.section-subtitle {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 720px;
+    margin: -10px auto 40px;
+}
+
 /* Success Stories Grid */
 .success-stories-grid {
     display: grid;
