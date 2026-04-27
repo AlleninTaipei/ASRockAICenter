@@ -476,6 +476,31 @@ const LOCALES = {
     coursesSection: {
       title: "開發者課程"
     },
+    blogsSection: {
+      title: "值得一讀的部落格"
+    },
+    blogs: [
+      {
+        title: "Letters from Andrew Ng",
+        desc: "來自 AI 領域最受尊敬的聲音之一——吳恩達每週親筆分享 AI 趨勢、前沿研究與機器學習對世界的深遠影響。",
+        link: "https://www.deeplearning.ai/the-batch/tag/letters/"
+      },
+      {
+        title: "Andrej Karpathy",
+        desc: "前 Tesla AI 總監、OpenAI 共同創辦人對大型語言模型、神經網路與 AI 系統的深度剖析。",
+        link: "https://karpathy.ai/"
+      },
+      {
+        title: "antirez",
+        desc: "Redis 創作者談軟體工藝與系統思維——關於程式碼品質、設計哲學，以及「把事情做好」的本質。",
+        link: "https://antirez.com/latest/0"
+      },
+      {
+        title: "Peter Steinberger",
+        desc: "PSPDFKit 創辦人分享 Apple 平台、AI 整合與開發者工具的第一線觀察與實務見解。",
+        link: "https://steipete.me/"
+      }
+    ],
     youtubeSection: {
       title: "本地部署 AI 影片",
       query: "本地AI",
