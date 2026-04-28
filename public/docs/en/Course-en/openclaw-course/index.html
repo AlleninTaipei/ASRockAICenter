@@ -764,70 +764,96 @@
       </section>
 
       <!-- ═══════════════════════════════════════════════════════
-           SCREEN 5 — Drag-and-drop quiz
+           SCREEN 5 — Dropdown matching quiz
            ══════════════════════════════════════════════════════ -->
       <section class="screen animate-in">
         <h2 class="screen-heading">Match each job to its character</h2>
 
         <p>
-          Drag each character name to the zone that describes its job.
+          Choose the correct character for each description.
           If you get stuck, re-read the icon rows on the first screen of this module.
         </p>
 
-        <div class="dnd-container animate-in" id="dnd-module2">
+        <div class="match-container animate-in" id="dnd-module2">
 
-          <!-- Chips -->
-          <div class="dnd-chips">
-            <div class="dnd-chip" draggable="true" data-answer="Router">Router</div>
-            <div class="dnd-chip" draggable="true" data-answer="Pi Agent">Pi Agent</div>
-            <div class="dnd-chip" draggable="true" data-answer="Gateway">Gateway</div>
-            <div class="dnd-chip" draggable="true" data-answer="Channel">Channel</div>
-            <div class="dnd-chip" draggable="true" data-answer="Plugin">Plugin</div>
-          </div>
-
-          <!-- Drop zones -->
+          <!-- Matching zones — each zone has a description label and a select dropdown -->
           <div class="dnd-zones">
 
             <div class="dnd-zone" data-correct="Router">
               <div class="dnd-zone-label">
                 Produces a <span class="term" data-definition="A unique string that encodes agent, channel, and account IDs — used to find and load the right conversation history.">session key</span> and routes each message to the right AI agent
               </div>
-              <div class="dnd-zone-target">Drop here</div>
+              <select class="match-select">
+                <option value="">— select —</option>
+                <option value="Router">Router</option>
+                <option value="Pi Agent">Pi Agent</option>
+                <option value="Gateway">Gateway</option>
+                <option value="Channel">Channel</option>
+                <option value="Plugin">Plugin</option>
+              </select>
             </div>
 
             <div class="dnd-zone" data-correct="Pi Agent">
               <div class="dnd-zone-label">
                 Runs the AI <span class="term" data-definition="The large language model — Claude, GPT, Gemini — that generates text responses when given a prompt.">model</span>, holds conversation history, executes <span class="term" data-definition="Functions the AI can call during a reply — web search, code execution, calendar access.">tools</span>
               </div>
-              <div class="dnd-zone-target">Drop here</div>
+              <select class="match-select">
+                <option value="">— select —</option>
+                <option value="Router">Router</option>
+                <option value="Pi Agent">Pi Agent</option>
+                <option value="Gateway">Gateway</option>
+                <option value="Channel">Channel</option>
+                <option value="Plugin">Plugin</option>
+              </select>
             </div>
 
             <div class="dnd-zone" data-correct="Gateway">
               <div class="dnd-zone-label">
                 The central <span class="term" data-definition="WebSocket — a persistent full-duplex connection protocol. The Gateway listens on this protocol so all components can connect in real time.">WebSocket</span> hub everything connects through
               </div>
-              <div class="dnd-zone-target">Drop here</div>
+              <select class="match-select">
+                <option value="">— select —</option>
+                <option value="Router">Router</option>
+                <option value="Pi Agent">Pi Agent</option>
+                <option value="Gateway">Gateway</option>
+                <option value="Channel">Channel</option>
+                <option value="Plugin">Plugin</option>
+              </select>
             </div>
 
             <div class="dnd-zone" data-correct="Channel">
               <div class="dnd-zone-label">
                 Translates between OpenClaw and a specific messaging app — handles <span class="term" data-definition="Converting a platform-native message format (e.g. Telegram JSON) into OpenClaw's internal envelope format so all channels look the same to the router.">normalization</span> and delivery
               </div>
-              <div class="dnd-zone-target">Drop here</div>
+              <select class="match-select">
+                <option value="">— select —</option>
+                <option value="Router">Router</option>
+                <option value="Pi Agent">Pi Agent</option>
+                <option value="Gateway">Gateway</option>
+                <option value="Channel">Channel</option>
+                <option value="Plugin">Plugin</option>
+              </select>
             </div>
 
             <div class="dnd-zone" data-correct="Plugin">
               <div class="dnd-zone-label">
                 An optional <span class="term" data-definition="Node Package Manager — the standard JavaScript/TypeScript package registry. OpenClaw plugins are distributed as npm packages.">npm</span> package that extends capabilities (new channels, providers, tools)
               </div>
-              <div class="dnd-zone-target">Drop here</div>
+              <select class="match-select">
+                <option value="">— select —</option>
+                <option value="Router">Router</option>
+                <option value="Pi Agent">Pi Agent</option>
+                <option value="Gateway">Gateway</option>
+                <option value="Channel">Channel</option>
+                <option value="Plugin">Plugin</option>
+              </select>
             </div>
 
           </div><!-- /.dnd-zones -->
 
           <div style="display: flex; gap: var(--space-3); margin-top: var(--space-6);">
-            <button class="quiz-check-btn" onclick="checkDnD('dnd-module2')">Check Answers</button>
-            <button class="quiz-reset-btn" onclick="resetDnD('dnd-module2')">Reset</button>
+            <button class="quiz-check-btn" onclick="checkMatch('dnd-module2')">Check Answers</button>
+            <button class="quiz-reset-btn" onclick="resetMatch('dnd-module2')">Reset</button>
           </div>
 
         </div><!-- /#dnd-module2 -->
