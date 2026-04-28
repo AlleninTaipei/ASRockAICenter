@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Anatomy of an Agent Harness</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+           background: #0f1117; color: #e2e8f0; line-height: 1.7; }
+
+    header { background: linear-gradient(135deg, #1a1f2e 0%, #0f1117 100%);
+             border-bottom: 1px solid #2d3748; padding: 48px 24px 40px; text-align: center; }
+    header h1 { font-size: 2.2rem; font-weight: 700; color: #f7fafc; }
+    header p  { margin-top: 10px; color: #a0aec0; font-size: 1.05rem;
+                max-width: 640px; margin-inline: auto; }
+    header .source { margin-top: 16px; font-size: 0.78rem; color: #4a5568; }
+    header .source a { color: #4a9eda; text-decoration: none; }
+    header .source a:hover { color: #90cdf4; text-decoration: underline; }
+
+    main    { max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; }
+    section { margin-bottom: 56px; }
+    h2 { font-size: 1.4rem; font-weight: 600; color: #90cdf4;
+         border-left: 4px solid #4299e1; padding-left: 14px; margin-bottom: 20px; }
+    h3 { font-size: 1.05rem; font-weight: 600; color: #e2e8f0; margin: 18px 0 8px; }
+    p  { color: #a0aec0; margin-bottom: 12px; }
+
+    .code-block { background: #0d1117; border: 1px solid #2d3748; border-radius: 8px;
+      padding: 16px 18px; font-family: "SF Mono", "Fira Code", monospace; font-size: 0.82rem;
+      color: #e2e8f0; overflow-x: auto; margin-top: 14px; line-height: 1.75; white-space: pre; }
+    .kw  { color: #9f7aea; }
+    .fn  { color: #68d391; }
+    .str { color: #f6ad55; }
+    .cmt { color: #4a5568; font-style: italic; }
+    .key { color: #63b3ed; }
+
+    .info-box { background: #1a202c; border: 1px solid #2a4a6a; border-radius: 10px;
+      padding: 16px 20px; margin-top: 14px; }
+    .info-box .tag { display: inline-block; background: #2a4a6a; color: #90cdf4;
+      font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 4px;
+      margin-bottom: 10px; letter-spacing: 0.05em; }
+    .info-box p { color: #a0aec0; font-size: 0.88rem; margin: 0; }
+
+    .takeaway { background: linear-gradient(135deg, #1a2a1a, #1a202c);
+      border: 1px solid #276749; border-radius: 10px; padding: 20px 24px; margin-top: 16px; }
+    .takeaway p { color: #c6f6d5; font-size: 0.9rem; margin: 0; }
+
+    .api-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+    .field { background: #1a202c; border: 1px solid #2d3748; border-radius: 8px; padding: 14px 16px; }
+    .field .name { font-family: monospace; font-size: 0.85rem; color: #68d391; font-weight: 600; }
+    .field .desc { font-size: 0.82rem; color: #718096; margin-top: 4px; }
+
+    .event-list { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
+    .event-item { background: #1a202c; border: 1px solid #2d3748; border-radius: 6px;
+      padding: 10px 14px; display: flex; gap: 14px; align-items: baseline; }
+    .event-name { font-family: monospace; font-size: 0.82rem; color: #68d391;
+      min-width: 170px; flex-shrink: 0; }
+    .event-desc { font-size: 0.82rem; color: #718096; }
+
+    .response-box { background: #1a202c; border: 1px solid #2d3748; border-radius: 10px;
+      padding: 20px; margin-top: 16px; }
+    .response-field { display: flex; gap: 16px; padding: 9px 0; border-bottom: 1px solid #2d3748; }
+    .response-field:last-child { border-bottom: none; }
+    .rf-key { font-family: monospace; font-size: 0.82rem; color: #f6ad55;
+               width: 150px; flex-shrink: 0; }
+    .rf-val { font-size: 0.84rem; color: #a0aec0; }
+
+    .scope-badge { display: inline-block; font-size: 0.58rem; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px;
+      vertical-align: middle; margin-left: 10px; position: relative; top: -2px; }
+    .scope-universal { background: #1a3a28; color: #68d391; border: 1px solid #276749; }
+    .scope-specific  { background: #2d1f4a; color: #b794f4; border: 1px solid #553c8b; }
+    .scope-legend { display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+      background: #1a202c; border: 1px solid #2d3748; border-radius: 8px;
+      padding: 10px 18px; margin-bottom: 36px; }
+    .scope-legend-label { font-size: 0.72rem; color: #4a5568; font-weight: 700; }
+    .scope-legend-item  { display: flex; align-items: center; gap: 6px; font-size: 0.72rem; color: #718096; }
+
+    .btn { padding: 9px 20px; border-radius: 8px; font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; border: none; transition: all 0.2s; }
+    .btn-primary { background: #2b6cb0; color: #fff; }
+    .btn-primary:hover:not(:disabled) { background: #3182ce; }
+    .btn-primary:disabled { background: #2d3748; color: #4a5568; cursor: default; }
+    .btn-ghost { background: transparent; color: #718096; border: 1px solid #2d3748; }
+    .btn-ghost:hover:not(:disabled) { color: #e2e8f0; border-color: #4a5568; }
+    .btn-ghost:disabled { opacity: 0.4; cursor: default; }
+    .step-indicator { color: #718096; font-size: 0.82rem; margin-left: auto; }
+    .demo-controls  { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; align-items: center; }
+
+    .stage-tabs { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+    .stage-tab  { padding: 7px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
+      cursor: pointer; border: 1px solid #2d3748; background: #1a202c; color: #718096; transition: all 0.2s; }
+    .stage-tab.active { background: #2b6cb0; border-color: #4299e1; color: #fff; }
+    .stage-tab.done   { background: #276749; border-color: #48bb78; color: #c6f6d5; }
+
+    .demo-panel { display: none; }
+    .demo-panel.visible { display: block; animation: fadeIn 0.25s ease; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(5px) } to { opacity:1; transform:none } }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
+    .col-card { background: #1a202c; border: 1px solid #2d3748; border-radius: 10px; padding: 16px 18px; }
+    .col-card-title { font-size: 0.73rem; font-weight: 700; letter-spacing: 0.07em;
+      text-transform: uppercase; color: #4a5568; margin-bottom: 10px; }
+    .col-card p { font-size: 0.83rem; color: #a0aec0; margin-bottom: 6px; }
+    .col-card p:last-child { margin-bottom: 0; }
+
+    .chip-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; align-items: center; }
+    .chip-label { font-size: 0.73rem; color: #4a5568; font-weight: 700; text-transform: uppercase;
+                  letter-spacing: 0.06em; }
+    .chip { padding: 5px 13px; border-radius: 20px; font-size: 0.78rem; font-weight: 600;
+      cursor: pointer; border: 1px solid #2d3748; background: #1a202c; color: #718096;
+      transition: all 0.2s; user-select: none; }
+    .chip.active { background: #1c3a2a; border-color: #38a169; color: #68d391; }
+    .chip:hover:not(.active) { border-color: #4a5568; color: #a0aec0; }
+
+    .panel-inner { padding: 20px; background: #151b27; border: 1px solid #2d3748;
+      border-radius: 10px; }
+    .panel-inner h3 { font-size: 1rem; color: #90cdf4; margin: 0 0 10px; }
+    .panel-inner > p { font-size: 0.88rem; }
+    .panel-inner .event-list { margin-top: 10px; }
+    .panel-inner .api-fields { margin-top: 10px; }
+    .panel-inner .two-col { margin-top: 10px; }
+    .panel-inner .info-box { margin-top: 10px; }
+    .panel-inner .takeaway { margin-top: 10px; }
+    .panel-inner .code-block { margin-top: 10px; }
+
+    .stat-row { display: flex; gap: 14px; margin-top: 20px; flex-wrap: wrap; }
+    .stat-card { background: #1a202c; border: 1px solid #2d3748; border-radius: 10px;
+      padding: 20px; flex: 1; min-width: 150px; }
+    .stat-value { font-size: 2rem; font-weight: 700; color: #68d391; line-height: 1; }
+    .stat-label { font-size: 0.78rem; color: #718096; margin-top: 6px; line-height: 1.5; }
+
+    @media (max-width: 640px) {
+      .api-fields, .two-col, .stat-row { grid-template-columns: 1fr; }
+      .stat-row { flex-direction: column; }
+      header h1 { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>The Anatomy of an Agent Harness</h1>
+  <p>A deep dive into orchestration loops, tools, memory, context management, and everything that transforms a stateless LLM into a capable agent.</p>
+  <p class="source">source：<a href="https://x.com/akshay_pachaar/status/2041146899319971922" target="_blank" rel="noopener">@akshay_pachaar</a></p>
+</header>
+
+<main>
+
+  <div class="scope-legend">
+    <span class="scope-legend-label">SCOPE</span>
+    <span class="scope-legend-item"><span class="scope-badge scope-universal">UNIVERSAL</span> applies across all frameworks</span>
+    <span class="scope-legend-item"><span class="scope-badge scope-specific">FRAMEWORK-SPECIFIC</span> implementation varies by platform</span>
+  </div>
+
+  <!-- ── Section 1: What Is the Agent Harness? ── -->
+  <section>
+    <h2>What Is the Agent Harness? <span class="scope-badge scope-universal">UNIVERSAL</span></h2>
+    <p>The term was formalized in early 2026, but the concept existed long before. The harness is the complete software infrastructure wrapping an LLM: orchestration loop, tools, memory, context management, state persistence, error handling, and guardrails.</p>
+
+    <div class="response-box">
+      <div class="response-field">
+        <span class="rf-key">Agent</span>
+        <span class="rf-val">The emergent behavior — the goal-directed, tool-using, self-correcting entity the user interacts with. When someone says "I built an agent," they mean they built a harness and pointed it at a model.</span>
+      </div>
+      <div class="response-field">
+        <span class="rf-key">Harness</span>
+        <span class="rf-val">The machinery producing agent behavior. Anthropic's Claude Code docs: "the SDK is the agent harness that powers Claude Code." OpenAI's Codex explicitly equates "agent" and "harness" to refer to the non-model infrastructure.</span>
+      </div>
+      <div class="response-field">
+        <span class="rf-key">Context Window</span>
+        <span class="rf-val">Serves as RAM — fast but limited. Key information must be actively managed within this scarce resource.</span>
+      </div>
+      <div class="response-field">
+        <span class="rf-key">External Databases</span>
+        <span class="rf-val">Function as disk storage — large but slow. Provides persistence across sessions.</span>
+      </div>
+      <div class="response-field">
+        <span class="rf-key">Tool Integrations</span>
+        <span class="rf-val">Act as device drivers — connect the model to the outside world via defined schemas.</span>
+      </div>
+      <div class="response-field">
+        <span class="rf-key">The Harness itself</span>
+        <span class="rf-val">Is the operating system. Beren Millidge (2023): "We have reinvented the Von Neumann architecture" — a natural abstraction for any computing system built around a stateless compute core.</span>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <div class="tag">EVIDENCE</div>
+      <p>LangChain changed <em>only</em> the infrastructure wrapping their LLM — same model, same weights — and jumped from outside the top 30 to rank 5 on TerminalBench 2.0. A separate research project hit 76.4% pass rate by having an LLM optimize the infrastructure itself, surpassing hand-designed systems.</p>
+    </div>
+
+    <div class="takeaway">
+      <p>"If you're not the model, you're the harness." — LangChain's Vivek Trivedy. A raw LLM is a CPU with no RAM, no disk, and no I/O. The harness is the operating system that makes it useful.</p>
+    </div>
+  </section>
+
+  <!-- ── Section 2: Three Levels of Engineering ── -->
+  <section>
+    <h2>Three Levels of Engineering <span class="scope-badge scope-universal">UNIVERSAL</span></h2>
+    <p>Three concentric levels surround the model. Each level builds on the previous; the harness encompasses all of them.</p>
+
+    <div class="stage-tabs">
+      <div class="eng-tab stage-tab active" onclick="engGoTo(0)">1 · Prompt Engineering</div>
+      <div class="eng-tab stage-tab" onclick="engGoTo(1)">2 · Context Engineering</div>
+      <div class="eng-tab stage-tab" onclick="engGoTo(2)">3 · Harness Engineering</div>
+    </div>
+
+    <div class="eng-panel demo-panel visible" id="eng-p0">
+      <div class="panel-inner">
+        <h3>Prompt Engineering</h3>
+        <p>Crafts the instructions the model receives at each turn. The innermost layer — focused on <em>what</em> to say to the model. Effective prompts position critical instructions at the beginning and end of the context window to counter the "Lost in the Middle" effect.</p>
+        <div class="info-box">
+          <div class="tag">SCOPE</div>
+          <p>Operates at a single-turn level. Does not address what happens across turns, what data to include, or what the model should do after generating output.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="eng-panel demo-panel" id="eng-p1">
+      <div class="panel-inner">
+        <h3>Context Engineering</h3>
+        <p>Manages what the model sees and when — controlling the entire information landscape across turns. Goes beyond individual prompts to handle retrieval, compression, and prioritization of context.</p>
+        <div class="info-box">
+          <div class="tag">SCOPE</div>
+          <p>Anthropic's context engineering goal: find the smallest possible set of high-signal tokens that maximize likelihood of the desired outcome. Context rot — performance degrades 30%+ when key content falls in mid-window positions (Stanford's "Lost in the Middle").</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="eng-panel demo-panel" id="eng-p2">
+      <div class="panel-inner">
+        <h3>Harness Engineering</h3>
+        <p>Encompasses both prompt and context engineering, plus the entire application infrastructure: tool orchestration, state persistence, error recovery, verification loops, safety enforcement, and lifecycle management.</p>
+        <div class="info-box">
+          <div class="tag">SCOPE</div>
+          <p>The harness is not a wrapper around a prompt. It is the complete system that makes autonomous agent behavior possible — deciding when to call the model, what tools to expose, how to recover from failures, and when to stop.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-controls">
+      <button class="btn btn-ghost" id="engPrev" disabled onclick="engGoTo(engStep - 1)">← Back</button>
+      <button class="btn btn-primary" id="engNext" onclick="engGoTo(engStep + 1)">Next →</button>
+      <span class="step-indicator" id="engIndicator">Level 1 of 3</span>
+    </div>
+  </section>
+
+  <!-- ── Section 3: The 12 Components ── -->
+  <section>
+    <h2>The 12 Components of a Production Harness <span class="scope-badge scope-universal">UNIVERSAL</span></h2>
+    <p>Synthesizing across Anthropic, OpenAI, LangChain, and the broader practitioner community. Select any component to explore it.</p>
+
+    <div class="chip-row">
+      <span class="chip-label">Component:</span>
+      <span class="comp-chip chip active" onclick="compSelect(0)">1 · Orchestration Loop</span>
+      <span class="comp-chip chip" onclick="compSelect(1)">2 · Tools</span>
+      <span class="comp-chip chip" onclick="compSelect(2)">3 · Memory</span>
+      <span class="comp-chip chip" onclick="compSelect(3)">4 · Context Mgmt</span>
+      <span class="comp-chip chip" onclick="compSelect(4)">5 · Prompt Construction</span>
+      <span class="comp-chip chip" onclick="compSelect(5)">6 · Output Parsing</span>
+      <span class="comp-chip chip" onclick="compSelect(6)">7 · State Management</span>
+      <span class="comp-chip chip" onclick="compSelect(7)">8 · Error Handling</span>
+      <span class="comp-chip chip" onclick="compSelect(8)">9 · Guardrails &amp; Safety</span>
+      <span class="comp-chip chip" onclick="compSelect(9)">10 · Verification Loops</span>
+      <span class="comp-chip chip" onclick="compSelect(10)">11 · Subagent Orchestration</span>
+      <span class="comp-chip chip" onclick="compSelect(11)">12 · Loop in Motion</span>
+    </div>
+
+    <!-- 1: Orchestration Loop -->
+    <div class="comp-panel demo-panel visible" id="comp-p0">
+      <div class="panel-inner">
+        <h3>The Orchestration Loop — The Heartbeat</h3>
+        <p>Implements the Thought-Action-Observation (TAO) cycle, also called the ReAct loop. Mechanically it's often just a <code>while</code> loop. The complexity lives in everything the loop manages, not the loop itself.</p>
+        <pre class="code-block"><span class="kw">while</span> <span class="key">not_done</span>:
+    <span class="key">prompt</span>  = <span class="fn">assemble_prompt</span>(<span class="key">context</span>, <span class="key">memory</span>, <span class="key">tools</span>)
+    <span class="key">output</span>  = <span class="fn">call_llm</span>(<span class="key">prompt</span>)
+    <span class="key">actions</span> = <span class="fn">parse_tool_calls</span>(<span class="key">output</span>)
+    <span class="kw">if</span> <span class="key">actions</span>:
+        <span class="key">results</span> = <span class="fn">execute_tools</span>(<span class="key">actions</span>)
+        <span class="fn">append_to_context</span>(<span class="key">results</span>)
+    <span class="kw">else</span>:
+        <span class="kw">return</span> <span class="key">output</span>  <span class="cmt"># final answer — no more tool calls</span></pre>
+        <div class="info-box">
+          <div class="tag">ANTHROPIC</div>
+          <p>Anthropic describes their runtime as a "dumb loop" where all intelligence lives in the model. The harness just manages turns — it does not reason, plan, or decide. Those are the model's jobs.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2: Tools -->
+    <div class="comp-panel demo-panel" id="comp-p1">
+      <div class="panel-inner">
+        <h3>Tools — The Agent's Hands</h3>
+        <p>Defined as schemas (name, description, parameter types) injected into the LLM's context so the model knows what actions are available. The tool layer handles registration, validation, execution, and result formatting.</p>
+        <div class="api-fields">
+          <div class="field">
+            <div class="name">Claude Code</div>
+            <div class="desc">Six categories: file operations, search, execution, web access, code intelligence, and subagent spawning.</div>
+          </div>
+          <div class="field">
+            <div class="name">OpenAI Agents SDK</div>
+            <div class="desc">Function tools (@function_tool), hosted tools (WebSearch, CodeInterpreter, FileSearch), and MCP server tools.</div>
+          </div>
+          <div class="field">
+            <div class="name">Schema Injection</div>
+            <div class="desc">Tool definitions go into context so the model knows what actions are possible at each turn.</div>
+          </div>
+          <div class="field">
+            <div class="name">Lazy Loading</div>
+            <div class="desc">Claude Code achieves 95% context reduction by exposing only the minimum tool set needed for the current step.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3: Memory -->
+    <div class="comp-panel demo-panel" id="comp-p2">
+      <div class="panel-inner">
+        <h3>Memory — Multiple Timescales</h3>
+        <p>Short-term memory is conversation history within a single session. Long-term memory persists across sessions.</p>
+        <div class="event-list">
+          <div class="event-item">
+            <span class="event-name">Short-term</span>
+            <span class="event-desc">Conversation history in the current session — lives in the context window.</span>
+          </div>
+          <div class="event-item">
+            <span class="event-name">Anthropic</span>
+            <span class="event-desc">CLAUDE.md project files + auto-generated MEMORY.md. Three-tier hierarchy: lightweight index (~150 chars/entry, always loaded), detailed topic files on demand, raw transcripts via search only.</span>
+          </div>
+          <div class="event-item">
+            <span class="event-name">LangGraph</span>
+            <span class="event-desc">Namespace-organized JSON Stores for cross-session persistence.</span>
+          </div>
+          <div class="event-item">
+            <span class="event-name">OpenAI</span>
+            <span class="event-desc">Sessions backed by SQLite or Redis for durable state storage.</span>
+          </div>
+        </div>
+        <div class="takeaway">
+          <p>Critical design principle: the agent treats its own memory as a "hint" and verifies against actual state before acting. Memory is a claim about what existed when it was written — not necessarily what exists now.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4: Context Management -->
+    <div class="comp-panel demo-panel" id="comp-p3">
+      <div class="panel-inner">
+        <h3>Context Management — Where Agents Fail Silently</h3>
+        <p>Context rot: model performance degrades 30%+ when key content falls in mid-window positions (Stanford's "Lost in the Middle"). Even million-token windows suffer instruction-following degradation as context grows.</p>
+        <div class="event-list">
+          <div class="event-item">
+            <span class="event-name">Compaction</span>
+            <span class="event-desc">Summarizes history approaching limits. Claude Code preserves architectural decisions and unresolved bugs while discarding redundant tool outputs.</span>
+          </div>
+          <div class="event-item">
+            <span class="event-name">Observation Masking</span>
+            <span class="event-desc">JetBrains' Junie hides old tool outputs while keeping tool calls visible — reducing noise without losing the action trail.</span>
+          </div>
+          <div class="event-item">
+            <span class="event-name">Just-in-Time Retrieval</span>
+            <span class="event-desc">Lightweight identifiers maintained; data loaded dynamically. Claude Code uses grep, glob, head, tail rather than loading full files.</span>
+          </div>
+          <div class="event-item">
+            <span class="event-name">Sub-agent Delegation</span>
+            <span class="event-desc">Subagents explore extensively but return only 1,000–2,000 token condensed summaries to the parent context.</span>
+          </div>
+        </div>
+        <div class="info-box">
+          <div class="tag">RESEARCH</div>
+          <p>ACON research: 26–54% token reduction while preserving 95%+ accuracy by prioritizing reasoning traces over raw tool outputs.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5: Prompt Construction -->
+    <div class="comp-panel demo-panel" id="comp-p4">
+      <div class="panel-inner">
+        <h3>Prompt Construction — What the Model Actually Sees</h3>
+        <p>Hierarchically assembles everything at each step. The ordering and priority of elements directly determines model behavior.</p>
+        <div class="response-box">
+          <div class="response-field">
+            <span class="rf-key">① System Prompt</span>
+            <span class="rf-val">Highest priority. Server-controlled in OpenAI's Codex. Sets the agent's persona, capabilities, and core instructions.</span>
+          </div>
+          <div class="response-field">
+            <span class="rf-key">② Tool Definitions</span>
+            <span class="rf-val">Schema of all available tools injected so the model knows what actions are possible at this turn.</span>
+          </div>
+          <div class="response-field">
+            <span class="rf-key">③ Memory Files</span>
+            <span class="rf-val">Relevant long-term memory pulled in on demand: project context, user preferences, prior decisions.</span>
+          </div>
+          <div class="response-field">
+            <span class="rf-key">④ Conversation History</span>
+            <span class="rf-val">Prior turns in this session. Actively managed to avoid context rot.</span>
+          </div>
+          <div class="response-field">
+            <span class="rf-key">⑤ User Message</span>
+            <span class="rf-val">The current request. OpenAI Codex supports cascading AGENTS.md files (32 KiB limit) at this layer — developer instructions with decreasing priority.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6: Output Parsing -->
+    <div class="comp-panel demo-panel" id="comp-p5">
+      <div class="panel-inner">
+        <h3>Output Parsing — Structured Over Free-Text</h3>
+        <p>Modern harnesses rely on native tool calling: the model returns structured <code>tool_calls</code> objects rather than free-text that must be regex-parsed.</p>
+        <div class="two-col">
+          <div class="col-card">
+            <div class="col-card-title">Modern: Native Tool Calling</div>
+            <p>Model returns structured <code>tool_calls</code>. Harness checks: tool calls present? Execute and loop. None? Final answer.</p>
+            <p>Both OpenAI and LangChain support schema-constrained responses via Pydantic models.</p>
+          </div>
+          <div class="col-card">
+            <div class="col-card-title">Legacy: RetryWithErrorOutputParser</div>
+            <p>Feeds the original prompt, the failed completion, and the parsing error back to the model for a retry.</p>
+            <p>Still available for edge cases where structured output fails or models lack native tool support.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7: State Management -->
+    <div class="comp-panel demo-panel" id="comp-p6">
+      <div class="panel-inner">
+        <h3>State Management — Persistence and Resume</h3>
+        <p>How the harness checkpoints work, enables recovery after interruptions, and maintains continuity across context windows.</p>
+        <div class="event-list">
+          <div class="event-item">
+            <span class="event-name">LangGraph</span>
+            <span class="event-desc">Typed dictionaries flowing through graph nodes, reducers merging updates. Checkpointing at super-step boundaries enables resume after interruptions and time-travel debugging.</span>
+          </div>
+          <div class="event-item">
+            <span class="event-name">OpenAI (4 strategies)</span>
+            <span class="event-desc">Application memory, SDK sessions, server-side Conversations API, or lightweight previous_response_id chaining. Mutually exclusive by design.</span>
+          </div>
+          <div class="event-item">
+            <span class="event-name">Claude Code</span>
+            <span class="event-desc">Git commits as checkpoints + progress files as structured scratchpads. The filesystem itself provides continuity across context windows.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8: Error Handling -->
+    <div class="comp-panel demo-panel" id="comp-p7">
+      <div class="panel-inner">
+        <h3>Error Handling — Errors Compound Fast</h3>
+        <p>A 10-step process with 99% per-step success rate still has only ~90.4% end-to-end success. Error recovery is not optional in production.</p>
+        <div class="api-fields">
+          <div class="field">
+            <div class="name">Transient</div>
+            <div class="desc">Retry with exponential backoff. Network timeouts, rate limits, temporary failures. Stripe caps retries at two.</div>
+          </div>
+          <div class="field">
+            <div class="name">LLM-Recoverable</div>
+            <div class="desc">Return error as ToolMessage so the model can adjust its approach and retry differently — keeps the loop running.</div>
+          </div>
+          <div class="field">
+            <div class="name">User-Fixable</div>
+            <div class="desc">Interrupt for human input. The agent cannot self-correct — it needs information only the user can provide.</div>
+          </div>
+          <div class="field">
+            <div class="name">Unexpected</div>
+            <div class="desc">Bubble up for debugging. Do not silently swallow errors that indicate harness bugs — they will recur.</div>
+          </div>
+        </div>
+        <div class="info-box">
+          <div class="tag">ANTHROPIC APPROACH</div>
+          <p>Anthropic catches failures within tool handlers and returns them as error results to keep the loop running — the model then decides how to adapt. Stripe's production harness caps retry attempts at two to prevent runaway loops.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9: Guardrails & Safety -->
+    <div class="comp-panel demo-panel" id="comp-p8">
+      <div class="panel-inner">
+        <h3>Guardrails and Safety — Defense in Depth</h3>
+        <div class="two-col">
+          <div class="col-card">
+            <div class="col-card-title">OpenAI SDK — 3 Levels</div>
+            <p><strong>Input guardrails:</strong> run on first agent before the model sees the message.</p>
+            <p><strong>Output guardrails:</strong> run on final output before delivery to the user.</p>
+            <p><strong>Tool guardrails:</strong> run on every tool invocation. A "tripwire" mechanism halts the agent immediately when triggered.</p>
+          </div>
+          <div class="col-card">
+            <div class="col-card-title">Anthropic Architecture</div>
+            <p>Permission enforcement is architecturally <em>separate</em> from model reasoning. The model decides what to attempt; the tool system decides what is allowed.</p>
+            <p>Claude Code gates ~40 discrete tool capabilities across three stages: trust establishment, permission check before each call, and explicit user confirmation for high-risk operations.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10: Verification Loops -->
+    <div class="comp-panel demo-panel" id="comp-p9">
+      <div class="panel-inner">
+        <h3>Verification Loops — What Separates Demos from Production</h3>
+        <div class="event-list">
+          <div class="event-item">
+            <span class="event-name">Rules-Based</span>
+            <span class="event-desc">Tests, linters, type checkers. Deterministic ground truth — catches objective correctness failures before they propagate.</span>
+          </div>
+          <div class="event-item">
+            <span class="event-name">Visual Feedback</span>
+            <span class="event-desc">Screenshots via Playwright for UI tasks. Captures what the model cannot infer from source code alone.</span>
+          </div>
+          <div class="event-item">
+            <span class="event-name">LLM-as-Judge</span>
+            <span class="event-desc">A separate subagent evaluates output. Catches semantic issues but adds latency. Inferential, not deterministic.</span>
+          </div>
+        </div>
+        <div class="takeaway">
+          <p>Boris Cherny, creator of Claude Code: giving the model a way to verify its own work improves quality by 2–3×. Verification is not overhead — it is the mechanism that makes agents reliable.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11: Subagent Orchestration -->
+    <div class="comp-panel demo-panel" id="comp-p10">
+      <div class="panel-inner">
+        <h3>Subagent Orchestration — Parallel Execution Models</h3>
+        <div class="event-list">
+          <div class="event-item">
+            <span class="event-name">Claude Code: Fork</span>
+            <span class="event-desc">Byte-identical copy of parent context. Subagent inherits everything the parent knows at the moment of forking.</span>
+          </div>
+          <div class="event-item">
+            <span class="event-name">Claude Code: Teammate</span>
+            <span class="event-desc">Separate terminal pane with file-based mailbox communication. Truly independent — no shared context.</span>
+          </div>
+          <div class="event-item">
+            <span class="event-name">Claude Code: Worktree</span>
+            <span class="event-desc">Own git worktree and isolated branch per agent. Used for parallel development tasks that must not collide.</span>
+          </div>
+          <div class="event-item">
+            <span class="event-name">OpenAI: Agents-as-Tools</span>
+            <span class="event-desc">Specialist handles a bounded subtask and returns result to the parent agent.</span>
+          </div>
+          <div class="event-item">
+            <span class="event-name">OpenAI: Handoffs</span>
+            <span class="event-desc">Specialist takes full control from the parent — transfer of authority, not just data.</span>
+          </div>
+          <div class="event-item">
+            <span class="event-name">LangGraph</span>
+            <span class="event-desc">Implements subagents as nested state graphs — composable and inspectable.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12: Loop in Motion (nested 7-step navigator) -->
+    <div class="comp-panel demo-panel" id="comp-p11">
+      <div class="panel-inner">
+        <h3>The Loop in Motion: A Step-by-Step Walkthrough</h3>
+        <p>How all twelve components work together in a single TAO cycle. Step through each phase:</p>
+
+        <div class="stage-tabs" style="margin-top: 14px;">
+          <div class="loop-tab stage-tab active" onclick="loopGoTo(0)">① Prompt Assembly</div>
+          <div class="loop-tab stage-tab" onclick="loopGoTo(1)">② LLM Inference</div>
+          <div class="loop-tab stage-tab" onclick="loopGoTo(2)">③ Output Classification</div>
+          <div class="loop-tab stage-tab" onclick="loopGoTo(3)">④ Tool Execution</div>
+          <div class="loop-tab stage-tab" onclick="loopGoTo(4)">⑤ Result Packaging</div>
+          <div class="loop-tab stage-tab" onclick="loopGoTo(5)">⑥ Context Update</div>
+          <div class="loop-tab stage-tab" onclick="loopGoTo(6)">⑦ Loop / Terminate</div>
+        </div>
+
+        <div class="loop-panel demo-panel visible" id="loop-p0">
+          <div class="info-box">
+            <div class="tag">STEP 1</div>
+            <p>The harness constructs the full input: system prompt + tool schemas + memory files + conversation history + current user message. Critical context is positioned at the beginning and end of the prompt to counter the "Lost in the Middle" degradation.</p>
+          </div>
+        </div>
+        <div class="loop-panel demo-panel" id="loop-p1">
+          <div class="info-box">
+            <div class="tag">STEP 2</div>
+            <p>The assembled prompt goes to the model API. The model generates output tokens — text, tool call requests, or both. The harness waits for the complete response before proceeding.</p>
+          </div>
+        </div>
+        <div class="loop-panel demo-panel" id="loop-p2">
+          <div class="info-box">
+            <div class="tag">STEP 3</div>
+            <p>Three outcomes: (1) text with no tool calls → loop ends, this is the final answer; (2) tool calls present → proceed to execution; (3) handoff requested → update the current agent and restart the loop.</p>
+          </div>
+        </div>
+        <div class="loop-panel demo-panel" id="loop-p3">
+          <div class="info-box">
+            <div class="tag">STEP 4</div>
+            <p>For each tool call: validate arguments, check permissions, execute in a sandboxed environment, capture results. Read-only operations can run concurrently; mutating operations run serially to prevent conflicts.</p>
+          </div>
+        </div>
+        <div class="loop-panel demo-panel" id="loop-p4">
+          <div class="info-box">
+            <div class="tag">STEP 5</div>
+            <p>Tool results are formatted as LLM-readable messages. Errors are caught inside tool handlers and returned as error results — not exceptions — so the model can self-correct in the next turn rather than silently failing.</p>
+          </div>
+        </div>
+        <div class="loop-panel demo-panel" id="loop-p5">
+          <div class="info-box">
+            <div class="tag">STEP 6</div>
+            <p>Results are appended to conversation history. If approaching the context window limit, the harness triggers compaction — summarizing history and discarding low-signal content while preserving key decisions and unresolved bugs.</p>
+          </div>
+        </div>
+        <div class="loop-panel demo-panel" id="loop-p6">
+          <div class="info-box">
+            <div class="tag">STEP 7</div>
+            <p>Return to Step 1. A simple question: 1–2 turns. A complex refactoring task: dozens of tool calls across many turns. Termination conditions (layered): no tool calls produced · max turns exceeded · token budget exhausted · guardrail tripwire fires · user interrupts · safety refusal returned.</p>
+          </div>
+        </div>
+
+        <div class="demo-controls">
+          <button class="btn btn-ghost" id="loopPrev" disabled onclick="loopGoTo(loopStep - 1)">← Back</button>
+          <button class="btn btn-primary" id="loopNext" onclick="loopGoTo(loopStep + 1)">Next →</button>
+          <span class="step-indicator" id="loopIndicator">Step 1 of 7</span>
+        </div>
+
+        <div class="info-box" style="margin-top: 18px;">
+          <div class="tag">LONG-RUNNING: THE RALPH LOOP</div>
+          <p>For tasks spanning multiple context windows, Anthropic developed a two-phase pattern. An <strong>Initializer Agent</strong> sets up the environment: init script, progress file, feature list, initial git commit. A <strong>Coding Agent</strong> in every subsequent session reads git logs and progress files to orient itself, picks the highest-priority incomplete feature, works on it, commits, and writes summaries. The filesystem provides continuity — not the context window.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Section 4: How Real Frameworks Implement ── -->
+  <section>
+    <h2>How Real Frameworks Implement the Pattern <span class="scope-badge scope-specific">FRAMEWORK-SPECIFIC</span></h2>
+    <p>The same twelve components manifest differently across frameworks. Select a framework to see its architectural approach.</p>
+
+    <div class="chip-row">
+      <span class="chip-label">Framework:</span>
+      <span class="fw-chip chip active" onclick="fwSelect(0)">Anthropic</span>
+      <span class="fw-chip chip" onclick="fwSelect(1)">OpenAI</span>
+      <span class="fw-chip chip" onclick="fwSelect(2)">LangGraph</span>
+      <span class="fw-chip chip" onclick="fwSelect(3)">CrewAI</span>
+      <span class="fw-chip chip" onclick="fwSelect(4)">AutoGen</span>
+    </div>
+
+    <div class="fw-panel demo-panel visible" id="fw-p0">
+      <div class="panel-inner">
+        <h3>Anthropic — Claude Agent SDK</h3>
+        <p>Exposes the harness through a single <code>query()</code> function that creates the agentic loop and returns an async iterator streaming messages. Philosophy: "dumb loop" — all intelligence lives in the model.</p>
+        <pre class="code-block"><span class="cmt"># Single entry point — harness manages everything below</span>
+<span class="kw">async for</span> <span class="key">message</span> <span class="kw">in</span> <span class="fn">query</span>(<span class="key">prompt</span>=<span class="str">"refactor auth module"</span>, <span class="key">tools</span>=<span class="key">tools</span>):
+    <span class="fn">print</span>(<span class="key">message</span>)</pre>
+        <div class="event-list">
+          <div class="event-item">
+            <span class="event-name">Gather-Act-Verify</span>
+            <span class="event-desc">Claude Code's cycle: gather context (search, read files) → take action (edit, run commands) → verify results (run tests, check output) → repeat.</span>
+          </div>
+          <div class="event-item">
+            <span class="event-name">Harness Thickness</span>
+            <span class="event-desc">Bets on thin harnesses + model improvement. Anthropic regularly deletes planning steps from Claude Code as new model versions internalize those capabilities.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fw-panel demo-panel" id="fw-p1">
+      <div class="panel-inner">
+        <h3>OpenAI — Agents SDK</h3>
+        <p>Implements the harness through the <code>Runner</code> class with three modes. "Code-first": workflow logic expressed in native Python rather than graph DSLs.</p>
+        <pre class="code-block"><span class="key">result</span> = <span class="kw">await</span> <span class="key">Runner</span>.<span class="fn">run</span>(<span class="key">agent</span>, <span class="str">"analyze this codebase"</span>)    <span class="cmt"># async</span>
+<span class="key">result</span> = <span class="key">Runner</span>.<span class="fn">run_sync</span>(<span class="key">agent</span>, <span class="str">"analyze this codebase"</span>)   <span class="cmt"># sync</span>
+<span class="kw">async for</span> <span class="key">event</span> <span class="kw">in</span> <span class="key">Runner</span>.<span class="fn">run_streamed</span>(<span class="key">agent</span>, <span class="key">msg</span>):         <span class="cmt"># streamed</span>
+    <span class="fn">handle</span>(<span class="key">event</span>)</pre>
+        <div class="event-list">
+          <div class="event-item">
+            <span class="event-name">Codex Architecture</span>
+            <span class="event-desc">Three layers: Codex Core (agent code + runtime), App Server (bidirectional JSON-RPC API), client surfaces (CLI, VS Code, web). All surfaces share the same harness.</span>
+          </div>
+          <div class="event-item">
+            <span class="event-name">Priority Stack</span>
+            <span class="event-desc">Server system message → tool definitions → developer instructions → user instructions (cascading AGENTS.md, 32 KiB limit) → conversation history.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fw-panel demo-panel" id="fw-p2">
+      <div class="panel-inner">
+        <h3>LangGraph — Explicit State Graph</h3>
+        <p>Models the harness as an explicit state graph. Two core nodes connected by a conditional edge. Evolved from LangChain's AgentExecutor, deprecated in v0.2 for being hard to extend and lacking multi-agent support.</p>
+        <pre class="code-block"><span class="key">graph</span>.<span class="fn">add_node</span>(<span class="str">"llm_call"</span>,  <span class="key">llm_call</span>)
+<span class="key">graph</span>.<span class="fn">add_node</span>(<span class="str">"tool_node"</span>, <span class="key">tool_node</span>)
+<span class="key">graph</span>.<span class="fn">add_conditional_edges</span>(
+    <span class="str">"llm_call"</span>,
+    <span class="key">has_tool_calls</span>,
+    {<span class="key">True</span>: <span class="str">"tool_node"</span>, <span class="key">False</span>: <span class="key">END</span>}
+)</pre>
+        <div class="info-box">
+          <div class="tag">DEEP AGENTS</div>
+          <p>LangChain's Deep Agents explicitly use the term "agent harness": built-in tools, planning via a write_todos tool, file systems for context management, subagent spawning, and persistent memory. This is where the term entered mainstream practitioner vocabulary.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="fw-panel demo-panel" id="fw-p3">
+      <div class="panel-inner">
+        <h3>CrewAI — Role-Based Multi-Agent</h3>
+        <p>Three core primitives define the architecture. The Flows layer adds a deterministic backbone on top of autonomous crew execution.</p>
+        <div class="api-fields">
+          <div class="field">
+            <div class="name">Agent</div>
+            <div class="desc">The harness around the LLM, defined by role, goal, backstory, and tools. The "who" in the system.</div>
+          </div>
+          <div class="field">
+            <div class="name">Task</div>
+            <div class="desc">The unit of work. Assigned to an agent with defined expected output and acceptance criteria.</div>
+          </div>
+          <div class="field">
+            <div class="name">Crew</div>
+            <div class="desc">The collection of agents. Orchestrates collaborative execution across the team toward a shared goal.</div>
+          </div>
+          <div class="field">
+            <div class="name">Flows Layer</div>
+            <div class="desc">"Deterministic backbone with intelligence where it matters" — manages routing and validation while Crews handle autonomous collaboration.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fw-panel demo-panel" id="fw-p4">
+      <div class="panel-inner">
+        <h3>AutoGen / Microsoft Agent Framework — Conversation-Driven</h3>
+        <p>Pioneered conversation-driven orchestration. Evolving into Microsoft Agent Framework. Three-layer architecture (Core, AgentChat, Extensions) supporting five orchestration patterns.</p>
+        <div class="event-list">
+          <div class="event-item">
+            <span class="event-name">Sequential</span>
+            <span class="event-desc">Agents execute in order. Simple pipelines where each step depends on the previous result.</span>
+          </div>
+          <div class="event-item">
+            <span class="event-name">Concurrent</span>
+            <span class="event-desc">Fan-out / fan-in. Multiple agents work in parallel; results are consolidated by an aggregator.</span>
+          </div>
+          <div class="event-item">
+            <span class="event-name">Group Chat</span>
+            <span class="event-desc">Multiple agents in a shared conversation, each contributing domain expertise.</span>
+          </div>
+          <div class="event-item">
+            <span class="event-name">Handoff</span>
+            <span class="event-desc">Control transfers from one agent to another based on task domain or capability match.</span>
+          </div>
+          <div class="event-item">
+            <span class="event-name">Magentic</span>
+            <span class="event-desc">A manager agent maintains a dynamic task ledger, coordinating specialists. The most sophisticated pattern — and the most expensive in LLM calls.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Section 5: The Scaffolding Metaphor ── -->
+  <section>
+    <h2>The Scaffolding Metaphor <span class="scope-badge scope-universal">UNIVERSAL</span></h2>
+
+    <div class="info-box">
+      <div class="tag">METAPHOR</div>
+      <p>"Construction scaffolding is temporary infrastructure that enables workers to build a structure they couldn't reach otherwise. It doesn't do the construction. But without it, workers can't reach the upper floors."</p>
+    </div>
+
+    <div class="two-col">
+      <div class="col-card">
+        <div class="col-card-title">The Co-Evolution Principle</div>
+        <p>Models are now post-trained with specific harnesses in the loop. Claude Code's model learned to use the specific harness it was trained with.</p>
+        <p>Changing tool implementations can degrade performance because of this tight coupling — the model has implicit expectations about tool behavior baked into its weights.</p>
+      </div>
+      <div class="col-card">
+        <div class="col-card-title">Manus: 5 Rebuilds in 6 Months</div>
+        <p>Each rewrite <em>removed</em> complexity: complex tool definitions became general shell execution; "management agents" became simple structured handoffs.</p>
+        <p>This is the trajectory. As models improve, harness complexity decreases. The scaffolding is removed when the building is complete.</p>
+      </div>
+    </div>
+
+    <div class="takeaway">
+      <p>The "future-proofing test" for harness design: if performance scales up with more powerful models <em>without adding harness complexity</em>, the design is sound. If you need more harness complexity to get better results from a better model, something is wrong with the architecture.</p>
+    </div>
+  </section>
+
+  <!-- ── Section 6: Seven Decisions ── -->
+  <section>
+    <h2>Seven Decisions That Define Every Harness <span class="scope-badge scope-universal">UNIVERSAL</span></h2>
+    <p>Every harness architect faces these choices. Each involves a genuine tradeoff — there is no universally correct answer.</p>
+
+    <div class="event-list">
+      <div class="event-item">
+        <span class="event-name">Single vs. Multi-Agent</span>
+        <span class="event-desc">Both Anthropic and OpenAI: maximize a single agent first. Multi-agent adds overhead — extra LLM calls for routing, context loss at handoffs. Split only when tool overload exceeds ~10 overlapping tools, or clearly separate task domains exist.</span>
+      </div>
+      <div class="event-item">
+        <span class="event-name">ReAct vs. Plan-Execute</span>
+        <span class="event-desc">ReAct interleaves reasoning and action at every step — flexible but higher per-step cost. Plan-and-execute separates planning from execution. LLMCompiler reports 3.6× speedup over sequential ReAct for parallelizable tasks.</span>
+      </div>
+      <div class="event-item">
+        <span class="event-name">Context Window Strategy</span>
+        <span class="event-desc">Five production approaches: time-based clearing · conversation summarization · observation masking · structured note-taking · sub-agent delegation. ACON: 26–54% token reduction while preserving 95%+ accuracy by prioritizing reasoning traces over raw tool outputs.</span>
+      </div>
+      <div class="event-item">
+        <span class="event-name">Verification Loop Design</span>
+        <span class="event-desc">Computational verification (tests, linters) provides deterministic ground truth. Inferential verification (LLM-as-judge) catches semantic issues but adds latency. Thoughtworks frames this as guides (feedforward, steer before action) vs. sensors (feedback, observe after action).</span>
+      </div>
+      <div class="event-item">
+        <span class="event-name">Permission Architecture</span>
+        <span class="event-desc">Permissive (fast but risky, auto-approve most actions) vs. restrictive (safe but slow, require approval for each action). The correct choice depends entirely on deployment context and the consequences of an error.</span>
+      </div>
+      <div class="event-item">
+        <span class="event-name">Tool Scoping</span>
+        <span class="event-desc">More tools often means worse performance. Vercel removed 80% of tools from v0 and got better results. Claude Code achieves 95% context reduction via lazy loading. Expose the minimum tool set needed for the current step — not everything the agent could ever need.</span>
+      </div>
+      <div class="event-item">
+        <span class="event-name">Harness Thickness</span>
+        <span class="event-desc">How much logic lives in the harness vs. the model. Anthropic bets on thin harnesses + model improvement. Graph-based frameworks bet on explicit control. No universal right answer — depends on which direction you expect to get leverage from.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Section 7: The Harness Is the Product ── -->
+  <section>
+    <h2>The Harness Is the Product <span class="scope-badge scope-universal">UNIVERSAL</span></h2>
+    <p>Two products using identical models can have wildly different performance based solely on harness design. The TerminalBench evidence is unambiguous.</p>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-value">20+</div>
+        <div class="stat-label">ranking positions gained on TerminalBench by changing only the harness — same model, same weights</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">76.4%</div>
+        <div class="stat-label">pass rate achieved by having an LLM optimize the infrastructure itself, surpassing all hand-designed systems</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">2–3×</div>
+        <div class="stat-label">quality improvement from giving the model a way to verify its own work — Boris Cherny, creator of Claude Code</div>
+      </div>
+    </div>
+
+    <div class="info-box" style="margin-top: 20px;">
+      <div class="tag">WHERE THE HARD ENGINEERING LIVES</div>
+      <p>Managing context as a scarce resource. Designing verification loops that catch failures before they compound. Building memory systems that provide continuity without hallucination. Making architectural bets about how much scaffolding to build versus how much to leave to the model. The harness is not a solved problem or a commodity layer.</p>
+    </div>
+
+    <div class="takeaway">
+      <p>The field is moving toward thinner harnesses as models improve. But the harness itself is not going away. Even the most capable model needs something to manage its context window, execute its tool calls, persist its state, and verify its work. The next time your agent fails, don't blame the model. Look at the harness.</p>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  /* ── Three Levels of Engineering — step navigator ── */
+  var engStep = 0;
+  var ENG_MAX = 2;
+
+  function engGoTo(n) {
+    engStep = Math.max(0, Math.min(ENG_MAX, n));
+    document.querySelectorAll('.eng-panel').forEach(function(el, i) {
+      el.classList.toggle('visible', i === engStep);
+    });
+    document.querySelectorAll('.eng-tab').forEach(function(t, i) {
+      t.classList.remove('active', 'done');
+      if (i === engStep)    t.classList.add('active');
+      else if (i < engStep) t.classList.add('done');
+    });
+    document.getElementById('engPrev').disabled = engStep === 0;
+    var next = document.getElementById('engNext');
+    next.disabled    = engStep === ENG_MAX;
+    next.textContent = engStep === ENG_MAX ? 'Done ✓' : 'Next →';
+    document.getElementById('engIndicator').textContent =
+      'Level ' + (engStep + 1) + ' of ' + (ENG_MAX + 1);
+  }
+  engGoTo(0);
+
+  /* ── 12 Components — chip selector ── */
+  function compSelect(n) {
+    document.querySelectorAll('.comp-panel').forEach(function(el, i) {
+      el.classList.toggle('visible', i === n);
+    });
+    document.querySelectorAll('.comp-chip').forEach(function(c, i) {
+      c.classList.toggle('active', i === n);
+    });
+  }
+  compSelect(0);
+
+  /* ── Loop in Motion — step navigator (nested inside comp-p11) ── */
+  var loopStep = 0;
+  var LOOP_MAX = 6;
+
+  function loopGoTo(n) {
+    loopStep = Math.max(0, Math.min(LOOP_MAX, n));
+    document.querySelectorAll('.loop-panel').forEach(function(el, i) {
+      el.classList.toggle('visible', i === loopStep);
+    });
+    document.querySelectorAll('.loop-tab').forEach(function(t, i) {
+      t.classList.remove('active', 'done');
+      if (i === loopStep)    t.classList.add('active');
+      else if (i < loopStep) t.classList.add('done');
+    });
+    document.getElementById('loopPrev').disabled = loopStep === 0;
+    var next = document.getElementById('loopNext');
+    next.disabled    = loopStep === LOOP_MAX;
+    next.textContent = loopStep === LOOP_MAX ? 'Done ✓' : 'Next →';
+    document.getElementById('loopIndicator').textContent =
+      'Step ' + (loopStep + 1) + ' of ' + (LOOP_MAX + 1);
+  }
+  loopGoTo(0);
+
+  /* ── Frameworks — chip selector ── */
+  function fwSelect(n) {
+    document.querySelectorAll('.fw-panel').forEach(function(el, i) {
+      el.classList.toggle('visible', i === n);
+    });
+    document.querySelectorAll('.fw-chip').forEach(function(c, i) {
+      c.classList.toggle('active', i === n);
+    });
+  }
+  fwSelect(0);
+</script>
+</body>
+</html>

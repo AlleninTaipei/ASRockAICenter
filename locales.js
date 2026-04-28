@@ -204,7 +204,7 @@ const LOCALES = {
       {
         title: "The Anatomy of an Agent Harness",
         desc: "Explore how an agent harness turns a raw LLM into a reliable task-solving machine. Covers the core loop, tool execution, context compression (ACON), self-optimization, and the verification patterns that push benchmark scores from outside top 30 into the top 5.",
-        link: "public/docs/en/Course-en/Agent_Harness_Dashboard.html",
+        link: "public/docs/en/Course-en/Agent_Harness.html",
         type: "html"
       },
       {
