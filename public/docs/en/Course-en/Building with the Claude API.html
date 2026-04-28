@@ -1157,6 +1157,27 @@
     .rag-tradeoff { display: flex; gap: 10px; align-items: baseline; }
     .rag-tradeoff-icon { font-size: 0.85rem; min-width: 18px; }
     .rag-tradeoff-text { font-size: 0.85rem; color: #a0aec0; }
+
+    /* ── Scope Badges ── */
+    .scope-badge {
+      display: inline-block; font-size: 0.58rem; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      padding: 2px 8px; border-radius: 4px;
+      vertical-align: middle; margin-left: 10px;
+      position: relative; top: -2px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .scope-universal  { background: #1a3a28; color: #68d391; border: 1px solid #276749; }
+    .scope-api        { background: #3a2a10; color: #f6ad55; border: 1px solid #7a5a20; }
+    .scope-anthropic  { background: #2d1f4a; color: #b794f4; border: 1px solid #553c8b; }
+
+    .scope-legend {
+      display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+      background: #1a202c; border: 1px solid #2d3748; border-radius: 8px;
+      padding: 10px 18px; margin-bottom: 36px;
+    }
+    .scope-legend-label { font-size: 0.72rem; color: #4a5568; font-weight: 700; margin-right: 4px; }
+    .scope-legend-item  { display: flex; align-items: center; gap: 6px; font-size: 0.72rem; color: #718096; }
   </style>
 </head>
 <body>
@@ -1169,11 +1190,18 @@
 
 <main>
 
+  <div class="scope-legend">
+    <span class="scope-legend-label">KEY:</span>
+    <span class="scope-legend-item"><span class="scope-badge scope-universal">UNIVERSAL</span> concept applies across all LLM API providers</span>
+    <span class="scope-legend-item"><span class="scope-badge scope-api">API-SPECIFIC</span> concept is universal; implementation details differ per provider</span>
+    <span class="scope-legend-item"><span class="scope-badge scope-anthropic">ANTHROPIC-ONLY</span> feature unique to the Anthropic / Claude API</span>
+  </div>
+
   <!-- ══════════════════════════════════
        1. API REQUEST LIFECYCLE — INTERACTIVE
   ══════════════════════════════════ -->
   <section id="lifecycle-section">
-    <h2>The Complete Request Flow</h2>
+    <h2>The Complete Request Flow <span class="scope-badge scope-universal">UNIVERSAL</span></h2>
     <div class="lc-subtitle">Step through the five stages that turn a user message into an AI response — and see exactly where the API key lives.</div>
 
     <!-- Diagram -->
@@ -1471,11 +1499,56 @@
 
   </section>
 
+  <!-- ── NEW: API Key Security ── -->
+  <section>
+    <h2>API Key Security <span class="scope-badge scope-universal">UNIVERSAL</span></h2>
+    <p>Your API key has full billing authority over your account. Exposing it in client-side code or source control is one of the most common — and costly — mistakes in LLM application development.</p>
+
+    <div class="api-fields" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 20px;">
+      <div class="field">
+        <div class="name">Never hardcode</div>
+        <div class="desc">No key strings in source code, config files, or frontend bundles. Even private repos get leaked.</div>
+      </div>
+      <div class="field">
+        <div class="name">Server-side only</div>
+        <div class="desc">The key must live on your server. Browsers download all JavaScript — treat all client-side code as public.</div>
+      </div>
+      <div class="field">
+        <div class="name">Environment variables</div>
+        <div class="desc">Inject the key at runtime. Most hosting platforms (Vercel, Railway, Fly.io) have a dedicated secrets panel.</div>
+      </div>
+    </div>
+
+    <h3>Correct Pattern</h3>
+    <pre class="code-block"><span class="cmt"># .env  (add to .gitignore — never commit this file)</span>
+ANTHROPIC_API_KEY=sk-ant-...
+
+<span class="cmt"># server.py — reads key from environment at runtime</span>
+<span class="kw">import</span> os
+<span class="kw">from</span> anthropic <span class="kw">import</span> Anthropic
+
+client = Anthropic()
+<span class="cmt"># The SDK reads ANTHROPIC_API_KEY automatically if no api_key arg is passed</span></pre>
+
+    <h3>What Goes Wrong Without This</h3>
+    <pre class="code-block"><span class="cmt"># ❌ Hardcoded — visible to anyone who reads the code or bundle</span>
+client = Anthropic(api_key=<span class="str">"sk-ant-api03-..."</span>)
+
+<span class="cmt"># ❌ Client-side fetch — key visible in browser DevTools Network tab</span>
+<span class="cmt"># fetch("https://api.anthropic.com/v1/messages", {</span>
+<span class="cmt">#   headers: { "x-api-key": "sk-ant-..." } })</span></pre>
+
+    <div class="info-box">
+      <div class="tag">KEY ROTATION</div>
+      <p>Rotate your key any time you suspect exposure — revoke it in the Anthropic Console and generate a new one. A well-structured app only needs a one-line environment change to swap keys, with zero code changes.</p>
+    </div>
+  </section>
+
   <!-- ══════════════════════════════════
        2. INSIDE CLAUDE — INTERACTIVE DEMO
   ══════════════════════════════════ -->
   <section id="demo-section">
-    <h2>Inside Claude: Text Generation Process</h2>
+    <h2>Inside Claude: Text Generation Process <span class="scope-badge scope-universal">UNIVERSAL</span></h2>
     <div class="demo-subtitle">Step through the four internal stages Claude performs for every request.</div>
 
     <!-- Stage tabs -->
@@ -1531,9 +1604,60 @@
     </div>
   </section>
 
+  <!-- ── NEW: Token Counting & Cost Estimation ── -->
+  <section>
+    <h2>Token Counting &amp; Cost Estimation <span class="scope-badge scope-api">API-SPECIFIC</span></h2>
+    <p>Every API call costs money based on tokens consumed. Use the token-counting endpoint to inspect a request <em>before</em> sending it — essential for staying within budget and avoiding context-window errors. Most providers offer a similar endpoint; the exact method name and response fields differ.</p>
+
+    <h3>Count Tokens Before Sending</h3>
+    <pre class="code-block"><span class="kw">import</span> anthropic
+
+client = anthropic.<span class="fn">Anthropic</span>()
+
+<span class="cmt"># Dry-run: count tokens without making a full API call</span>
+count = client.messages.<span class="fn">count_tokens</span>(
+    model=<span class="str">"claude-opus-4-5"</span>,
+    system=<span class="str">"You are a helpful assistant."</span>,
+    messages=[{<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: <span class="str">"Hello!"</span>}]
+)
+
+<span class="fn">print</span>(count.input_tokens)   <span class="cmt"># e.g. 14</span></pre>
+
+    <h3>Logging Usage After a Real Request</h3>
+    <pre class="code-block">response = client.messages.<span class="fn">create</span>(
+    model=<span class="str">"claude-opus-4-5"</span>,
+    max_tokens=<span class="str">1024</span>,
+    messages=[...]
+)
+
+<span class="fn">print</span>(<span class="str">f"Input  tokens: {response.usage.input_tokens}"</span>)
+<span class="fn">print</span>(<span class="str">f"Output tokens: {response.usage.output_tokens}"</span>)
+<span class="fn">print</span>(<span class="str">f"Total  tokens: {response.usage.input_tokens + response.usage.output_tokens}"</span>)</pre>
+
+    <div class="response-box">
+      <div class="response-field">
+        <div class="rf-key">Input tokens</div>
+        <div class="rf-val">System prompt + full message history + current user turn (all combined)</div>
+      </div>
+      <div class="response-field">
+        <div class="rf-key">Output tokens</div>
+        <div class="rf-val">Tokens Claude generates in its reply — unknown until generation completes</div>
+      </div>
+      <div class="response-field">
+        <div class="rf-key">Cost formula</div>
+        <div class="rf-val">(input_tokens × input_price) + (output_tokens × output_price) — check the provider pricing page for per-model rates</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <div class="tag">PRACTICAL RULE</div>
+      <p>Always log <code style="color:#f6ad55">usage</code> in production. Token counts are the single most useful signal for diagnosing runaway costs, spotting unexpectedly long prompts, or verifying that caching is working correctly.</p>
+    </div>
+  </section>
+
   <!-- ── 3. The Response ── -->
   <section>
-    <h2>The Response</h2>
+    <h2>The Response <span class="scope-badge scope-api">API-SPECIFIC</span></h2>
     <p>Once generation completes, Claude returns structured metadata alongside the text:</p>
     <div class="response-box">
       <div class="response-field">
@@ -1557,7 +1681,7 @@
 
   <!-- ── 4. Key Takeaway ── -->
   <section>
-    <h2>The Complete Picture</h2>
+    <h2>The Complete Picture <span class="scope-badge scope-universal">UNIVERSAL</span></h2>
     <p>This entire process — from user input through tokenization, embedding, contextualization, generation, and back to the user — happens in seconds.</p>
     <div class="takeaway">
       <p>
@@ -1568,7 +1692,7 @@
 
   <!-- ── 5. Multi-turn Conversations ── -->
   <section>
-    <h2>Multi-turn Conversations</h2>
+    <h2>Multi-turn Conversations <span class="scope-badge scope-api">API-SPECIFIC</span></h2>
     <p>Claude is stateless — it has no memory of previous requests. To build a conversation, your code must maintain a running message list and send the <em>complete history</em> on every request.</p>
 
     <div class="mt-viz" id="mtViz">
@@ -1618,7 +1742,7 @@ messages = []
     messages.<span class="fn">append</span>({<span class="key">"role"</span>: <span class="str">"assistant"</span>, <span class="key">"content"</span>: reply})
     <span class="fn">print</span>(reply)</pre>
 
-    <h3>System Prompts</h3>
+    <h3>System Prompts <span class="scope-badge scope-api" style="font-size:0.52rem;top:-1px">API-SPECIFIC</span></h3>
     <p>A system prompt lets you define Claude's persona, tone, and constraints before any user message. It travels as a top-level <code style="color:#68d391">system</code> parameter, separate from the messages list — and is applied to every turn in the conversation.</p>
     <div class="info-box">
       <div class="tag">WHAT TO PUT IN A SYSTEM PROMPT</div>
@@ -1642,9 +1766,57 @@ messages = []
     </div>
   </section>
 
+  <!-- ── NEW: Context Window Management ── -->
+  <section>
+    <h2>Context Window Management <span class="scope-badge scope-universal">UNIVERSAL</span></h2>
+    <p>Every model has a hard token limit on how much text it can process at once. As conversations grow, the accumulated history eventually exceeds this limit — you need a strategy before that happens, and it must be designed into your app from the start.</p>
+
+    <div class="api-fields" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 20px;">
+      <div class="field">
+        <div class="name">Truncation</div>
+        <div class="desc">Drop the oldest messages when the history is too long. Simple to implement, but loses early context permanently.</div>
+      </div>
+      <div class="field">
+        <div class="name">Summarization</div>
+        <div class="desc">Ask the model to compress older turns into a short summary, then replace them with it. Retains meaning at lower token cost.</div>
+      </div>
+      <div class="field">
+        <div class="name">Sliding Window</div>
+        <div class="desc">Keep only the N most recent message pairs. Easy to reason about; loses anything that isn't recent.</div>
+      </div>
+    </div>
+
+    <h3>Summarization Pattern</h3>
+    <pre class="code-block"><span class="kw">def</span> <span class="fn">summarize_history</span>(messages, client, model):
+    <span class="str">"""Compress old messages into a single context message."""</span>
+    prompt = <span class="str">"Summarize this conversation in 2–3 sentences, preserving key facts:\n\n"</span>
+    prompt += <span class="str">"\n"</span>.<span class="fn">join</span>(
+        <span class="str">f"{m['role'].upper()}: {m['content']}"</span> <span class="kw">for</span> m <span class="kw">in</span> messages
+    )
+    response = client.messages.<span class="fn">create</span>(
+        model=model, max_tokens=<span class="str">200</span>,
+        messages=[{<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: prompt}]
+    )
+    <span class="kw">return</span> [{
+        <span class="str">"role"</span>: <span class="str">"user"</span>,
+        <span class="str">"content"</span>: <span class="str">f"[Earlier conversation summary]: {response.content[0].text}"</span>
+    }]
+
+<span class="cmt"># In your chat loop — check before every new request:</span>
+TOKEN_LIMIT = <span class="str">160_000</span>           <span class="cmt"># 80% of a 200k-token model</span>
+<span class="kw">if</span> <span class="fn">estimate_tokens</span>(messages) > TOKEN_LIMIT:
+    old, recent = messages[:-<span class="str">4</span>], messages[-<span class="str">4</span>:]
+    messages = <span class="fn">summarize_history</span>(old, client, model) + recent</pre>
+
+    <div class="info-box">
+      <div class="tag">RULE OF THUMB</div>
+      <p>Trigger your management strategy at ~80% of the context limit — not 100%. Model performance degrades as the window fills, and you need headroom for the output tokens too. Use <code style="color:#f6ad55">count_tokens()</code> or a rough estimate (1 token ≈ 4 characters) to track usage continuously.</p>
+    </div>
+  </section>
+
   <!-- ── 6. Temperature ── -->
   <section>
-    <h2>Temperature</h2>
+    <h2>Temperature <span class="scope-badge scope-universal">UNIVERSAL</span></h2>
     <p>Temperature controls how deterministic or creative Claude's word selection is — by scaling the probability distribution before picking the next token. Drag the slider to see the effect live.</p>
 
     <div class="temp-slider-wrap">
@@ -1703,7 +1875,7 @@ messages = []
 
   <!-- ── 7. Response Streaming ── -->
   <section>
-    <h2>Response Streaming</h2>
+    <h2>Response Streaming <span class="scope-badge scope-api">API-SPECIFIC</span></h2>
     <p>By default, Claude sends the entire response at once — causing a noticeable wait. With streaming, Claude sends text chunks as they are generated, so users see output appear word by word.</p>
     <div class="sv-container">
       <div class="sv-controls">
@@ -1761,9 +1933,50 @@ messages = []
     <p style="margin-top:10px">In production, forward <code style="color:#68d391">ContentBlockDelta</code> chunks to your client via <strong>WebSockets</strong> or <strong>Server-Sent Events (SSE)</strong>.</p>
   </section>
 
+  <!-- ── NEW: Prompt Caching ── -->
+  <section>
+    <h2>Prompt Caching <span class="scope-badge scope-anthropic">ANTHROPIC-ONLY</span></h2>
+    <p>Prompt caching lets you mark stable, reusable portions of your prompt — a long system prompt, reference documents, few-shot examples — so Anthropic's infrastructure can reuse the processed result across requests. Cache hits reduce both cost and latency.</p>
+
+    <div class="api-fields" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 20px;">
+      <div class="field">
+        <div class="name">Cache TTL</div>
+        <div class="desc">5 minutes from last use. Every cache hit resets the timer, so active sessions stay cached indefinitely.</div>
+      </div>
+      <div class="field">
+        <div class="name">Minimum size</div>
+        <div class="desc">1,024 tokens (Haiku) or 2,048 tokens (other models) to qualify. Short prompts cannot be cached.</div>
+      </div>
+      <div class="field">
+        <div class="name">Economics</div>
+        <div class="desc">Cache writes cost 25% more than base input price. Cache reads cost 90% less. Breaks even after ~3 requests.</div>
+      </div>
+    </div>
+
+    <h3>Marking Content for Caching</h3>
+    <pre class="code-block">response = client.messages.<span class="fn">create</span>(
+    model=<span class="str">"claude-opus-4-5"</span>,
+    max_tokens=<span class="str">1024</span>,
+    system=[{
+        <span class="str">"type"</span>:         <span class="str">"text"</span>,
+        <span class="str">"text"</span>:         long_system_prompt,            <span class="cmt"># e.g. 5 000-token prompt</span>
+        <span class="str">"cache_control"</span>: {<span class="str">"type"</span>: <span class="str">"ephemeral"</span>}   <span class="cmt"># ← marks this block</span>
+    }],
+    messages=messages
+)
+
+<span class="cmt"># Verify in the usage object</span>
+<span class="fn">print</span>(response.usage.cache_creation_input_tokens)  <span class="cmt"># tokens written to cache (first call)</span>
+<span class="fn">print</span>(response.usage.cache_read_input_tokens)       <span class="cmt"># tokens served from cache (subsequent calls)</span></pre>
+
+    <div class="takeaway">
+      <p><strong>When to use:</strong> any prompt where a large, stable block repeats across many requests — product instructions, legal documents, code repositories, or RAG context chunks that don't change per user query. The longer the stable block, the greater the savings.</p>
+    </div>
+  </section>
+
   <!-- ── 8. Prefilled Assistant Messages ── -->
   <section>
-    <h2>Prefilled Assistant Messages</h2>
+    <h2>Prefilled Assistant Messages <span class="scope-badge scope-anthropic">ANTHROPIC-ONLY</span></h2>
     <p>You can seed the beginning of Claude's response by appending an <code style="color:#68d391">assistant</code> message to the conversation <em>before</em> calling the API. Claude continues from that starting point.</p>
 
     <div class="pf-container">
@@ -1801,7 +2014,7 @@ response = client.messages.<span class="fn">create</span>(<span class="key">mode
 
   <!-- ── 9. Stop Sequences ── -->
   <section>
-    <h2>Stop Sequences</h2>
+    <h2>Stop Sequences <span class="scope-badge scope-universal">UNIVERSAL</span></h2>
     <p>A stop sequence forces Claude to halt generation the moment it produces a specific string. The sequence itself is <em>not</em> included in the output.</p>
 
     <div class="ss-container">
@@ -1852,7 +2065,7 @@ response = client.messages.<span class="fn">create</span>(
 
   <!-- ── 10. Structured Data ── -->
   <section>
-    <h2>Structured Data</h2>
+    <h2>Structured Data <span class="scope-badge scope-api">API-SPECIFIC</span></h2>
     <p>Combining a prefilled assistant message with a stop sequence lets you extract clean, parseable output — no post-processing required.</p>
 
     <div class="sd-container">
@@ -1941,9 +2154,156 @@ data = json.<span class="fn">loads</span>(raw)                   <span class="cm
     <p style="margin-top:10px">The prefill opens the code fence; the stop sequence closes it. Everything in between is guaranteed to be the JSON body.</p>
   </section>
 
+  <!-- ── NEW: Vision & Multimodal Input ── -->
+  <section>
+    <h2>Vision &amp; Multimodal Input <span class="scope-badge scope-api">API-SPECIFIC</span></h2>
+    <p>Claude can process images alongside text in the same request. Images are passed as additional blocks inside the <code style="color:#68d391">content</code> array — the model reads image and text together. Most frontier providers (OpenAI, Gemini, Claude) support multimodal input; the exact payload format differs per SDK.</p>
+
+    <div class="api-fields" style="margin-bottom: 20px;">
+      <div class="field">
+        <div class="name">Base64 (local file)</div>
+        <div class="desc">Read the file, base64-encode it, pass as <code>data</code>. Works anywhere — no public URL required.</div>
+      </div>
+      <div class="field">
+        <div class="name">URL (hosted image)</div>
+        <div class="desc">Pass the image URL directly. Claude fetches it. Simpler, but the image must be publicly accessible.</div>
+      </div>
+    </div>
+
+    <pre class="code-block"><span class="kw">import</span> base64, anthropic
+
+client = anthropic.<span class="fn">Anthropic</span>()
+
+<span class="cmt"># Option A — base64 (local file)</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="str">"chart.png"</span>, <span class="str">"rb"</span>) <span class="kw">as</span> f:
+    image_data = base64.<span class="fn">standard_b64encode</span>(f.<span class="fn">read</span>()).<span class="fn">decode</span>(<span class="str">"utf-8"</span>)
+
+response = client.messages.<span class="fn">create</span>(
+    model=<span class="str">"claude-opus-4-5"</span>,
+    max_tokens=<span class="str">1024</span>,
+    messages=[{
+        <span class="str">"role"</span>: <span class="str">"user"</span>,
+        <span class="str">"content"</span>: [
+            {
+                <span class="str">"type"</span>:   <span class="str">"image"</span>,
+                <span class="str">"source"</span>: {
+                    <span class="str">"type"</span>:       <span class="str">"base64"</span>,
+                    <span class="str">"media_type"</span>: <span class="str">"image/png"</span>,   <span class="cmt"># jpeg / png / gif / webp</span>
+                    <span class="str">"data"</span>:       image_data,
+                }
+            },
+            {<span class="str">"type"</span>: <span class="str">"text"</span>, <span class="str">"text"</span>: <span class="str">"What does this chart show?"</span>}
+        ]
+    }]
+)
+
+<span class="cmt"># Option B — URL (hosted image)</span>
+<span class="cmt"># {"type": "image", "source": {"type": "url", "url": "https://example.com/chart.png"}}</span></pre>
+
+    <div class="info-box">
+      <div class="tag">SUPPORTED FORMATS &amp; LIMITS</div>
+      <p>JPEG, PNG, GIF, and WebP. Maximum 20 MB per image (base64). Multiple images can appear in a single message — add each as a separate image block within the content array. Images count toward your input token usage.</p>
+    </div>
+  </section>
+
+  <!-- ── NEW: Extended Thinking ── -->
+  <section>
+    <h2>Extended Thinking <span class="scope-badge scope-anthropic">ANTHROPIC-ONLY</span></h2>
+    <p>Extended thinking gives Claude a private scratchpad to reason step-by-step before producing a final answer. Claude uses this internal space for planning, reflection, and self-correction. You can read the thinking in the response, but it costs tokens and increases latency.</p>
+
+    <div class="api-fields" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 20px;">
+      <div class="field">
+        <div class="name">budget_tokens</div>
+        <div class="desc">Maximum tokens Claude may spend on thinking. Claude uses only as many as the problem warrants.</div>
+      </div>
+      <div class="field">
+        <div class="name">Minimum budget</div>
+        <div class="desc">1,024 tokens. Recommended starting point: 10,000 for complex analytical tasks.</div>
+      </div>
+      <div class="field">
+        <div class="name">Response structure</div>
+        <div class="desc">Returns a <code>thinking</code> block (internal reasoning) followed by a <code>text</code> block (final answer).</div>
+      </div>
+    </div>
+
+    <pre class="code-block">response = client.messages.<span class="fn">create</span>(
+    model=<span class="str">"claude-opus-4-5"</span>,
+    max_tokens=<span class="str">16000</span>,
+    thinking={
+        <span class="str">"type"</span>:         <span class="str">"enabled"</span>,
+        <span class="str">"budget_tokens"</span>: <span class="str">10000</span>    <span class="cmt"># up to 10k tokens of internal reasoning</span>
+    },
+    messages=[{<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: <span class="str">"Solve this step by step: ..."</span>}]
+)
+
+<span class="cmt"># Response has two content blocks</span>
+<span class="kw">for</span> block <span class="kw">in</span> response.content:
+    <span class="kw">if</span> block.type == <span class="str">"thinking"</span>:
+        <span class="fn">print</span>(<span class="str">"Reasoning:"</span>, block.thinking)   <span class="cmt"># private scratchpad</span>
+    <span class="kw">elif</span> block.type == <span class="str">"text"</span>:
+        <span class="fn">print</span>(<span class="str">"Answer:"</span>, block.text)           <span class="cmt"># final response to show the user</span></pre>
+
+    <div class="info-box">
+      <div class="tag">WHEN TO USE</div>
+      <p>Extended thinking improves performance on tasks that benefit from deliberate reasoning: complex mathematics, multi-step logic, competitive programming, and nuanced strategic analysis. For simple Q&amp;A or summarization, standard mode is faster and cheaper — thinking is not always better.</p>
+    </div>
+  </section>
+
+  <!-- ── NEW: Error Handling & Rate Limits ── -->
+  <section>
+    <h2>Error Handling &amp; Rate Limits <span class="scope-badge scope-api">API-SPECIFIC</span></h2>
+    <p>Production API calls fail. Know which errors to retry, which to back off on, and which are your fault — so you can handle each correctly without wasting quota or blocking users. All major providers return HTTP status codes; the specific error types and retry headers differ per provider.</p>
+
+    <h3>Error Code Reference</h3>
+    <div class="event-list">
+      <div class="event-item">
+        <div class="event-name" style="color:#fc8181;min-width:220px">400 invalid_request_error</div>
+        <div class="event-desc">Malformed request — wrong parameter type, missing required field, or content that violated usage policies. Fix the request; <strong>do not retry</strong>.</div>
+      </div>
+      <div class="event-item">
+        <div class="event-name" style="color:#fc8181;min-width:220px">401 authentication_error</div>
+        <div class="event-desc">Invalid or missing API key. Check your environment variable and key rotation status.</div>
+      </div>
+      <div class="event-item">
+        <div class="event-name" style="color:#f6ad55;min-width:220px">429 rate_limit_error</div>
+        <div class="event-desc">Too many requests or too many tokens per minute. Retry with exponential backoff; respect the <code>retry-after</code> header.</div>
+      </div>
+      <div class="event-item">
+        <div class="event-name" style="color:#f6ad55;min-width:220px">529 overloaded_error</div>
+        <div class="event-desc">Anthropic's API is temporarily overloaded (Anthropic-specific code). Retry with exponential backoff — this is a transient server-side condition.</div>
+      </div>
+      <div class="event-item">
+        <div class="event-name" style="color:#718096;min-width:220px">500 api_error</div>
+        <div class="event-desc">Internal server error. Safe to retry after a short wait. If persistent, check the provider status page.</div>
+      </div>
+    </div>
+
+    <h3>Retry with Exponential Backoff</h3>
+    <pre class="code-block"><span class="kw">import</span> time, anthropic
+<span class="kw">from</span> anthropic <span class="kw">import</span> RateLimitError, InternalServerError, BadRequestError
+
+<span class="kw">def</span> <span class="fn">call_with_retry</span>(client, max_retries=<span class="str">4</span>, **kwargs):
+    <span class="kw">for</span> attempt <span class="kw">in</span> <span class="fn">range</span>(max_retries):
+        <span class="kw">try</span>:
+            <span class="kw">return</span> client.messages.<span class="fn">create</span>(**kwargs)
+        <span class="kw">except</span> (RateLimitError, InternalServerError) <span class="kw">as</span> e:
+            <span class="kw">if</span> attempt == max_retries - <span class="str">1</span>:
+                <span class="kw">raise</span>
+            wait = <span class="str">2</span> ** attempt         <span class="cmt"># 1 s → 2 s → 4 s → 8 s</span>
+            <span class="fn">print</span>(<span class="str">f"Retry {attempt + 1}/{max_retries} in {wait}s ({e})"</span>)
+            time.<span class="fn">sleep</span>(wait)
+        <span class="kw">except</span> BadRequestError:
+            <span class="kw">raise</span>                         <span class="cmt"># 400 is your bug — fix the request</span></pre>
+
+    <div class="info-box">
+      <div class="tag">SDK SHORTCUT</div>
+      <p>The official Anthropic Python and TypeScript SDKs include built-in retry logic with exponential backoff for 429 and 5xx errors. Pass <code style="color:#f6ad55">max_retries=N</code> when constructing the client to enable it — custom retry code is only needed for more complex scenarios like circuit-breakers.</p>
+    </div>
+  </section>
+
   <!-- ── 11. Provider Portability ── -->
   <section>
-    <h2>Provider Portability and Local Models</h2>
+    <h2>Provider Portability and Local Models <span class="scope-badge scope-api">API-SPECIFIC</span></h2>
     <p>When app developers move computation to local open-source models — Ollama, LM Studio, vLLM, llama.cpp — a practical question arises: does the code need to be rewritten? The answer depends entirely on which SDK was used.</p>
 
     <div class="pp-container">
@@ -1980,7 +2340,7 @@ data = json.<span class="fn">loads</span>(raw)                   <span class="cm
 
   <!-- ── 12. Tool Use ── -->
   <section>
-    <h2>Tool Use (Function Calling)</h2>
+    <h2>Tool Use (Function Calling) <span class="scope-badge scope-api">API-SPECIFIC</span></h2>
     <p>Tool use lets Claude call functions you define. Claude decides when a tool is needed, returns a structured <code style="color:#f6ad55;font-family:monospace">tool_use</code> block, and waits for your code to execute the function and return the result before generating its final answer.</p>
 
     <div class="tu-wrap">
@@ -2290,9 +2650,66 @@ Claude turn 2 (stop_reason: "end_turn"):
     <p>The batch tool pattern is an effective way to encourage Claude to identify operations that can be parallelised and execute them more efficiently.</p>
   </section>
 
+  <!-- ── NEW: Batch API ── -->
+  <section>
+    <h2>Batch API <span class="scope-badge scope-api">API-SPECIFIC</span></h2>
+    <p>The Message Batches API processes large volumes of independent requests asynchronously — no need to send them one by one. Batches are processed within 24 hours at 50% lower cost than synchronous calls, with no reduction in output quality. Most providers offer a batch or async mode; endpoint names and polling patterns differ.</p>
+
+    <div class="api-fields" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 20px;">
+      <div class="field">
+        <div class="name">Cost</div>
+        <div class="desc">50% cheaper than synchronous calls. Identical model quality — only the delivery timing changes.</div>
+      </div>
+      <div class="field">
+        <div class="name">Batch size</div>
+        <div class="desc">Up to 10,000 requests per batch, maximum 32 MB total payload per batch.</div>
+      </div>
+      <div class="field">
+        <div class="name">Turnaround</div>
+        <div class="desc">Usually minutes for small batches; up to 24 hours for large ones. Results stream in as they complete.</div>
+      </div>
+    </div>
+
+    <pre class="code-block"><span class="kw">import</span> anthropic, time
+
+client = anthropic.<span class="fn">Anthropic</span>()
+
+<span class="cmt"># 1. Submit a batch</span>
+batch = client.messages.batches.<span class="fn">create</span>(
+    requests=[
+        {
+            <span class="str">"custom_id"</span>: <span class="str">"task-1"</span>,
+            <span class="str">"params"</span>: {
+                <span class="str">"model"</span>:      <span class="str">"claude-haiku-4-5-20251001"</span>,
+                <span class="str">"max_tokens"</span>: <span class="str">256</span>,
+                <span class="str">"messages"</span>:   [{<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: <span class="str">"Classify sentiment: positive or negative?"</span>}]
+            }
+        },
+        <span class="cmt"># ... up to 10 000 items</span>
+    ]
+)
+<span class="fn">print</span>(<span class="str">f"Batch ID: {batch.id}"</span>)   <span class="cmt"># save this to poll later</span>
+
+<span class="cmt"># 2. Poll until complete</span>
+<span class="kw">while</span> <span class="kw">True</span>:
+    status = client.messages.batches.<span class="fn">retrieve</span>(batch.id)
+    <span class="kw">if</span> status.processing_status == <span class="str">"ended"</span>:
+        <span class="kw">break</span>
+    time.<span class="fn">sleep</span>(<span class="str">60</span>)
+
+<span class="cmt"># 3. Stream results</span>
+<span class="kw">for</span> result <span class="kw">in</span> client.messages.batches.<span class="fn">results</span>(batch.id):
+    <span class="kw">if</span> result.result.type == <span class="str">"succeeded"</span>:
+        <span class="fn">print</span>(result.custom_id, result.result.message.content[<span class="str">0</span>].text)</pre>
+
+    <div class="takeaway">
+      <p><strong>Best for:</strong> sentiment classification pipelines, bulk content generation, dataset annotation, evaluation runs, and nightly report generation — any workload with many independent tasks where you don't need real-time results.</p>
+    </div>
+  </section>
+
   <!-- ── 13. Workflows and Agents ── -->
   <section>
-    <h2>Workflows &amp; Agents</h2>
+    <h2>Workflows &amp; Agents <span class="scope-badge scope-universal">UNIVERSAL</span></h2>
     <p>Two complementary approaches for building multi-step AI systems. Choose based on how much of the solution path is known in advance.</p>
 
     <div class="wa-compare">
@@ -2471,7 +2888,7 @@ Claude turn 2 (stop_reason: "end_turn"):
 
   <!-- ── 14. MCP ── -->
   <section>
-    <h2>Introducing MCP</h2>
+    <h2>Introducing MCP <span class="scope-badge scope-api">API-SPECIFIC</span></h2>
     <p>Model Context Protocol is a communication layer that provides Claude with context and tools — without writing all the integration code yourself. MCP servers expose pre-built tool schemas and functions; you just connect to them.</p>
 
     <div class="mcp-primitives">
@@ -2796,7 +3213,7 @@ mcp = <span class="fn">FastMCP</span>(<span class="str">"DocumentMCP"</span>, <s
 
   <!-- ── 15. Retrieval Augmented Generation ── -->
   <section>
-    <h2>Retrieval Augmented Generation</h2>
+    <h2>Retrieval Augmented Generation <span class="scope-badge scope-universal">UNIVERSAL</span></h2>
     <p>Large language models like Claude are trained on data up to a certain point in time and have no access to your private documents or real-time information. Retrieval-Augmented Generation (RAG) solves this by dynamically fetching relevant information from your own data sources and injecting it into the prompt before Claude generates a response. Instead of retraining the model, you bring the knowledge to it at query time.</p>
 
     <div class="info-box">

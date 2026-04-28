@@ -198,7 +198,7 @@ const LOCALES = {
       {
         title: "Building with the Claude API",
         desc: "Walk through fundamental API operations, advanced prompting techniques, tool integration, and architectural patterns for building AI-powered systems.",
-        link: "public/docs/en/Building%20with%20the%20Claude%20API.html",
+        link: "public/docs/en/Course-en/Building%20with%20the%20Claude%20API.html",
         type: "html"
       },
       {
