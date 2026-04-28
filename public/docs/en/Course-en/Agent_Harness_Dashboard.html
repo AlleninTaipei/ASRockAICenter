@@ -60,6 +60,19 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--txt
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 3px; }
+.resp-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.spec-wrap { position:relative; padding:0 30px; }
+.spec-flex { display:flex; justify-content:space-between; margin-top:14px; }
+.spec-item { text-align:center; width:110px; }
+@media (max-width:640px) {
+  .tab-btn { padding:10px 12px; font-size:13px; }
+  .btn { padding:10px 16px; min-height:44px; }
+  .step-n { width:38px; height:38px; }
+  .spec-wrap { padding:0 8px; }
+  .spec-flex { flex-direction:column; align-items:center; gap:16px; }
+  .spec-item { width:100%; max-width:220px; }
+  .resp-grid-2 { grid-template-columns:1fr; }
+}
 </style>
 </head>
 <body>
@@ -225,21 +238,21 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--txt
   <div class="gc" style="padding:24px;">
     <h3 style="font-size:1rem;font-weight:700;color:#A5B4FC;margin-bottom:10px;">Harness Thickness Spectrum</h3>
     <p style="color:var(--muted);font-size:13px;margin-bottom:20px;">The philosophical divide: thin harnesses trust model improvement; thick harnesses provide explicit control.</p>
-    <div style="position:relative;padding:0 30px;">
+    <div class="spec-wrap">
       <div style="height:4px;background:linear-gradient(90deg,var(--indigo),var(--green));border-radius:2px;"></div>
-      <div style="display:flex;justify-content:space-between;margin-top:14px;">
-        <div style="text-align:center;width:110px;">
+      <div class="spec-flex">
+        <div class="spec-item">
           <div style="font-weight:700;color:#A5B4FC;font-size:14px;margin-bottom:4px;">Thin</div>
           <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">Trust the model</div>
           <div style="padding:5px 8px;background:rgba(99,102,241,.1);border-radius:6px;font-size:12px;color:#A5B4FC;margin-bottom:4px;">Anthropic</div>
           <div style="padding:5px 8px;background:rgba(99,102,241,.1);border-radius:6px;font-size:12px;color:#A5B4FC;">OpenAI Codex</div>
         </div>
-        <div style="text-align:center;width:110px;">
+        <div class="spec-item">
           <div style="font-weight:700;color:var(--txt2);font-size:14px;margin-bottom:4px;">Balanced</div>
           <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">Role-based</div>
           <div style="padding:5px 8px;background:rgba(239,68,68,.1);border-radius:6px;font-size:12px;color:#FCA5A5;">CrewAI</div>
         </div>
-        <div style="text-align:center;width:110px;">
+        <div class="spec-item">
           <div style="font-weight:700;color:#34D399;font-size:14px;margin-bottom:4px;">Thick</div>
           <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">Explicit control</div>
           <div style="padding:5px 8px;background:rgba(16,185,129,.1);border-radius:6px;font-size:12px;color:#34D399;margin-bottom:4px;">LangGraph</div>
@@ -589,29 +602,29 @@ const DECS = [
   {n:1,title:'Single-Agent vs. Multi-Agent',axis:'Single agent ↔ Multi-agent',
    rec:'Both Anthropic and OpenAI say: maximize a single agent first. Multi-agent adds routing overhead and context loss at handoffs.',
    body:`<p style="color:var(--txt2);font-size:13px;margin-bottom:12px;">Split only when tool count >10 overlapping tools or when clearly separate task domains exist.</p>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+<div class="resp-grid-2">
   <div style="padding:12px;background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.15);border-radius:8px;"><div style="font-weight:700;color:#60A5FA;font-size:13px;margin-bottom:6px;">✓ Single Agent When</div><div style="font-size:12px;color:var(--muted);">• Manageable tool count<br>• Tasks share context<br>• Latency is critical</div></div>
   <div style="padding:12px;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);border-radius:8px;"><div style="font-weight:700;color:#34D399;font-size:13px;margin-bottom:6px;">✓ Multi-Agent When</div><div style="font-size:12px;color:var(--muted);">• >10 overlapping tools<br>• Clearly separate domains<br>• Parallelism needed</div></div>
 </div>`},
   {n:2,title:'ReAct vs. Plan-and-Execute',axis:'Interleaved ↔ Separated',
    rec:'LLMCompiler reports 3.6× speedup over sequential ReAct for parallelizable tasks. Use ReAct for unpredictable, adaptive tasks.',
-   body:`<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px;">
+   body:`<div class="resp-grid-2" style="margin-top:4px;">
   <div style="padding:12px;background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.15);border-radius:8px;"><div style="font-weight:700;color:#60A5FA;font-size:13px;margin-bottom:6px;">ReAct</div><div style="font-size:12px;color:var(--muted);">Flexible, adapts mid-task. Higher per-step latency. Best for unpredictable tasks.</div></div>
   <div style="padding:12px;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);border-radius:8px;"><div style="font-weight:700;color:#34D399;font-size:13px;margin-bottom:6px;">Plan-Execute</div><div style="font-size:12px;color:var(--muted);">3.6× faster (LLMCompiler). Parallelizable subtasks. Less adaptive to surprises.</div></div>
 </div>`},
   {n:3,title:'Context Window Management Strategy',axis:'Aggressive compaction ↔ Lazy/on-demand',
    rec:'ACON research: 26–54% token reduction while preserving 95%+ accuracy by prioritizing reasoning traces over raw tool outputs.',
    body:`<p style="color:var(--txt2);font-size:13px;margin-bottom:10px;">Five production strategies:</p>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">${['Time-based clearing','Conversation summarization','Observation masking','Structured note-taking','Sub-agent delegation'].map(s=>`<div style="padding:8px 12px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.15);border-radius:6px;font-size:12px;color:#FCD34D;">${s}</div>`).join('')}</div>`},
+<div class="resp-grid-2" style="gap:8px;">${['Time-based clearing','Conversation summarization','Observation masking','Structured note-taking','Sub-agent delegation'].map(s=>`<div style="padding:8px 12px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.15);border-radius:6px;font-size:12px;color:#FCD34D;">${s}</div>`).join('')}</div>`},
   {n:4,title:'Verification Loop Design',axis:'Computational (deterministic) ↔ LLM-as-judge (semantic)',
    rec:'Giving the model a way to verify its work improves quality 2–3× (Boris Cherny, Claude Code).',
-   body:`<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px;">
+   body:`<div class="resp-grid-2" style="margin-top:4px;">
   <div style="padding:12px;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);border-radius:8px;"><div style="font-weight:700;color:#34D399;font-size:13px;margin-bottom:6px;">Computational</div><div style="font-size:12px;color:var(--muted);">Tests, linters, type checkers. Deterministic ground truth. Fast. Limited to structured outputs.</div></div>
   <div style="padding:12px;background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.15);border-radius:8px;"><div style="font-weight:700;color:#C4B5FD;font-size:13px;margin-bottom:6px;">LLM-as-judge</div><div style="font-size:12px;color:var(--muted);">Catches semantic issues. Flexible. Adds latency + cost. Risk of judge hallucination.</div></div>
 </div>`},
   {n:5,title:'Permission and Safety Architecture',axis:'Permissive (fast) ↔ Restrictive (safe)',
    rec:'Claude Code: 3 stages — trust establishment → permission check → explicit confirmation for high-risk operations. ~40 capabilities gated independently.',
-   body:`<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px;">
+   body:`<div class="resp-grid-2" style="margin-top:4px;">
   <div style="padding:12px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.15);border-radius:8px;"><div style="font-weight:700;color:#FCD34D;font-size:13px;margin-bottom:6px;">Permissive</div><div style="font-size:12px;color:var(--muted);">Auto-approve most actions. Fast iteration. Risky with destructive tools or sensitive data.</div></div>
   <div style="padding:12px;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.15);border-radius:8px;"><div style="font-weight:700;color:#FCA5A5;font-size:13px;margin-bottom:6px;">Restrictive</div><div style="font-size:12px;color:var(--muted);">Explicit approval required. Safe for production. Slows autonomous operation.</div></div>
 </div>`},
@@ -624,7 +637,7 @@ const DECS = [
   {n:7,title:'Harness Thickness',axis:'Thin (bet on models) ↔ Thick (explicit control)',
    rec:'Future-proofing test: if performance scales with more powerful models without adding harness complexity, the design is sound.',
    body:`<p style="color:var(--txt2);font-size:13px;margin-bottom:10px;">The scaffolding metaphor: as models improve, harness complexity should decrease. Manus was rebuilt 5 times in 6 months, each rewrite removing complexity.</p>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+<div class="resp-grid-2">
   <div style="padding:12px;background:rgba(99,102,241,.06);border:1px solid rgba(99,102,241,.15);border-radius:8px;"><div style="font-weight:700;color:#A5B4FC;font-size:13px;margin-bottom:6px;">Thin (Anthropic)</div><div style="font-size:12px;color:var(--muted);">Deletes planning steps as new models internalize them. Model and harness co-evolve.</div></div>
   <div style="padding:12px;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);border-radius:8px;"><div style="font-weight:700;color:#34D399;font-size:13px;margin-bottom:6px;">Thick (Graph frameworks)</div><div style="font-size:12px;color:var(--muted);">Explicit routing, validation, state. Predictable. Harder to slim as models improve.</div></div>
 </div>`}
