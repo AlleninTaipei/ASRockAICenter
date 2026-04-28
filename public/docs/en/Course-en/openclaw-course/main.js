@@ -212,106 +212,27 @@
     $$('.quiz-feedback', container).forEach(f => { f.className = 'quiz-feedback'; f.textContent = ''; });
   };
 
-  /* ── DRAG-AND-DROP ENGINE ──────────────────────────────────── */
-  function initDnD(containerEl) {
-    if (!containerEl) return;
-    const chips = $$('.dnd-chip', containerEl);
-    const zones = $$('.dnd-zone', containerEl);
-
-    // Mouse (HTML5 Drag API)
-    chips.forEach(chip => {
-      chip.addEventListener('dragstart', e => {
-        e.dataTransfer.setData('text/plain', chip.dataset.answer);
-        chip.classList.add('dragging');
-      });
-      chip.addEventListener('dragend', () => chip.classList.remove('dragging'));
-    });
-
-    zones.forEach(zone => {
-      const target = $('.dnd-zone-target', zone);
-      if (!target) return;
-      target.addEventListener('dragover',  e => { e.preventDefault(); target.classList.add('drag-over'); });
-      target.addEventListener('dragleave', ()  => target.classList.remove('drag-over'));
-      target.addEventListener('drop', e => {
-        e.preventDefault();
-        target.classList.remove('drag-over');
-        const answer = e.dataTransfer.getData('text/plain');
-        const chip   = $(`.dnd-chip[data-answer="${answer}"]`, containerEl);
-        if (!chip) return;
-        target.textContent    = chip.textContent;
-        target.dataset.placed = answer;
-        chip.classList.add('placed');
-      });
-    });
-
-    // Touch
-    chips.forEach(chip => {
-      chip.addEventListener('touchstart', e => {
-        e.preventDefault();
-        const touch = e.touches[0];
-        const ghost = chip.cloneNode(true);
-        ghost.classList.add('touch-ghost');
-        ghost.style.cssText = `position:fixed;z-index:9999;pointer-events:none;left:${touch.clientX - 40}px;top:${touch.clientY - 20}px;`;
-        document.body.appendChild(ghost);
-        chip._ghost  = ghost;
-        chip._answer = chip.dataset.answer;
-      }, { passive: false });
-
-      chip.addEventListener('touchmove', e => {
-        e.preventDefault();
-        const touch = e.touches[0];
-        if (chip._ghost) {
-          chip._ghost.style.left = (touch.clientX - 40) + 'px';
-          chip._ghost.style.top  = (touch.clientY - 20) + 'px';
-        }
-        zones.forEach(z => { const t = $('.dnd-zone-target', z); if (t) t.classList.remove('drag-over'); });
-        const el = document.elementFromPoint(touch.clientX, touch.clientY);
-        const zt = el && el.closest('.dnd-zone-target');
-        if (zt) zt.classList.add('drag-over');
-      }, { passive: false });
-
-      chip.addEventListener('touchend', e => {
-        if (chip._ghost) { chip._ghost.remove(); chip._ghost = null; }
-        const touch = e.changedTouches[0];
-        const el    = document.elementFromPoint(touch.clientX, touch.clientY);
-        const zt    = el && el.closest('.dnd-zone-target');
-        if (zt) {
-          zt.textContent    = chip.textContent;
-          zt.dataset.placed = chip._answer;
-          chip.classList.add('placed');
-        }
-        zones.forEach(z => { const t = $('.dnd-zone-target', z); if (t) t.classList.remove('drag-over'); });
-      });
-    });
-  }
-
-  window.checkDnD = function (containerId) {
+  /* ── DROPDOWN MATCHING QUIZ ────────────────────────────────── */
+  window.checkMatch = function (containerId) {
     const container = $('#' + containerId);
     if (!container) return;
     $$('.dnd-zone', container).forEach(zone => {
-      const target  = $('.dnd-zone-target', zone);
-      if (!target || !target.dataset.placed) return;
-      if (target.dataset.placed === zone.dataset.correct) {
-        target.classList.add('correct-placed');
-      } else {
-        target.classList.add('incorrect-placed');
-      }
+      const sel = $('select', zone);
+      if (!sel || !sel.value) return;
+      const correct = sel.value === zone.dataset.correct;
+      sel.classList.toggle('correct-placed',   correct);
+      sel.classList.toggle('incorrect-placed', !correct);
     });
   };
 
-  window.resetDnD = function (containerId) {
+  window.resetMatch = function (containerId) {
     const container = $('#' + containerId);
     if (!container) return;
-    $$('.dnd-zone-target', container).forEach(t => {
-      t.textContent = 'Drop here';
-      delete t.dataset.placed;
-      t.classList.remove('correct-placed', 'incorrect-placed');
+    $$('.dnd-zone select', container).forEach(sel => {
+      sel.value = '';
+      sel.classList.remove('correct-placed', 'incorrect-placed');
     });
-    $$('.dnd-chip', container).forEach(c => c.classList.remove('placed', 'dragging'));
   };
-
-  // Auto-init all dnd containers
-  $$('.dnd-container').forEach(el => initDnD(el));
 
   /* ── GROUP CHAT ENGINE ─────────────────────────────────────── */
   function initChat(containerEl) {
