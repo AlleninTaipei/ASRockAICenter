@@ -485,11 +485,11 @@
         <p>The model transforms raw token numbers into a prediction of "what comes next" through a series of layers. Each layer refines the understanding a little more.</p>
 
         <div class="arch-diagram animate-in">
+          <div class="arch-zones-col">
           <div class="arch-zone" style="border-color: var(--color-accent-muted)">
             <h4 class="arch-zone-label">Step 1 — Input</h4>
             <div class="arch-component"
-                 data-desc="Embedding lookup: converts each token number into a rich vector of 512 numbers. Think of it as looking up a word in a thesaurus — except each entry is not words but a list of numbers that capture meaning."
-                 onclick="showArchDesc(this)">
+                 data-desc="Embedding lookup: converts each token number into a rich vector of 512 numbers. Think of it as looking up a word in a thesaurus — except each entry is not words but a list of numbers that capture meaning.">
               <div class="arch-icon">📥</div>
               <span>Token Embeddings (wte)</span>
             </div>
@@ -497,14 +497,12 @@
           <div class="arch-zone" style="border-color: var(--color-accent-muted)">
             <h4 class="arch-zone-label">Step 2 — 8 Transformer Blocks (repeated)</h4>
             <div class="arch-component"
-                 data-desc="Attention: each token looks at all surrounding tokens (up to 2048 tokens back) and decides which ones are most relevant. Like a student who highlights the most important sentences before answering a question."
-                 onclick="showArchDesc(this)">
+                 data-desc="Attention: each token looks at all surrounding tokens (up to 2048 tokens back) and decides which ones are most relevant. Like a student who highlights the most important sentences before answering a question.">
               <div class="arch-icon">👁️</div>
               <span>Attention</span>
             </div>
             <div class="arch-component"
-                 data-desc="MLP (Multi-Layer Perceptron): a feedforward neural network that processes each token independently after attention. If attention gathers context, MLP processes it. Together they form one complete 'layer of understanding.'"
-                 onclick="showArchDesc(this)">
+                 data-desc="MLP (Multi-Layer Perceptron): a feedforward neural network that processes each token independently after attention. If attention gathers context, MLP processes it. Together they form one complete 'layer of understanding.'">
               <div class="arch-icon">🧠</div>
               <span>MLP</span>
             </div>
@@ -512,12 +510,12 @@
           <div class="arch-zone" style="border-color: var(--color-accent-muted)">
             <h4 class="arch-zone-label">Step 3 — Output</h4>
             <div class="arch-component"
-                 data-desc="Language Model Head: takes the final vector and converts it into a probability score for each of the 8,192 possible next tokens. The highest-scoring token is the model's prediction for what comes next."
-                 onclick="showArchDesc(this)">
+                 data-desc="Language Model Head: takes the final vector and converts it into a probability score for each of the 8,192 possible next tokens. The highest-scoring token is the model's prediction for what comes next.">
               <div class="arch-icon">📤</div>
               <span>LM Head (prediction)</span>
             </div>
           </div>
+          </div><!-- /.arch-zones-col -->
           <div class="arch-description" id="arch-desc">Click any component to learn what it does</div>
         </div>
       </section>

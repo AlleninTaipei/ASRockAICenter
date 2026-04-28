@@ -747,6 +747,14 @@ p:last-child { margin-bottom: 0; }
   padding: var(--space-8);
   box-shadow: var(--shadow-md);
   margin: var(--space-8) 0;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+.arch-zones-col {
+  display: flex;
+  flex-direction: column;
 }
 .arch-zone {
   border: 1px dashed var(--color-border);
@@ -784,13 +792,16 @@ p:last-child { margin-bottom: 0; }
 }
 .arch-icon { font-size: 1.5rem; }
 .arch-description {
-  margin-top: var(--space-4);
-  padding: var(--space-4);
+  padding: var(--space-5);
   background: var(--color-bg-warm);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-accent-muted);
   font-size: var(--text-sm);
   color: var(--color-text-secondary);
-  min-height: 2.5em;
+  line-height: var(--leading-normal);
+  position: sticky;
+  top: calc(var(--nav-height) + var(--space-4));
+  min-height: 8rem;
 }
 
 /* ── LAYER TOGGLE ───────────────────────────────────────────── */
@@ -1161,6 +1172,17 @@ p:last-child { margin-bottom: 0; }
   .translation-block { grid-template-columns: 1fr; }
   .translation-english { border-left: none; border-top: 3px solid var(--color-accent); }
   .pattern-cards { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+  .arch-diagram { grid-template-columns: 1fr; }
+  .arch-description {
+    position: static;
+    order: -1;
+    margin-bottom: var(--space-4);
+    border-left: none;
+    border-top: 3px solid var(--color-accent-muted);
+  }
 }
 
 @media (max-width: 480px) {
