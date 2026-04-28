@@ -619,54 +619,56 @@
 
       <div class="arch-diagram animate-in">
 
-        <div class="arch-zone">
-          <div class="arch-zone-label">Zone 1 — Browser</div>
-          <div class="arch-component"
-               data-desc="Canvas Editor: The Vue 3 app that renders your workflow visually. Lives in packages/editor-ui. Everything you see, drag, and click lives here — but it has no execution power of its own.">
-            <span class="arch-icon">🖼️</span>
-            <span>Canvas Editor</span>
+        <div class="arch-zones-col">
+          <div class="arch-zone">
+            <div class="arch-zone-label">Zone 1 — Browser</div>
+            <div class="arch-component"
+                 data-desc="Canvas Editor: The Vue 3 app that renders your workflow visually. Lives in packages/editor-ui. Everything you see, drag, and click lives here — but it has no execution power of its own.">
+              <span class="arch-icon">🖼️</span>
+              <span>Canvas Editor</span>
+            </div>
+            <div class="arch-component"
+                 data-desc="Node Panel: The searchable sidebar that lists all 400+ available nodes. It reads node metadata from the backend and lets you drag nodes onto the canvas. Also lives in packages/editor-ui.">
+              <span class="arch-icon">📦</span>
+              <span>Node Panel</span>
+            </div>
           </div>
-          <div class="arch-component"
-               data-desc="Node Panel: The searchable sidebar that lists all 400+ available nodes. It reads node metadata from the backend and lets you drag nodes onto the canvas. Also lives in packages/editor-ui.">
-            <span class="arch-icon">📦</span>
-            <span>Node Panel</span>
-          </div>
-        </div>
 
-        <div class="arch-zone">
-          <div class="arch-zone-label">Zone 2 — Backend Server (packages/cli)</div>
-          <div class="arch-component"
-               data-desc="REST API: The Express.js HTTP server that handles every command from the editor — save workflow, load workflow, trigger execution, manage users. Lives in packages/cli/src/controllers/.">
-            <span class="arch-icon">🔌</span>
-            <span>REST API</span>
+          <div class="arch-zone">
+            <div class="arch-zone-label">Zone 2 — Backend Server (packages/cli)</div>
+            <div class="arch-component"
+                 data-desc="REST API: The Express.js HTTP server that handles every command from the editor — save workflow, load workflow, trigger execution, manage users. Lives in packages/cli/src/controllers/.">
+              <span class="arch-icon">🔌</span>
+              <span>REST API</span>
+            </div>
+            <div class="arch-component"
+                 data-desc="Webhook Handler: Listens for incoming HTTP calls from external services. When a POST arrives at /webhook/{id}, it looks up the matching workflow and starts an execution. Lives in packages/cli/src/webhooks/.">
+              <span class="arch-icon">🌐</span>
+              <span>Webhook Handler</span>
+            </div>
+            <div class="arch-component"
+                 data-desc="Workflow Runner: Queues and dispatches workflow executions. It decides whether to run workflows directly or queue them for a worker process. Lives in packages/cli/src/workflow-runner.ts.">
+              <span class="arch-icon">🏃</span>
+              <span>Workflow Runner</span>
+            </div>
           </div>
-          <div class="arch-component"
-               data-desc="Webhook Handler: Listens for incoming HTTP calls from external services. When a POST arrives at /webhook/{id}, it looks up the matching workflow and starts an execution. Lives in packages/cli/src/webhooks/.">
-            <span class="arch-icon">🌐</span>
-            <span>Webhook Handler</span>
-          </div>
-          <div class="arch-component"
-               data-desc="Workflow Runner: Queues and dispatches workflow executions. It decides whether to run workflows directly or queue them for a worker process. Lives in packages/cli/src/workflow-runner.ts.">
-            <span class="arch-icon">🏃</span>
-            <span>Workflow Runner</span>
-          </div>
-        </div>
 
-        <div class="arch-zone">
-          <div class="arch-zone-label">Zone 3 — Data Layer</div>
-          <div class="arch-component"
-               data-desc="Database: Stores workflows, users, encrypted credentials, and full execution logs. Uses TypeORM so it works with both SQLite (development) and PostgreSQL (production). Entities live in packages/cli/src/databases/.">
-            <span class="arch-icon">🗄️</span>
-            <span>Database</span>
+          <div class="arch-zone">
+            <div class="arch-zone-label">Zone 3 — Data Layer</div>
+            <div class="arch-component"
+                 data-desc="Database: Stores workflows, users, encrypted credentials, and full execution logs. Uses TypeORM so it works with both SQLite (development) and PostgreSQL (production). Entities live in packages/cli/src/databases/.">
+              <span class="arch-icon">🗄️</span>
+              <span>Database</span>
+            </div>
+            <div class="arch-component"
+                 data-desc="Execution Engine: The core package (packages/core) that actually runs nodes. It reads the workflow graph, resolves expressions, calls each node's execute() method in order, and passes data between them.">
+              <span class="arch-icon">⚡</span>
+              <span>Execution Engine</span>
+            </div>
           </div>
-          <div class="arch-component"
-               data-desc="Execution Engine: The core package (packages/core) that actually runs nodes. It reads the workflow graph, resolves expressions, calls each node's execute() method in order, and passes data between them.">
-            <span class="arch-icon">⚡</span>
-            <span>Execution Engine</span>
-          </div>
-        </div>
+        </div><!-- /.arch-zones-col -->
 
-        <div class="arch-description">Click any component to learn what it does</div>
+        <div class="arch-description" id="arch-desc">Click any component to learn what it does</div>
       </div>
     </div>
 
@@ -1513,51 +1515,68 @@
     </div>
 
     <!-- ═══════════════════════════════════════════════
-         SCREEN 3: DRAG-AND-DROP — MATCH NODE TYPES
+         SCREEN 3: DROPDOWN — MATCH NODE TYPES
          ═══════════════════════════════════════════════ -->
     <div class="screen">
       <h2 class="screen-heading animate-in">What would you use?</h2>
 
       <p class="animate-in">
-        Drag each node chip to the job description it matches. This is the mental model that will help you describe the right node to an AI assistant.
+        Choose the correct node for each job description. This is the mental model that will help you describe the right node to an AI assistant.
       </p>
 
-      <div class="dnd-container animate-in" id="dnd-module4">
-
-        <div class="dnd-chips">
-          <div class="dnd-chip" draggable="true" data-answer="webhook-chip">Webhook</div>
-          <div class="dnd-chip" draggable="true" data-answer="slack-chip">Slack</div>
-          <div class="dnd-chip" draggable="true" data-answer="set-chip">Set</div>
-          <div class="dnd-chip" draggable="true" data-answer="openai-chip">OpenAI</div>
-        </div>
+      <div class="match-container animate-in" id="dnd-module4">
 
         <div class="dnd-zones">
 
-          <div class="dnd-zone" data-correct="webhook-chip">
+          <div class="dnd-zone" data-correct="Webhook">
             <div class="dnd-zone-label">Receives an HTTP POST and starts the workflow</div>
-            <div class="dnd-zone-target">Drop here</div>
+            <select class="match-select">
+              <option value="">— select —</option>
+              <option value="Webhook">Webhook</option>
+              <option value="Slack">Slack</option>
+              <option value="Set">Set</option>
+              <option value="OpenAI">OpenAI</option>
+            </select>
           </div>
 
-          <div class="dnd-zone" data-correct="slack-chip">
+          <div class="dnd-zone" data-correct="Slack">
             <div class="dnd-zone-label">Sends a message to a channel</div>
-            <div class="dnd-zone-target">Drop here</div>
+            <select class="match-select">
+              <option value="">— select —</option>
+              <option value="Webhook">Webhook</option>
+              <option value="Slack">Slack</option>
+              <option value="Set">Set</option>
+              <option value="OpenAI">OpenAI</option>
+            </select>
           </div>
 
-          <div class="dnd-zone" data-correct="set-chip">
+          <div class="dnd-zone" data-correct="Set">
             <div class="dnd-zone-label">Adds a field called <code>processed: true</code> to every item</div>
-            <div class="dnd-zone-target">Drop here</div>
+            <select class="match-select">
+              <option value="">— select —</option>
+              <option value="Webhook">Webhook</option>
+              <option value="Slack">Slack</option>
+              <option value="Set">Set</option>
+              <option value="OpenAI">OpenAI</option>
+            </select>
           </div>
 
-          <div class="dnd-zone" data-correct="openai-chip">
+          <div class="dnd-zone" data-correct="OpenAI">
             <div class="dnd-zone-label">Calls GPT-4 and returns the AI response as a new item</div>
-            <div class="dnd-zone-target">Drop here</div>
+            <select class="match-select">
+              <option value="">— select —</option>
+              <option value="Webhook">Webhook</option>
+              <option value="Slack">Slack</option>
+              <option value="Set">Set</option>
+              <option value="OpenAI">OpenAI</option>
+            </select>
           </div>
 
         </div>
 
-        <div class="dnd-actions">
-          <button class="btn" onclick="checkDnD('dnd-module4')">Check Matches</button>
-          <button class="btn" onclick="resetDnD('dnd-module4')">Reset</button>
+        <div style="display: flex; gap: var(--space-3); margin-top: var(--space-6);">
+          <button class="quiz-check-btn" onclick="checkMatch('dnd-module4')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetMatch('dnd-module4')">Reset</button>
         </div>
 
       </div>
