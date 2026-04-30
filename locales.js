@@ -188,8 +188,8 @@ const LOCALES = {
           { "icon": "🎯", "value": "+35%", "label": "tactical execution" },
           { "icon": "📊", "value": "Weekly", "label": "player performance reports" }
         ],
-        "modules": ["SquadForge", "ScriptForge"],
-        "desc": "SquadForge deploys autonomous analysis agents that process match footage through ScriptForge's video pipeline — detecting positioning, tactical patterns, and key errors without any clip leaving the team's local server. What previously demanded a professional analyst working through hours of footage is now a fully automated overnight process: annotated highlights, player reports, and tactical summaries ready by morning. 90% of analysis time eliminated. Zero data sent to third parties."
+        "modules": ["MotionScope"],
+        "desc": "MotionScope ingests match and training footage and transforms it into structured motion intelligence — tracking every player's position, trajectory, and movement pattern across every frame. Running entirely on the team's own server, no clip is ever sent to an external service. What previously demanded a professional analyst working through hours of footage is now a fully automated process: annotated movement visualizations, player reports, and tactical pattern summaries delivered overnight. 90% of analysis time eliminated. Zero footage sent to third parties."
       }
     ],
     resources: {
@@ -504,8 +504,8 @@ const LOCALES = {
           { "icon": "🎯", "value": "+35%", "label": "戰術執行成功率提升" },
           { "icon": "📊", "value": "每週產出", "label": "球員表現報告" }
         ],
-        "modules": ["SquadForge", "ScriptForge"],
-        "desc": "SquadForge 部署自主分析代理，透過 ScriptForge 的影片處理管線辨識球員跑位、戰術模式與關鍵失誤——所有影片片段在球隊本地伺服器上完成分析，不流向任何第三方。原本需要專職分析師逐格審視的工作，如今由自動化代理在夜間完成：隔天早上，教練已備有標註完畢的精華片段、球員報告與戰術摘要。影片分析時間縮短 90%，零資料傳送至第三方。"
+        "modules": ["MotionScope"],
+        "desc": "MotionScope 將比賽與訓練影片轉化為結構化的人體動態情報——追蹤每位球員在每一幀中的位置、軌跡與動作模式。系統全程在球隊自有伺服器上運行，影片片段不外流至任何第三方服務。原本需要專職分析師逐格審視的工作，如今完全自動化：動作軌跡視覺化標註、球員報告與戰術模式摘要一夜生成。影片分析時間縮短 90%，零資料傳送至第三方。"
       }
     ],
     resources: {
