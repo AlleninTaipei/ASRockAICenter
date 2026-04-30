@@ -1,5 +1,11 @@
 // ── State ──────────────────────────────────────────────────────────────────
 let currentLang = localStorage.getItem('lang') || 'en';
+let selectedAudience = localStorage.getItem('audience') || null;
+
+const AUDIENCE_SECTIONS = {
+  decision: ['apps', 'process', 'success-stories', 'resources'],
+  developer: ['academy', 'courses', 'blogs', 'youtube-section']
+};
 
 // ── DOM helpers ─────────────────────────────────────────────────────────────
 function getLocale() {
@@ -23,6 +29,26 @@ function renderApps(t) {
       <p class="app-description">${app.desc}</p>
     </div>
   `).join('');
+}
+
+function renderAudienceNav(t) {
+  const grid = document.getElementById('audience-nav-grid');
+  if (!grid || !t.audienceNav) return;
+  const nav = t.audienceNav;
+  grid.innerHTML = `
+    <button onclick="selectAudience('decision')" class="audience-card audience-card--decision${selectedAudience === 'decision' ? ' audience-card--active' : ''}">
+      <span class="audience-badge">${nav.decisionMaker.badge}</span>
+      <div class="audience-title">${nav.decisionMaker.title}</div>
+      <p class="audience-desc">${nav.decisionMaker.desc}</p>
+      <span class="audience-cta">${nav.decisionMaker.cta}</span>
+    </button>
+    <button onclick="selectAudience('developer')" class="audience-card audience-card--developer${selectedAudience === 'developer' ? ' audience-card--active' : ''}">
+      <span class="audience-badge">${nav.developer.badge}</span>
+      <div class="audience-title">${nav.developer.title}</div>
+      <p class="audience-desc">${nav.developer.desc}</p>
+      <span class="audience-cta">${nav.developer.cta}</span>
+    </button>
+  `;
 }
 
 function renderProcess(t) {
@@ -128,6 +154,41 @@ function renderContact(t) {
   `;
 }
 
+// ── Audience selection ──────────────────────────────────────────────────────
+function selectAudience(type, scroll = true) {
+  selectedAudience = type;
+  localStorage.setItem('audience', type);
+
+  const allIds = [...AUDIENCE_SECTIONS.decision, ...AUDIENCE_SECTIONS.developer];
+  const showIds = AUDIENCE_SECTIONS[type];
+
+  allIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (showIds.includes(id)) {
+      el.classList.remove('audience-hidden');
+      el.classList.remove('section-entering');
+      void el.offsetWidth;
+      el.classList.add('section-entering');
+    } else {
+      el.classList.add('audience-hidden');
+    }
+  });
+
+  document.querySelectorAll('.audience-card').forEach(c => c.classList.remove('audience-card--active'));
+  const activeCard = document.querySelector(`.audience-card--${type}`);
+  if (activeCard) activeCard.classList.add('audience-card--active');
+
+  attachScrollReveal();
+
+  if (type === 'developer') fetchVideos();
+
+  if (scroll) {
+    const firstEl = document.getElementById(showIds[0]);
+    if (firstEl) setTimeout(() => firstEl.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+  }
+}
+
 // ── Apply locale ────────────────────────────────────────────────────────────
 function applyLocale(lang) {
   currentLang = lang;
@@ -143,6 +204,7 @@ function applyLocale(lang) {
   });
 
   // Dynamic grids
+  renderAudienceNav(t);
   renderProcess(t);
   renderApps(t);
   renderSuccessStories(t);
@@ -325,4 +387,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Apply initial locale
   applyLocale(currentLang);
+
+  // Restore previously selected audience (no scroll jump)
+  if (selectedAudience) {
+    selectAudience(selectedAudience, false);
+  }
 });
