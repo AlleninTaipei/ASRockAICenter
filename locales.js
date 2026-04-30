@@ -126,6 +126,12 @@ const LOCALES = {
         tagline: '\u201cData speaks: the ultimate verification of hardware strength.\u201d',
         desc: "Real-time monitoring of multi-concurrent inference, tracking Tokens/sec and GPU resource utilization. Ensures your AI tasks achieve peak performance on AI workstations with visible, measurable fluidity."
       },
+      {
+        name: "AlphaScope", icon: "🔭",
+        subtitle: "Cross-Market Investment Intelligence",
+        tagline: '"See the alpha others miss — on your own infrastructure."',
+        desc: "AlphaScope unifies domestic and US equity markets into a single on-premise intelligence layer. Combine long-term fundamental screening with short-term momentum signals, build multi-market watchlists, and generate institutional-grade research briefs — without exposing your portfolio positions or trade intentions to any external service. Built for investors who treat information asymmetry as a competitive edge."
+      },
     ],
     successStoriesSection: {
       title: "Pilot Projects",
@@ -196,6 +202,19 @@ const LOCALES = {
         ],
         "modules": ["MotionScope"],
         "desc": "MotionScope ingests match and training footage and transforms it into structured motion intelligence — tracking every player's position, trajectory, and movement pattern across every frame. Running entirely on the team's own server, no clip is ever sent to an external service. What previously demanded a professional analyst working through hours of footage is now a fully automated process: annotated movement visualizations, player reports, and tactical pattern summaries delivered overnight. 90% of analysis time eliminated. Zero footage sent to third parties."
+      },
+      {
+        icon: "🔭",
+        company: "Independent Asset Manager",
+        industry: "Finance / Cross-Market Equity Research",
+        quote: "My portfolio, my signals, my machine — institutional-grade analysis without institutional overhead.",
+        metrics: [
+          { icon: "⏱", value: "80%", label: "research time per thesis" },
+          { icon: "🌐", value: "Dual", label: "markets in one workflow" },
+          { icon: "🔒", value: "0", label: "portfolio data sent to cloud" }
+        ],
+        modules: ["AlphaScope"],
+        desc: "AlphaScope runs the entire investment intelligence workflow on the manager's own workstation — portfolio positions, watchlists, and trade intentions never reach an external API. The platform ingests and correlates signals across Taiwan equities and US markets in a single session: fundamental screening for long-term allocation decisions, momentum indicators for short-term entry timing, and cross-market thesis generation built from private data sources the manager controls directly. What previously required switching between multiple terminals, downloading reports manually, and synthesizing research across time zones is now one unified, automated loop. 80% of per-thesis research time eliminated. Zero portfolio composition or trade intent shared with any cloud AI provider."
       }
     ],
     resources: {
@@ -448,6 +467,12 @@ const LOCALES = {
         tagline: "「數據說話，硬體實力的終極驗證。」",
         desc: "多併發推理模擬，即時監測 Tokens/sec 與 GPU 資源占用率。確保您的 AI 任務在 AI 工作站上發揮極致效能，看得見的流暢。"
       },
+      {
+        name: "AlphaScope", icon: "🔭",
+        subtitle: "跨市場投資情報平台",
+        tagline: '"看見別人看不見的 Alpha——在你的基礎設施上。"',
+        desc: "AlphaScope 將本地與美國股市整合為單一地端情報層。結合長線基本面篩選與短線動能訊號，建立跨市場觀察清單，生成機構級研究摘要——確保您的持倉部位與交易意圖不外傳至任何第三方服務。專為將資訊不對稱視為競爭優勢的投資人打造。"
+      },
     ],
     successStoriesSection: {
       title: "領航專案",
@@ -518,6 +543,19 @@ const LOCALES = {
         ],
         "modules": ["MotionScope"],
         "desc": "MotionScope 將比賽與訓練影片轉化為結構化的人體動態情報——追蹤每位球員在每一幀中的位置、軌跡與動作模式。系統全程在球隊自有伺服器上運行，影片片段不外流至任何第三方服務。原本需要專職分析師逐格審視的工作，如今完全自動化：動作軌跡視覺化標註、球員報告與戰術模式摘要一夜生成。影片分析時間縮短 90%，零資料傳送至第三方。"
+      },
+      {
+        "icon": "🔭",
+        "company": "自主資產管理者",
+        "industry": "金融 / 跨市場股票研究",
+        "quote": "我的持倉、我的訊號、我的機器——機構級分析，不需要機構級開銷。",
+        "metrics": [
+          { "icon": "⏱", "value": "80%", "label": "每筆研究時間縮短" },
+          { "icon": "🌐", "value": "雙市場", "label": "單一工作流整合" },
+          { "icon": "🔒", "value": "0", "label": "持倉資料流出外部" }
+        ],
+        "modules": ["AlphaScope"],
+        "desc": "AlphaScope 將完整的投資情報工作流程運行於自有工作站之上——持倉部位、觀察清單與交易意圖從未觸及任何外部 API。平台在單一工作流程中聚合台股與美股的市場訊號：長線資產配置採基本面篩選，短線進場時機採動能指標，跨市場投資論點直接由管理者掌控的私有資料源生成。原本需要切換多個終端機、手動下載報表、跨時區整合研究的作業，如今成為一條自動化迴路。每筆研究時間縮短 80%，持倉組成與交易意圖零資料流出至任何雲端 AI 服務商。"
       }
     ],
     resources: {
