@@ -91,6 +91,12 @@ const LOCALES = {
         desc: "Integrates STT with deep LLM contextual awareness to convert video audio into localized scripts and precise subtitles with emotional warmth. Purpose-built for digital media and publishers."
       },
       {
+        name: "MotionScope", icon: "🎬",
+        subtitle: "Human Motion Intelligence from Any Footage",
+        tagline: '"Every frame holds a story. MotionScope reads it."',
+        desc: "Upload any video — dashcam recordings, retail surveillance, public space footage, sports training films, or news reels — and MotionScope transforms it into structured human motion intelligence. Every person's position, trajectory, and movement pattern is tracked, quantified, and visualized across every frame. No live feed required. No specialized setup. Just deep, frame-by-frame insight from the footage you already have."
+      },
+      {
         name: "RagPilot", icon: "🎯",
         subtitle: "Enterprise Knowledge Navigator",
         tagline: '\u201cLetting AI understand your private data.\u201d',
@@ -399,6 +405,12 @@ const LOCALES = {
         subtitle: "影音劇本工廠",
         tagline: "「賦予聲音文字的靈魂，跨越語言的邊界。」",
         desc: "結合 STT 與 LLM 深度語境理解，將影片語音轉化為具備「情緒溫度」的在地化劇本與精確字幕。專為數位媒體與影視出版業者打造。"
+      },
+      {
+        name: "MotionScope", icon: "🎬",
+        subtitle: "從任何影片提取人體動態智慧",
+        tagline: "「每一幀影像，都藏著一個故事。MotionScope 讀懂它。」",
+        desc: "上傳任何影片——行車紀錄器畫面、零售監控錄像、公共空間影像、運動訓練影片或新聞素材——MotionScope 將其轉化為結構化的人體動態情報。每個人的位置、軌跡與動作模式，皆在每一幀中被追蹤、量化並可視化呈現。無需即時串流，無需特殊設備。只需將您手中現有的影像，轉化為深度的逐幀洞察。"
       },
       {
         name: "RagPilot", icon: "🎯",
