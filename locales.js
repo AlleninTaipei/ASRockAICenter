@@ -126,12 +126,6 @@ const LOCALES = {
         tagline: '\u201cData speaks: the ultimate verification of hardware strength.\u201d',
         desc: "Real-time monitoring of multi-concurrent inference, tracking Tokens/sec and GPU resource utilization. Ensures your AI tasks achieve peak performance on AI workstations with visible, measurable fluidity."
       },
-      {
-        name: "AlphaScope", icon: "🔭",
-        subtitle: "Cross-Market Investment Intelligence",
-        tagline: '"See the alpha others miss — on your own infrastructure."',
-        desc: "AlphaScope unifies domestic and US equity markets into a single on-premise intelligence layer. Combine long-term fundamental screening with short-term momentum signals, build multi-market watchlists, and generate institutional-grade research briefs — without exposing your portfolio positions or trade intentions to any external service. Built for investors who treat information asymmetry as a competitive edge."
-      },
     ],
     successStoriesSection: {
       title: "Pilot Projects",
@@ -213,8 +207,8 @@ const LOCALES = {
           { icon: "🌐", value: "Dual", label: "markets in one workflow" },
           { icon: "🔒", value: "0", label: "portfolio data sent to cloud" }
         ],
-        modules: ["AlphaScope"],
-        desc: "AlphaScope runs the entire investment intelligence workflow on the manager's own workstation — portfolio positions, watchlists, and trade intentions never reach an external API. The platform ingests and correlates signals across Taiwan equities and US markets in a single session: fundamental screening for long-term allocation decisions, momentum indicators for short-term entry timing, and cross-market thesis generation built from private data sources the manager controls directly. What previously required switching between multiple terminals, downloading reports manually, and synthesizing research across time zones is now one unified, automated loop. 80% of per-thesis research time eliminated. Zero portfolio composition or trade intent shared with any cloud AI provider."
+        modules: ["RagPilot", "RagLingo", "ChatForge"],
+        desc: "RagPilot ingests and indexes the manager's private research archive — earnings transcripts, broker reports, macroeconomic data — into a structured, queryable knowledge base running entirely on-premise. RagLingo bridges the language gap between US and Taiwan market sources, translating and contextualizing English-language research into actionable insights without routing a single document through an external API. ChatForge sits at the top of the stack as the conversational interface: natural-language queries generate cross-market investment briefs, thesis summaries, and position rationales drawn from the manager's own curated data. No cloud subscription fee. No document ever leaves the workstation. 80% of per-thesis research time eliminated."
       }
     ],
     resources: {
@@ -467,12 +461,6 @@ const LOCALES = {
         tagline: "「數據說話，硬體實力的終極驗證。」",
         desc: "多併發推理模擬，即時監測 Tokens/sec 與 GPU 資源占用率。確保您的 AI 任務在 AI 工作站上發揮極致效能，看得見的流暢。"
       },
-      {
-        name: "AlphaScope", icon: "🔭",
-        subtitle: "跨市場投資情報平台",
-        tagline: '"看見別人看不見的 Alpha——在你的基礎設施上。"',
-        desc: "AlphaScope 將本地與美國股市整合為單一地端情報層。結合長線基本面篩選與短線動能訊號，建立跨市場觀察清單，生成機構級研究摘要——確保您的持倉部位與交易意圖不外傳至任何第三方服務。專為將資訊不對稱視為競爭優勢的投資人打造。"
-      },
     ],
     successStoriesSection: {
       title: "領航專案",
@@ -554,8 +542,8 @@ const LOCALES = {
           { "icon": "🌐", "value": "雙市場", "label": "單一工作流整合" },
           { "icon": "🔒", "value": "0", "label": "持倉資料流出外部" }
         ],
-        "modules": ["AlphaScope"],
-        "desc": "AlphaScope 將完整的投資情報工作流程運行於自有工作站之上——持倉部位、觀察清單與交易意圖從未觸及任何外部 API。平台在單一工作流程中聚合台股與美股的市場訊號：長線資產配置採基本面篩選，短線進場時機採動能指標，跨市場投資論點直接由管理者掌控的私有資料源生成。原本需要切換多個終端機、手動下載報表、跨時區整合研究的作業，如今成為一條自動化迴路。每筆研究時間縮短 80%，持倉組成與交易意圖零資料流出至任何雲端 AI 服務商。"
+        "modules": ["RagPilot", "RagLingo", "ChatForge"],
+        "desc": "RagPilot 將管理者的私有研究資料庫——財報逐字稿、券商報告、總體經濟數據——轉化為全程在地端運行的結構化可查詢知識庫。RagLingo 弭平美台市場的語言落差，將英文研究報告與新聞翻譯、語境化為可執行的投資洞察，全程不將任何文件路由至外部 API。ChatForge 作為最上層的對話介面：以自然語言查詢，即可從管理者自有的精選資料中生成跨市場投資摘要、論點總結與持倉依據。無雲端訂閱費用，無文件流出工作站，每筆研究時間縮短 80%。"
       }
     ],
     resources: {
