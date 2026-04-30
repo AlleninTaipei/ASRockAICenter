@@ -115,6 +115,12 @@ const LOCALES = {
         desc: "Pre-configured Docker images for second-level deployment of AI model services and development environments. Frees developers from the headache of environment configuration, allowing them to focus on AI model innovation and application logic."
       },
       {
+        name: "DeepTuner", icon: "🎛️",
+        subtitle: "No-Code LLM Fine-Tuning Studio",
+        tagline: '"Your model. Your data. Your rules — no code required."',
+        desc: "DeepTuner puts the full power of LLM fine-tuning into a clean, intuitive interface — no scripts, no terminal, no engineering overhead. Upload your base model and dataset, configure training parameters including batch size, epochs, optimizer, gradient checkpointing, and PEFT mode, then let DeepTuner handle the rest. Every training run is fully observable: real-time GPU utilization, memory consumption, and temperature trends keep you in control from first epoch to last. When training completes, loss curves and performance summaries are right there — clear, visual, and ready to inform your next iteration. Fine-tuning a language model has never been this accessible."
+      },
+      {
         name: "PerfScope", icon: "📊",
         subtitle: "The Eye of Performance Visualization",
         tagline: '\u201cData speaks: the ultimate verification of hardware strength.\u201d',
@@ -429,6 +435,12 @@ const LOCALES = {
         subtitle: "環境部署專家",
         tagline: "「把複雜的底層環境，變回一鍵點擊。」",
         desc: "預配置 Docker 鏡像，實現 AI 模型服務與開發環境的秒級部署。讓開發者不再為環境配置煩惱，專注於 AI 模型與應用邏輯的創新。"
+      },
+      {
+        name: "DeepTuner", icon: "🎛️",
+        subtitle: "無程式碼 LLM 微調工作室",
+        tagline: "「你的模型，你的數據，你的規則——無需任何程式碼。」",
+        desc: "DeepTuner 將 LLM 微調的完整能力，濃縮進一個直覺、簡潔的操作介面——無需任何程式碼、無需終端機、無需工程背景。上傳基礎模型與資料集，設定 batch size、Epoch、optimizer、Gradient Checkpoint、PEFT 模式等訓練參數，其餘交給 DeepTuner 全權處理。整個訓練過程完全可視：即時 GPU 使用率、記憶體消耗與溫度走勢，讓你從第一個 Epoch 到最後一步都掌握全局。訓練結束後，loss 曲線與效能摘要一目了然，清晰呈現，直接支援你的下一輪決策。微調一個語言模型，從未如此平易近人。"
       },
       {
         name: "PerfScope", icon: "📊",
