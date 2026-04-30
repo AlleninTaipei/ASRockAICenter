@@ -483,7 +483,7 @@ const LOCALES = {
       },
       {
         "icon": "📘",
-        "company": "高中參考書出版業者",
+        "company": "K12 課程內容出版業者",
         "industry": "教育 / 學習內容",
         "quote": "每位學生都有專屬家教——運行在自己的伺服器，而非他人的雲端。",
         "metrics": [
