@@ -1196,6 +1196,58 @@ html {
     animation: sectionReveal 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
+/* Hero (flagship) app card */
+.app-card--hero {
+    grid-column: 1 / -1;
+    background: rgba(74, 158, 255, 0.07);
+    border-color: rgba(74, 158, 255, 0.4);
+    padding: 48px 45px;
+}
+
+.app-card--hero .app-name {
+    font-size: 26px;
+}
+
+.app-card--hero .app-icon {
+    width: 72px;
+    height: 72px;
+    font-size: 34px;
+}
+
+.app-card--hero .app-description {
+    font-size: 16px;
+    line-height: 1.85;
+    max-width: 900px;
+}
+
+.app-card--hero .app-tagline {
+    font-size: 15px;
+}
+
+.hero-factory-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 13px;
+    border-radius: 20px;
+    color: #4A9EFF;
+    background: rgba(74, 158, 255, 0.1);
+    border: 1px solid rgba(74, 158, 255, 0.3);
+    margin-bottom: 22px;
+}
+
+@media (max-width: 768px) {
+    .app-card--hero {
+        padding: 34px 26px;
+    }
+
+    .app-card--hero .app-name {
+        font-size: 22px;
+    }
+}
+
 /* Audience cards as buttons */
 button.audience-card {
     background: none;

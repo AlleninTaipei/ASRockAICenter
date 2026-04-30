@@ -2,10 +2,10 @@ const LOCALES = {
   en: {
     header: {
       title: "ASRock AI",
-      subtitle: "AI Middleware \u2013 Bridging Hardware and Software in AI Workstations",
+      subtitle: "This is not SaaS. This is your AI factory.",
       taglines: [
-        "The Total Solution Enabler for On Premise AI",
-        "Bridging the gap between enterprise vision and deployable AI infrastructure"
+        "In the era of AI, compute is strategy. Own yours.",
+        "Every agent, every workflow, every inference \u2014 on your infrastructure."
       ]
     },
     audienceNav: {
@@ -60,9 +60,18 @@ const LOCALES = {
       }
     ],
     appsSection: {
-      title: "AI Fusion Starter - AI Quick Start Solutions"
+      title: "Inside the Factory — Precision AI Tools",
+      subtitle: "Every application runs on your own compute — your data never leaves your infrastructure."
     },
     apps: [
+      {
+        "name": "SquadForge",
+        "icon": "🦞",
+        "badge": "AI Factory Core",
+        "subtitle": "Enterprise AI, Running on Your Own Compute",
+        "tagline": "\"In the era of AI, compute is strategy. Own yours.\"",
+        "desc": "SquadForge transforms your organization into an AI-native workforce by deploying dedicated agents for every employee—running entirely on your on-prem AI infrastructure. While others depend on external APIs and pay per token, you operate on owned compute: predictable, scalable, and fully under your control. No external dependencies. No data exposure. Just continuous, autonomous execution powered by your own systems. This is not SaaS. This is your AI factory."
+      },
       {
         name: "ChatForge", icon: "💬",
         subtitle: "Conversational AI Gateway",
@@ -105,13 +114,6 @@ const LOCALES = {
         tagline: '\u201cData speaks: the ultimate verification of hardware strength.\u201d',
         desc: "Real-time monitoring of multi-concurrent inference, tracking Tokens/sec and GPU resource utilization. Ensures your AI tasks achieve peak performance on AI workstations with visible, measurable fluidity."
       },
-      {
-        "name": "SquadForge",
-        "icon": "🦞",
-        "subtitle": "Enterprise AI, Running on Your Own Compute",
-        "tagline": "\"In the era of AI, compute is strategy. Own yours.\"",
-        "desc": "SquadForge transforms your organization into an AI-native workforce by deploying dedicated agents for every employee—running entirely on your on-prem AI infrastructure. While others depend on external APIs and pay per token, you operate on owned compute: predictable, scalable, and fully under your control. No external dependencies. No data exposure. Just continuous, autonomous execution powered by your own systems. This is not SaaS. This is your AI factory."
-      }
     ],
     successStoriesSection: {
       title: "Pilot Projects",
@@ -306,10 +308,10 @@ const LOCALES = {
   'zh-TW': {
     header: {
       title: "ASRock AI",
-      subtitle: "AI Middleware - 串聯 AI 工作站中的軟硬體整合",
+      subtitle: "這不是 SaaS。這是你的 AI 工廠。",
       taglines: [
-        "On-Premise AI 全方位解決方案推手",
-        "加速從願景到實際部署的無縫落地"
+        "在 AI 時代，算力就是戰略。掌握它。",
+        "每一個代理、每一條工作流、每一次推理——都在您的基礎設施上執行。"
       ]
     },
     audienceNav: {
@@ -364,9 +366,17 @@ const LOCALES = {
       }
     ],
     appsSection: {
-      title: "AI Fusion Starter - 快速入門解決方案"
+      title: "工廠內部：精密 AI 工具",
+      subtitle: "每一項應用都在您自有的算力上運行——數據永遠不會離開您的基礎設施。"
     },
     apps: [
+      {
+        "name": "SquadForge", "icon": "🦞",
+        "badge": "AI 工廠核心",
+        "subtitle": "企業級 AI，在你的算力上運行",
+        "tagline": "「在 AI 時代，算力就是戰略。掌握它。」",
+        "desc": "為每位員工部署專屬 AI 代理，全面運行於企業自有的本地 AI 基礎設施之上。當他人依賴外部 API、按 token 付費時，你運行的是自有算力：可預測、可擴展、完全掌控。無外部依賴，無資料外流。所有任務持續、自主地在你的系統中執行。這不是 SaaS，而是你的 AI 生產體系。"
+      },
       {
         name: "ChatForge", icon: "💬",
         subtitle: "智慧對話門戶",
@@ -409,12 +419,6 @@ const LOCALES = {
         tagline: "「數據說話，硬體實力的終極驗證。」",
         desc: "多併發推理模擬，即時監測 Tokens/sec 與 GPU 資源占用率。確保您的 AI 任務在 AI 工作站上發揮極致效能，看得見的流暢。"
       },
-      {
-        "name": "SquadForge", "icon": "🦞",
-        "subtitle": "企業級 AI，在你的算力上運行",
-        "tagline": "「在 AI 時代，算力就是戰略。掌握它。」",
-        "desc": "為每位員工部署專屬 AI 代理，全面運行於企業自有的本地 AI 基礎設施之上。當他人依賴外部 API、按 token 付費時，你運行的是自有算力：可預測、可擴展、完全掌控。無外部依賴，無資料外流。所有任務持續、自主地在你的系統中執行。這不是 SaaS，而是你的 AI 生產體系。"
-      }
     ],
     successStoriesSection: {
       title: "領航專案",

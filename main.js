@@ -16,19 +16,23 @@ function getLocale() {
 function renderApps(t) {
   const grid = document.getElementById('apps-grid');
   if (!grid) return;
-  grid.innerHTML = t.apps.map(app => `
-    <div class="app-card">
-      <div class="app-header">
-        <div class="app-icon">${app.icon}</div>
-        <div class="app-title-group">
-          <h3 class="app-name">${app.name}</h3>
-          <span class="app-subtitle">${app.subtitle}</span>
+  grid.innerHTML = t.apps.map((app, i) => {
+    const isHero = i === 0 && app.badge;
+    return `
+      <div class="app-card${isHero ? ' app-card--hero' : ''}">
+        ${isHero ? `<span class="hero-factory-badge">${app.badge}</span>` : ''}
+        <div class="app-header">
+          <div class="app-icon">${app.icon}</div>
+          <div class="app-title-group">
+            <h3 class="app-name">${app.name}</h3>
+            <span class="app-subtitle">${app.subtitle}</span>
+          </div>
         </div>
+        <p class="app-tagline">${app.tagline}</p>
+        <p class="app-description">${app.desc}</p>
       </div>
-      <p class="app-tagline">${app.tagline}</p>
-      <p class="app-description">${app.desc}</p>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
 function renderAudienceNav(t) {
