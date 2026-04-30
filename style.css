@@ -982,3 +982,228 @@ h2::after {
 .youtube-section.hidden {
     display: none;
 }
+
+/* Smooth scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Audience Navigation */
+.audience-nav-section {
+    margin-bottom: 60px;
+}
+
+.audience-nav-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+}
+
+.audience-card {
+    border-radius: 20px;
+    padding: 36px 32px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1.5px solid;
+}
+
+.audience-card--decision {
+    background: rgba(74, 158, 255, 0.05);
+    border-color: rgba(74, 158, 255, 0.25);
+}
+
+.audience-card--developer {
+    background: rgba(100, 221, 180, 0.04);
+    border-color: rgba(100, 221, 180, 0.25);
+}
+
+.audience-card--decision:hover {
+    background: rgba(74, 158, 255, 0.12);
+    border-color: rgba(74, 158, 255, 0.65);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(74, 158, 255, 0.2);
+}
+
+.audience-card--developer:hover {
+    background: rgba(100, 221, 180, 0.09);
+    border-color: rgba(100, 221, 180, 0.65);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(100, 221, 180, 0.15);
+}
+
+.audience-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+}
+
+.audience-card--decision .audience-badge {
+    color: #4A9EFF;
+    background: rgba(74, 158, 255, 0.1);
+    border: 1px solid rgba(74, 158, 255, 0.25);
+}
+
+.audience-card--developer .audience-badge {
+    color: #64DDB4;
+    background: rgba(100, 221, 180, 0.08);
+    border: 1px solid rgba(100, 221, 180, 0.28);
+}
+
+.audience-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+
+.audience-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 24px;
+}
+
+.audience-cta {
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.audience-card--decision .audience-cta {
+    color: #4A9EFF;
+}
+
+.audience-card--developer .audience-cta {
+    color: #64DDB4;
+}
+
+.audience-card:hover .audience-cta {
+    transform: translateX(6px);
+}
+
+@media (max-width: 768px) {
+    .audience-nav-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .audience-card {
+        padding: 28px 24px;
+    }
+
+    .audience-title {
+        font-size: 19px;
+    }
+}
+
+/* Academy Header */
+.academy-header {
+    text-align: center;
+    padding: 80px 40px 55px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.academy-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(100, 221, 180, 0.5), transparent);
+}
+
+.academy-badge-chip {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 7px 20px;
+    border-radius: 30px;
+    color: #64DDB4;
+    background: rgba(100, 221, 180, 0.07);
+    border: 1px solid rgba(100, 221, 180, 0.3);
+    margin-bottom: 24px;
+}
+
+.academy-header-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    background: linear-gradient(135deg, #64DDB4 0%, #00D4FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.academy-header-subtitle {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.5);
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+    .academy-header {
+        padding: 55px 20px 40px;
+        margin-bottom: 10px;
+    }
+
+    .academy-header-title {
+        font-size: 22px;
+    }
+}
+
+/* Audience reveal: sections hidden until audience is selected */
+.audience-hidden {
+    display: none;
+}
+
+/* Active state for selected audience card */
+.audience-card--active.audience-card--decision {
+    background: rgba(74, 158, 255, 0.14);
+    border-color: rgba(74, 158, 255, 0.75);
+    box-shadow: 0 0 0 1px rgba(74, 158, 255, 0.3);
+}
+
+.audience-card--active.audience-card--developer {
+    background: rgba(100, 221, 180, 0.12);
+    border-color: rgba(100, 221, 180, 0.75);
+    box-shadow: 0 0 0 1px rgba(100, 221, 180, 0.3);
+}
+
+/* Section entrance animation when revealed by click */
+@keyframes sectionReveal {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.section-entering {
+    animation: sectionReveal 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Audience cards as buttons */
+button.audience-card {
+    background: none;
+    border-style: solid;
+    font-family: inherit;
+    font-size: inherit;
+    text-align: left;
+    width: 100%;
+    color: inherit;
+    cursor: pointer;
+}

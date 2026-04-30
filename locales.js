@@ -8,6 +8,27 @@ const LOCALES = {
         "Bridging the gap between enterprise vision and deployable AI infrastructure"
       ]
     },
+    audienceNav: {
+      decisionMaker: {
+        badge: "For Decision Makers",
+        title: "Business Value & ROI",
+        desc: "Explore AI solutions built for enterprise outcomes — quick-start demos, pilot projects with proven results, and a structured collaboration process.",
+        cta: "Explore Solutions →",
+        anchor: "#apps"
+      },
+      developer: {
+        badge: "ASRock AI Developer Academy",
+        title: "Developer Enablement",
+        desc: "Courses, architecture deep-dives, and curated resources for engineers building on on-premise AI infrastructure.",
+        cta: "Enter Academy →",
+        anchor: "#academy"
+      }
+    },
+    academy: {
+      badge: "ASRock AI Developer Academy",
+      title: "Developer Enablement Hub",
+      subtitle: "Deep-dive courses, architecture breakdowns, and curated blogs — built for engineers who build."
+    },
     processSection: {
       title: "Service Model & Collaboration Process"
     },
@@ -290,6 +311,27 @@ const LOCALES = {
         "On-Premise AI 全方位解決方案推手",
         "加速從願景到實際部署的無縫落地"
       ]
+    },
+    audienceNav: {
+      decisionMaker: {
+        badge: "寫給決策者",
+        title: "商業價值與投資回報",
+        desc: "探索企業級 AI 解決方案——涵蓋快速入門展示、具備驗證成果的領航專案，以及完整的合作流程。",
+        cta: "探索解決方案 →",
+        anchor: "#apps"
+      },
+      developer: {
+        badge: "ASRock AI 開發者學院",
+        title: "開發者賦能專區",
+        desc: "課程、架構深度解析，以及專為工程師精選的技術資源，助您在本地 AI 基礎設施上快速建構。",
+        cta: "進入學院 →",
+        anchor: "#academy"
+      }
+    },
+    academy: {
+      badge: "ASRock AI 開發者學院",
+      title: "開發者賦能中心",
+      subtitle: "深度課程、架構解析，以及精選技術部落格——專為致力建構 AI 的工程師而設。"
     },
     processSection: {
       title: "服務模式與合作流程"
