@@ -1196,6 +1196,25 @@ html {
     animation: sectionReveal 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
+/* Story module tags */
+.story-modules {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.story-module-tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 3px 11px;
+    border-radius: 10px;
+    color: #4A9EFF;
+    background: rgba(74, 158, 255, 0.08);
+    border: 1px solid rgba(74, 158, 255, 0.2);
+}
+
 /* Hero (flagship) app card */
 .app-card--hero {
     grid-column: 1 / -1;

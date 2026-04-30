@@ -93,6 +93,7 @@ function renderSuccessStories(t) {
           </div>
         `).join('')}
       </div>
+      ${story.modules ? `<div class="story-modules">${story.modules.map(mod => `<span class="story-module-tag">${mod}</span>`).join('')}</div>` : ''}
       <p class="app-description">${story.desc}</p>
     </div>
   `).join('');

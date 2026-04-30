@@ -124,61 +124,66 @@ const LOCALES = {
         icon: "🏥",
         company: "Healthcare Provider",
         industry: "Medical / Patient Education",
-        quote: "Turning patient education into true understanding",
+        quote: "Patient data never leaves our network — and care quality has never been higher.",
         metrics: [
           { icon: "⏱", value: "30hrs", label: "saved per nurse/month" },
           { icon: "✅", value: "Consistent", label: "education delivery" },
           { icon: "📈", value: "↑", label: "care adherence" }
         ],
-        desc: "An AI-powered personalized education system built on a medical knowledge base. Adapts content to each patient's literacy level, supports multilingual Q&A, and generates take-home materials."
+        modules: ["RagPilot", "ChatForge"],
+        desc: "Built on RagPilot's medical knowledge base and ChatForge's conversational layer — both running on-premise — the system delivers personalized patient education without a single patient record touching an external API. Multilingual Q&A adapts to each patient's literacy level; take-home summaries are generated locally. Clinical teams gain compliance confidence alongside measurable care improvements: 30 hours saved per nurse per month, zero sensitive health data exposed."
       },
       {
         icon: "🎨",
         company: "Hardware Brand Team",
         industry: "Consumer Electronics / Marketing & Design",
-        quote: "From ideas to visuals in seconds — not weeks",
+        quote: "From product concept to visual in seconds — with zero IP exposure risk.",
         metrics: [
           { icon: "⏱", value: "80%", label: "faster visual iteration" },
           { icon: "💰", value: "↓", label: "outsourcing cost" },
           { icon: "🔁", value: "∞", label: "creative variations" }
         ],
-        desc: "An AI-powered visual generation and collaboration platform built for internal teams. Enables anyone to instantly create, share, and remix high-quality visuals without design or AI expertise. Combines templated workflows, shared galleries, and parameter-aware remixing to turn individual outputs into reusable team knowledge, accelerating alignment and creative production across departments."
+        modules: ["PixelForge"],
+        desc: "PixelForge runs the entire visual generation workflow on the team's own compute — meaning unreleased product imagery and brand concepts never leave the firewall. Anyone can instantly create, share, and remix high-quality visuals without design expertise or NDAs. No per-token fees to external AI providers. No IP leakage risk. Parameter-aware remixing turns individual outputs into reusable team knowledge, accelerating creative production without surrendering control."
       },
       {
         "icon": "🏭",
         "company": "Digital Media Publisher",
         "industry": "Content Publishing / Localization",
-        "quote": "Turning content localization into a real-time production pipeline",
+        "quote": "ScriptForge + RagLingo on our own compute: 80% faster, 60% cheaper, zero data exposure.",
         "metrics": [
           { "icon": "⏱", "value": "80%", "label": "faster subtitle turnaround" },
           { "icon": "💰", "value": "↓60%", "label": "translation cost" },
           { "icon": "🔒", "value": "100%", "label": "on-prem data privacy" }
         ],
-        "desc": "Powered by an on-prem AI workstation, the automated subtitle pipeline integrates speech recognition, translation, and timeline alignment into a single streamlined workflow. What once took days of manual effort can now be completed in just a few hours. With built-in context optimization and a fast human-in-the-loop editing interface, teams can maintain high quality while dramatically increasing output speed—turning multilingual publishing into a scalable, repeatable process without exposing sensitive content."
+        "modules": ["ScriptForge", "RagLingo"],
+        "desc": "ScriptForge handles speech recognition and timeline alignment; RagLingo delivers high-precision, context-aware translation — both running on an on-premise AI workstation. The result: no per-token fees to external APIs, no content sent outside the organization, and a multi-day manual workflow compressed to hours. Every frame of sensitive content remains under the publisher's direct control, making multilingual publishing a scalable, repeatable pipeline without sacrificing data sovereignty."
       },
       {
         "icon": "📘",
         "company": "K-12 Test Prep Publisher",
         "industry": "Education / Learning Content",
-        "quote": "From static textbooks to personalized learning experiences",
+        "quote": "Every student gets a personalized tutor — running on our servers, not someone else’s cloud.",
         "metrics": [
           { "icon": "⏱", "value": "70%", "label": "content production time reduced" },
           { "icon": "🎯", "value": "+40%", "label": "student engagement" },
           { "icon": "📈", "value": "↑", "label": "learning outcomes" }
         ],
-        "desc": "By integrating AI into their content workflow, the publisher transforms traditional test prep materials into interactive, personalized learning experiences. The system automatically generates explanations, practice variations, and adaptive learning paths based on student performance. What was once static content is now a dynamic learning platform that continuously adapts to each learner’s needs."
+        "modules": ["RagPilot", "ChatForge"],
+        "desc": "RagPilot transforms the publisher’s existing curriculum library into a structured knowledge base; ChatForge delivers that knowledge as personalized, adaptive Q&A for each student. Running on-premise means student performance data — a compliance-sensitive asset — stays entirely within the institution. Static textbooks become a living, continuously adapting learning platform: 70% faster content production, 40% higher engagement, and full data sovereignty maintained throughout."
       },
       {
         "icon": "⚽",
         "company": "Amateur Football Team",
         "industry": "Sports / Team Performance",
-        "quote": "From match footage to real coaching insights — without a full-time analyst",
+        "quote": "From match footage to coaching insights overnight — no analyst, no cloud subscription.",
         "metrics": [
           { "icon": "⏱", "value": "90%", "label": "analysis time reduced" },
           { "icon": "🎯", "value": "+35%", "label": "tactical execution" },
           { "icon": "📊", "value": "Weekly", "label": "player performance reports" }
         ],
-        "desc": "Using an AI-powered video analysis system, the team automatically transforms match and training footage into actionable coaching insights. The system detects player positioning, tactical execution, and key mistakes, generating annotated video highlights and concise analysis summaries. What once required hours of manual review is now delivered as fast, continuous feedback — enabling the team to improve with every game."
+        "modules": ["SquadForge", "ScriptForge"],
+        "desc": "SquadForge deploys autonomous analysis agents that process match footage through ScriptForge's video pipeline — detecting positioning, tactical patterns, and key errors without any clip leaving the team's local server. What previously demanded a professional analyst working through hours of footage is now a fully automated overnight process: annotated highlights, player reports, and tactical summaries ready by morning. 90% of analysis time eliminated. Zero data sent to third parties."
       }
     ],
     resources: {
@@ -429,61 +434,66 @@ const LOCALES = {
         icon: "🏥",
         company: "醫療院所",
         industry: "醫療 / 病患衛教",
-        quote: "讓每一位病患，都能真正「聽懂」自己的病情",
+        quote: "病患資料從未離開院內網絡——照護品質卻達到前所未有的高度。",
         metrics: [
           { icon: "⏱", value: "30hrs", label: "護理師每月節省" },
           { icon: "✅", value: "一致性", label: "衛教內容標準化" },
           { icon: "📈", value: "↑", label: "照護依從性提升" }
         ],
-        desc: "AI 驅動的個人化衛教系統，整合醫療知識庫，依病患理解程度自動調整內容，支援多語語音問答，並產出個人化帶回資料。"
+        modules: ["RagPilot", "ChatForge"],
+        desc: "以 RagPilot 建構醫療知識庫，透過 ChatForge 提供病患對話介面——兩者皆在院內地端運行，確保每一筆敏感健康資料不觸及外部 API。系統依病患理解程度自動調整內容、支援多語語音問答，並在本地生成個人化帶回資料。臨床團隊同時兼顧合規要求與可量化的照護提升：每位護理師每月節省 30 小時，且無任何患者資料外流風險。"
       },
       {
         icon: "🎨",
         company: "硬體品牌行銷團隊",
         industry: "消費性電子 / 行銷與設計",
-        quote: "從想法到視覺，只需幾秒，而不是幾週",
+        quote: "從產品概念到視覺成品，只需幾秒——且零 IP 外洩風險。",
         metrics: [
           { icon: "⏱", value: "80%", label: "視覺迭代速度提升" },
           { icon: "💰", value: "↓", label: "外包成本降低" },
           { icon: "🔁", value: "∞", label: "創意變體產出" }
         ],
-        desc: "一套為企業內部打造的 AI 視覺生成與協作平台，讓任何人無需設計或 AI 背景，即可快速產出高品質視覺內容。透過模板化工作流程、共享圖庫與參數可追溯的 Remix 機制，將個人創作轉化為團隊可累積與複用的視覺知識，大幅提升跨部門溝通效率與創意產出速度。"
+        modules: ["PixelForge"],
+        desc: "PixelForge 在團隊自有算力上執行完整視覺生成工作流——尚未發布的產品影像與品牌概念始終保存在防火牆內。任何人無需設計背景或保密協議，即可即時產出、共享並 Remix 高品質視覺內容。無外部 AI 服務商的按次計費，無 IP 外洩風險。參數可追溯的 Remix 機制將個人創作轉化為團隊可複用的視覺知識資產，在不失去掌控的前提下加速創意產出。"
       },
       {
         "icon": "🏭",
         "company": "數位媒體出版業者",
         "industry": "內容出版 / 多語在地化",
-        "quote": "讓每一支內容，都能在最短時間內跨語言觸及更多受眾",
+        "quote": "ScriptForge + RagLingo 在自有算力上運行：快 80%、省 60%、零資料外流。",
         "metrics": [
           { "icon": "⏱", "value": "80%", "label": "字幕產出時間縮短" },
           { "icon": "💰", "value": "↓60%", "label": "翻譯與製作成本降低" },
           { "icon": "🔒", "value": "100%", "label": "內容全程本地處理" }
         ],
-        "desc": "導入本地AI工作站與自動化字幕處理管線，整合語音辨識、機器翻譯與時間軸對齊技術，將原本需多日的人工作業壓縮至數小時內完成。系統支援內容語境優化與快速人工校對介面，確保品質與一致性，同時避免敏感素材外流，打造高效率且可控的多語內容生產流程。"
+        "modules": ["ScriptForge", "RagLingo"],
+        "desc": "ScriptForge 負責語音辨識與時間軸對齊，RagLingo 提供高精度語境感知翻譯——兩者皆運行於地端 AI 工作站之上。結果：零外部 API 按次計費，敏感內容不流出組織，多日人工作業壓縮至數小時。每一幀影像版權資產都在出版商的直接掌控之下，多語內容製作從此成為可擴展、可重複的生產管線，且完整維護數位主權。"
       },
       {
         "icon": "📘",
         "company": "高中參考書出版業者",
         "industry": "教育 / 學習內容",
-        "quote": "讓每一本參考書，都能變成真正因材施教的學習系統",
+        "quote": "每位學生都有專屬家教——運行在自己的伺服器，而非他人的雲端。",
         "metrics": [
           { "icon": "⏱", "value": "70%", "label": "內容製作時間縮短" },
           { "icon": "🎯", "value": "+40%", "label": "學生學習投入度提升" },
           { "icon": "📈", "value": "↑", "label": "學習成效提升" }
         ],
-        "desc": "透過AI技術，將傳統參考書內容轉化為互動式與個人化的學習體驗。系統可自動生成題目解析、延伸練習與分層學習路徑，並依據學生表現動態調整內容難度。讓原本靜態的教材升級為持續進化的學習平台，不僅提升學習效率，也強化學生理解與應用能力。"
+        "modules": ["RagPilot", "ChatForge"],
+        "desc": "RagPilot 將出版商現有課程素材轉化為結構化知識庫；ChatForge 以此為基礎，為每位學生提供個人化、自適應的問答互動。地端運行確保學生表現數據——一項高度合規敏感的資產——完整保存於機構內部。靜態教材因此蛻變為持續進化的學習平台：內容製作時間縮短 70%、學習投入度提升 40%，且全程維護完整的數位主權。"
       },
       {
         "icon": "⚽",
         "company": "業餘足球隊",
         "industry": "運動 / 球隊表現提升",
-        "quote": "沒有專職分析師，也能做出像職業隊一樣的戰術檢討",
+        "quote": "不需要專職分析師，也不需要雲端訂閱——從比賽影片到教練洞察，一夜之間。",
         "metrics": [
           { "icon": "⏱", "value": "90%", "label": "影片分析時間縮短" },
           { "icon": "🎯", "value": "+35%", "label": "戰術執行成功率提升" },
           { "icon": "📊", "value": "每週產出", "label": "球員表現報告" }
         ],
-        "desc": "透過AI影片分析系統，球隊將比賽與訓練影片自動轉換為可行動的教練洞察。系統能辨識球員跑位、戰術執行情況與關鍵失誤，自動生成標註影片與分析摘要，並產出個人與團隊報告。讓原本需耗費數小時的人工作業，轉變為即時且持續的數據回饋，幫助球隊在每一場比賽中持續進步。"
+        "modules": ["SquadForge", "ScriptForge"],
+        "desc": "SquadForge 部署自主分析代理，透過 ScriptForge 的影片處理管線辨識球員跑位、戰術模式與關鍵失誤——所有影片片段在球隊本地伺服器上完成分析，不流向任何第三方。原本需要專職分析師逐格審視的工作，如今由自動化代理在夜間完成：隔天早上，教練已備有標註完畢的精華片段、球員報告與戰術摘要。影片分析時間縮短 90%，零資料傳送至第三方。"
       }
     ],
     resources: {
