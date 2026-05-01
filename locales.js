@@ -129,7 +129,7 @@ const LOCALES = {
     ],
     successStoriesSection: {
       title: "Pilot Projects",
-      subtitle: "Spanning Healthcare, Consumer Electronics, Media & Publishing, Education, Sports, and Finance — each project is a live, on-premise deployment built with real clients."
+      subtitle: "Cross-industry pilots spanning Healthcare, Consumer Electronics, Media & Publishing, Education, Sports, and Finance."
     },
     successStories: [
       {
@@ -464,7 +464,7 @@ const LOCALES = {
     ],
     successStoriesSection: {
       title: "領航專案",
-      subtitle: "橫跨醫療、消費電子、媒體出版、教育、運動與金融——每個領航專案都是在真實客戶環境中完成的地端部署。"
+      subtitle: "領航專案涵蓋醫療、消費電子、媒體出版、教育、運動與金融等產業。"
     },
     successStories: [
       {
