@@ -129,7 +129,7 @@ const LOCALES = {
     ],
     successStoriesSection: {
       title: "Pilot Projects",
-      subtitle: "Our Pilot Projects represent collaborative efforts to explore cutting-edge solutions in specific industries. Some projects are focused on technical validation and R&D."
+      subtitle: "Spanning Healthcare, Consumer Electronics, Media & Publishing, Education, Sports, and Finance — each project is a live, on-premise deployment built with real clients."
     },
     successStories: [
       {
@@ -464,7 +464,7 @@ const LOCALES = {
     ],
     successStoriesSection: {
       title: "領航專案",
-      subtitle: "領航專案代表我們與特定產業共同探索前瞻方案的成果，部分專案著重於技術驗證與研發合作。"
+      subtitle: "橫跨醫療、消費電子、媒體出版、教育、運動與金融——每個領航專案都是在真實客戶環境中完成的地端部署。"
     },
     successStories: [
       {
