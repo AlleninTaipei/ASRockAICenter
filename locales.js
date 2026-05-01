@@ -204,7 +204,7 @@ const LOCALES = {
         quote: "Institutional-grade analysis without institutional overhead.",
         metrics: [
           { icon: "⏱", value: "80%", label: "research time per thesis" },
-          { icon: "🌐", value: "Dual", label: "markets in one workflow" },
+          { icon: "🌐", value: "Multi", label: "markets in one workflow" },
           { icon: "🔒", value: "0", label: "portfolio exposure to cloud" }
         ],
         modules: ["RagPilot", "RagLingo", "ChatForge"],
@@ -539,7 +539,7 @@ const LOCALES = {
         "quote": "機構級分析，不需要機構級開銷。",
         "metrics": [
           { "icon": "⏱", "value": "80%", "label": "每筆研究時間縮短" },
-          { "icon": "🌐", "value": "雙市場", "label": "單一工作流整合" },
+          { "icon": "🌐", "value": "跨境", "label": "單一工作流整合" },
           { "icon": "🔒", "value": "0", "label": "投資組合不外流" }
         ],
         "modules": ["RagPilot", "RagLingo", "ChatForge"],
