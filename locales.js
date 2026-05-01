@@ -201,14 +201,14 @@ const LOCALES = {
         icon: "🔭",
         company: "Independent Asset Manager",
         industry: "Finance / Cross-Market Equity Research",
-        quote: "My portfolio, my signals, my machine — institutional-grade analysis without institutional overhead.",
+        quote: "Institutional-grade analysis without institutional overhead.",
         metrics: [
           { icon: "⏱", value: "80%", label: "research time per thesis" },
           { icon: "🌐", value: "Dual", label: "markets in one workflow" },
-          { icon: "🔒", value: "0", label: "portfolio data sent to cloud" }
+          { icon: "🔒", value: "0", label: "portfolio exposure to cloud" }
         ],
         modules: ["RagPilot", "RagLingo", "ChatForge"],
-        desc: "RagPilot ingests and indexes the manager's private research archive — earnings transcripts, broker reports, macroeconomic data — into a structured, queryable knowledge base running entirely on-premise. RagLingo bridges the language gap between US and Taiwan market sources, translating and contextualizing English-language research into actionable insights without routing a single document through an external API. ChatForge sits at the top of the stack as the conversational interface: natural-language queries generate cross-market investment briefs, thesis summaries, and position rationales drawn from the manager's own curated data. No cloud subscription fee. No document ever leaves the workstation. 80% of per-thesis research time eliminated."
+        desc: "RagPilot ingests and indexes the manager's private research archive — earnings transcripts, broker reports, macroeconomic data across regions — into a structured, queryable knowledge base running entirely on-premise. RagLingo dissolves language barriers across global markets, translating and contextualizing research from any region or language into actionable insights without routing a single document through an external API. ChatForge sits at the top of the stack as the conversational interface: natural-language queries generate cross-border investment briefs, thesis summaries, and position rationales drawn from the manager's own curated data. No cloud subscription. No document ever leaves the workstation. 80% of per-thesis research time eliminated."
       }
     ],
     resources: {
@@ -536,14 +536,14 @@ const LOCALES = {
         "icon": "🔭",
         "company": "自主資產管理者",
         "industry": "金融 / 跨市場股票研究",
-        "quote": "我的持倉、我的訊號、我的機器——機構級分析，不需要機構級開銷。",
+        "quote": "機構級分析，不需要機構級開銷。",
         "metrics": [
           { "icon": "⏱", "value": "80%", "label": "每筆研究時間縮短" },
           { "icon": "🌐", "value": "雙市場", "label": "單一工作流整合" },
-          { "icon": "🔒", "value": "0", "label": "持倉資料流出外部" }
+          { "icon": "🔒", "value": "0", "label": "投資組合不外流" }
         ],
         "modules": ["RagPilot", "RagLingo", "ChatForge"],
-        "desc": "RagPilot 將管理者的私有研究資料庫——財報逐字稿、券商報告、總體經濟數據——轉化為全程在地端運行的結構化可查詢知識庫。RagLingo 弭平美台市場的語言落差，將英文研究報告與新聞翻譯、語境化為可執行的投資洞察，全程不將任何文件路由至外部 API。ChatForge 作為最上層的對話介面：以自然語言查詢，即可從管理者自有的精選資料中生成跨市場投資摘要、論點總結與持倉依據。無雲端訂閱費用，無文件流出工作站，每筆研究時間縮短 80%。"
+        "desc": "RagPilot 將管理者的私有研究資料庫——跨地區的財報逐字稿、券商報告與總體經濟數據——轉化為全程在地端運行的結構化可查詢知識庫。RagLingo 打破全球市場的語言壁壘，將任何語種的研究報告與資訊翻譯、語境化為可執行的投資洞察，全程不將任何文件路由至外部 API。ChatForge 作為最上層的對話介面：以自然語言查詢，即可從管理者自有的精選資料中生成跨境投資摘要、論點總結與持倉依據。無雲端訂閱費用，無文件流出工作站，每筆研究時間縮短 80%。"
       }
     ],
     resources: {
