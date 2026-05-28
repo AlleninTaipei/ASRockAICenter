@@ -295,6 +295,12 @@ const LOCALES = {
         desc: "Discover how an AI agent runs 100 experiments overnight and gets smarter each time. Covers the three-file architecture (train.py, prepare.py, program.md), the automated experiment loop, and how val_bpb drives every decision.",
         link: "public/docs/en/Course-en/autoresearch-course/index.html",
         type: "html"
+      },
+      {
+        title: "RTK: How AI Saves Its Own Brain Power",
+        desc: "Discover how RTK cuts AI context costs by up to 80% without changing your workflow. Covers RTK's proxy architecture, the 100+ specialized command modules, the six-phase assembly line that processes every command in under 10ms, the hook system, and the analytics engine that tracks token savings in real time.",
+        link: "public/docs/en/Course-en/rtk-course/index.html",
+        type: "html"
       }
     ],
     blogsSection: {
