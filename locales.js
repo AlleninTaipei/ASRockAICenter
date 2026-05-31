@@ -246,7 +246,8 @@ const LOCALES = {
       ]
     },
     coursesSection: {
-      title: "Developer Courses"
+      title: "Developer Courses",
+      subtitle: "Hands-on courses covering the tools, architectures, and patterns behind enterprise AI systems."
     },
     courses: [
       {
@@ -589,7 +590,8 @@ const LOCALES = {
       ]
     },
     coursesSection: {
-      title: "開發者課程"
+      title: "開發者課程",
+      subtitle: "涵蓋企業 AI 系統核心工具、架構與模式的實戰課程。"
     },
     blogsSection: {
       title: "值得一讀的部落格",
