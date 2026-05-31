@@ -2,10 +2,10 @@ const LOCALES = {
   en: {
     header: {
       title: "ASRock AI",
-      subtitle: "This is not SaaS. This is your AI factory.",
+      subtitle: "Enterprise AI Transformation \u2014 on your infrastructure, on your terms.",
       taglines: [
-        "In the era of AI, compute is strategy. Own yours.",
-        "Every agent, every workflow, every inference \u2014 on your infrastructure."
+        "In the era of AI, compute is strategy. Own yours \u2014 on-premise or hybrid.",
+        "From AI infrastructure to enterprise transformation: we close the gap."
       ]
     },
     audienceNav: {
@@ -330,7 +330,7 @@ const LOCALES = {
     ],
     youtubeSection: {
       title: "On-premise AI Videos",
-      query: "On-premise AI",
+      query: "Enterprise AI infrastructure",
       more: "Watch on YouTube",
       maxResults: 12
     },
@@ -344,10 +344,10 @@ const LOCALES = {
   'zh-TW': {
     header: {
       title: "ASRock AI",
-      subtitle: "這不是 SaaS。這是你的 AI 工廠。",
+      subtitle: "企業 AI 轉型——算力在你手中，主導權也是。",
       taglines: [
-        "在 AI 時代，算力就是戰略。掌握它。",
-        "每一個代理、每一條工作流、每一次推理——都在您的基礎設施上執行。"
+        "在 AI 時代，算力就是戰略。本地、雲端，或兩者兼備——都在你的掌控中。",
+        "從 AI 基礎設施到企業轉型，我們填補這段距離。"
       ]
     },
     audienceNav: {
@@ -593,7 +593,7 @@ const LOCALES = {
     },
     youtubeSection: {
       title: "本地部署 AI 影片",
-      query: "本地AI",
+      query: "企業AI部署",
       more: "在 YouTube 上觀看",
       maxResults: 11,
       pinnedVideo: {
