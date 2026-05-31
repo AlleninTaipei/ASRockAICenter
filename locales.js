@@ -305,7 +305,8 @@ const LOCALES = {
       }
     ],
     blogsSection: {
-      title: "Blogs Worth Reading"
+      title: "Blogs Worth Reading",
+      subtitle: "Curated perspectives from the builders and thinkers shaping enterprise AI."
     },
     blogs: [
       {
@@ -591,7 +592,8 @@ const LOCALES = {
       title: "開發者課程"
     },
     blogsSection: {
-      title: "值得一讀的部落格"
+      title: "值得一讀的部落格",
+      subtitle: "精選 AI 建構者與思想家的洞見，探索企業 AI 的演進方向。"
     },
     youtubeSection: {
       title: "企業 AI 轉型實戰",
