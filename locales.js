@@ -129,7 +129,7 @@ const LOCALES = {
     ],
     successStoriesSection: {
       title: "Pilot Projects",
-      subtitle: "Cross-industry pilots spanning Healthcare, Consumer Electronics, Media & Publishing, Education, Sports, and Finance."
+      subtitle: "Enterprise AI transformation in action — pilots spanning Healthcare, Consumer Electronics, Media & Publishing, Education, Sports, and Finance."
     },
     successStories: [
       {
@@ -470,7 +470,7 @@ const LOCALES = {
     ],
     successStoriesSection: {
       title: "領航專案",
-      subtitle: "領航專案涵蓋醫療、消費電子、媒體出版、教育、運動與金融等產業。"
+      subtitle: "企業 AI 轉型實戰——橫跨醫療、消費電子、媒體出版、教育、運動與金融等產業的領航部署。"
     },
     successStories: [
       {
