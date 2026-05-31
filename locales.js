@@ -329,7 +329,7 @@ const LOCALES = {
       }
     ],
     youtubeSection: {
-      title: "On-premise AI Videos",
+      title: "Enterprise AI in Action",
       query: "Enterprise AI infrastructure",
       more: "Watch on YouTube",
       maxResults: 12
@@ -592,7 +592,7 @@ const LOCALES = {
       title: "值得一讀的部落格"
     },
     youtubeSection: {
-      title: "本地部署 AI 影片",
+      title: "企業 AI 轉型實戰",
       query: "企業AI部署",
       more: "在 YouTube 上觀看",
       maxResults: 11,
