@@ -27,7 +27,7 @@ const LOCALES = {
     academy: {
       badge: "ASRock AI Developer Academy",
       title: "Developer Enablement Hub",
-      subtitle: "Deep-dive courses, architecture breakdowns, and curated blogs — built for engineers who build."
+      subtitle: "Deep-dive courses, architecture breakdowns, and curated blogs — for engineers building enterprise AI infrastructure, on-premise or hybrid."
     },
     processSection: {
       title: "Service Model & Collaboration Process"
@@ -369,7 +369,7 @@ const LOCALES = {
     academy: {
       badge: "ASRock AI 開發者學院",
       title: "開發者賦能中心",
-      subtitle: "深度課程、架構解析，以及精選技術部落格——專為致力建構 AI 的工程師而設。"
+      subtitle: "深度課程、架構解析，以及精選技術部落格——為建構企業 AI 基礎設施的工程師而設，本地部署或混合雲皆適用。"
     },
     processSection: {
       title: "服務模式與合作流程"
