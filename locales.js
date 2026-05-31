@@ -214,6 +214,7 @@ const LOCALES = {
     ],
     resources: {
       title: "Related Resources",
+      subtitle: "Hardware, infrastructure, and ecosystem resources for building enterprise AI — from workstation to rack.",
       items: [
         {
           title: "Master Ai - Your own local AI Workstation",
@@ -559,6 +560,7 @@ const LOCALES = {
     ],
     resources: {
       title: "相關資源",
+      subtitle: "從工作站到機架——建構企業 AI 所需的硬體、基礎設施與生態系資源。",
       items: [
         {
           title: "Master Ai - 您的專屬在地 AI 工作站",
