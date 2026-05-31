@@ -30,7 +30,8 @@ const LOCALES = {
       subtitle: "Deep-dive courses, architecture breakdowns, and curated blogs — for engineers building enterprise AI infrastructure, on-premise or hybrid."
     },
     processSection: {
-      title: "Service Model & Collaboration Process"
+      title: "Service Model & Collaboration Process",
+      subtitle: "From first conversation to production deployment — a structured path to enterprise AI transformation."
     },
     process: [
       {
@@ -372,7 +373,8 @@ const LOCALES = {
       subtitle: "深度課程、架構解析，以及精選技術部落格——為建構企業 AI 基礎設施的工程師而設，本地部署或混合雲皆適用。"
     },
     processSection: {
-      title: "服務模式與合作流程"
+      title: "服務模式與合作流程",
+      subtitle: "從首次對話到生產部署——企業 AI 轉型的結構化路徑。"
     },
     process: [
       {
