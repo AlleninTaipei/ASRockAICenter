@@ -61,7 +61,7 @@ const LOCALES = {
     ],
     appsSection: {
       title: "Inside the Factory — Precision AI Tools",
-      subtitle: "Every application runs on your own compute — your data never leaves your infrastructure."
+      subtitle: "Every application runs on infrastructure you control — on-premise, hybrid, or private cloud. Your data never leaves your perimeter."
     },
     apps: [
       {
@@ -403,7 +403,7 @@ const LOCALES = {
     ],
     appsSection: {
       title: "工廠內部：精密 AI 工具",
-      subtitle: "每一項應用都在您自有的算力上運行——數據永遠不會離開您的基礎設施。"
+      subtitle: "每一項應用都在您掌控的基礎設施上運行——本地、混合雲或私有雲皆適用。數據永遠不會離開您的邊界。"
     },
     apps: [
       {
