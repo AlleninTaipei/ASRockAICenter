@@ -333,6 +333,7 @@ const LOCALES = {
     ],
     youtubeSection: {
       title: "Enterprise AI in Action",
+      subtitle: "Talks, demos, and case studies on enterprise AI infrastructure and transformation.",
       query: "Enterprise AI infrastructure",
       more: "Watch on YouTube",
       maxResults: 12
@@ -599,6 +600,7 @@ const LOCALES = {
     },
     youtubeSection: {
       title: "企業 AI 轉型實戰",
+      subtitle: "企業 AI 基礎設施與轉型實戰的演講、展示與案例分享。",
       query: "企業AI部署",
       more: "在 YouTube 上觀看",
       maxResults: 12
