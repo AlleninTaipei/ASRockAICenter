@@ -12,14 +12,14 @@ const LOCALES = {
       decisionMaker: {
         badge: "For Decision Makers",
         title: "Business Value & ROI",
-        desc: "Explore AI solutions built for enterprise outcomes — quick-start demos, pilot projects with proven results, and a structured collaboration process.",
+        desc: "Partner with us to lead enterprise AI transformation — from infrastructure design to production deployment, across on-premise and hybrid environments.",
         cta: "Explore Solutions →",
         anchor: "#apps"
       },
       developer: {
         badge: "ASRock AI Developer Academy",
         title: "Developer Enablement",
-        desc: "Courses, architecture deep-dives, and curated resources for engineers building on on-premise AI infrastructure.",
+        desc: "Courses, architecture deep-dives, and curated resources for engineers building enterprise AI systems — on-premise, hybrid, or private cloud.",
         cta: "Enter Academy →",
         anchor: "#academy"
       }
@@ -354,14 +354,14 @@ const LOCALES = {
       decisionMaker: {
         badge: "寫給決策者",
         title: "商業價值與投資回報",
-        desc: "探索企業級 AI 解決方案——涵蓋快速入門展示、具備驗證成果的領航專案，以及完整的合作流程。",
+        desc: "與我們攜手推動企業 AI 轉型——涵蓋基礎設施規劃、生產環境部署，以及本地與混合雲架構下的 AI 治理。",
         cta: "探索解決方案 →",
         anchor: "#apps"
       },
       developer: {
         badge: "ASRock AI 開發者學院",
         title: "開發者賦能專區",
-        desc: "課程、架構深度解析，以及專為工程師精選的技術資源，助您在本地 AI 基礎設施上快速建構。",
+        desc: "課程、架構深度解析，以及專為工程師精選的技術資源，助您在企業 AI 基礎設施上快速建構——本地、混合雲或私有雲皆適用。",
         cta: "進入學院 →",
         anchor: "#academy"
       }
@@ -595,10 +595,7 @@ const LOCALES = {
       title: "企業 AI 轉型實戰",
       query: "企業AI部署",
       more: "在 YouTube 上觀看",
-      maxResults: 11,
-      pinnedVideo: {
-        videoId: "EpErrCZ2A2Q"
-      }
+      maxResults: 12
     },
     contact: {
       title: "聯絡我們",
