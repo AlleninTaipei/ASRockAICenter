@@ -248,7 +248,7 @@ const LOCALES = {
     },
     coursesSection: {
       title: "Developer Courses",
-      subtitle: "Hands-on courses covering the tools, architectures, and patterns behind enterprise AI systems."
+      subtitle: "Two focused courses — from Claude API fundamentals to the architecture of a production-grade AI agent harness."
     },
     courses: [
       {
@@ -261,48 +261,6 @@ const LOCALES = {
         title: "The Anatomy of an Agent Harness",
         desc: "Explore how an agent harness turns a raw LLM into a reliable task-solving machine. Covers the core loop, tool execution, context compression (ACON), self-optimization, and the verification patterns that push benchmark scores from outside top 30 into the top 5.",
         link: "public/docs/en/Course-en/Agent_Harness.html",
-        type: "html"
-      },
-      {
-        title: "Inside n8n: How Workflow Automation Really Works",
-        desc: "Discover how n8n turns a visual canvas into a live automation engine. Covers the node-and-connection model, trigger types, the execution pipeline, credential management, and the AI Agent node — with interactive demos at every step.",
-        link: "public/docs/en/Course-en/n8n-course/index.html",
-        type: "html"
-      },
-      {
-        title: "How Claw Works: A Field Guide to AI Coding Agents",
-        desc: "An interactive course exploring Claw — an AI coding agent that lives in your terminal and can actually do things. Covers its Rust crate architecture, tool & permission system, and multi-provider AI design.",
-        link: "public/docs/en/Course-en/claw-code-course/index.html",
-        type: "html"
-      },
-      {
-        title: "How OpenCode Works",
-        desc: "Trace what happens under the hood when you type a request in OpenCode — from message to code. Covers the three-agent reasoning loop (Build / Plan / General), tool architecture, memory system, and multi-interface engine.",
-        link: "public/docs/en/Course-en/opencode-course/index.html",
-        type: "html"
-      },
-      {
-        title: "How OpenClaw Works — An Interactive Course",
-        desc: "A deep-dive into OpenClaw, your AI across every channel. Learn how a single brain can reply on WhatsApp, iPhone, and Mac — and how its five core characters, plugin system, and 24/7 health monitoring hold it all together.",
-        link: "public/docs/en/Course-en/openclaw-course/index.html",
-        type: "html"
-      },
-      {
-        title: "Inside Hermes Agent",
-        desc: "Trace exactly what happens the moment you send a message to Hermes — a self-improving AI agent. Covers the six-actor architecture, the learning loop that makes it smarter over time, multi-channel deployment, and the smart tricks behind context management and tool routing.",
-        link: "public/docs/en/Course-en/hermes-course/index.html",
-        type: "html"
-      },
-      {
-        title: "Autoresearch: How AI Teaches Itself",
-        desc: "Discover how an AI agent runs 100 experiments overnight and gets smarter each time. Covers the three-file architecture (train.py, prepare.py, program.md), the automated experiment loop, and how val_bpb drives every decision.",
-        link: "public/docs/en/Course-en/autoresearch-course/index.html",
-        type: "html"
-      },
-      {
-        title: "RTK: How AI Saves Its Own Brain Power",
-        desc: "Discover how RTK cuts AI context costs by up to 80% without changing your workflow. Covers RTK's proxy architecture, the 100+ specialized command modules, the six-phase assembly line that processes every command in under 10ms, the hook system, and the analytics engine that tracks token savings in real time.",
-        link: "public/docs/en/Course-en/rtk-course/index.html",
         type: "html"
       }
     ],
@@ -594,7 +552,7 @@ const LOCALES = {
     },
     coursesSection: {
       title: "開發者課程",
-      subtitle: "涵蓋企業 AI 系統核心工具、架構與模式的實戰課程。"
+      subtitle: "兩門深度課程——從 Claude API 基礎實作，到生產級 AI Agent 架構設計。"
     },
     blogsSection: {
       title: "值得一讀的部落格",
