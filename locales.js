@@ -57,7 +57,7 @@ const LOCALES = {
       {
         icon: "🤝",
         title: "Ongoing Optimization & Advisory",
-        desc: "Continuous performance tuning, model updates, and strategic consulting to ensure long-term value from your on-premise AI investment."
+        desc: "Continuously tune performance, update models, and provide strategic consulting to maximize long-term value from your on-premise AI investment."
       }
     ],
     appsSection: {
@@ -70,8 +70,8 @@ const LOCALES = {
         "icon": "🦞",
         "badge": "AI Factory Core",
         "subtitle": "Enterprise AI, Running on Your Own Compute",
-        "tagline": "\"In the era of AI, compute is strategy. Own yours.\"",
-        "desc": "SquadForge transforms your organization into an AI-native workforce by deploying dedicated agents for every employee—running entirely on your on-prem AI infrastructure. While others depend on external APIs and pay per token, you operate on owned compute: predictable, scalable, and fully under your control. No external dependencies. No data exposure. Just continuous, autonomous execution powered by your own systems. This is not SaaS. This is your AI factory."
+        "tagline": "“In the era of AI, compute is strategy. Own yours.”",
+        "desc": "SquadForge transforms your organization into an AI-native workforce by deploying dedicated agents for every employee — running entirely on your on-prem AI infrastructure. While others depend on external APIs and pay per token, you operate on owned compute: predictable, scalable, and fully under your control. No external dependencies. No data exposure. Just continuous, autonomous execution powered by your own systems. This is not SaaS. This is your AI factory."
       },
       {
         name: "ChatForge", icon: "💬",
@@ -94,7 +94,7 @@ const LOCALES = {
       {
         name: "MotionScope", icon: "🎬",
         subtitle: "Human Motion Intelligence from Any Footage",
-        tagline: '"Every frame holds a story. MotionScope reads it."',
+        tagline: '“Every frame holds a story. MotionScope reads it.”',
         desc: "Upload any video — dashcam recordings, retail surveillance, public space footage, sports training films, or news reels — and MotionScope transforms it into structured human motion intelligence. Every person's position, trajectory, and movement pattern is tracked, quantified, and visualized across every frame. No live feed required. No specialized setup. Just deep, frame-by-frame insight from the footage you already have."
       },
       {
@@ -106,8 +106,8 @@ const LOCALES = {
       {
         name: "RagLingo", icon: "🌐",
         subtitle: "Global Knowledge Translation",
-        tagline: '\u201cLocalization is not just translation; it is comprehension.\u201d',
-        desc: "Based on RAG + LLM technology, providing high-precision translation and professional academic localization for technical knowledge. Assists multinational corporations in bridging knowledge gaps, achieving synchronized global technical documentation."
+        tagline: '\u201cLocalization is not just translation; it is understanding.\u201d',
+        desc: "Based on RAG + LLM technology, providing high-precision translation and professional academic localization for technical knowledge. Helps multinational teams bridge knowledge gaps and keep technical documentation in sync across every region."
       },
       {
         name: "QuickStack", icon: "🐋",
@@ -118,14 +118,14 @@ const LOCALES = {
       {
         name: "DeepTuner", icon: "🎛️",
         subtitle: "No-Code LLM Fine-Tuning Studio",
-        tagline: '"Your model. Your data. Your rules — no code required."',
-        desc: "DeepTuner puts the full power of LLM fine-tuning into a clean, intuitive interface — no scripts, no terminal, no engineering overhead. Upload your base model and dataset, configure training parameters including batch size, epochs, optimizer, gradient checkpointing, and PEFT mode, then let DeepTuner handle the rest. Every training run is fully observable: real-time GPU utilization, memory consumption, and temperature trends keep you in control from first epoch to last. When training completes, loss curves and performance summaries are right there — clear, visual, and ready to inform your next iteration. Fine-tuning a language model has never been this accessible."
+        tagline: '“Your model. Your data. Your rules — no code required.”',
+        desc: "DeepTuner packs the full power of LLM fine-tuning into a single, intuitive interface — no scripts, no terminal, no engineering overhead. Upload your model and dataset, set your training parameters, and DeepTuner handles the rest. GPU usage, memory, and loss curves stay visible in real time, so every run is something you can actually see and understand."
       },
       {
         name: "PerfScope", icon: "📊",
         subtitle: "The Eye of Performance Visualization",
         tagline: '\u201cData speaks: the ultimate verification of hardware strength.\u201d',
-        desc: "Real-time monitoring of multi-concurrent inference, tracking Tokens/sec and GPU resource utilization. Ensures your AI tasks achieve peak performance on AI workstations with visible, measurable fluidity."
+        desc: "Real-time monitoring of multi-concurrent inference, tracking Tokens/sec and GPU resource utilization. Ensures your AI tasks achieve peak performance on AI workstations with visible, measurable speed."
       },
     ],
     successStoriesSection: {
@@ -176,14 +176,14 @@ const LOCALES = {
         "icon": "📘",
         "company": "K-12 Test Prep Publisher",
         "industry": "Education / Learning Content",
-        "quote": "Every student gets a personalized tutor — running on our servers, not someone else’s cloud.",
+        "quote": "Every student gets a personalized tutor — running on our servers, not someone else's cloud.",
         "metrics": [
           { "icon": "⏱", "value": "70%", "label": "content production time reduced" },
           { "icon": "🎯", "value": "+40%", "label": "student engagement" },
           { "icon": "📈", "value": "↑", "label": "learning outcomes" }
         ],
         "modules": ["RagPilot", "ChatForge"],
-        "desc": "RagPilot transforms the publisher’s existing curriculum library into a structured knowledge base; ChatForge delivers that knowledge as personalized, adaptive Q&A for each student. Running on-premise means student performance data — a compliance-sensitive asset — stays entirely within the institution. Static textbooks become a living, continuously adapting learning platform: 70% faster content production, 40% higher engagement, and full data sovereignty maintained throughout."
+        "desc": "RagPilot transforms the publisher's existing curriculum library into a structured knowledge base; ChatForge delivers that knowledge as personalized, adaptive Q&A for each student. Running on-premise means student performance data — a compliance-sensitive asset — stays entirely within the institution. Static textbooks become a living, continuously adapting learning platform: 70% faster content production, 40% higher engagement, and full data sovereignty maintained throughout."
       },
       {
         "icon": "⚽",
@@ -218,7 +218,7 @@ const LOCALES = {
       items: [
         {
           title: "Master Ai - Your own local AI Workstation",
-          desc: "In the arena of AI computing, there is no absolute winner\u2014only the choice that best fits your needs. Master Ai embodies our team’s elite \"Two-Way Player\" expertise, mirroring the versatility of Shohei Ohtani by delivering peak performance across both NVIDIA CUDA and AMD ROCm ecosystems.",
+          desc: "In the arena of AI computing, there is no absolute winner \u2014 only the choice that best fits your needs. Master Ai embodies our team's elite \"Two-Way Player\" expertise, mirroring the versatility of Shohei Ohtani by delivering peak performance across both NVIDIA CUDA and AMD ROCm ecosystems.",
           link: "public/docs/en/MasterAi_en.html",
           type: "html"
         },
@@ -229,7 +229,7 @@ const LOCALES = {
         },
         {
           title: "Industrial Robust Edge AIoT Platform",
-          desc: "ASRock Industrial’s AI Box Computer features comprehensive hardware solutions and vision technology to bring AI and Edge computing to smart applications.",
+          desc: "ASRock Industrial's AI Box Computer features comprehensive hardware solutions and vision technology to bring AI and Edge computing to smart applications.",
           link: "https://www.asrockind.com/en-gb/ai-edge-computer-"
         },
         {
@@ -240,7 +240,7 @@ const LOCALES = {
         },
         {
           title: "NVIDIA GPU Product Lines - Hopper to Blackwell",
-          desc: "A strategic guide to NVIDIA’s GPU lineup, covering the evolution from Hopper (H100) to Blackwell (B200). This document clarifies key terminology (RTX, HGX, DGX) and technical specs to simplify hardware selection.",
+          desc: "A strategic guide to NVIDIA's GPU lineup, covering the evolution from Hopper (H100) to Blackwell (B200). This document clarifies key terminology (RTX, HGX, DGX) and technical specs to simplify hardware selection.",
           link: "public/docs/en/nvidia_gpu_product_lines_en.html",
           type: "html"
         },
