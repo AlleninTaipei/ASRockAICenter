@@ -115,9 +115,10 @@ function renderCourses(t) {
   if (!grid) return;
   // Always use English content and links regardless of language
   const items = LOCALES['en'].courses;
+  const langBadge = currentLang !== 'en' ? '<span class="link-lang-badge">English</span>' : '';
   grid.innerHTML = items.map(item => `
     <a href="${item.link}" class="link-card" data-type="${item.type || 'external'}" target="_blank" rel="noreferrer">
-      <div class="link-title">${item.title}</div>
+      <div class="link-title">${item.title}${langBadge}</div>
       <div class="link-description">${item.desc}</div>
     </a>
   `).join('');
