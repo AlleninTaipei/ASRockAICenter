@@ -139,23 +139,24 @@ function renderContact(t) {
   const container = document.getElementById('contact-cards');
   if (!container) return;
   const c = t.contact;
+  const peopleCards = c.people.map(p => `
+    <a href="mailto:${p.email}" class="contact-card contact-card--email">
+      <div class="contact-card-body">
+        <span class="contact-card-platform">${p.name}, ${p.title}</span>
+        <span class="contact-card-label">${p.email}</span>
+      </div>
+      <span class="contact-card-arrow">&#8599;</span>
+    </a>
+  `).join('');
   container.innerHTML = `
     <a href="${c.linkedinUrl}" target="_blank" rel="noopener noreferrer" class="contact-card contact-card--linkedin">
-      <div class="contact-card-icon">🔗</div>
       <div class="contact-card-body">
         <span class="contact-card-platform">LinkedIn</span>
         <span class="contact-card-label">${c.linkedinText}</span>
       </div>
       <span class="contact-card-arrow">&#8599;</span>
     </a>
-    <a href="mailto:${c.email}" class="contact-card contact-card--email">
-      <div class="contact-card-icon">📧</div>
-      <div class="contact-card-body">
-        <span class="contact-card-platform">Email</span>
-        <span class="contact-card-label">${c.email}</span>
-      </div>
-      <span class="contact-card-arrow">&#8599;</span>
-    </a>
+    ${peopleCards}
   `;
 }
 
