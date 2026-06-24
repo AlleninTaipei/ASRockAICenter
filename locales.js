@@ -328,7 +328,7 @@ const LOCALES = {
       developer: {
         badge: "ASRock AI 開發者學院",
         title: "開發者賦能專區",
-        desc: "課程、架構深度解析，以及專為工程師精選的技術資源，助您在企業 AI 基礎設施上快速建構——本地、混合雲或私有雲皆適用。",
+        desc: "課程、架構深度解析，以及專為工程師精選的技術資源，助你在企業 AI 基礎設施上快速建構——本地、混合雲或私有雲皆適用。",
         cta: "進入學院 →",
         anchor: "#academy"
       }
@@ -346,12 +346,12 @@ const LOCALES = {
       {
         icon: "🔍",
         title: "需求訪談與評估",
-        desc: "深入了解您的 AI 目標、現有基礎設施與核心痛點，定義清晰的專案範疇與可量化的成功指標。"
+        desc: "深入了解你的 AI 目標、現有基礎設施與核心痛點，定義清晰的專案範疇與可量化的成功指標。"
       },
       {
         icon: "🎯",
         title: "客製化方案設計",
-        desc: "依據您的硬體配置、資料管線與業務目標，量身打造最適合的 AI Middleware 架構方案。"
+        desc: "依據你的硬體配置、資料管線與業務目標，量身打造最適合的 AI Middleware 架構方案。"
       },
       {
         icon: "🧪",
@@ -361,17 +361,17 @@ const LOCALES = {
       {
         icon: "🚀",
         title: "系統整合與正式部署",
-        desc: "提供全端技術支援，將解決方案無縫整合至您的正式生產環境，確保穩定上線。"
+        desc: "提供全端技術支援，將解決方案無縫整合至你的正式生產環境，確保穩定上線。"
       },
       {
         icon: "🤝",
         title: "後續優化與顧問支持",
-        desc: "持續調校效能、更新模型，並提供策略性顧問諮詢，最大化您的 On-Premise AI 長期投資價值。"
+        desc: "持續調校效能、更新模型，並提供策略性顧問諮詢，最大化你的 On-Premise AI 長期投資價值。"
       }
     ],
     appsSection: {
       title: "工廠內部：精密 AI 工具",
-      subtitle: "每一項應用都在您掌控的基礎設施上運行——本地、混合雲或私有雲皆適用。數據永遠不會離開您的邊界。"
+      subtitle: "每一項應用都在你掌控的基礎設施上運行——本地、混合雲或私有雲皆適用。數據永遠不會離開你的邊界。"
     },
     apps: [
       {
@@ -385,7 +385,7 @@ const LOCALES = {
         name: "ChatForge", icon: "💬",
         subtitle: "智慧對話門戶",
         tagline: "「對話，是理解 AI 的第一步。」",
-        desc: "演示相容 OpenAI API 調用，實現毫秒級的實時對話回應。提供企業級 Chatbot 起始模板，讓 AI 成為您最貼心的第一線客服或助理。"
+        desc: "演示相容 OpenAI API 調用，實現毫秒級的實時對話回應。提供企業級 Chatbot 起始模板，讓 AI 成為你最貼心的第一線客服或助理。"
       },
       {
         name: "PixelForge", icon: "🎨",
@@ -403,12 +403,12 @@ const LOCALES = {
         name: "MotionScope", icon: "🎬",
         subtitle: "從任何影片提取人體動態智慧",
         tagline: "「每一幀影像，都藏著一個故事。MotionScope 讀懂它。」",
-        desc: "上傳任何影片——行車紀錄器畫面、零售監控錄像、公共空間影像、運動訓練影片或新聞素材——MotionScope 將其轉化為結構化的人體動態情報。每個人的位置、軌跡與動作模式，皆在每一幀中被追蹤、量化並可視化呈現。無需即時串流，無需特殊設備。只需將您手中現有的影像，轉化為深度的逐幀洞察。"
+        desc: "上傳任何影片，行車紀錄器、賣場監控、運動訓練或新聞畫面都行，MotionScope 會把它轉化成結構化的人體動態情報：每個人的位置、軌跡與動作模式，逐幀追蹤、量化呈現。不需要即時串流，不需要特殊設備，你手上現有的影像就夠了。"
       },
       {
         name: "RagPilot", icon: "🎯",
         subtitle: "企業知識導航",
-        tagline: "「讓 AI 讀懂您的私有數據。」",
+        tagline: "「讓 AI 讀懂你的私有數據。」",
         desc: "整合結構化與非結構化數據，展示 OpenAI Function Calling 擴充能力。構建企業私有的知識庫，確保 AI 回答的每一句話都有據可查。"
       },
       {
@@ -427,13 +427,13 @@ const LOCALES = {
         name: "DeepTuner", icon: "🎛️",
         subtitle: "無程式碼 LLM 微調工作室",
         tagline: "「你的模型，你的數據，你的規則——無需任何程式碼。」",
-        desc: "DeepTuner 將 LLM 微調的完整能力，濃縮進一個直覺、簡潔的操作介面——無需任何程式碼、無需終端機、無需工程背景。上傳基礎模型與資料集，設定 batch size、Epoch、optimizer、Gradient Checkpoint、PEFT 模式等訓練參數，其餘交給 DeepTuner 全權處理。整個訓練過程完全可視：即時 GPU 使用率、記憶體消耗與溫度走勢，讓你從第一個 Epoch 到最後一步都掌握全局。訓練結束後，loss 曲線與效能摘要一目了然，清晰呈現，直接支援你的下一輪決策。微調一個語言模型，從未如此平易近人。"
+        desc: "DeepTuner 把 LLM 微調濃縮成一個介面操作，不需要寫程式、不需要碰終端機。上傳模型與資料集、設定好訓練參數，GPU 使用率與 loss 曲線全程可視，每一輪訓練都看得懂、看得見。"
       },
       {
         name: "PerfScope", icon: "📊",
         subtitle: "性能觀測之眼",
         tagline: "「數據說話，硬體實力的終極驗證。」",
-        desc: "多併發推理模擬，即時監測 Tokens/sec 與 GPU 資源占用率。確保您的 AI 任務在 AI 工作站上發揮極致效能，看得見的流暢。"
+        desc: "多併發推理模擬，即時監測 Tokens/sec 與 GPU 資源占用率。確保你的 AI 任務在 AI 工作站上發揮極致效能，看得見的流暢。"
       },
     ],
     successStoriesSection: {
@@ -445,7 +445,7 @@ const LOCALES = {
         icon: "🏥",
         company: "醫療院所",
         industry: "醫療 / 病患衛教",
-        quote: "病患資料從未離開院內網絡——照護品質卻達到前所未有的高度。",
+        quote: "病患資料從頭到尾沒離開過院內網絡，照護品質卻是我們合作以來最好的一次。",
         metrics: [
           { icon: "⏱", value: "30hrs", label: "護理師每月節省" },
           { icon: "✅", value: "一致性", label: "衛教內容標準化" },
@@ -458,7 +458,7 @@ const LOCALES = {
         icon: "🎨",
         company: "硬體品牌行銷團隊",
         industry: "消費性電子 / 行銷與設計",
-        quote: "從產品概念到視覺成品，只需幾秒——且零 IP 外洩風險。",
+        quote: "零 IP 外洩風險，產品概念也能在幾秒內變成視覺成品。",
         metrics: [
           { icon: "⏱", value: "80%", label: "視覺迭代速度提升" },
           { icon: "💰", value: "↓", label: "外包成本降低" },
@@ -484,7 +484,7 @@ const LOCALES = {
         "icon": "📘",
         "company": "K12 課程內容出版業者",
         "industry": "教育 / 學習內容",
-        "quote": "每位學生都有專屬家教——運行在自己的伺服器，而非他人的雲端。",
+        "quote": "每位學生都有專屬家教，差別是它跑在我們自己的伺服器上，不是別人的雲端。",
         "metrics": [
           { "icon": "⏱", "value": "70%", "label": "內容製作時間縮短" },
           { "icon": "🎯", "value": "+40%", "label": "學生學習投入度提升" },
@@ -497,7 +497,7 @@ const LOCALES = {
         "icon": "⚽",
         "company": "業餘足球隊",
         "industry": "運動 / 球隊表現提升",
-        "quote": "不需要專職分析師，也不需要雲端訂閱——從比賽影片到教練洞察，一夜之間。",
+        "quote": "從比賽影片到教練看得懂的洞察，只要一個晚上，而且不用請分析師、不用訂閱任何雲端服務。",
         "metrics": [
           { "icon": "⏱", "value": "90%", "label": "影片分析時間縮短" },
           { "icon": "🎯", "value": "+35%", "label": "戰術執行成功率提升" },
@@ -525,8 +525,8 @@ const LOCALES = {
       subtitle: "從工作站到機架——建構企業 AI 所需的硬體、基礎設施與生態系資源。",
       items: [
         {
-          title: "Master Ai - 您的專屬在地 AI 工作站",
-          desc: "在 AI 運算的賽場上，沒有絕對的勝負，只有最適合您的選擇。Master Ai 象徵著我們團隊具備如大谷翔平般的「二刀流」頂尖實力，在 NVIDIA CUDA 與 AMD ROCm 兩大生態系中都能展現極致的運算表現。",
+          title: "Master Ai - 你的專屬在地 AI 工作站",
+          desc: "在 AI 運算的賽場上，沒有絕對的勝負，只有最適合你的選擇。Master Ai 象徵著我們團隊具備如大谷翔平般的「二刀流」頂尖實力，在 NVIDIA CUDA 與 AMD ROCm 兩大生態系中都能展現極致的運算表現。",
           link: "public/docs/zh-TW/MasterAi_zh.html",
           type: "html"
         },
@@ -548,7 +548,7 @@ const LOCALES = {
         },
         {
           title: "NVIDIA GPU 產品線 - Hopper 到 Blackwell",
-          desc: "本文件系統化梳理 NVIDIA 從 Hopper (H100) 到 Blackwell (B200) 的產品架構與階層。透過釐清 RTX、HGX、DGX 等核心術語與規格對比，協助您快速掌握硬體選型邏輯。",
+          desc: "本文件系統化梳理 NVIDIA 從 Hopper (H100) 到 Blackwell (B200) 的產品架構與階層。透過釐清 RTX、HGX、DGX 等核心術語與規格對比，協助你快速掌握硬體選型邏輯。",
           link: "public/docs/zh-TW/nvidia_gpu_product_lines_zh.html",
           type: "html"
         },
