@@ -1,5 +1,5 @@
 // ── State ──────────────────────────────────────────────────────────────────
-let currentLang = localStorage.getItem('lang') || 'en';
+let currentLang = localStorage.getItem('lang') || 'zh-TW';
 let selectedAudience = localStorage.getItem('audience') || null;
 
 const AUDIENCE_SECTIONS = {
