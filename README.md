@@ -115,12 +115,3 @@ GitHub Pages 設定：來源為 `main` branch，根目錄 `/`，不需要 build 
 
 以 React 18 + Vite 5 開發的前身版本，需要 build 步驟才能部署。
 目前已停止維護，僅作歷史保留。
-
----
-
-## Git 身分識別設定
-
-```bash
-git config --global user.email "你的Email"
-git config --global user.name "你的GitHub帳號"
-```
