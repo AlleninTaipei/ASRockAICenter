@@ -302,7 +302,7 @@ const LOCALES = {
       linkedinUrl: "https://www.linkedin.com/in/allen-sun-67738b38a",
       linkedinText: "Contact Allen on LinkedIn",
       people: [
-        { name: "Allen", title: "ASRock AI Center Head", email: "allen1_sun@asrock.com.tw" },
+        { name: "Allen Sun", title: "ASRock AI Center Head", email: "allen1_sun@asrock.com.tw" },
         { name: "Ricardo Hsu", title: "Business Development", email: "Ricardo_Hsu@asrock.com.tw" },
         { name: "Steven Chen", title: "Technical Marketing Manager", email: "Steven2_Chen@asrock.com.tw" }
       ]
@@ -574,7 +574,7 @@ const LOCALES = {
       linkedinUrl: "https://www.linkedin.com/in/allen-sun-67738b38a",
       linkedinText: "在 LinkedIn 上聯繫 Allen",
       people: [
-        { name: "Allen", title: "ASRock AI Center 負責人", email: "allen1_sun@asrock.com.tw" },
+        { name: "Allen Sun", title: "ASRock AI Center 負責人", email: "allen1_sun@asrock.com.tw" },
         { name: "Ricardo Hsu", title: "業務開發", email: "Ricardo_Hsu@asrock.com.tw" },
         { name: "Steven Chen", title: "技術行銷主管", email: "Steven2_Chen@asrock.com.tw" }
       ]
