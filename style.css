@@ -116,17 +116,14 @@ h1 {
     font-weight: 700;
     margin-bottom: 20px;
     letter-spacing: 1px;
-    background: linear-gradient(135deg, var(--ink) 0%, var(--accent) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--ink);
 }
 
 .tagline {
     font-size: 16px;
     font-weight: 300;
     margin-bottom: 12px;
-    color: var(--accent-deep);
+    color: var(--ink);
     opacity: 0;
     animation: fadeIn 1s ease-out forwards;
 }
@@ -159,10 +156,7 @@ h2 {
     font-weight: 400;
     margin-bottom: 50px;
     text-align: center;
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--ink);
     position: relative;
     padding-bottom: 15px;
 }
