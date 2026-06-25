@@ -556,7 +556,7 @@ const LOCALES = {
     },
     coursesSection: {
       title: "開發者課程",
-      subtitle: "兩門深度課程——從 Claude API 基礎實作，到生產級 AI Agent 架構設計。"
+      subtitle: "從 Claude API 基礎實作，到生產級 AI Agent 架構設計。"
     },
     blogsSection: {
       title: "值得一讀的部落格",
