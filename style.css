@@ -317,7 +317,7 @@ h2::after {
 
 .app-subtitle {
     font-size: 13px;
-    color: var(--accent);
+    color: rgba(var(--ink-rgb), 0.65);
     letter-spacing: 0.03em;
 }
 
@@ -370,14 +370,14 @@ h2::after {
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 0;
-    color: var(--accent);
+    color: var(--ink);
     position: relative;
     z-index: 1;
     transition: all 0.3s ease;
 }
 
 .app-card:hover .app-name {
-    color: var(--accent-deep);
+    color: var(--ink);
     transform: translateX(5px);
 }
 
@@ -427,11 +427,6 @@ h2::after {
     filter: brightness(0.97);
 }
 
-#apps-grid .app-card .app-name,
-#apps-grid .app-card .app-subtitle,
-#apps-grid .app-card:hover .app-name {
-    color: var(--ink);
-}
 
 /* Success Stories Section Subtitle */
 .section-subtitle {
