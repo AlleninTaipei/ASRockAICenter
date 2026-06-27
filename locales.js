@@ -360,7 +360,7 @@ const LOCALES = {
       }
     ],
     appsSection: {
-      title: "工廠內部：精密 AI 工具",
+      title: "AI 工廠內部：精密應用工具",
       subtitle: "每一項應用都在你掌控的基礎設施上運行——本地、混合雲或私有雲皆適用。數據永遠不會離開你的邊界。"
     },
     apps: [
