@@ -1,7 +1,7 @@
 // ── State ──────────────────────────────────────────────────────────────────
 let currentLang = localStorage.getItem('lang') || 'zh-TW';
 let selectedAudience = localStorage.getItem('audience') || null;
-let currentTheme = localStorage.getItem('theme') || 'dark';
+let currentTheme = localStorage.getItem('theme') || 'light';
 
 const AUDIENCE_SECTIONS = {
   decision: ['apps', 'process', 'success-stories', 'resources'],

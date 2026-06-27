@@ -37,7 +37,7 @@ const LOCALES = {
       {
         icon: "🎯",
         title: "Customized Solution Design",
-        desc: "Architect a tailored AI middleware plan aligned with your hardware configuration, data pipeline, and business objectives."
+        desc: "Architect a tailored AI solution aligned with your hardware configuration, data pipeline, and business objectives."
       },
       {
         icon: "🧪",
@@ -341,7 +341,7 @@ const LOCALES = {
       {
         icon: "🎯",
         title: "客製化方案設計",
-        desc: "依據你的硬體配置、資料管線與業務目標，量身打造最適合的 AI Middleware 架構方案。"
+        desc: "依據你的硬體配置、資料管線與業務目標，量身打造最適合的 AI 解決方案。"
       },
       {
         icon: "🧪",

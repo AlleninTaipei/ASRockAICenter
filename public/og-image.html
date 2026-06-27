@@ -11,84 +11,69 @@
       width: 1200px;
       height: 630px;
       overflow: hidden;
-      background: #0a0a0f;
+      background: #FAF8F3;
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      color: #fff;
+      color: #2D2923;
     }
 
-    /* ── Grid overlay ── */
-    .grid {
+    /* Subtle warm dot grid */
+    .dot-grid {
       position: absolute;
       inset: 0;
-      background-image:
-        linear-gradient(rgba(6,182,212,0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(6,182,212,0.06) 1px, transparent 1px);
-      background-size: 60px 60px;
+      background-image: radial-gradient(circle, rgba(45,41,35,0.07) 1px, transparent 1px);
+      background-size: 36px 36px;
     }
 
-    /* ── Radial glow spots ── */
-    .glow-center {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 900px;
-      height: 500px;
-      background: radial-gradient(ellipse at center,
-        rgba(6,182,212,0.13) 0%,
-        rgba(59,130,246,0.08) 40%,
-        transparent 70%);
-      pointer-events: none;
-    }
+    /* Warm radial glows */
     .glow-tl {
       position: absolute;
-      top: -120px;
-      left: -120px;
-      width: 480px;
-      height: 480px;
-      background: radial-gradient(circle, rgba(6,182,212,0.10) 0%, transparent 65%);
+      top: -180px;
+      left: -180px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(204,120,92,0.10) 0%, transparent 65%);
     }
     .glow-br {
       position: absolute;
-      bottom: -140px;
-      right: -80px;
-      width: 520px;
-      height: 520px;
-      background: radial-gradient(circle, rgba(59,130,246,0.10) 0%, transparent 65%);
+      bottom: -180px;
+      right: -120px;
+      width: 560px;
+      height: 560px;
+      background: radial-gradient(circle, rgba(124,139,94,0.10) 0%, transparent 65%);
     }
 
-    /* ── Corner brackets ── */
-    .bracket {
+    /* Corner marks — editorial style */
+    .corner {
       position: absolute;
-      width: 48px;
-      height: 48px;
+      width: 36px;
+      height: 36px;
     }
-    .bracket::before,
-    .bracket::after {
+    .corner::before,
+    .corner::after {
       content: '';
       position: absolute;
-      background: #06b6d4;
+      background: rgba(204,120,92,0.45);
     }
-    .bracket::before { width: 100%; height: 2px; }
-    .bracket::after  { width: 2px; height: 100%; }
+    .corner::before { width: 100%; height: 1.5px; }
+    .corner::after  { width: 1.5px; height: 100%; }
 
-    .bracket-tl { top: 32px; left: 32px; }
-    .bracket-tl::before { top: 0; left: 0; }
-    .bracket-tl::after  { top: 0; left: 0; }
+    .corner-tl { top: 40px; left: 40px; }
+    .corner-tl::before { top: 0; left: 0; }
+    .corner-tl::after  { top: 0; left: 0; }
 
-    .bracket-tr { top: 32px; right: 32px; transform: scaleX(-1); }
-    .bracket-tr::before { top: 0; left: 0; }
-    .bracket-tr::after  { top: 0; left: 0; }
+    .corner-tr { top: 40px; right: 40px; transform: scaleX(-1); }
+    .corner-tr::before { top: 0; left: 0; }
+    .corner-tr::after  { top: 0; left: 0; }
 
-    .bracket-bl { bottom: 32px; left: 32px; transform: scaleY(-1); }
-    .bracket-bl::before { top: 0; left: 0; }
-    .bracket-bl::after  { top: 0; left: 0; }
+    .corner-bl { bottom: 40px; left: 40px; transform: scaleY(-1); }
+    .corner-bl::before { top: 0; left: 0; }
+    .corner-bl::after  { top: 0; left: 0; }
 
-    .bracket-br { bottom: 32px; right: 32px; transform: scale(-1); }
-    .bracket-br::before { top: 0; left: 0; }
-    .bracket-br::after  { top: 0; left: 0; }
+    .corner-br { bottom: 40px; right: 40px; transform: scale(-1); }
+    .corner-br::before { top: 0; left: 0; }
+    .corner-br::after  { top: 0; left: 0; }
 
-    /* ── Horizontal accent lines ── */
+    /* Horizontal accent lines */
     .line-top,
     .line-bottom {
       position: absolute;
@@ -97,14 +82,14 @@
       height: 1px;
       background: linear-gradient(90deg,
         transparent 0%,
-        rgba(6,182,212,0.5) 20%,
-        rgba(6,182,212,0.5) 80%,
+        rgba(204,120,92,0.30) 20%,
+        rgba(204,120,92,0.30) 80%,
         transparent 100%);
     }
     .line-top    { top: 88px; }
     .line-bottom { bottom: 88px; }
 
-    /* ── Main content ── */
+    /* Main content */
     .content {
       position: absolute;
       inset: 0;
@@ -112,180 +97,123 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0;
     }
 
-    /* ── Chip / badge above logo ── */
+    /* Badge */
     .badge {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 8px;
-      border: 1px solid rgba(6,182,212,0.35);
+      gap: 9px;
+      border: 1px solid rgba(204,120,92,0.40);
       border-radius: 999px;
-      padding: 6px 18px;
-      margin-bottom: 36px;
-      background: rgba(6,182,212,0.06);
+      padding: 7px 22px;
+      margin-bottom: 42px;
+      background: rgba(204,120,92,0.06);
     }
     .badge-dot {
-      width: 7px;
-      height: 7px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
-      background: #06b6d4;
-      box-shadow: 0 0 8px #06b6d4;
+      background: #CC785C;
     }
     .badge-text {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.20em;
       text-transform: uppercase;
-      color: #06b6d4;
+      color: #CC785C;
     }
 
-    /* ── Logo wordmark ── */
-    .logo-wrap {
+    /* Logo wordmark */
+    .logo {
       display: flex;
       align-items: baseline;
-      gap: 0;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     .logo-asrock {
-      font-size: 76px;
+      font-size: 86px;
       font-weight: 800;
       letter-spacing: -0.02em;
-      color: #fff;
+      color: #2D2923;
       line-height: 1;
     }
     .logo-ai {
-      font-size: 76px;
+      font-size: 86px;
       font-weight: 800;
       letter-spacing: -0.02em;
       line-height: 1;
-      background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 60%, #818cf8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      filter: drop-shadow(0 0 18px rgba(6,182,212,0.55));
+      color: #CC785C;
     }
 
-    /* ── Divider ── */
+    /* Divider */
     .divider {
       width: 72px;
       height: 3px;
       border-radius: 2px;
-      background: linear-gradient(90deg, #06b6d4, #3b82f6);
-      margin: 22px 0 24px;
-      box-shadow: 0 0 12px rgba(6,182,212,0.6);
+      background: linear-gradient(90deg, #CC785C, #7C8B5E);
+      margin: 26px 0 30px;
     }
 
-    /* ── Tagline ── */
-    .tagline {
-      font-size: 22px;
+    /* Subtitle */
+    .subtitle {
+      font-size: 27px;
       font-weight: 400;
-      letter-spacing: 0.01em;
-      color: rgba(255,255,255,0.68);
+      color: #2D2923;
       text-align: center;
-      max-width: 680px;
-      line-height: 1.5;
+      letter-spacing: 0.005em;
+      margin-bottom: 14px;
     }
 
-    /* ── Bottom domain strip ── */
-    .domain-strip {
+    /* Tagline */
+    .tagline {
+      font-size: 18px;
+      font-weight: 300;
+      color: rgba(45,41,35,0.52);
+      text-align: center;
+      letter-spacing: 0.01em;
+    }
+
+    /* URL strip */
+    .url-strip {
       position: absolute;
-      bottom: 44px;
+      bottom: 46px;
       left: 0;
       right: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 9px;
     }
-    .domain-icon {
-      width: 18px;
-      height: 18px;
-      border: 1.5px solid rgba(6,182,212,0.5);
+    .url-dot {
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: rgba(204,120,92,0.55);
     }
-    .domain-icon::after {
-      content: '';
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #06b6d4;
-    }
-    .domain-text {
+    .url-text {
       font-size: 14px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      color: rgba(6,182,212,0.70);
-    }
-
-    /* ── Decorative hex nodes (top-right area) ── */
-    .hex-group {
-      position: absolute;
-      top: 44px;
-      right: 100px;
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-    .hex {
-      width: 10px;
-      height: 10px;
-      border: 1.5px solid rgba(6,182,212,0.4);
-      border-radius: 2px;
-      transform: rotate(45deg);
-    }
-    .hex.lit {
-      background: rgba(6,182,212,0.25);
-      border-color: rgba(6,182,212,0.8);
-      box-shadow: 0 0 8px rgba(6,182,212,0.5);
-    }
-
-    /* ── Scan-line texture ── */
-    .scanlines {
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 3px,
-        rgba(0,0,0,0.07) 3px,
-        rgba(0,0,0,0.07) 4px
-      );
-      pointer-events: none;
+      font-weight: 400;
+      letter-spacing: 0.07em;
+      color: rgba(45,41,35,0.38);
     }
   </style>
 </head>
 <body>
 
   <!-- Background layers -->
-  <div class="grid"></div>
+  <div class="dot-grid"></div>
   <div class="glow-tl"></div>
   <div class="glow-br"></div>
-  <div class="glow-center"></div>
-  <div class="scanlines"></div>
 
-  <!-- Corner brackets -->
-  <div class="bracket bracket-tl"></div>
-  <div class="bracket bracket-tr"></div>
-  <div class="bracket bracket-bl"></div>
-  <div class="bracket bracket-br"></div>
+  <!-- Corner marks -->
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
 
   <!-- Accent lines -->
   <div class="line-top"></div>
   <div class="line-bottom"></div>
-
-  <!-- Decorative hex nodes -->
-  <div class="hex-group">
-    <div class="hex lit"></div>
-    <div class="hex"></div>
-    <div class="hex lit"></div>
-    <div class="hex"></div>
-    <div class="hex lit"></div>
-  </div>
 
   <!-- Main content -->
   <div class="content">
@@ -294,20 +222,21 @@
       <span class="badge-text">Enterprise AI Platform</span>
     </div>
 
-    <div class="logo-wrap">
+    <div class="logo">
       <span class="logo-asrock">ASRock&nbsp;</span>
       <span class="logo-ai">AI</span>
     </div>
 
     <div class="divider"></div>
 
-    <p class="tagline">Advanced AI Middleware Solutions for Enterprises</p>
+    <p class="subtitle">Enterprise AI Transformation</p>
+    <p class="tagline">on your infrastructure, on your terms.</p>
   </div>
 
-  <!-- Bottom domain -->
-  <div class="domain-strip">
-    <div class="domain-icon"></div>
-    <span class="domain-text">allenintaipei.github.io/ASRockAICenter</span>
+  <!-- URL strip -->
+  <div class="url-strip">
+    <div class="url-dot"></div>
+    <span class="url-text">allenintaipei.github.io/ASRockAICenter</span>
   </div>
 
 </body>
