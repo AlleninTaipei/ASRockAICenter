@@ -21,13 +21,8 @@ const LOCALES = {
         title: "Developer Enablement",
         desc: "Courses, architecture deep-dives, and curated resources for engineers building enterprise AI systems — on-premise, hybrid, or private cloud.",
         cta: "Enter Academy →",
-        anchor: "#academy"
+        anchor: "#courses"
       }
-    },
-    academy: {
-      badge: "ASRock AI Developer Academy",
-      title: "Developer Enablement Hub",
-      subtitle: "Deep-dive courses, architecture breakdowns, and curated blogs — for engineers building enterprise AI infrastructure, on-premise or hybrid."
     },
     processSection: {
       title: "Service Model & Collaboration Process",
@@ -330,13 +325,8 @@ const LOCALES = {
         title: "開發者賦能專區",
         desc: "課程、架構深度解析，以及專為工程師精選的技術資源，助你在企業 AI 基礎設施上快速建構——本地、混合雲或私有雲皆適用。",
         cta: "進入學院 →",
-        anchor: "#academy"
+        anchor: "#courses"
       }
-    },
-    academy: {
-      badge: "ASRock AI 開發者學院",
-      title: "開發者賦能中心",
-      subtitle: "深度課程、架構解析，以及精選技術部落格——為建構企業 AI 基礎設施的工程師而設，本地部署或混合雲皆適用。"
     },
     processSection: {
       title: "服務模式與合作流程",
@@ -574,9 +564,9 @@ const LOCALES = {
       linkedinUrl: "https://www.linkedin.com/in/allen-sun-67738b38a",
       linkedinText: "在 LinkedIn 上聯繫 Allen",
       people: [
-        { name: "Allen Sun", title: "ASRock AI Center 負責人", email: "allen1_sun@asrock.com.tw" },
-        { name: "Ricardo Hsu", title: "業務開發", email: "Ricardo_Hsu@asrock.com.tw" },
-        { name: "Steven Chen", title: "技術行銷主管", email: "Steven2_Chen@asrock.com.tw" }
+        { name: "Allen", title: "ASRock AI Center 負責人", email: "allen1_sun@asrock.com.tw" },
+        { name: "Ricardo", title: "業務開發", email: "Ricardo_Hsu@asrock.com.tw" },
+        { name: "Steven", title: "技術行銷主管", email: "Steven2_Chen@asrock.com.tw" }
       ]
     }
   }

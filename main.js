@@ -1,10 +1,11 @@
 // ── State ──────────────────────────────────────────────────────────────────
 let currentLang = localStorage.getItem('lang') || 'zh-TW';
 let selectedAudience = localStorage.getItem('audience') || null;
+let currentTheme = localStorage.getItem('theme') || 'dark';
 
 const AUDIENCE_SECTIONS = {
   decision: ['apps', 'process', 'success-stories', 'resources'],
-  developer: ['academy', 'courses', 'blogs', 'youtube-section']
+  developer: ['courses', 'blogs', 'youtube-section']
 };
 
 // ── DOM helpers ─────────────────────────────────────────────────────────────
@@ -380,6 +381,14 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
+// ── Theme ────────────────────────────────────────────────────────────────────
+function applyTheme(theme) {
+  currentTheme = theme;
+  document.documentElement.setAttribute('data-theme', theme);
+  const btn = document.getElementById('theme-toggle-btn');
+  if (btn) btn.querySelector('span').textContent = theme === 'dark' ? 'Light' : 'Dark';
+}
+
 // ── Init ────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   // Language toggle button
@@ -392,8 +401,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Theme toggle button
+  const themeBtn = document.getElementById('theme-toggle-btn');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      const next = currentTheme === 'light' ? 'dark' : 'light';
+      localStorage.setItem('theme', next);
+      applyTheme(next);
+    });
+  }
+
   // Apply initial locale
   applyLocale(currentLang);
+
+  // Apply saved theme
+  applyTheme(currentTheme);
 
   // Restore previously selected audience (no scroll jump)
   if (selectedAudience) {
