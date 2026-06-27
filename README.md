@@ -23,12 +23,12 @@ GitHub Pages 設定：來源為 `main` branch，根目錄 `/`，不需要 build 
 ├── style.css       # 全部樣式
 ├── locales.js      # EN 與 zh-TW 語系物件（全域變數 LOCALES）
 ├── main.js         # 語言切換、捲動動畫、YouTube 取得/快取邏輯
+├── robots.txt      # 爬蟲規則，須位於根目錄
+├── sitemap.xml     # 網站地圖，須位於根目錄
 └── public/
     ├── favicon.svg
     ├── og-image.png
     ├── og-image.html
-    ├── robots.txt
-    ├── sitemap.xml
     └── docs/
         ├── en/
         └── zh-TW/
