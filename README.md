@@ -31,9 +31,22 @@ GitHub Pages 設定：來源為 `main` branch，根目錄 `/`，不需要 build 
     ├── og-image.png
     ├── og-image.html
     └── docs/
+        ├── assets/
+        │   └── *.jpg
         ├── en/
+        │   ├── MasterAi-en.html
+        │   ├── ai-workstation-thermal-guide-en.html
+        │   ├── nvidia-gpu-product-lines-en.html
+        │   └── Course-en/
+        │       ├── Agent-Harness.html
+        │       └── Building-with-the-Claude-API.html
         └── zh-TW/
+            ├── MasterAi-zh.html
+            ├── ai-workstation-thermal-guide-zh.html
+            └── nvidia-gpu-product-lines-zh.html
 ```
+
+檔案命名慣例：所有文件檔案統一採用 kebab-case（以 `-` 分隔詞，不使用空格或底線）。kebab-case 是 Web 靜態資源的業界標準，符合 URL 規範且對 SEO 友善，搜尋引擎會將 `-` 視為詞語分隔符。
 
 ### OG Image 生成技術指引
 
