@@ -5,106 +5,130 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Building with the Claude API</title>
   <style>
+    @font-face {
+      font-family: 'Archivo';
+      src: url('../../../fonts/archivo/Archivo-Bold.woff2') format('woff2');
+      font-weight: 700 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'IBM Plex Mono';
+      src: url('../../../fonts/ibm-plex-mono/IBMPlexMono-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'IBM Plex Mono';
+      src: url('../../../fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #0f1117;
-      color: #e2e8f0;
+      background: #14110E;
+      color: #EDE9E2;
       line-height: 1.7;
     }
 
     /* ── Header ── */
     header {
-      background: linear-gradient(135deg, #1a1f2e 0%, #0f1117 100%);
-      border-bottom: 1px solid #2d3748;
+      background: linear-gradient(135deg, #221D17 0%, #14110E 100%);
+      border-top: 3px solid #CC785C;
+      border-bottom: 1px solid #3A332B;
       padding: 48px 24px 40px;
       text-align: center;
     }
-    header h1 { font-size: 2.2rem; font-weight: 700; color: #f7fafc; }
-    header p  { margin-top: 10px; color: #a0aec0; font-size: 1.05rem; max-width: 600px; margin-inline: auto; }
+    header h1 { font-family: 'Archivo', -apple-system, sans-serif; font-size: 2.2rem; font-weight: 700; color: #F5F1E9; }
+    header p  { margin-top: 10px; color: #B0A896; font-size: 1.05rem; max-width: 600px; margin-inline: auto; }
 
     /* ── Sections ── */
     main { max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; }
 
     section { margin-bottom: 52px; }
     h2 {
-      font-size: 1.4rem; font-weight: 600; color: #90cdf4;
-      border-left: 4px solid #4299e1; padding-left: 14px;
+      font-family: 'Archivo', -apple-system, sans-serif;
+      font-size: 1.4rem; font-weight: 700; color: #E8AE8C;
+      border-left: 4px solid #CC785C; padding-left: 14px;
       margin-bottom: 20px;
     }
-    h3 { font-size: 1.05rem; font-weight: 600; color: #e2e8f0; margin: 20px 0 8px; }
-    p  { color: #a0aec0; margin-bottom: 12px; }
+    h3 { font-size: 1.05rem; font-weight: 600; color: #EDE9E2; margin: 20px 0 8px; }
+    p  { color: #B0A896; margin-bottom: 12px; }
 
     /* ── Code blocks ── */
     .code-block {
-      background: #0d1117; border: 1px solid #2d3748; border-radius: 8px;
-      padding: 16px 18px; font-family: monospace; font-size: 0.82rem;
-      color: #e2e8f0; overflow-x: auto; margin-top: 14px; line-height: 1.7;
+      background: #110F0C; border: 1px solid #3A332B; border-radius: 8px;
+      padding: 16px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem;
+      color: #EDE9E2; overflow-x: auto; margin-top: 14px; line-height: 1.7;
       white-space: pre;
     }
     .kw  { color: #9f7aea; }
-    .fn  { color: #68d391; }
-    .str { color: #f6ad55; }
-    .cmt { color: #4a5568; font-style: italic; }
-    .key { color: #63b3ed; }
+    .fn  { color: #A8C08A; }
+    .str { color: #D9925B; }
+    .cmt { color: #6B6355; font-style: italic; }
+    .key { color: #E8AE8C; }
 
     /* ── Temperature cards ── */
     .temp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 16px; }
-    .temp-card { background: #1a202c; border: 1px solid #2d3748; border-radius: 8px; padding: 14px 16px; }
-    .temp-card .range { font-family: monospace; font-size: 0.9rem; font-weight: 700; margin-bottom: 6px; }
-    .temp-card .range.low  { color: #63b3ed; }
-    .temp-card .range.mid  { color: #68d391; }
-    .temp-card .range.high { color: #f6ad55; }
-    .temp-card .label { font-size: 0.78rem; font-weight: 600; color: #a0aec0; margin-bottom: 8px; }
+    .temp-card { background: #221D17; border: 1px solid #3A332B; border-radius: 8px; padding: 14px 16px; }
+    .temp-card .range { font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; font-weight: 700; margin-bottom: 6px; }
+    .temp-card .range.low  { color: #E8AE8C; }
+    .temp-card .range.mid  { color: #A8C08A; }
+    .temp-card .range.high { color: #D9925B; }
+    .temp-card .label { font-size: 0.78rem; font-weight: 600; color: #B0A896; margin-bottom: 8px; }
     .temp-card ul { list-style: none; }
-    .temp-card ul li { font-size: 0.8rem; color: #718096; padding: 2px 0; }
+    .temp-card ul li { font-size: 0.8rem; color: #8C8375; padding: 2px 0; }
     .temp-card ul li::before { content: "• "; }
 
     /* ── Streaming events ── */
     .event-list { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
     .event-item {
-      background: #1a202c; border: 1px solid #2d3748; border-radius: 6px;
+      background: #221D17; border: 1px solid #3A332B; border-radius: 6px;
       padding: 9px 14px; display: flex; gap: 14px; align-items: baseline;
     }
-    .event-name { font-family: monospace; font-size: 0.82rem; color: #68d391; min-width: 180px; flex-shrink: 0; }
-    .event-desc { font-size: 0.82rem; color: #718096; }
+    .event-name { font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; color: #A8C08A; min-width: 180px; flex-shrink: 0; }
+    .event-desc { font-size: 0.82rem; color: #8C8375; }
 
     /* ── Info box ── */
     .info-box {
-      background: #1a202c; border: 1px solid #2a4a6a; border-radius: 10px;
+      background: #221D17; border: 1px solid #2a4a6a; border-radius: 10px;
       padding: 16px 20px; margin-top: 14px;
     }
     .info-box .tag {
-      display: inline-block; background: #2a4a6a; color: #90cdf4;
+      display: inline-block; background: #2a4a6a; color: #E8AE8C;
       font-size: 0.72rem; font-weight: 700; padding: 2px 8px;
       border-radius: 4px; margin-bottom: 10px; letter-spacing: 0.05em;
     }
-    .info-box p { color: #a0aec0; font-size: 0.88rem; margin: 0; }
+    .info-box p { color: #B0A896; font-size: 0.88rem; margin: 0; }
 
     /* ── API Fields ── */
     .api-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
     .field {
-      background: #1a202c; border: 1px solid #2d3748; border-radius: 8px;
+      background: #221D17; border: 1px solid #3A332B; border-radius: 8px;
       padding: 14px 16px;
     }
-    .field .name  { font-family: monospace; font-size: 0.85rem; color: #68d391; font-weight: 600; }
-    .field .desc  { font-size: 0.82rem; color: #718096; margin-top: 4px; }
+    .field .name  { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: #A8C08A; font-weight: 600; }
+    .field .desc  { font-size: 0.82rem; color: #8C8375; margin-top: 4px; }
 
     /* ── Response box ── */
     .response-box {
-      background: #1a202c; border: 1px solid #2d3748; border-radius: 10px;
+      background: #221D17; border: 1px solid #3A332B; border-radius: 10px;
       padding: 20px; margin-top: 16px;
     }
-    .response-field { display: flex; gap: 16px; padding: 8px 0; border-bottom: 1px solid #2d3748; }
+    .response-field { display: flex; gap: 16px; padding: 8px 0; border-bottom: 1px solid #3A332B; }
     .response-field:last-child { border-bottom: none; }
-    .rf-key   { font-family: monospace; font-size: 0.82rem; color: #f6ad55; width: 120px; flex-shrink: 0; }
-    .rf-val   { font-size: 0.85rem; color: #a0aec0; }
-    .rf-val.text { color: #e2e8f0; }
+    .rf-key   { font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; color: #D9925B; width: 120px; flex-shrink: 0; }
+    .rf-val   { font-size: 0.85rem; color: #B0A896; }
+    .rf-val.text { color: #EDE9E2; }
 
     /* ── Takeaway ── */
     .takeaway {
-      background: linear-gradient(135deg, #1a2a1a, #1a202c);
+      background: linear-gradient(135deg, #1a2a1a, #221D17);
       border: 1px solid #276749; border-radius: 10px;
       padding: 20px 24px; margin-top: 16px;
     }
@@ -114,11 +138,11 @@
        INSIDE CLAUDE DEMO
     ══════════════════════════════════ */
     #demo-section {
-      background: #0d1117; border: 1px solid #2d3748; border-radius: 16px;
+      background: #110F0C; border: 1px solid #3A332B; border-radius: 16px;
       padding: 32px; margin-top: 0;
     }
     #demo-section h2 { margin-bottom: 8px; }
-    .demo-subtitle { color: #718096; font-size: 0.9rem; margin-bottom: 24px; }
+    .demo-subtitle { color: #8C8375; font-size: 0.9rem; margin-bottom: 24px; }
 
     /* Stage tabs */
     .stage-tabs {
@@ -126,10 +150,10 @@
     }
     .stage-tab {
       padding: 7px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 600;
-      cursor: pointer; border: 1px solid #2d3748; background: #1a202c; color: #718096;
+      cursor: pointer; border: 1px solid #3A332B; background: #221D17; color: #8C8375;
       transition: all 0.2s;
     }
-    .stage-tab.active   { background: #2b6cb0; border-color: #4299e1; color: #fff; }
+    .stage-tab.active   { background: #CC785C; border-color: #CC785C; color: #fff; }
     .stage-tab.done     { background: #276749; border-color: #48bb78; color: #c6f6d5; }
 
     /* Demo panels */
@@ -138,82 +162,82 @@
     @keyframes fadeIn { from { opacity:0; transform:translateY(6px) } to { opacity:1; transform:none } }
 
     .demo-input {
-      background: #1a202c; border: 1px solid #2d3748; border-radius: 8px;
-      padding: 12px 16px; font-size: 0.9rem; color: #e2e8f0;
-      margin-bottom: 20px; font-family: monospace;
+      background: #221D17; border: 1px solid #3A332B; border-radius: 8px;
+      padding: 12px 16px; font-size: 0.9rem; color: #EDE9E2;
+      margin-bottom: 20px; font-family: 'IBM Plex Mono', monospace;
     }
-    .demo-input span { color: #68d391; }
+    .demo-input span { color: #A8C08A; }
 
     /* Tokens */
     .tokens-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
     .token {
-      background: #2d3748; border: 1px solid #4a5568; border-radius: 6px;
-      padding: 6px 12px; font-family: monospace; font-size: 0.85rem; color: #e2e8f0;
+      background: #3A332B; border: 1px solid #6B6355; border-radius: 6px;
+      padding: 6px 12px; font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: #EDE9E2;
       opacity: 0; transform: translateY(10px);
       transition: opacity 0.3s, transform 0.3s;
     }
     .token.show { opacity: 1; transform: none; }
-    .token-id { font-size: 0.65rem; color: #4299e1; display: block; text-align: center; margin-top: 2px; }
-    .demo-note { color: #718096; font-size: 0.82rem; margin-top: 8px; }
+    .token-id { font-size: 0.65rem; color: #CC785C; display: block; text-align: center; margin-top: 2px; }
+    .demo-note { color: #8C8375; font-size: 0.82rem; margin-top: 8px; }
 
     /* Embeddings */
     .embed-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
     .embed-card {
-      background: #1a202c; border: 1px solid #2d3748; border-radius: 8px; padding: 12px;
+      background: #221D17; border: 1px solid #3A332B; border-radius: 8px; padding: 12px;
       opacity: 0; transform: scale(0.95);
       transition: opacity 0.4s, transform 0.4s;
     }
     .embed-card.show { opacity: 1; transform: none; }
-    .embed-word { font-family: monospace; font-size: 0.85rem; color: #f6ad55; font-weight: 600; margin-bottom: 8px; }
+    .embed-word { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: #D9925B; font-weight: 600; margin-bottom: 8px; }
     .embed-nums { display: flex; flex-wrap: wrap; gap: 3px; }
-    .embed-num  { font-family: monospace; font-size: 0.7rem; color: #4299e1; background: #2d3748; padding: 2px 5px; border-radius: 3px; }
-    .embed-dots { font-size: 0.7rem; color: #4a5568; margin-top: 4px; }
+    .embed-num  { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: #CC785C; background: #3A332B; padding: 2px 5px; border-radius: 3px; }
+    .embed-dots { font-size: 0.7rem; color: #6B6355; margin-top: 4px; }
 
     /* Contextualization */
     .context-container { position: relative; }
     .context-tokens { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
     .ctx-token {
-      background: #1a202c; border: 2px solid #2d3748; border-radius: 8px;
-      padding: 8px 14px; font-family: monospace; font-size: 0.85rem; color: #e2e8f0;
+      background: #221D17; border: 2px solid #3A332B; border-radius: 8px;
+      padding: 8px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: #EDE9E2;
       transition: all 0.4s; cursor: default; position: relative;
     }
-    .ctx-token.highlight { border-color: #f6ad55; background: #2d2412; color: #fbd38d; }
-    .ctx-token.active    { border-color: #4299e1; background: #1a2a3a; transform: scale(1.08); }
+    .ctx-token.highlight { border-color: #D9925B; background: #2d2412; color: #fbd38d; }
+    .ctx-token.active    { border-color: #CC785C; background: #1a2a3a; transform: scale(1.08); }
     .ctx-token .meaning  {
       display: none; position: absolute; bottom: calc(100% + 6px); left: 50%;
-      transform: translateX(-50%); background: #2d3748; border: 1px solid #4a5568;
-      border-radius: 6px; padding: 5px 10px; font-size: 0.72rem; color: #a0aec0;
+      transform: translateX(-50%); background: #3A332B; border: 1px solid #6B6355;
+      border-radius: 6px; padding: 5px 10px; font-size: 0.72rem; color: #B0A896;
       white-space: nowrap; z-index: 10;
     }
     .ctx-token.active .meaning { display: block; }
-    .ctx-description { color: #a0aec0; font-size: 0.88rem; min-height: 36px; transition: all 0.3s; }
+    .ctx-description { color: #B0A896; font-size: 0.88rem; min-height: 36px; transition: all 0.3s; }
 
     /* Generation */
     .gen-output {
-      background: #1a202c; border: 1px solid #2d3748; border-radius: 8px;
-      padding: 14px 16px; font-family: monospace; font-size: 0.95rem;
-      color: #e2e8f0; min-height: 54px; margin-bottom: 16px; line-height: 1.8;
+      background: #221D17; border: 1px solid #3A332B; border-radius: 8px;
+      padding: 14px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 0.95rem;
+      color: #EDE9E2; min-height: 54px; margin-bottom: 16px; line-height: 1.8;
     }
-    .gen-word-new { color: #68d391; animation: wordPop 0.4s ease; }
+    .gen-word-new { color: #A8C08A; animation: wordPop 0.4s ease; }
     @keyframes wordPop {
-      0%   { color: #68d391; background: #1c3a28; border-radius: 3px; }
-      100% { color: #e2e8f0; background: transparent; }
+      0%   { color: #A8C08A; background: #1c3a28; border-radius: 3px; }
+      100% { color: #EDE9E2; background: transparent; }
     }
-    .prob-title { font-size: 0.8rem; color: #718096; margin-bottom: 8px; }
+    .prob-title { font-size: 0.8rem; color: #8C8375; margin-bottom: 8px; }
     .prob-bars  { display: flex; flex-direction: column; gap: 5px; }
     .prob-row   { display: flex; align-items: center; gap: 10px; }
-    .prob-word  { font-family: monospace; font-size: 0.8rem; color: #a0aec0; width: 110px; text-align: right; }
-    .prob-bar-bg { flex: 1; background: #2d3748; border-radius: 3px; height: 14px; overflow: hidden; }
+    .prob-word  { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: #B0A896; width: 110px; text-align: right; }
+    .prob-bar-bg { flex: 1; background: #3A332B; border-radius: 3px; height: 14px; overflow: hidden; }
     .prob-bar-fill {
-      height: 100%; border-radius: 3px; background: #4299e1;
+      height: 100%; border-radius: 3px; background: #CC785C;
       width: 0; transition: width 0.5s ease;
     }
-    .prob-bar-fill.selected { background: #68d391; }
-    .prob-pct { font-size: 0.75rem; color: #718096; width: 36px; }
+    .prob-bar-fill.selected { background: #A8C08A; }
+    .prob-pct { font-size: 0.75rem; color: #8C8375; width: 36px; }
     .gen-stop-indicator {
-      display: none; background: #1a202c; border: 1px solid #276749;
+      display: none; background: #221D17; border: 1px solid #276749;
       border-radius: 8px; padding: 12px 16px; margin-top: 12px;
-      font-size: 0.85rem; color: #68d391;
+      font-size: 0.85rem; color: #A8C08A;
     }
     .gen-stop-indicator.show { display: block; animation: fadeIn 0.4s; }
 
@@ -223,23 +247,23 @@
       padding: 9px 20px; border-radius: 8px; font-size: 0.85rem; font-weight: 600;
       cursor: pointer; border: none; transition: all 0.2s;
     }
-    .btn-primary { background: #2b6cb0; color: #fff; }
-    .btn-primary:hover:not(:disabled) { background: #3182ce; }
-    .btn-primary:disabled { background: #2d3748; color: #4a5568; cursor: default; }
-    .btn-ghost { background: transparent; color: #718096; border: 1px solid #2d3748; }
-    .btn-ghost:hover:not(:disabled) { color: #e2e8f0; border-color: #4a5568; }
+    .btn-primary { background: #CC785C; color: #fff; }
+    .btn-primary:hover:not(:disabled) { background: #A8603F; }
+    .btn-primary:disabled { background: #3A332B; color: #6B6355; cursor: default; }
+    .btn-ghost { background: transparent; color: #8C8375; border: 1px solid #3A332B; }
+    .btn-ghost:hover:not(:disabled) { color: #EDE9E2; border-color: #6B6355; }
     .btn-ghost:disabled { opacity: 0.4; cursor: default; }
-    .step-indicator { color: #718096; font-size: 0.82rem; margin-left: auto; }
+    .step-indicator { color: #8C8375; font-size: 0.82rem; margin-left: auto; }
 
     /* ══════════════════════════════════
        API LIFECYCLE VISUALIZER
     ══════════════════════════════════ */
     #lifecycle-section {
-      background: #0d1117; border: 1px solid #2d3748; border-radius: 16px;
+      background: #110F0C; border: 1px solid #3A332B; border-radius: 16px;
       padding: 32px; margin-bottom: 52px;
     }
     #lifecycle-section h2 { margin-bottom: 8px; }
-    .lc-subtitle { color: #718096; font-size: 0.9rem; margin-bottom: 28px; }
+    .lc-subtitle { color: #8C8375; font-size: 0.9rem; margin-bottom: 28px; }
 
     /* flow diagram */
     .lc-diagram {
@@ -252,24 +276,24 @@
     }
     .lc-box {
       width: 76px; height: 76px; border-radius: 14px;
-      border: 2px solid #2d3748; background: #1a202c;
+      border: 2px solid #3A332B; background: #221D17;
       display: flex; flex-direction: column; align-items: center;
       justify-content: center; gap: 3px;
       transition: all 0.35s ease; position: relative;
     }
     .lc-icon  { font-size: 1.5rem; }
     .lc-label {
-      font-size: 0.68rem; font-weight: 600; color: #718096;
+      font-size: 0.68rem; font-weight: 600; color: #8C8375;
       margin-top: 7px; text-align: center; line-height: 1.3;
       transition: color 0.35s;
     }
     .lc-node.active .lc-box {
-      border-color: #4299e1; background: #1a2a3a;
+      border-color: #CC785C; background: #1a2a3a;
       box-shadow: 0 0 0 4px rgba(66,153,225,0.15), 0 0 20px rgba(66,153,225,0.18);
     }
-    .lc-node.active .lc-label { color: #90cdf4; }
+    .lc-node.active .lc-label { color: #E8AE8C; }
     .lc-node.done .lc-box { border-color: #38a169; background: #1a2e22; }
-    .lc-node.done .lc-label { color: #68d391; }
+    .lc-node.done .lc-label { color: #A8C08A; }
 
     /* key badge */
     .lc-key-badge {
@@ -288,29 +312,29 @@
       flex-shrink: 0; padding: 0 2px; margin-top: -18px;
     }
     .lc-arrow-step {
-      font-size: 0.63rem; color: #4a5568; margin-bottom: 4px;
+      font-size: 0.63rem; color: #6B6355; margin-bottom: 4px;
       font-weight: 700; letter-spacing: 0.04em; transition: color 0.35s;
     }
     .lc-arrow-line {
-      width: 44px; height: 2px; background: #2d3748;
+      width: 44px; height: 2px; background: #3A332B;
       position: relative; overflow: visible; transition: background 0.35s;
     }
     .lc-arrow-line::after {
       content: ''; position: absolute; right: -6px; top: -4px;
-      border: 5px solid transparent; border-left-color: #2d3748;
+      border: 5px solid transparent; border-left-color: #3A332B;
       transition: border-left-color 0.35s;
     }
-    .lc-arrow.active .lc-arrow-line { background: #4299e1; }
-    .lc-arrow.active .lc-arrow-line::after { border-left-color: #4299e1; }
-    .lc-arrow.active .lc-arrow-step { color: #4299e1; }
+    .lc-arrow.active .lc-arrow-line { background: #CC785C; }
+    .lc-arrow.active .lc-arrow-line::after { border-left-color: #CC785C; }
+    .lc-arrow.active .lc-arrow-step { color: #CC785C; }
     .lc-arrow.done .lc-arrow-line { background: #38a169; }
     .lc-arrow.done .lc-arrow-line::after { border-left-color: #38a169; }
-    .lc-arrow.done .lc-arrow-step { color: #68d391; }
+    .lc-arrow.done .lc-arrow-step { color: #A8C08A; }
 
     /* packet */
     .lc-packet {
       width: 9px; height: 9px; border-radius: 50%;
-      background: #4299e1; position: absolute; top: -4px; left: 0; opacity: 0;
+      background: #CC785C; position: absolute; top: -4px; left: 0; opacity: 0;
     }
     .lc-arrow.animating .lc-packet {
       animation: lcTravel 0.55s ease forwards;
@@ -321,8 +345,8 @@
     }
 
     /* progress bar */
-    .lc-progress { height: 3px; background: #2d3748; border-radius: 2px; margin-top: 20px; }
-    .lc-progress-fill { height: 100%; background: #4299e1; border-radius: 2px; transition: width 0.4s ease; }
+    .lc-progress { height: 3px; background: #3A332B; border-radius: 2px; margin-top: 20px; }
+    .lc-progress-fill { height: 100%; background: #CC785C; border-radius: 2px; transition: width 0.4s ease; }
 
     /* detail panel */
     .lc-detail { margin-top: 28px; min-height: 240px; }
@@ -334,36 +358,36 @@
     }
     .lc-step-num {
       width: 30px; height: 30px; border-radius: 50%;
-      background: #2b6cb0; color: #fff;
+      background: #CC785C; color: #fff;
       font-size: 0.82rem; font-weight: 700;
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
-    .lc-step-title { font-size: 1.05rem; font-weight: 600; color: #f7fafc; }
-    .lc-step-sub   { font-size: 0.8rem; color: #718096; margin-top: 1px; }
+    .lc-step-title { font-size: 1.05rem; font-weight: 600; color: #F5F1E9; }
+    .lc-step-sub   { font-size: 0.8rem; color: #8C8375; margin-top: 1px; }
 
     .lc-body { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     @media (max-width: 620px) { .lc-body { grid-template-columns: 1fr; } }
 
     .lc-block {
-      background: #1a202c; border: 1px solid #2d3748; border-radius: 10px;
+      background: #221D17; border: 1px solid #3A332B; border-radius: 10px;
       padding: 14px 16px;
     }
     .lc-block-title {
       font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
-      color: #4a5568; margin-bottom: 10px;
+      color: #6B6355; margin-bottom: 10px;
     }
-    .lc-block p { color: #a0aec0; font-size: 0.83rem; margin-bottom: 5px; }
+    .lc-block p { color: #B0A896; font-size: 0.83rem; margin-bottom: 5px; }
     .lc-block p:last-child { margin-bottom: 0; }
 
     .lc-payload {
-      background: #0d1117; border: 1px solid #2d3748; border-radius: 7px;
-      padding: 11px 13px; font-family: monospace; font-size: 0.76rem;
+      background: #110F0C; border: 1px solid #3A332B; border-radius: 7px;
+      padding: 11px 13px; font-family: 'IBM Plex Mono', monospace; font-size: 0.76rem;
       line-height: 1.85; overflow-x: auto;
     }
-    .lc-k  { color: #63b3ed; }
-    .lc-s  { color: #68d391; }
-    .lc-sk { color: #f6ad55; }
-    .lc-d  { color: #4a5568; }
+    .lc-k  { color: #E8AE8C; }
+    .lc-s  { color: #A8C08A; }
+    .lc-sk { color: #D9925B; }
+    .lc-d  { color: #6B6355; }
     .lc-m  { color: #b794f4; }
     .lc-n  { color: #fc8181; }
 
@@ -383,17 +407,17 @@
 
     .lc-stages { display: flex; flex-direction: column; gap: 7px; margin-top: 4px; }
     .lc-stage-pill {
-      background: #1a202c; border: 1px solid #2d3748; border-radius: 7px;
+      background: #221D17; border: 1px solid #3A332B; border-radius: 7px;
       padding: 8px 12px; display: flex; align-items: center; gap: 9px;
     }
     .lc-stage-n {
       width: 20px; height: 20px; border-radius: 50%;
-      background: #2d3748; font-size: 0.68rem; font-weight: 700;
+      background: #3A332B; font-size: 0.68rem; font-weight: 700;
       display: flex; align-items: center; justify-content: center;
-      color: #90cdf4; flex-shrink: 0;
+      color: #E8AE8C; flex-shrink: 0;
     }
-    .lc-stage-name { font-size: 0.8rem; font-weight: 600; color: #e2e8f0; }
-    .lc-stage-desc { font-size: 0.72rem; color: #718096; }
+    .lc-stage-name { font-size: 0.8rem; font-weight: 600; color: #EDE9E2; }
+    .lc-stage-desc { font-size: 0.72rem; color: #8C8375; }
 
     .lc-complete {
       display: none; background: #0d2318; border: 1px solid #276749;
@@ -401,7 +425,7 @@
       animation: fadeIn 0.4s ease;
     }
     .lc-complete.show { display: block; }
-    .lc-complete h3 { font-size: 1rem; color: #68d391; margin-bottom: 5px; }
+    .lc-complete h3 { font-size: 1rem; color: #A8C08A; margin-bottom: 5px; }
     .lc-complete p  { font-size: 0.83rem; color: #9ae6b4; margin: 0; }
 
     @media (max-width: 600px) {
@@ -412,7 +436,7 @@
        TEMPERATURE VISUALIZER
     ══════════════════════════════════ */
     .temp-slider-wrap {
-      background: #0d1117; border: 1px solid #2d3748; border-radius: 12px;
+      background: #110F0C; border: 1px solid #3A332B; border-radius: 12px;
       padding: 22px 24px; margin-bottom: 20px;
     }
     .temp-top-row {
@@ -420,25 +444,25 @@
       margin-bottom: 18px; flex-wrap: wrap; gap: 10px;
     }
     .temp-val {
-      font-family: monospace; font-size: 2.4rem; font-weight: 700;
-      color: #e2e8f0; line-height: 1; transition: color 0.25s;
+      font-family: 'IBM Plex Mono', monospace; font-size: 2.4rem; font-weight: 700;
+      color: #EDE9E2; line-height: 1; transition: color 0.25s;
     }
     .temp-val-label {
-      font-size: 0.68rem; color: #4a5568; text-transform: uppercase;
+      font-size: 0.68rem; color: #6B6355; text-transform: uppercase;
       letter-spacing: 0.07em; margin-bottom: 5px;
     }
     .temp-zone {
       padding: 5px 14px; border-radius: 20px; font-size: 0.73rem;
       font-weight: 700; letter-spacing: 0.07em; transition: all 0.25s;
     }
-    .temp-zone.z-precise  { background: #1a3a5c; color: #63b3ed; border: 1px solid #2a5a8c; }
-    .temp-zone.z-balanced { background: #1a3a28; color: #68d391; border: 1px solid #2a6a48; }
-    .temp-zone.z-creative { background: #3a2210; color: #f6ad55; border: 1px solid #7a4a20; }
+    .temp-zone.z-precise  { background: #1a3a5c; color: #E8AE8C; border: 1px solid #2a5a8c; }
+    .temp-zone.z-balanced { background: #1a3a28; color: #A8C08A; border: 1px solid #2a6a48; }
+    .temp-zone.z-creative { background: #3a2210; color: #D9925B; border: 1px solid #7a4a20; }
 
     input.temp-range {
       -webkit-appearance: none; appearance: none;
       width: 100%; height: 6px; border-radius: 3px; outline: none; cursor: pointer;
-      background: linear-gradient(to right, #63b3ed 0%, #68d391 40%, #f6ad55 100%);
+      background: linear-gradient(to right, #E8AE8C 0%, #A8C08A 40%, #D9925B 100%);
       margin-bottom: 6px;
     }
     input.temp-range::-webkit-slider-thumb {
@@ -455,32 +479,32 @@
     }
     .temp-tick-row {
       display: flex; justify-content: space-between;
-      font-family: monospace; font-size: 0.68rem; color: #4a5568; padding: 0 2px;
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: #6B6355; padding: 0 2px;
     }
 
     .temp-ctx-line {
-      font-size: 0.8rem; color: #718096; margin: 0 0 12px;
+      font-size: 0.8rem; color: #8C8375; margin: 0 0 12px;
     }
-    .temp-ctx-line span { color: #90cdf4; font-family: monospace; }
+    .temp-ctx-line span { color: #E8AE8C; font-family: 'IBM Plex Mono', monospace; }
 
     .temp-prob-rows { display: flex; flex-direction: column; gap: 6px; margin-bottom: 24px; }
     .temp-prob-row  { display: flex; align-items: center; gap: 12px; }
     .temp-prob-word {
-      font-family: monospace; font-size: 0.8rem; color: #718096;
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: #8C8375;
       width: 100px; text-align: right; transition: color 0.25s;
     }
-    .temp-prob-word.top-word { color: #e2e8f0; font-weight: 600; }
-    .temp-prob-bg   { flex: 1; background: #2d3748; border-radius: 4px; height: 16px; overflow: hidden; }
-    .temp-prob-fill { height: 100%; border-radius: 4px; background: #4299e1; transition: width 0.2s ease; }
+    .temp-prob-word.top-word { color: #EDE9E2; font-weight: 600; }
+    .temp-prob-bg   { flex: 1; background: #3A332B; border-radius: 4px; height: 16px; overflow: hidden; }
+    .temp-prob-fill { height: 100%; border-radius: 4px; background: #CC785C; transition: width 0.2s ease; }
     .temp-prob-pct  {
-      font-family: monospace; font-size: 0.73rem; color: #718096;
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.73rem; color: #8C8375;
       width: 44px; transition: color 0.25s;
     }
-    .temp-prob-pct.top-pct { color: #e2e8f0; }
+    .temp-prob-pct.top-pct { color: #EDE9E2; }
 
     .temp-card { transition: opacity 0.3s, border-color 0.3s, background 0.3s; }
     .temp-card.tc-dimmed          { opacity: 0.3; }
-    .temp-card.tc-active-precise  { border-color: #4299e1; background: #111e2e; }
+    .temp-card.tc-active-precise  { border-color: #CC785C; background: #111e2e; }
     .temp-card.tc-active-balanced { border-color: #48bb78; background: #111e18; }
     .temp-card.tc-active-creative { border-color: #ed8936; background: #1e150a; }
 
@@ -488,7 +512,7 @@
        MULTI-TURN VISUALIZER
     ══════════════════════════════════ */
     .mt-viz {
-      background: #0d1117; border: 1px solid #2d3748; border-radius: 12px;
+      background: #110F0C; border: 1px solid #3A332B; border-radius: 12px;
       padding: 22px; margin: 20px 0;
     }
     .mt-header {
@@ -496,15 +520,15 @@
       margin-bottom: 16px; flex-wrap: wrap; gap: 10px;
     }
     .mt-turn-info { display: flex; align-items: center; gap: 10px; }
-    .mt-turn-label { font-size: 0.85rem; font-weight: 600; color: #e2e8f0; }
+    .mt-turn-label { font-size: 0.85rem; font-weight: 600; color: #EDE9E2; }
     .mt-msg-count {
-      font-size: 0.73rem; color: #718096;
-      background: #1a202c; border: 1px solid #2d3748;
+      font-size: 0.73rem; color: #8C8375;
+      background: #221D17; border: 1px solid #3A332B;
       padding: 3px 10px; border-radius: 20px;
     }
     .mt-token-badge {
-      font-family: monospace; font-size: 0.73rem;
-      background: #1a2a3a; border: 1px solid #2a4a6a; color: #63b3ed;
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.73rem;
+      background: #1a2a3a; border: 1px solid #2a4a6a; color: #E8AE8C;
       padding: 3px 10px; border-radius: 20px; transition: all 0.3s;
     }
 
@@ -513,7 +537,7 @@
 
     .mt-panel-label {
       font-size: 0.67rem; font-weight: 700; letter-spacing: 0.07em;
-      text-transform: uppercase; color: #4a5568; margin-bottom: 9px;
+      text-transform: uppercase; color: #6B6355; margin-bottom: 9px;
     }
 
     .mt-chat {
@@ -529,80 +553,80 @@
     }
     .mt-bubble.assistant {
       align-self: flex-start; border-bottom-left-radius: 3px;
-      background: #1a202c; border: 1px solid #2d3748; color: #a0aec0;
+      background: #221D17; border: 1px solid #3A332B; color: #B0A896;
     }
     .mt-bubble.new-bubble { border-color: #38a169; box-shadow: 0 0 0 1px #38a16940; }
     .mt-bubble-role {
       font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em;
-      text-transform: uppercase; margin-bottom: 4px; color: #718096;
+      text-transform: uppercase; margin-bottom: 4px; color: #8C8375;
     }
-    .mt-bubble.user .mt-bubble-role      { color: #90cdf4; }
-    .mt-bubble.new-bubble .mt-bubble-role { color: #68d391; }
+    .mt-bubble.user .mt-bubble-role      { color: #E8AE8C; }
+    .mt-bubble.new-bubble .mt-bubble-role { color: #A8C08A; }
 
     .mt-payload-box {
-      background: #080c10; border: 1px solid #2d3748; border-radius: 8px;
-      padding: 12px 14px; font-family: monospace; font-size: 0.72rem;
+      background: #0A0908; border: 1px solid #3A332B; border-radius: 8px;
+      padding: 12px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem;
       line-height: 1.9; overflow-x: auto; min-height: 200px;
       max-height: 300px; overflow-y: auto;
     }
-    .mt-old-msg { color: #4a5568; }
-    .mt-new-msg { color: #e2e8f0; background: #0d2318; border-radius: 3px; }
+    .mt-old-msg { color: #6B6355; }
+    .mt-new-msg { color: #EDE9E2; background: #0d2318; border-radius: 3px; }
 
     .mt-size-bar-wrap {
       display: flex; align-items: center; gap: 10px; margin-top: 14px;
     }
-    .mt-size-label { font-size: 0.7rem; color: #718096; white-space: nowrap; }
-    .mt-size-bg { flex: 1; background: #2d3748; border-radius: 3px; height: 5px; }
+    .mt-size-label { font-size: 0.7rem; color: #8C8375; white-space: nowrap; }
+    .mt-size-bg { flex: 1; background: #3A332B; border-radius: 3px; height: 5px; }
     .mt-size-fill {
-      height: 100%; background: #4299e1; border-radius: 3px; transition: width 0.4s ease;
+      height: 100%; background: #CC785C; border-radius: 3px; transition: width 0.4s ease;
     }
-    .mt-size-pct { font-family: monospace; font-size: 0.68rem; color: #718096; white-space: nowrap; }
+    .mt-size-pct { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: #8C8375; white-space: nowrap; }
 
     /* ══════════════════════════════════
        STREAMING VISUALIZER
     ══════════════════════════════════ */
     .sv-container {
-      background: #0d1117; border: 1px solid #2d3748; border-radius: 12px;
+      background: #110F0C; border: 1px solid #3A332B; border-radius: 12px;
       padding: 22px; margin: 20px 0;
     }
     .sv-controls {
       display: flex; gap: 8px; align-items: center; margin-bottom: 16px; flex-wrap: wrap;
     }
     .sv-speed-group { display: flex; gap: 4px; margin-left: auto; align-items: center; }
-    .sv-speed-label { font-size: 0.7rem; color: #718096; margin-right: 4px; }
+    .sv-speed-label { font-size: 0.7rem; color: #8C8375; margin-right: 4px; }
     .sv-speed-btn {
       padding: 4px 10px; border-radius: 5px; font-size: 0.7rem; font-weight: 600;
-      cursor: pointer; border: 1px solid #2d3748; background: #1a202c; color: #718096;
+      cursor: pointer; border: 1px solid #3A332B; background: #221D17; color: #8C8375;
       transition: all 0.15s;
     }
-    .sv-speed-btn.active { background: #2b6cb0; border-color: #4299e1; color: #fff; }
+    .sv-speed-btn.active { background: #CC785C; border-color: #CC785C; color: #fff; }
 
     .sv-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     @media (max-width: 640px) { .sv-columns { grid-template-columns: 1fr; } }
 
     .sv-panel {
-      background: #1a202c; border: 1px solid #2d3748; border-radius: 10px; overflow: hidden;
+      background: #221D17; border: 1px solid #3A332B; border-radius: 10px; overflow: hidden;
     }
     .sv-panel-header {
-      padding: 9px 14px; border-bottom: 1px solid #2d3748;
+      padding: 9px 14px; border-bottom: 1px solid #3A332B;
       display: flex; align-items: center; justify-content: space-between;
     }
     .sv-panel-title {
       font-size: 0.7rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
     }
     .sv-panel-title.no-stream { color: #fc8181; }
-    .sv-panel-title.yes-stream { color: #68d391; }
-    .sv-panel-status { font-size: 0.68rem; color: #4a5568; transition: color 0.3s; font-family: monospace; }
+    .sv-panel-title.yes-stream { color: #A8C08A; }
+    .sv-panel-status { font-size: 0.68rem; color: #6B6355; transition: color 0.3s; font-family: 'IBM Plex Mono', monospace; }
     .sv-panel-body { padding: 12px 14px; min-height: 200px; }
 
     /* no-stream side */
     .sv-waiting {
       display: none; align-items: center; justify-content: center;
-      gap: 6px; min-height: 100px; color: #718096; font-size: 0.8rem;
+      gap: 6px; min-height: 100px; color: #8C8375; font-size: 0.8rem;
     }
     .sv-waiting.show { display: flex; }
     .sv-dot {
-      width: 7px; height: 7px; border-radius: 50%; background: #4a5568;
+      width: 7px; height: 7px; border-radius: 50%; background: #6B6355;
       animation: svDotPulse 1.1s ease-in-out infinite;
     }
     .sv-dot:nth-child(2) { animation-delay: 0.2s; }
@@ -610,7 +634,7 @@
     @keyframes svDotPulse { 0%,100%{opacity:0.25;transform:scale(0.75)} 50%{opacity:1;transform:scale(1)} }
 
     .sv-nostream-out {
-      display: none; font-size: 0.85rem; color: #e2e8f0; line-height: 1.75;
+      display: none; font-size: 0.85rem; color: #EDE9E2; line-height: 1.75;
       animation: svReveal 0.4s ease;
     }
     .sv-nostream-out.show { display: block; }
@@ -630,77 +654,77 @@
     }
     .sv-ev-row.done   { opacity: 0.45; }
     .sv-ev-row.active { opacity: 1; }
-    .sv-ev-icon { width: 10px; text-align: center; font-size: 0.6rem; color: #4a5568; flex-shrink: 0; }
-    .sv-ev-row.done .sv-ev-icon   { color: #68d391; }
-    .sv-ev-row.active .sv-ev-icon { color: #f6ad55; }
+    .sv-ev-icon { width: 10px; text-align: center; font-size: 0.6rem; color: #6B6355; flex-shrink: 0; }
+    .sv-ev-row.done .sv-ev-icon   { color: #A8C08A; }
+    .sv-ev-row.active .sv-ev-icon { color: #D9925B; }
     .sv-ev-badge {
-      font-family: monospace; font-size: 0.67rem; padding: 1px 6px;
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.67rem; padding: 1px 6px;
       border-radius: 3px; font-weight: 600; white-space: nowrap; flex-shrink: 0;
     }
     .b-msg-start  { background: #2d1f4a; color: #b794f4; }
-    .b-blk-start  { background: #1a2a4a; color: #90cdf4; }
-    .b-blk-delta  { background: #1a3a28; color: #68d391; }
-    .b-blk-stop   { background: #3a2a10; color: #f6ad55; }
-    .b-msg-delta  { background: #3a2a10; color: #f6ad55; }
+    .b-blk-start  { background: #1a2a4a; color: #E8AE8C; }
+    .b-blk-delta  { background: #1a3a28; color: #A8C08A; }
+    .b-blk-stop   { background: #3a2a10; color: #D9925B; }
+    .b-msg-delta  { background: #3a2a10; color: #D9925B; }
     .b-msg-stop   { background: #2d2020; color: #fc8181; }
     .sv-ev-snippet {
-      font-family: monospace; font-size: 0.65rem; color: #4a5568;
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: #6B6355;
       overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;
     }
-    .sv-ev-row.active .sv-ev-snippet { color: #a0aec0; }
+    .sv-ev-row.active .sv-ev-snippet { color: #B0A896; }
 
-    .sv-stream-divider { height: 1px; background: #2d3748; margin: 8px 0; }
+    .sv-stream-divider { height: 1px; background: #3A332B; margin: 8px 0; }
     .sv-stream-out {
-      font-size: 0.85rem; color: #e2e8f0; line-height: 1.75;
-      min-height: 44px; font-family: monospace;
+      font-size: 0.85rem; color: #EDE9E2; line-height: 1.75;
+      min-height: 44px; font-family: 'IBM Plex Mono', monospace;
     }
 
     /* ══════════════════════════════════
        PREFILL VISUALIZER
     ══════════════════════════════════ */
     .pf-container {
-      background: #0d1117; border: 1px solid #2d3748; border-radius: 12px;
+      background: #110F0C; border: 1px solid #3A332B; border-radius: 12px;
       padding: 22px; margin: 20px 0;
     }
     .pf-chips {
       display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 16px;
     }
-    .pf-chip-label { font-size: 0.75rem; color: #718096; }
+    .pf-chip-label { font-size: 0.75rem; color: #8C8375; }
     .pf-chip {
       padding: 5px 12px; border-radius: 20px; font-size: 0.76rem; font-weight: 600;
-      cursor: pointer; border: 1px solid #2d3748; background: #1a202c; color: #718096;
-      transition: all 0.2s; font-family: monospace;
+      cursor: pointer; border: 1px solid #3A332B; background: #221D17; color: #8C8375;
+      transition: all 0.2s; font-family: 'IBM Plex Mono', monospace;
     }
-    .pf-chip.active { background: #1c3a2a; border-color: #38a169; color: #68d391; }
-    .pf-chip:hover:not(.active) { border-color: #4a5568; color: #a0aec0; }
+    .pf-chip.active { background: #1c3a2a; border-color: #38a169; color: #A8C08A; }
+    .pf-chip:hover:not(.active) { border-color: #6B6355; color: #B0A896; }
     .pf-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     @media (max-width: 640px) { .pf-cols { grid-template-columns: 1fr; } }
     .pf-panel {
-      background: #1a202c; border: 1px solid #2d3748; border-radius: 10px; overflow: hidden;
+      background: #221D17; border: 1px solid #3A332B; border-radius: 10px; overflow: hidden;
     }
     .pf-ph {
-      padding: 8px 14px; border-bottom: 1px solid #2d3748;
+      padding: 8px 14px; border-bottom: 1px solid #3A332B;
       font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em;
-      text-transform: uppercase; color: #4a5568;
+      text-transform: uppercase; color: #6B6355;
     }
     .pf-code-body {
-      padding: 12px 14px; font-family: monospace; font-size: 0.73rem;
-      line-height: 1.9; white-space: pre; color: #a0aec0; overflow-x: auto;
+      padding: 12px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 0.73rem;
+      line-height: 1.9; white-space: pre; color: #B0A896; overflow-x: auto;
     }
     .pf-out-body { padding: 14px 16px; }
     .pf-badge-label {
       font-size: 0.63rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
       padding: 2px 7px; border-radius: 3px; display: inline-block; margin-bottom: 5px;
     }
-    .pf-badge-seed { background: #1c3a2a; color: #68d391; }
-    .pf-badge-cont { background: #1a2a4a; color: #90cdf4; }
+    .pf-badge-seed { background: #1c3a2a; color: #A8C08A; }
+    .pf-badge-cont { background: #1a2a4a; color: #E8AE8C; }
     .pf-seed-text {
-      font-family: monospace; font-size: 0.82rem; color: #68d391;
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; color: #A8C08A;
       margin-bottom: 10px; line-height: 1.5;
     }
-    .pf-arrow-div { color: #4a5568; font-size: 0.78rem; margin-bottom: 8px; }
+    .pf-arrow-div { color: #6B6355; font-size: 0.78rem; margin-bottom: 8px; }
     .pf-cont-text {
-      font-size: 0.83rem; color: #e2e8f0; line-height: 1.65;
+      font-size: 0.83rem; color: #EDE9E2; line-height: 1.65;
       min-height: 54px; transition: opacity 0.25s;
     }
 
@@ -708,40 +732,40 @@
        STOP SEQUENCES VISUALIZER
     ══════════════════════════════════ */
     .ss-container {
-      background: #0d1117; border: 1px solid #2d3748; border-radius: 12px;
+      background: #110F0C; border: 1px solid #3A332B; border-radius: 12px;
       padding: 22px; margin: 20px 0;
     }
     .ss-scenarios { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
     .ss-scen-btn {
       padding: 5px 14px; border-radius: 6px; font-size: 0.78rem; font-weight: 600;
-      cursor: pointer; border: 1px solid #2d3748; background: #1a202c; color: #718096;
+      cursor: pointer; border: 1px solid #3A332B; background: #221D17; color: #8C8375;
       transition: all 0.2s;
     }
-    .ss-scen-btn.active { background: #1a2a4a; border-color: #4299e1; color: #90cdf4; }
+    .ss-scen-btn.active { background: #1a2a4a; border-color: #CC785C; color: #E8AE8C; }
     .ss-setup {
-      background: #1a202c; border: 1px solid #2d3748; border-radius: 8px;
+      background: #221D17; border: 1px solid #3A332B; border-radius: 8px;
       padding: 10px 14px; margin-bottom: 14px;
       display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
     }
     .ss-setup-item { display: flex; gap: 8px; align-items: baseline; }
     .ss-setup-k {
-      font-size: 0.68rem; color: #4a5568; text-transform: uppercase;
+      font-size: 0.68rem; color: #6B6355; text-transform: uppercase;
       letter-spacing: 0.06em; font-weight: 700; flex-shrink: 0;
     }
-    .ss-setup-v { font-family: monospace; font-size: 0.8rem; color: #f6ad55; }
+    .ss-setup-v { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: #D9925B; }
     .ss-main { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     @media (max-width: 640px) { .ss-main { grid-template-columns: 1fr; } }
     .ss-panel {
-      background: #1a202c; border: 1px solid #2d3748; border-radius: 8px; overflow: hidden;
+      background: #221D17; border: 1px solid #3A332B; border-radius: 8px; overflow: hidden;
     }
     .ss-panel-h {
-      padding: 7px 12px; border-bottom: 1px solid #2d3748;
+      padding: 7px 12px; border-bottom: 1px solid #3A332B;
       font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
     }
-    .ss-panel-h.full   { color: #718096; }
-    .ss-panel-h.output { color: #68d391; }
+    .ss-panel-h.full   { color: #8C8375; }
+    .ss-panel-h.output { color: #A8C08A; }
     .ss-panel-body {
-      padding: 12px 14px; font-family: monospace; font-size: 0.82rem;
+      padding: 12px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem;
       min-height: 64px; line-height: 1.7; white-space: pre-wrap; word-break: break-word;
     }
     .ss-tok-stop { color: #fc8181; text-decoration: line-through; }
@@ -752,9 +776,9 @@
     }
     .ss-halt-badge.show { display: inline; animation: fadeIn 0.3s; }
     .ss-desc-bar {
-      margin-top: 10px; padding: 10px 14px; background: #1a202c;
-      border: 1px solid #2d3748; border-radius: 7px;
-      font-size: 0.8rem; color: #a0aec0; min-height: 38px;
+      margin-top: 10px; padding: 10px 14px; background: #221D17;
+      border: 1px solid #3A332B; border-radius: 7px;
+      font-size: 0.8rem; color: #B0A896; min-height: 38px;
     }
     .ss-controls { display: flex; gap: 8px; margin-top: 12px; }
 
@@ -762,16 +786,16 @@
        STRUCTURED DATA VISUALIZER
     ══════════════════════════════════ */
     .sd-container {
-      background: #0d1117; border: 1px solid #2d3748; border-radius: 12px;
+      background: #110F0C; border: 1px solid #3A332B; border-radius: 12px;
       padding: 22px; margin: 20px 0;
     }
     .sd-steps { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
     .sd-step-btn {
       padding: 5px 14px; border-radius: 6px; font-size: 0.78rem; font-weight: 600;
-      cursor: pointer; border: 1px solid #2d3748; background: #1a202c; color: #718096;
+      cursor: pointer; border: 1px solid #3A332B; background: #221D17; color: #8C8375;
       transition: all 0.2s;
     }
-    .sd-step-btn.active { background: #2b6cb0; border-color: #4299e1; color: #fff; }
+    .sd-step-btn.active { background: #CC785C; border-color: #CC785C; color: #fff; }
     .sd-step-btn.done   { background: #276749; border-color: #38a169; color: #c6f6d5; }
     .sd-stage { display: none; animation: fadeIn 0.3s ease; }
     .sd-stage.visible { display: block; }
@@ -781,14 +805,14 @@
     .sd-legend-item { display: flex; align-items: center; gap: 5px; font-size: 0.72rem; }
     .sd-legend-dot { width: 9px; height: 9px; border-radius: 50%; }
     .sd-assembly {
-      background: #1a202c; border: 1px solid #2d3748; border-radius: 8px;
-      padding: 12px 14px; font-family: monospace; font-size: 0.82rem;
+      background: #221D17; border: 1px solid #3A332B; border-radius: 8px;
+      padding: 12px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem;
       line-height: 1.9; white-space: pre; overflow-x: auto; margin-bottom: 10px;
     }
-    .sd-part-pre  { color: #63b3ed; }
-    .sd-part-gen  { color: #68d391; }
+    .sd-part-pre  { color: #E8AE8C; }
+    .sd-part-gen  { color: #A8C08A; }
     .sd-part-stop { color: #fc8181; text-decoration: line-through; }
-    .sd-comment   { color: #4a5568; }
+    .sd-comment   { color: #6B6355; }
     .sd-result-box {
       background: #0d2318; border: 1px solid #276749; border-radius: 8px; padding: 14px 16px;
     }
@@ -796,69 +820,69 @@
       font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em;
       text-transform: uppercase; color: #38a169; margin-bottom: 8px;
     }
-    .sd-result-code { font-family: monospace; font-size: 0.82rem; color: #68d391; line-height: 1.7; white-space: pre; }
-    .sd-stage-desc { color: #a0aec0; font-size: 0.83rem; margin-top: 10px; }
+    .sd-result-code { font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; color: #A8C08A; line-height: 1.7; white-space: pre; }
+    .sd-stage-desc { color: #B0A896; font-size: 0.83rem; margin-top: 10px; }
     .sd-nav { display: flex; gap: 8px; margin-top: 14px; align-items: center; }
 
     /* ══════════════════════════════════
        PROVIDER PORTABILITY VISUALIZER
     ══════════════════════════════════ */
     .pp-container {
-      background: #0d1117; border: 1px solid #2d3748; border-radius: 12px;
+      background: #110F0C; border: 1px solid #3A332B; border-radius: 12px;
       padding: 22px; margin: 20px 0;
     }
     .pp-sdk-tabs { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
     .pp-sdk-btn {
       padding: 6px 16px; border-radius: 7px; font-size: 0.82rem; font-weight: 600;
-      cursor: pointer; border: 1px solid #2d3748; background: #1a202c; color: #718096;
+      cursor: pointer; border: 1px solid #3A332B; background: #221D17; color: #8C8375;
       transition: all 0.2s;
     }
-    .pp-sdk-btn.active { background: #2b6cb0; border-color: #4299e1; color: #fff; }
+    .pp-sdk-btn.active { background: #CC785C; border-color: #CC785C; color: #fff; }
     .pp-portability-badge {
       display: inline-flex; align-items: center; gap: 6px;
       padding: 4px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700;
       margin-bottom: 14px; letter-spacing: 0.03em;
     }
-    .pp-portability-badge.portable { background: #1c3a2a; border: 1px solid #276749; color: #68d391; }
+    .pp-portability-badge.portable { background: #1c3a2a; border: 1px solid #276749; color: #A8C08A; }
     .pp-portability-badge.rewrite  { background: #2d1a1a; border: 1px solid #742929; color: #fc8181; }
     .pp-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     @media (max-width: 640px) { .pp-cols { grid-template-columns: 1fr; } }
     .pp-code-panel {
-      background: #1a202c; border: 1px solid #2d3748; border-radius: 10px; overflow: hidden;
+      background: #221D17; border: 1px solid #3A332B; border-radius: 10px; overflow: hidden;
     }
     .pp-code-header {
-      padding: 8px 14px; border-bottom: 1px solid #2d3748;
+      padding: 8px 14px; border-bottom: 1px solid #3A332B;
       display: flex; justify-content: space-between; align-items: center;
     }
     .pp-code-title {
       font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em;
-      text-transform: uppercase; color: #4a5568;
+      text-transform: uppercase; color: #6B6355;
     }
     .pp-code-badge {
       font-size: 0.65rem; padding: 2px 7px; border-radius: 3px; font-weight: 700;
     }
-    .pp-code-badge.cloud     { background: #1a2a4a; color: #90cdf4; }
-    .pp-code-badge.local-ok  { background: #1c3a2a; color: #68d391; }
+    .pp-code-badge.cloud     { background: #1a2a4a; color: #E8AE8C; }
+    .pp-code-badge.local-ok  { background: #1c3a2a; color: #A8C08A; }
     .pp-code-badge.local-err { background: #2d1a1a; color: #fc8181; }
     .pp-code-body {
-      padding: 12px 14px; font-family: monospace; font-size: 0.73rem;
-      line-height: 1.85; white-space: pre; color: #a0aec0; overflow-x: auto; min-height: 100px;
+      padding: 12px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 0.73rem;
+      line-height: 1.85; white-space: pre; color: #B0A896; overflow-x: auto; min-height: 100px;
     }
-    .pp-changed { color: #68d391; }
-    .pp-cmt     { color: #4a5568; }
-    .pp-note    { color: #a0aec0; font-size: 0.83rem; margin-top: 12px; line-height: 1.6; }
+    .pp-changed { color: #A8C08A; }
+    .pp-cmt     { color: #6B6355; }
+    .pp-note    { color: #B0A896; font-size: 0.83rem; margin-top: 12px; line-height: 1.6; }
 
     /* ══════════════════════════════════
        TOOL USE VISUALIZER
     ══════════════════════════════════ */
     .tu-wrap {
-      background: #0d1117; border: 1px solid #2d3748; border-radius: 12px;
+      background: #110F0C; border: 1px solid #3A332B; border-radius: 12px;
       padding: 24px; margin: 20px 0;
     }
     .tu-tabs { display: flex; gap: 6px; margin-bottom: 22px; flex-wrap: wrap; }
     .tu-tab {
       padding: 6px 13px; border-radius: 20px; font-size: 0.77rem; font-weight: 600;
-      cursor: pointer; border: 1px solid #2d3748; background: #1a202c; color: #718096;
+      cursor: pointer; border: 1px solid #3A332B; background: #221D17; color: #8C8375;
       transition: all 0.2s; white-space: nowrap;
     }
     .tu-tab.active { background: #553c9a; border-color: #9f7aea; color: #e9d8fd; }
@@ -867,65 +891,65 @@
     .tu-panel.visible { display: block; animation: fadeIn 0.3s ease; }
     .tu-desc {
       border-left: 3px solid #9f7aea; padding: 9px 14px;
-      margin-bottom: 16px; font-size: 0.85rem; color: #a0aec0; line-height: 1.6;
+      margin-bottom: 16px; font-size: 0.85rem; color: #B0A896; line-height: 1.6;
     }
-    .tu-desc strong { color: #e2e8f0; }
-    .tu-desc code { color: #f6ad55; font-family: monospace; font-size: 0.82rem; }
+    .tu-desc strong { color: #EDE9E2; }
+    .tu-desc code { color: #D9925B; font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; }
     .tu-schema-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin: 12px 0; }
     @media (max-width: 600px) { .tu-schema-row { grid-template-columns: 1fr; } }
     .tu-schema-card {
-      background: #1a202c; border: 1px solid #2d3748; border-radius: 8px; padding: 12px 14px;
+      background: #221D17; border: 1px solid #3A332B; border-radius: 8px; padding: 12px 14px;
     }
-    .tu-sc-name { font-family: monospace; font-size: 0.82rem; color: #f6ad55; font-weight: 600; margin-bottom: 4px; }
-    .tu-sc-desc { font-size: 0.78rem; color: #718096; line-height: 1.5; }
+    .tu-sc-name { font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; color: #D9925B; font-weight: 600; margin-bottom: 4px; }
+    .tu-sc-desc { font-size: 0.78rem; color: #8C8375; line-height: 1.5; }
     .tu-history { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
     .tu-history-label {
-      font-size: 0.7rem; color: #4a5568; font-weight: 700;
+      font-size: 0.7rem; color: #6B6355; font-weight: 700;
       letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2px;
     }
     .tu-msg {
-      border-radius: 8px; overflow: hidden; border: 1px solid #2d3748;
+      border-radius: 8px; overflow: hidden; border: 1px solid #3A332B;
       opacity: 0; transform: translateY(6px); transition: opacity 0.4s, transform 0.4s;
     }
     .tu-msg.show { opacity: 1; transform: none; }
-    .tu-msg.role-user      { border-color: #2b6cb0; }
+    .tu-msg.role-user      { border-color: #CC785C; }
     .tu-msg.role-assistant { border-color: #553c9a; }
     .tu-msg-hdr {
       padding: 5px 12px; font-size: 0.68rem; font-weight: 700;
       letter-spacing: 0.07em; text-transform: uppercase;
       display: flex; justify-content: space-between; align-items: center;
     }
-    .tu-msg.role-user      .tu-msg-hdr { background: #1a2a4a; color: #90cdf4; }
+    .tu-msg.role-user      .tu-msg-hdr { background: #1a2a4a; color: #E8AE8C; }
     .tu-msg.role-assistant .tu-msg-hdr { background: #2d1a4a; color: #d6bcfa; }
     .tu-msg-body { padding: 8px 12px; display: flex; flex-direction: column; gap: 5px; }
     .tu-blk {
-      font-family: monospace; font-size: 0.77rem; line-height: 1.65;
-      background: #12171f; border: 1px solid #2d3748; border-radius: 5px; padding: 7px 10px;
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.77rem; line-height: 1.65;
+      background: #12171f; border: 1px solid #3A332B; border-radius: 5px; padding: 7px 10px;
     }
     .tu-blk-hdr { display: flex; align-items: center; gap: 7px; margin-bottom: 4px; }
     .tu-badge {
       font-size: 0.62rem; padding: 1px 7px; border-radius: 3px;
       font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
     }
-    .tu-badge-text        { background: #1a2a4a; color: #90cdf4; }
-    .tu-badge-tool-use    { background: #3d2800; color: #f6ad55; }
-    .tu-badge-tool-result { background: #1c3a2a; color: #68d391; }
-    .tu-k  { color: #63b3ed; }
-    .tu-s  { color: #f6ad55; }
+    .tu-badge-text        { background: #1a2a4a; color: #E8AE8C; }
+    .tu-badge-tool-use    { background: #3d2800; color: #D9925B; }
+    .tu-badge-tool-result { background: #1c3a2a; color: #A8C08A; }
+    .tu-k  { color: #E8AE8C; }
+    .tu-s  { color: #D9925B; }
     .tu-id { color: #b794f4; }
-    .tu-fn { color: #68d391; }
-    .tu-c  { color: #4a5568; font-style: italic; }
+    .tu-fn { color: #A8C08A; }
+    .tu-c  { color: #6B6355; font-style: italic; }
     .tu-stop-row { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
-    .tu-stop-lbl { font-size: 0.78rem; color: #718096; }
+    .tu-stop-lbl { font-size: 0.78rem; color: #8C8375; }
     .tu-stop-badge {
-      font-family: monospace; font-size: 0.72rem; padding: 2px 9px;
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; padding: 2px 9px;
       border-radius: 3px; font-weight: 700;
     }
-    .tu-stop-badge.tool-use { background: #3d2800; color: #f6ad55; border: 1px solid #744210; }
-    .tu-stop-badge.end-turn { background: #1c3a2a; color: #68d391; border: 1px solid #276749; }
+    .tu-stop-badge.tool-use { background: #3d2800; color: #D9925B; border: 1px solid #744210; }
+    .tu-stop-badge.end-turn { background: #1c3a2a; color: #A8C08A; border: 1px solid #276749; }
     .tu-loop-note {
       margin-top: 12px; background: #1c2a1c; border: 1px solid #276749;
-      border-radius: 7px; padding: 10px 14px; font-size: 0.82rem; color: #68d391; line-height: 1.6;
+      border-radius: 7px; padding: 10px 14px; font-size: 0.82rem; color: #A8C08A; line-height: 1.6;
     }
     .tu-loop-note strong { color: #9ae6b4; }
 
@@ -937,75 +961,75 @@
     }
     @media (max-width: 580px) { .wa-compare { grid-template-columns: 1fr; } }
     .wa-card {
-      background: #1a202c; border-radius: 10px; padding: 16px 18px;
-      border: 1px solid #2d3748;
+      background: #221D17; border-radius: 10px; padding: 16px 18px;
+      border: 1px solid #3A332B;
     }
-    .wa-card-workflow { border-top: 3px solid #4299e1; }
+    .wa-card-workflow { border-top: 3px solid #CC785C; }
     .wa-card-agent    { border-top: 3px solid #ed8936; }
     .wa-card-hdr { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
     .wa-badge {
       font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em;
       padding: 2px 8px; border-radius: 4px;
     }
-    .wa-badge-wf { background: #1a2a4a; color: #90cdf4; }
-    .wa-badge-ag { background: #3a1a00; color: #f6ad55; }
-    .wa-card-sub { font-size: 0.78rem; color: #718096; }
+    .wa-badge-wf { background: #1a2a4a; color: #E8AE8C; }
+    .wa-badge-ag { background: #3a1a00; color: #D9925B; }
+    .wa-card-sub { font-size: 0.78rem; color: #8C8375; }
     .wa-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
-    .wa-list li { font-size: 0.82rem; color: #a0aec0; padding-left: 14px; position: relative; }
-    .wa-list li::before { content: "·"; position: absolute; left: 3px; color: #4a5568; }
+    .wa-list li { font-size: 0.82rem; color: #B0A896; padding-left: 14px; position: relative; }
+    .wa-list li::before { content: "·"; position: absolute; left: 3px; color: #6B6355; }
 
     .wa-wrap {
-      background: #0d1117; border: 1px solid #2d3748; border-radius: 12px;
+      background: #110F0C; border: 1px solid #3A332B; border-radius: 12px;
       padding: 22px; margin: 16px 0;
     }
     .wa-tabs { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
     .wa-tab {
       padding: 6px 14px; border-radius: 20px; font-size: 0.77rem; font-weight: 600;
-      cursor: pointer; border: 1px solid #2d3748; background: #1a202c; color: #718096;
+      cursor: pointer; border: 1px solid #3A332B; background: #221D17; color: #8C8375;
       transition: all 0.2s; white-space: nowrap;
     }
-    .wa-tab.active { background: #1a2a4a; border-color: #4299e1; color: #90cdf4; }
+    .wa-tab.active { background: #1a2a4a; border-color: #CC785C; color: #E8AE8C; }
     .wa-panel { display: none; }
     .wa-panel.visible { display: block; animation: fadeIn 0.3s ease; }
     .wa-panel-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     @media (max-width: 620px) { .wa-panel-inner { grid-template-columns: 1fr; } }
     .wa-diagram {
-      background: #12171f; border: 1px solid #2d3748; border-radius: 8px;
+      background: #12171f; border: 1px solid #3A332B; border-radius: 8px;
       padding: 16px; display: flex; flex-direction: column;
       gap: 8px; justify-content: center; min-height: 120px;
     }
     .wa-flow-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
     .wa-box {
-      background: #1a202c; border: 1px solid #2d3748; border-radius: 6px;
+      background: #221D17; border: 1px solid #3A332B; border-radius: 6px;
       padding: 6px 10px; font-size: 0.72rem; font-weight: 600;
-      color: #e2e8f0; text-align: center;
+      color: #EDE9E2; text-align: center;
     }
-    .wa-box-sub { font-size: 0.6rem; color: #718096; font-weight: 400; margin-top: 2px; }
-    .wa-box-in   { color: #a0aec0; }
-    .wa-box-proc { border-color: #4299e1; background: #0e1a28; color: #90cdf4; }
+    .wa-box-sub { font-size: 0.6rem; color: #8C8375; font-weight: 400; margin-top: 2px; }
+    .wa-box-in   { color: #B0A896; }
+    .wa-box-proc { border-color: #CC785C; background: #0e1a28; color: #E8AE8C; }
     .wa-box-eval { border-color: #9f7aea; background: #1e1230; color: #d6bcfa; }
     .wa-box-out  { border-color: #48bb78; background: #0e2018; color: #c6f6d5; }
-    .wa-arr { font-size: 0.78rem; color: #4a5568; flex-shrink: 0; }
+    .wa-arr { font-size: 0.78rem; color: #6B6355; flex-shrink: 0; }
     .wa-sub-col { display: flex; flex-direction: column; gap: 5px; }
     .wa-fb-note {
       background: #1e1230; border: 1px solid #553c9a; border-radius: 5px;
       padding: 6px 10px; font-size: 0.7rem; color: #b794f4; line-height: 1.4;
     }
     .wa-example {
-      background: #1a202c; border: 1px solid #2d3748; border-radius: 8px; padding: 14px 16px;
+      background: #221D17; border: 1px solid #3A332B; border-radius: 8px; padding: 14px 16px;
     }
     .wa-example-label {
       font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em;
-      color: #4a5568; margin-bottom: 6px; text-transform: uppercase;
+      color: #6B6355; margin-bottom: 6px; text-transform: uppercase;
     }
-    .wa-example-text { font-size: 0.8rem; color: #a0aec0; line-height: 1.6; }
+    .wa-example-text { font-size: 0.8rem; color: #B0A896; line-height: 1.6; }
     .wa-callout {
       display: flex; align-items: flex-start; gap: 12px;
       background: #0d1e0d; border: 1px solid #276749; border-radius: 10px;
       padding: 16px 20px; margin-top: 16px;
       font-size: 0.85rem; color: #9ae6b4; line-height: 1.6;
     }
-    .wa-callout strong { color: #68d391; }
+    .wa-callout strong { color: #A8C08A; }
     .wa-callout-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
 
     .wa-tools-grid {
@@ -1013,24 +1037,24 @@
     }
     .wa-tool-chip {
       display: flex; align-items: center; gap: 8px;
-      background: #1a202c; border: 1px solid #2d3748; border-radius: 8px;
+      background: #221D17; border: 1px solid #3A332B; border-radius: 8px;
       padding: 7px 12px; font-size: 0.78rem;
     }
-    .wa-tool-chip code { color: #f6ad55; font-weight: 600; font-size: 0.78rem; }
-    .wa-tool-chip span { color: #718096; }
+    .wa-tool-chip code { color: #D9925B; font-weight: 600; font-size: 0.78rem; }
+    .wa-tool-chip span { color: #8C8375; }
 
     .wa-agent-examples { display: flex; flex-direction: column; gap: 14px; margin: 16px 0; }
     .wa-agent-card {
-      background: #1a202c; border: 1px solid #2d3748; border-left: 3px solid #ed8936;
+      background: #221D17; border: 1px solid #3A332B; border-left: 3px solid #ed8936;
       border-radius: 8px; padding: 16px 18px;
     }
     .wa-agent-title {
-      font-size: 0.88rem; font-weight: 700; color: #f6ad55; margin-bottom: 10px;
+      font-size: 0.88rem; font-weight: 700; color: #D9925B; margin-bottom: 10px;
     }
     .wa-agent-note {
       margin-top: 12px; padding: 8px 12px;
       background: #0d1e0d; border: 1px solid #276749; border-radius: 6px;
-      font-size: 0.78rem; color: #68d391; line-height: 1.5;
+      font-size: 0.78rem; color: #A8C08A; line-height: 1.5;
     }
 
     /* ══════════════════════════════════
@@ -1041,122 +1065,122 @@
     }
     @media (max-width: 600px) { .mcp-primitives { grid-template-columns: 1fr; } }
     .mcp-prim-card {
-      background: #1a202c; border: 1px solid #2d3748; border-radius: 10px; padding: 16px;
+      background: #221D17; border: 1px solid #3A332B; border-radius: 10px; padding: 16px;
     }
     .mcp-prim-icon { font-size: 1.5rem; margin-bottom: 8px; }
-    .mcp-prim-name { font-size: 0.88rem; font-weight: 700; color: #e2e8f0; margin-bottom: 4px; }
+    .mcp-prim-name { font-size: 0.88rem; font-weight: 700; color: #EDE9E2; margin-bottom: 4px; }
     .mcp-ctrl-badge {
       font-size: 0.62rem; font-weight: 700; letter-spacing: 0.07em;
       padding: 2px 7px; border-radius: 3px; display: inline-block; margin-bottom: 8px;
     }
     .mcp-ctrl-model { background: #2d1f4a; color: #b794f4; }
-    .mcp-ctrl-app   { background: #1a2a4a; color: #90cdf4; }
-    .mcp-ctrl-user  { background: #1c3a2a; color: #68d391; }
-    .mcp-prim-desc { font-size: 0.78rem; color: #718096; line-height: 1.5; margin-bottom: 8px; }
+    .mcp-ctrl-app   { background: #1a2a4a; color: #E8AE8C; }
+    .mcp-ctrl-user  { background: #1c3a2a; color: #A8C08A; }
+    .mcp-prim-desc { font-size: 0.78rem; color: #8C8375; line-height: 1.5; margin-bottom: 8px; }
     .mcp-prim-uses { list-style: none; }
     .mcp-prim-uses li {
-      font-size: 0.74rem; color: #4a5568;
+      font-size: 0.74rem; color: #6B6355;
       padding: 2px 0 2px 12px; position: relative;
     }
     .mcp-prim-uses li::before { content: "→"; position: absolute; left: 0; }
 
     .mcp-flow-wrap {
-      background: #0d1117; border: 1px solid #2d3748; border-radius: 12px;
+      background: #110F0C; border: 1px solid #3A332B; border-radius: 12px;
       padding: 24px; margin: 20px 0;
     }
     .mcp-flow-tabs { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
     .mcp-flow-tab {
       padding: 6px 13px; border-radius: 20px; font-size: 0.77rem; font-weight: 600;
-      cursor: pointer; border: 1px solid #2d3748; background: #1a202c; color: #718096;
+      cursor: pointer; border: 1px solid #3A332B; background: #221D17; color: #8C8375;
       transition: all 0.2s; white-space: nowrap;
     }
     .mcp-flow-tab.active { background: #1c3a2a; border-color: #48bb78; color: #9ae6b4; }
-    .mcp-flow-tab.done   { background: #1a2a3a; border-color: #4299e1; color: #90cdf4; }
+    .mcp-flow-tab.done   { background: #1a2a3a; border-color: #CC785C; color: #E8AE8C; }
     .mcp-flow-panel { display: none; }
     .mcp-flow-panel.visible { display: block; animation: fadeIn 0.3s ease; }
     .mcp-flow-desc {
       border-left: 3px solid #48bb78; padding: 9px 14px;
-      margin-bottom: 14px; font-size: 0.85rem; color: #a0aec0; line-height: 1.6;
+      margin-bottom: 14px; font-size: 0.85rem; color: #B0A896; line-height: 1.6;
     }
-    .mcp-flow-desc strong { color: #e2e8f0; }
+    .mcp-flow-desc strong { color: #EDE9E2; }
 
     .mcp-arch-diagram {
-      background: #12171f; border: 1px solid #2d3748; border-radius: 8px;
+      background: #12171f; border: 1px solid #3A332B; border-radius: 8px;
       padding: 14px 16px; margin-bottom: 14px;
       display: flex; flex-direction: column; gap: 8px;
     }
     .mcp-arch-row { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
     .mcp-arch-row-label {
       font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; color: #4a5568; min-width: 32px;
+      text-transform: uppercase; color: #6B6355; min-width: 32px;
     }
     .mcp-node {
-      background: #1a202c; border: 1px solid #2d3748; border-radius: 6px;
+      background: #221D17; border: 1px solid #3A332B; border-radius: 6px;
       padding: 5px 10px; font-size: 0.71rem; font-weight: 600;
-      color: #4a5568; text-align: center; transition: all 0.3s;
+      color: #6B6355; text-align: center; transition: all 0.3s;
     }
     .mcp-node.green { border-color: #48bb78; background: #0e2018; color: #9ae6b4; }
-    .mcp-node.blue  { border-color: #4299e1; background: #0e1a28; color: #90cdf4; }
-    .mcp-narr { font-size: 0.75rem; color: #2d3748; flex-shrink: 0; transition: color 0.3s; }
+    .mcp-node.blue  { border-color: #CC785C; background: #0e1a28; color: #E8AE8C; }
+    .mcp-narr { font-size: 0.75rem; color: #3A332B; flex-shrink: 0; transition: color 0.3s; }
     .mcp-narr.green { color: #48bb78; }
-    .mcp-narr.blue  { color: #4299e1; }
+    .mcp-narr.blue  { color: #CC785C; }
 
     .mcp-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     @media (max-width: 580px) { .mcp-detail-grid { grid-template-columns: 1fr; } }
     .mcp-detail-card {
-      background: #1a202c; border: 1px solid #2d3748; border-radius: 8px; padding: 12px 14px;
+      background: #221D17; border: 1px solid #3A332B; border-radius: 8px; padding: 12px 14px;
     }
     .mcp-detail-title {
       font-size: 0.63rem; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; color: #4a5568; margin-bottom: 6px;
+      text-transform: uppercase; color: #6B6355; margin-bottom: 6px;
     }
-    .mcp-detail-card p { color: #a0aec0; font-size: 0.79rem; margin: 0; line-height: 1.55; }
+    .mcp-detail-card p { color: #B0A896; font-size: 0.79rem; margin: 0; line-height: 1.55; }
     .mcp-msg-badge {
-      font-family: monospace; font-size: 0.68rem; padding: 1px 7px;
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; padding: 1px 7px;
       border-radius: 3px; font-weight: 700; display: inline-block; margin-bottom: 4px;
     }
-    .mcp-badge-req { background: #1a2a4a; color: #90cdf4; }
-    .mcp-badge-res { background: #1c3a2a; color: #68d391; }
+    .mcp-badge-req { background: #1a2a4a; color: #E8AE8C; }
+    .mcp-badge-res { background: #1c3a2a; color: #A8C08A; }
 
     /* ══════════════════════════════════
        RAG SECTION
     ══════════════════════════════════ */
     .rag-list { list-style: none; margin: 10px 0 14px; padding: 0; }
-    .rag-list li { color: #a0aec0; font-size: 0.88rem; padding: 3px 0; padding-left: 16px; position: relative; }
-    .rag-list li::before { content: "•"; color: #4299e1; position: absolute; left: 0; }
+    .rag-list li { color: #B0A896; font-size: 0.88rem; padding: 3px 0; padding-left: 16px; position: relative; }
+    .rag-list li::before { content: "•"; color: #CC785C; position: absolute; left: 0; }
 
     .rag-chunking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
-    .rag-chunk-card { background: #1a202c; border: 1px solid #2d3748; border-radius: 8px; padding: 14px 16px; }
-    .rag-chunk-label { font-size: 0.72rem; font-weight: 700; color: #63b3ed; letter-spacing: 0.05em; margin-bottom: 6px; }
-    .rag-chunk-desc { font-size: 0.82rem; color: #718096; line-height: 1.55; }
+    .rag-chunk-card { background: #221D17; border: 1px solid #3A332B; border-radius: 8px; padding: 14px 16px; }
+    .rag-chunk-label { font-size: 0.72rem; font-weight: 700; color: #E8AE8C; letter-spacing: 0.05em; margin-bottom: 6px; }
+    .rag-chunk-desc { font-size: 0.82rem; color: #8C8375; line-height: 1.55; }
 
     .rag-step-wrap { margin: 20px 0; display: flex; flex-direction: column; gap: 10px; }
-    .rag-step { background: #1a202c; border: 1px solid #2d3748; border-radius: 8px; padding: 16px 20px; }
-    .rag-step-num { font-size: 0.7rem; font-weight: 700; color: #63b3ed; letter-spacing: 0.08em; margin-bottom: 5px; }
-    .rag-step-title { font-size: 0.95rem; font-weight: 600; color: #e2e8f0; margin-bottom: 8px; }
-    .rag-step-body { font-size: 0.85rem; color: #a0aec0; line-height: 1.6; }
+    .rag-step { background: #221D17; border: 1px solid #3A332B; border-radius: 8px; padding: 16px 20px; }
+    .rag-step-num { font-size: 0.7rem; font-weight: 700; color: #E8AE8C; letter-spacing: 0.08em; margin-bottom: 5px; }
+    .rag-step-title { font-size: 0.95rem; font-weight: 600; color: #EDE9E2; margin-bottom: 8px; }
+    .rag-step-body { font-size: 0.85rem; color: #B0A896; line-height: 1.6; }
 
-    .rag-embed-example { background: #0d1117; border: 1px solid #2d3748; border-radius: 8px; padding: 14px 16px; margin-top: 12px; }
-    .rag-embed-row { display: flex; gap: 20px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid #2d3748; }
+    .rag-embed-example { background: #110F0C; border: 1px solid #3A332B; border-radius: 8px; padding: 14px 16px; margin-top: 12px; }
+    .rag-embed-row { display: flex; gap: 20px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid #3A332B; }
     .rag-embed-row:last-child { border-bottom: none; }
-    .rag-embed-section { font-size: 0.82rem; color: #a0aec0; flex: 1; padding-top: 2px; }
-    .rag-embed-vec { font-family: monospace; font-size: 0.88rem; color: #f6ad55; font-weight: 600; }
-    .rag-embed-note { font-size: 0.72rem; color: #4a5568; margin-top: 3px; }
+    .rag-embed-section { font-size: 0.82rem; color: #B0A896; flex: 1; padding-top: 2px; }
+    .rag-embed-vec { font-family: 'IBM Plex Mono', monospace; font-size: 0.88rem; color: #D9925B; font-weight: 600; }
+    .rag-embed-note { font-size: 0.72rem; color: #6B6355; margin-top: 3px; }
 
     .rag-cosine-result { display: flex; gap: 12px; margin: 12px 0; }
     .rag-cosine-card { flex: 1; border-radius: 8px; padding: 14px 16px; }
     .rag-cosine-card.high { background: #162620; border: 1px solid #276749; }
-    .rag-cosine-card.low  { background: #1a202c; border: 1px solid #2d3748; }
-    .rag-cosine-label { font-size: 0.75rem; color: #718096; margin-bottom: 5px; }
-    .rag-cosine-score { font-family: monospace; font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
-    .rag-cosine-card.high .rag-cosine-score { color: #68d391; }
-    .rag-cosine-card.low  .rag-cosine-score { color: #a0aec0; }
-    .rag-cosine-desc { font-size: 0.75rem; color: #4a5568; }
+    .rag-cosine-card.low  { background: #221D17; border: 1px solid #3A332B; }
+    .rag-cosine-label { font-size: 0.75rem; color: #8C8375; margin-bottom: 5px; }
+    .rag-cosine-score { font-family: 'IBM Plex Mono', monospace; font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
+    .rag-cosine-card.high .rag-cosine-score { color: #A8C08A; }
+    .rag-cosine-card.low  .rag-cosine-score { color: #B0A896; }
+    .rag-cosine-desc { font-size: 0.75rem; color: #6B6355; }
 
     .rag-tradeoffs { margin: 14px 0; display: flex; flex-direction: column; gap: 8px; }
     .rag-tradeoff { display: flex; gap: 10px; align-items: baseline; }
     .rag-tradeoff-icon { font-size: 0.85rem; min-width: 18px; }
-    .rag-tradeoff-text { font-size: 0.85rem; color: #a0aec0; }
+    .rag-tradeoff-text { font-size: 0.85rem; color: #B0A896; }
 
     /* ── Scope Badges ── */
     .scope-badge {
@@ -1167,26 +1191,26 @@
       position: relative; top: -2px;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-    .scope-universal  { background: #1a3a28; color: #68d391; border: 1px solid #276749; }
-    .scope-api        { background: #3a2a10; color: #f6ad55; border: 1px solid #7a5a20; }
+    .scope-universal  { background: #1a3a28; color: #A8C08A; border: 1px solid #276749; }
+    .scope-api        { background: #3a2a10; color: #D9925B; border: 1px solid #7a5a20; }
     .scope-anthropic  { background: #2d1f4a; color: #b794f4; border: 1px solid #553c8b; }
 
     .scope-legend {
       display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
-      background: #1a202c; border: 1px solid #2d3748; border-radius: 8px;
+      background: #221D17; border: 1px solid #3A332B; border-radius: 8px;
       padding: 10px 18px; margin-bottom: 36px;
     }
-    .scope-legend-label { font-size: 0.72rem; color: #4a5568; font-weight: 700; margin-right: 4px; }
-    .scope-legend-item  { display: flex; align-items: center; gap: 6px; font-size: 0.72rem; color: #718096; }
+    .scope-legend-label { font-size: 0.72rem; color: #6B6355; font-weight: 700; margin-right: 4px; }
+    .scope-legend-item  { display: flex; align-items: center; gap: 6px; font-size: 0.72rem; color: #8C8375; }
   </style>
 </head>
 <body>
 
 <header>
-  <p style="font-size: 0.75rem; color: #4a5568; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;">2026</p>
+  <p style="font-size: 0.75rem; color: #6B6355; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;">2026</p>
   <h1>Building with the Claude API</h1>
   <p>Understanding the complete request lifecycle when building applications with Claude.</p>
-  <p style="margin-top:10px; font-size:0.85rem; color:#4a5568;">Reference: <a href="https://www.anthropic.com/learn" target="_blank" rel="noopener" style="color:#63b3ed; text-decoration:none;">anthropic.com/learn</a></p>
+  <p style="margin-top:10px; font-size:0.85rem; color:#6B6355;">Reference: <a href="https://www.anthropic.com/learn" target="_blank" rel="noopener" style="color:#E8AE8C; text-decoration:none;">anthropic.com/learn</a></p>
 </header>
 
 <main>
@@ -1210,7 +1234,7 @@
 
       <div class="lc-node" id="lc-node-0">
         <div class="lc-box"><span class="lc-icon">💻</span></div>
-        <div class="lc-label">Client<br><span style="font-weight:400;color:#4a5568">Browser / App</span></div>
+        <div class="lc-label">Client<br><span style="font-weight:400;color:#6B6355">Browser / App</span></div>
       </div>
 
       <div class="lc-arrow" id="lc-arrow-1">
@@ -1223,7 +1247,7 @@
           <span class="lc-icon">🖥️</span>
           <div class="lc-key-badge">🔑</div>
         </div>
-        <div class="lc-label">Your Server<br><span style="font-weight:400;color:#4a5568">holds API key</span></div>
+        <div class="lc-label">Your Server<br><span style="font-weight:400;color:#6B6355">holds API key</span></div>
       </div>
 
       <div class="lc-arrow" id="lc-arrow-2">
@@ -1233,7 +1257,7 @@
 
       <div class="lc-node" id="lc-node-2">
         <div class="lc-box"><span class="lc-icon">🤖</span></div>
-        <div class="lc-label">Claude API<br><span style="font-weight:400;color:#4a5568">Anthropic</span></div>
+        <div class="lc-label">Claude API<br><span style="font-weight:400;color:#6B6355">Anthropic</span></div>
       </div>
 
       <div class="lc-arrow" id="lc-arrow-4">
@@ -1246,7 +1270,7 @@
           <span class="lc-icon">🖥️</span>
           <div class="lc-key-badge">🔑</div>
         </div>
-        <div class="lc-label">Your Server<br><span style="font-weight:400;color:#4a5568">processes response</span></div>
+        <div class="lc-label">Your Server<br><span style="font-weight:400;color:#6B6355">processes response</span></div>
       </div>
 
       <div class="lc-arrow" id="lc-arrow-5">
@@ -1256,7 +1280,7 @@
 
       <div class="lc-node" id="lc-node-4">
         <div class="lc-box"><span class="lc-icon">💻</span></div>
-        <div class="lc-label">Client<br><span style="font-weight:400;color:#4a5568">shows reply</span></div>
+        <div class="lc-label">Client<br><span style="font-weight:400;color:#6B6355">shows reply</span></div>
       </div>
 
     </div>
@@ -1272,7 +1296,7 @@
       <!-- Card 0: intro -->
       <div class="lc-card visible" id="lc-card-0">
         <div class="lc-card-header">
-          <div class="lc-step-num" style="background:#2d3748;color:#a0aec0">→</div>
+          <div class="lc-step-num" style="background:#3A332B;color:#B0A896">→</div>
           <div>
             <div class="lc-step-title">The Complete Request Journey</div>
             <div class="lc-step-sub">Click "Next Step" to walk through each stage</div>
@@ -1286,9 +1310,9 @@
           </div>
           <div class="lc-block">
             <div class="lc-block-title">The actors</div>
-            <p>💻 <strong style="color:#e2e8f0">Client</strong> — your frontend (browser, mobile app)</p>
-            <p>🖥️ <strong style="color:#e2e8f0">Your Server</strong> — Flask, Node, etc. — you control this</p>
-            <p>🤖 <strong style="color:#e2e8f0">Claude API</strong> — Anthropic's model endpoint</p>
+            <p>💻 <strong style="color:#EDE9E2">Client</strong> — your frontend (browser, mobile app)</p>
+            <p>🖥️ <strong style="color:#EDE9E2">Your Server</strong> — Flask, Node, etc. — you control this</p>
+            <p>🤖 <strong style="color:#EDE9E2">Claude API</strong> — Anthropic's model endpoint</p>
           </div>
         </div>
       </div>
@@ -1353,10 +1377,10 @@
           </div>
           <div class="lc-block">
             <div class="lc-block-title">Required fields</div>
-            <p><code style="color:#68d391">model</code> — which Claude variant to use</p>
-            <p><code style="color:#68d391">max_tokens</code> — hard cap on output length</p>
-            <p><code style="color:#68d391">messages</code> — the conversation as a list</p>
-            <p><code style="color:#f6ad55">x-api-key</code> — added by your server, never by the client</p>
+            <p><code style="color:#A8C08A">model</code> — which Claude variant to use</p>
+            <p><code style="color:#A8C08A">max_tokens</code> — hard cap on output length</p>
+            <p><code style="color:#A8C08A">messages</code> — the conversation as a list</p>
+            <p><code style="color:#D9925B">x-api-key</code> — added by your server, never by the client</p>
             <div class="lc-warn">
               <span>🔑</span>
               <p>The API key is read from an environment variable on your server. It never touches the client.</p>
@@ -1443,7 +1467,7 @@
           </div>
           <div class="lc-block">
             <div class="lc-block-title">What the metadata tells you</div>
-            <p><code style="color:#68d391">stop_reason</code> — <code style="color:#a0aec0">end_turn</code>: natural finish; <code style="color:#a0aec0">max_tokens</code>: cut off</p>
+            <p><code style="color:#A8C08A">stop_reason</code> — <code style="color:#B0A896">end_turn</code>: natural finish; <code style="color:#B0A896">max_tokens</code>: cut off</p>
             <p><code style="color:#b794f4">input_tokens</code> — how many tokens your prompt consumed</p>
             <p><code style="color:#b794f4">output_tokens</code> — tokens generated (drives cost)</p>
             <p>Your server can log these for cost tracking or rate limiting before forwarding anything to the client.</p>
@@ -1652,7 +1676,7 @@ count = client.messages.<span class="fn">count_tokens</span>(
 
     <div class="info-box">
       <div class="tag">PRACTICAL RULE</div>
-      <p>Always log <code style="color:#f6ad55">usage</code> in production. Token counts are the single most useful signal for diagnosing runaway costs, spotting unexpectedly long prompts, or verifying that caching is working correctly.</p>
+      <p>Always log <code style="color:#D9925B">usage</code> in production. Token counts are the single most useful signal for diagnosing runaway costs, spotting unexpectedly long prompts, or verifying that caching is working correctly.</p>
     </div>
   </section>
 
@@ -1667,7 +1691,7 @@ count = client.messages.<span class="fn">count_tokens</span>(
       </div>
       <div class="response-field">
         <div class="rf-key">stop_reason</div>
-        <div class="rf-val"><code style="color:#68d391">end_turn</code> — natural conclusion reached</div>
+        <div class="rf-val"><code style="color:#A8C08A">end_turn</code> — natural conclusion reached</div>
       </div>
       <div class="response-field">
         <div class="rf-key">usage.input</div>
@@ -1708,12 +1732,12 @@ count = client.messages.<span class="fn">count_tokens</span>(
         <div>
           <div class="mt-panel-label">Chat UI (what the user sees)</div>
           <div class="mt-chat" id="mtChat">
-            <div style="color:#4a5568;font-size:0.8rem;text-align:center;padding:24px 0">Click "Start Conversation" to begin</div>
+            <div style="color:#6B6355;font-size:0.8rem;text-align:center;padding:24px 0">Click "Start Conversation" to begin</div>
           </div>
         </div>
         <div>
           <div class="mt-panel-label">API payload — sent on every request</div>
-          <div class="mt-payload-box" id="mtPayload"><span style="color:#4a5568">// Complete message history included each time</span></div>
+          <div class="mt-payload-box" id="mtPayload"><span style="color:#6B6355">// Complete message history included each time</span></div>
         </div>
       </div>
       <div class="mt-size-bar-wrap">
@@ -1744,15 +1768,15 @@ messages = []
     <span class="fn">print</span>(reply)</pre>
 
     <h3>System Prompts <span class="scope-badge scope-api" style="font-size:0.52rem;top:-1px">API-SPECIFIC</span></h3>
-    <p>A system prompt lets you define Claude's persona, tone, and constraints before any user message. It travels as a top-level <code style="color:#68d391">system</code> parameter, separate from the messages list — and is applied to every turn in the conversation.</p>
+    <p>A system prompt lets you define Claude's persona, tone, and constraints before any user message. It travels as a top-level <code style="color:#A8C08A">system</code> parameter, separate from the messages list — and is applied to every turn in the conversation.</p>
     <div class="info-box">
       <div class="tag">WHAT TO PUT IN A SYSTEM PROMPT</div>
       <ul class="rag-list" style="margin-bottom:0">
-        <li><strong style="color:#e2e8f0">Role &amp; persona</strong> — "You are a concise technical assistant"</li>
-        <li><strong style="color:#e2e8f0">Output format</strong> — "Reply in plain text only" / "Always respond with JSON"</li>
-        <li><strong style="color:#e2e8f0">Language &amp; tone</strong> — "Reply in Traditional Chinese" / "Avoid emojis"</li>
-        <li><strong style="color:#e2e8f0">Standing rules</strong> — constraints that apply to every single turn</li>
-        <li><strong style="color:#e2e8f0">Background context</strong> — information about the product, user, or domain that Claude always needs</li>
+        <li><strong style="color:#EDE9E2">Role &amp; persona</strong> — "You are a concise technical assistant"</li>
+        <li><strong style="color:#EDE9E2">Output format</strong> — "Reply in plain text only" / "Always respond with JSON"</li>
+        <li><strong style="color:#EDE9E2">Language &amp; tone</strong> — "Reply in Traditional Chinese" / "Avoid emojis"</li>
+        <li><strong style="color:#EDE9E2">Standing rules</strong> — constraints that apply to every single turn</li>
+        <li><strong style="color:#EDE9E2">Background context</strong> — information about the product, user, or domain that Claude always needs</li>
       </ul>
     </div>
     <pre class="code-block">response = client.messages.<span class="fn">create</span>(
@@ -1811,7 +1835,7 @@ TOKEN_LIMIT = <span class="str">160_000</span>           <span class="cmt"># 80%
 
     <div class="info-box">
       <div class="tag">RULE OF THUMB</div>
-      <p>Trigger your management strategy at ~80% of the context limit — not 100%. Model performance degrades as the window fills, and you need headroom for the output tokens too. Use <code style="color:#f6ad55">count_tokens()</code> or a rough estimate (1 token ≈ 4 characters) to track usage continuously.</p>
+      <p>Trigger your management strategy at ~80% of the context limit — not 100%. Model performance degrades as the window fills, and you need headroom for the output tokens too. Use <code style="color:#D9925B">count_tokens()</code> or a rough estimate (1 token ≈ 4 characters) to track usage continuously.</p>
     </div>
   </section>
 
@@ -1931,7 +1955,7 @@ TOKEN_LIMIT = <span class="str">160_000</span>           <span class="cmt"># 80%
         <span class="fn">print</span>(text, <span class="key">end</span>=<span class="str">""</span>)   <span class="cmt"># forward to client in production</span>
 
     final = stream.<span class="fn">get_final_message</span>()  <span class="cmt"># full message for storage</span></pre>
-    <p style="margin-top:10px">In production, forward <code style="color:#68d391">ContentBlockDelta</code> chunks to your client via <strong>WebSockets</strong> or <strong>Server-Sent Events (SSE)</strong>.</p>
+    <p style="margin-top:10px">In production, forward <code style="color:#A8C08A">ContentBlockDelta</code> chunks to your client via <strong>WebSockets</strong> or <strong>Server-Sent Events (SSE)</strong>.</p>
   </section>
 
   <!-- ── NEW: Prompt Caching ── -->
@@ -1978,7 +2002,7 @@ TOKEN_LIMIT = <span class="str">160_000</span>           <span class="cmt"># 80%
   <!-- ── 8. Prefilled Assistant Messages ── -->
   <section>
     <h2>Prefilled Assistant Messages <span class="scope-badge scope-anthropic">ANTHROPIC-ONLY</span></h2>
-    <p>You can seed the beginning of Claude's response by appending an <code style="color:#68d391">assistant</code> message to the conversation <em>before</em> calling the API. Claude continues from that starting point.</p>
+    <p>You can seed the beginning of Claude's response by appending an <code style="color:#A8C08A">assistant</code> message to the conversation <em>before</em> calling the API. Claude continues from that starting point.</p>
 
     <div class="pf-container">
       <div class="pf-chips">
@@ -2080,17 +2104,17 @@ response = client.messages.<span class="fn">create</span>(
       <!-- Stage 0: Prefill -->
       <div class="sd-stage visible" id="sdStage0">
         <div class="sd-legend">
-          <div class="sd-legend-item"><div class="sd-legend-dot" style="background:#63b3ed"></div><span style="color:#63b3ed">Prefill (you provide)</span></div>
+          <div class="sd-legend-item"><div class="sd-legend-dot" style="background:#E8AE8C"></div><span style="color:#E8AE8C">Prefill (you provide)</span></div>
         </div>
         <div class="sd-assembly"><span class="sd-part-pre">```json</span>  <span class="sd-comment">← assistant prefill — you set this</span></div>
-        <div class="sd-stage-desc">The assistant message is seeded with <code style="color:#63b3ed">```json</code>. Claude must continue from this point — meaning its very first token must be valid JSON content.</div>
+        <div class="sd-stage-desc">The assistant message is seeded with <code style="color:#E8AE8C">```json</code>. Claude must continue from this point — meaning its very first token must be valid JSON content.</div>
       </div>
 
       <!-- Stage 1: Generate -->
       <div class="sd-stage" id="sdStage1">
         <div class="sd-legend">
-          <div class="sd-legend-item"><div class="sd-legend-dot" style="background:#63b3ed"></div><span style="color:#63b3ed">Prefill</span></div>
-          <div class="sd-legend-item"><div class="sd-legend-dot" style="background:#68d391"></div><span style="color:#68d391">Generated by Claude</span></div>
+          <div class="sd-legend-item"><div class="sd-legend-dot" style="background:#E8AE8C"></div><span style="color:#E8AE8C">Prefill</span></div>
+          <div class="sd-legend-item"><div class="sd-legend-dot" style="background:#A8C08A"></div><span style="color:#A8C08A">Generated by Claude</span></div>
         </div>
         <div class="sd-assembly"><span class="sd-part-pre">```json</span>
 <span class="sd-part-gen">{
@@ -2104,8 +2128,8 @@ response = client.messages.<span class="fn">create</span>(
       <!-- Stage 2: Stop fires -->
       <div class="sd-stage" id="sdStage2">
         <div class="sd-legend">
-          <div class="sd-legend-item"><div class="sd-legend-dot" style="background:#63b3ed"></div><span style="color:#63b3ed">Prefill</span></div>
-          <div class="sd-legend-item"><div class="sd-legend-dot" style="background:#68d391"></div><span style="color:#68d391">Generated</span></div>
+          <div class="sd-legend-item"><div class="sd-legend-dot" style="background:#E8AE8C"></div><span style="color:#E8AE8C">Prefill</span></div>
+          <div class="sd-legend-item"><div class="sd-legend-dot" style="background:#A8C08A"></div><span style="color:#A8C08A">Generated</span></div>
           <div class="sd-legend-item"><div class="sd-legend-dot" style="background:#fc8181"></div><span style="color:#fc8181">Stop sequence (excluded)</span></div>
         </div>
         <div class="sd-assembly"><span class="sd-part-pre">```json</span>
@@ -2128,7 +2152,7 @@ response = client.messages.<span class="fn">create</span>(
   "detail": { "bucket": "my-bucket" }
 }</div>
         </div>
-        <div class="sd-stage-desc">The response text is pure JSON — no opening fence, no closing fence, no extra prose. Pass it directly to <code style="color:#68d391">json.loads()</code>.</div>
+        <div class="sd-stage-desc">The response text is pure JSON — no opening fence, no closing fence, no extra prose. Pass it directly to <code style="color:#A8C08A">json.loads()</code>.</div>
       </div>
 
       <div class="sd-nav">
@@ -2158,7 +2182,7 @@ data = json.<span class="fn">loads</span>(raw)                   <span class="cm
   <!-- ── NEW: Vision & Multimodal Input ── -->
   <section>
     <h2>Vision &amp; Multimodal Input <span class="scope-badge scope-api">API-SPECIFIC</span></h2>
-    <p>Claude can process images alongside text in the same request. Images are passed as additional blocks inside the <code style="color:#68d391">content</code> array — the model reads image and text together. Most frontier providers (OpenAI, Gemini, Claude) support multimodal input; the exact payload format differs per SDK.</p>
+    <p>Claude can process images alongside text in the same request. Images are passed as additional blocks inside the <code style="color:#A8C08A">content</code> array — the model reads image and text together. Most frontier providers (OpenAI, Gemini, Claude) support multimodal input; the exact payload format differs per SDK.</p>
 
     <div class="api-fields" style="margin-bottom: 20px;">
       <div class="field">
@@ -2266,15 +2290,15 @@ response = client.messages.<span class="fn">create</span>(
         <div class="event-desc">Invalid or missing API key. Check your environment variable and key rotation status.</div>
       </div>
       <div class="event-item">
-        <div class="event-name" style="color:#f6ad55;min-width:220px">429 rate_limit_error</div>
+        <div class="event-name" style="color:#D9925B;min-width:220px">429 rate_limit_error</div>
         <div class="event-desc">Too many requests or too many tokens per minute. Retry with exponential backoff; respect the <code>retry-after</code> header.</div>
       </div>
       <div class="event-item">
-        <div class="event-name" style="color:#f6ad55;min-width:220px">529 overloaded_error</div>
+        <div class="event-name" style="color:#D9925B;min-width:220px">529 overloaded_error</div>
         <div class="event-desc">Anthropic's API is temporarily overloaded (Anthropic-specific code). Retry with exponential backoff — this is a transient server-side condition.</div>
       </div>
       <div class="event-item">
-        <div class="event-name" style="color:#718096;min-width:220px">500 api_error</div>
+        <div class="event-name" style="color:#8C8375;min-width:220px">500 api_error</div>
         <div class="event-desc">Internal server error. Safe to retry after a short wait. If persistent, check the provider status page.</div>
       </div>
     </div>
@@ -2298,7 +2322,7 @@ response = client.messages.<span class="fn">create</span>(
 
     <div class="info-box">
       <div class="tag">SDK SHORTCUT</div>
-      <p>The official Anthropic Python and TypeScript SDKs include built-in retry logic with exponential backoff for 429 and 5xx errors. Pass <code style="color:#f6ad55">max_retries=N</code> when constructing the client to enable it — custom retry code is only needed for more complex scenarios like circuit-breakers.</p>
+      <p>The official Anthropic Python and TypeScript SDKs include built-in retry logic with exponential backoff for 429 and 5xx errors. Pass <code style="color:#D9925B">max_retries=N</code> when constructing the client to enable it — custom retry code is only needed for more complex scenarios like circuit-breakers.</p>
     </div>
   </section>
 
@@ -2342,7 +2366,7 @@ response = client.messages.<span class="fn">create</span>(
   <!-- ── 12. Tool Use ── -->
   <section>
     <h2>Tool Use (Function Calling) <span class="scope-badge scope-api">API-SPECIFIC</span></h2>
-    <p>Tool use lets Claude call functions you define. Claude decides when a tool is needed, returns a structured <code style="color:#f6ad55;font-family:monospace">tool_use</code> block, and waits for your code to execute the function and return the result before generating its final answer.</p>
+    <p>Tool use lets Claude call functions you define. Claude decides when a tool is needed, returns a structured <code style="color:#D9925B;font-family:monospace">tool_use</code> block, and waits for your code to execute the function and return the result before generating its final answer.</p>
 
     <div class="tu-wrap">
       <div class="tu-tabs" id="tuTabs">
@@ -2483,7 +2507,7 @@ messages.<span class="fn">append</span>({<span class="str">"role"</span>: <span 
           <div class="tu-msg role-user show" style="transition-delay:0.18s">
             <div class="tu-msg-hdr">
               <span>role: "user"</span>
-              <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:0.7rem;color:#68d391">messages[2] ← NEW</span>
+              <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:0.7rem;color:#A8C08A">messages[2] ← NEW</span>
             </div>
             <div class="tu-msg-body">
               <div class="tu-blk">
@@ -2559,15 +2583,15 @@ messages.<span class="fn">append</span>({<span class="str">"role"</span>: <span 
     <span class="kw">return</span> messages</pre>
 
     <h3>Writing Effective Descriptions</h3>
-    <p>The <code style="color:#f6ad55">description</code> field is Claude's primary signal for deciding when — and how — to call your tool. A well-written description saves Claude from guessing.</p>
+    <p>The <code style="color:#D9925B">description</code> field is Claude's primary signal for deciding when — and how — to call your tool. A well-written description saves Claude from guessing.</p>
     <div class="info-box">
       <div class="tag">DESCRIPTION BEST PRACTICES</div>
       <ul class="rag-list" style="margin-bottom:0">
         <li>Explain what the tool does, when to use it, and what it returns — aim for 3–4 sentences</li>
         <li>Include concrete examples of when <em>not</em> to call it if the boundary isn't obvious</li>
         <li>Write detailed descriptions for each argument as well</li>
-        <li>Use a consistent naming pattern like <code style="color:#f6ad55">function_name_schema</code></li>
-        <li>Import and use <code style="color:#f6ad55">ToolParam</code> from the Anthropic library for better type checking</li>
+        <li>Use a consistent naming pattern like <code style="color:#D9925B">function_name_schema</code></li>
+        <li>Import and use <code style="color:#D9925B">ToolParam</code> from the Anthropic library for better type checking</li>
       </ul>
     </div>
 
@@ -2575,14 +2599,14 @@ messages.<span class="fn">append</span>({<span class="str">"role"</span>: <span 
     <div class="info-box" style="border-color:#553c9a">
       <div class="tag" style="background:#553c9a;color:#e9d8fd">SHORTCUT</div>
       <p>Writing JSON schemas by hand is tedious. Claude can do it for you:</p>
-      <ol style="margin:10px 0 0 18px;padding:0;font-size:0.85rem;color:#a0aec0">
+      <ol style="margin:10px 0 0 18px;padding:0;font-size:0.85rem;color:#B0A896">
         <li style="margin-bottom:6px">Copy your tool function</li>
         <li>Ask Claude: <em>"Write a valid JSON schema spec for tool calling for this function. Follow best practices from the Anthropic documentation."</em></li>
       </ol>
     </div>
 
     <h3>Multi-Block Messages &amp; Complete History</h3>
-    <p>After one complete tool-use cycle your <code style="color:#68d391">messages</code> array contains <strong>four entries</strong>. Two of them use complex content-block structures instead of plain strings — this is the part most implementations get wrong.</p>
+    <p>After one complete tool-use cycle your <code style="color:#A8C08A">messages</code> array contains <strong>four entries</strong>. Two of them use complex content-block structures instead of plain strings — this is the part most implementations get wrong.</p>
     <pre class="code-block">messages = [
     <span class="cmt"># 1. Original user request — plain string content</span>
     { <span class="str">"role"</span>: <span class="str">"user"</span>,
@@ -2614,8 +2638,8 @@ messages.<span class="fn">append</span>({<span class="str">"role"</span>: <span 
     <div class="info-box">
       <div class="tag">TWO CRITICAL RULES</div>
       <ul class="rag-list" style="margin-bottom:0">
-        <li>Store the assistant message with its <strong>complete content list</strong> — never discard the <code style="color:#f6ad55">tool_use</code> blocks or flatten them to text</li>
-        <li>The <code style="color:#f6ad55">tool_use_id</code> in the tool_result must <strong>exactly match</strong> the <code style="color:#f6ad55">id</code> Claude assigned — Claude uses this pairing to correlate results, especially when multiple tools are called in one turn</li>
+        <li>Store the assistant message with its <strong>complete content list</strong> — never discard the <code style="color:#D9925B">tool_use</code> blocks or flatten them to text</li>
+        <li>The <code style="color:#D9925B">tool_use_id</code> in the tool_result must <strong>exactly match</strong> the <code style="color:#D9925B">id</code> Claude assigned — Claude uses this pairing to correlate results, especially when multiple tools are called in one turn</li>
       </ul>
     </div>
 
@@ -2864,7 +2888,7 @@ batch = client.messages.batches.<span class="fn">create</span>(
         <div class="wa-agent-title">① Install Dependencies</div>
         <ul class="wa-list">
           <li>Agent reads project files to understand the configuration</li>
-          <li>Uses <code style="color:#f6ad55">bash</code> tool to run the appropriate installation commands</li>
+          <li>Uses <code style="color:#D9925B">bash</code> tool to run the appropriate installation commands</li>
           <li>Verifies success before reporting back to the user</li>
         </ul>
       </div>
@@ -2872,7 +2896,7 @@ batch = client.messages.batches.<span class="fn">create</span>(
         <div class="wa-agent-title">② Create &amp; Post a Video on "Python Programming"</div>
         <ul class="wa-list">
           <li>Agent generates a sample image → shows user for approval before proceeding</li>
-          <li>Uses <code style="color:#f6ad55">bash</code> to run <em>whisper.cpp</em> and generate caption files with timestamps to verify dialog placement</li>
+          <li>Uses <code style="color:#D9925B">bash</code> to run <em>whisper.cpp</em> and generate caption files with timestamps to verify dialog placement</li>
           <li>Uses FFmpeg to extract screenshots at regular intervals to confirm visual quality</li>
           <li>Checks file sizes and formats before attempting upload</li>
           <li>Publishes only after each step is confirmed</li>
@@ -3036,11 +3060,11 @@ batch = client.messages.batches.<span class="fn">create</span>(
         <div class="mcp-detail-grid">
           <div class="mcp-detail-card">
             <div class="mcp-detail-title">Sent to Claude</div>
-            <p>User's message + the full list of tool schemas from ListToolsResult. Claude uses the <code style="color:#f6ad55;font-size:0.78rem">description</code> field to decide when a tool is appropriate.</p>
+            <p>User's message + the full list of tool schemas from ListToolsResult. Claude uses the <code style="color:#D9925B;font-size:0.78rem">description</code> field to decide when a tool is appropriate.</p>
           </div>
           <div class="mcp-detail-card">
             <div class="mcp-detail-title">Claude's Response</div>
-            <p>If a tool is needed: <code style="color:#f6ad55;font-size:0.78rem">stop_reason: "tool_use"</code> with a <code style="color:#f6ad55;font-size:0.78rem">tool_use</code> block naming the tool and its arguments.</p>
+            <p>If a tool is needed: <code style="color:#D9925B;font-size:0.78rem">stop_reason: "tool_use"</code> with a <code style="color:#D9925B;font-size:0.78rem">tool_use</code> block naming the tool and its arguments.</p>
           </div>
         </div>
       </div>
@@ -3072,7 +3096,7 @@ batch = client.messages.batches.<span class="fn">create</span>(
           <div class="mcp-detail-card">
             <div class="mcp-detail-title">Request</div>
             <div class="mcp-msg-badge mcp-badge-req">CallToolRequest</div>
-            <p>Contains the tool name and the exact arguments Claude specified in its <code style="color:#f6ad55;font-size:0.78rem">tool_use</code> block.</p>
+            <p>Contains the tool name and the exact arguments Claude specified in its <code style="color:#D9925B;font-size:0.78rem">tool_use</code> block.</p>
           </div>
           <div class="mcp-detail-card">
             <div class="mcp-detail-title">Response</div>
@@ -3084,7 +3108,7 @@ batch = client.messages.batches.<span class="fn">create</span>(
 
       <!-- Panel 4: Final Response -->
       <div class="mcp-flow-panel" id="mcp-p4">
-        <div class="mcp-flow-desc">Your server sends the tool result back to <strong>Claude API</strong> as a <code style="color:#f6ad55;font-family:monospace;font-size:0.85rem">tool_result</code> block. Claude incorporates the data and generates a final natural language answer, which your server delivers to the <strong>User</strong>.</div>
+        <div class="mcp-flow-desc">Your server sends the tool result back to <strong>Claude API</strong> as a <code style="color:#D9925B;font-family:monospace;font-size:0.85rem">tool_result</code> block. Claude incorporates the data and generates a final natural language answer, which your server delivers to the <strong>User</strong>.</div>
         <div class="mcp-arch-diagram">
           <div class="mcp-arch-row">
             <div class="mcp-arch-row-label">App</div>
@@ -3108,11 +3132,11 @@ batch = client.messages.batches.<span class="fn">create</span>(
         <div class="mcp-detail-grid">
           <div class="mcp-detail-card">
             <div class="mcp-detail-title">Sent to Claude</div>
-            <p>A <code style="color:#f6ad55;font-size:0.78rem">tool_result</code> message containing the external API data. Claude uses this to compose a grounded, accurate answer.</p>
+            <p>A <code style="color:#D9925B;font-size:0.78rem">tool_result</code> message containing the external API data. Claude uses this to compose a grounded, accurate answer.</p>
           </div>
           <div class="mcp-detail-card">
             <div class="mcp-detail-title">Delivered to User</div>
-            <p>Claude returns a final response with <code style="color:#f6ad55;font-size:0.78rem">stop_reason: "end_turn"</code>. Your server extracts the text and sends it back to the user.</p>
+            <p>Claude returns a final response with <code style="color:#D9925B;font-size:0.78rem">stop_reason: "end_turn"</code>. Your server extracts the text and sends it back to the user.</p>
           </div>
         </div>
       </div>
@@ -3125,7 +3149,7 @@ batch = client.messages.batches.<span class="fn">create</span>(
     </div>
 
     <h3>Setting Up an MCP Server</h3>
-    <p>The Python MCP SDK's <code style="color:#f6ad55">FastMCP</code> class eliminates boilerplate: type hints provide automatic validation, decorators register tools/resources/prompts, and no manual JSON schema writing is required.</p>
+    <p>The Python MCP SDK's <code style="color:#D9925B">FastMCP</code> class eliminates boilerplate: type hints provide automatic validation, decorators register tools/resources/prompts, and no manual JSON schema writing is required.</p>
     <pre class="code-block"><span class="kw">from</span> mcp.server.fastmcp <span class="kw">import</span> FastMCP
 
 mcp = <span class="fn">FastMCP</span>(<span class="str">"DocumentMCP"</span>, <span class="key">log_level</span>=<span class="str">"ERROR"</span>)
@@ -3163,14 +3187,14 @@ mcp = <span class="fn">FastMCP</span>(<span class="str">"DocumentMCP"</span>, <s
       <div class="tag">WHY FastMCP SAVES TIME</div>
       <ul class="rag-list" style="margin-bottom:0">
         <li>No manual JSON schema writing — type hints do it automatically</li>
-        <li>Parameter validation happens via <code style="color:#f6ad55">Field</code> descriptions</li>
+        <li>Parameter validation happens via <code style="color:#D9925B">Field</code> descriptions</li>
         <li>Error handling integrates naturally with Python exceptions</li>
         <li>Tool registration is automatic through decorators</li>
       </ul>
     </div>
 
     <h3>Implementing an MCP Client</h3>
-    <p>The <strong>MCP Client</strong> wraps the SDK's <code style="color:#f6ad55">ClientSession</code> to provide a clean interface for listing tools, calling tools, and reading resources. The most common setup uses <strong>stdio</strong> — both client and server run on the same machine and communicate through standard input/output.</p>
+    <p>The <strong>MCP Client</strong> wraps the SDK's <code style="color:#D9925B">ClientSession</code> to provide a clean interface for listing tools, calling tools, and reading resources. The most common setup uses <strong>stdio</strong> — both client and server run on the same machine and communicate through standard input/output.</p>
     <pre class="code-block"><span class="kw">class</span> <span class="fn">MCPClient</span>:
     <span class="kw">def</span> <span class="fn">__init__</span>(self, command: str, args: list[str], env: Optional[dict] = <span class="kw">None</span>):
         self._command = command
@@ -3229,7 +3253,7 @@ mcp = <span class="fn">FastMCP</span>(<span class="str">"DocumentMCP"</span>, <s
     <h3>Text Chunking Strategies</h3>
     <p>Before documents can be searched they must be split into smaller pieces called <em>chunks</em>. Three common strategies — each suited to different document types:</p>
 
-    <p style="margin-bottom:6px"><strong style="color:#e2e8f0">Chunk by character count</strong></p>
+    <p style="margin-bottom:6px"><strong style="color:#EDE9E2">Chunk by character count</strong></p>
     <pre class="code-block"><span class="kw">def</span> <span class="fn">chunk_by_char</span>(text, chunk_size=<span class="str">150</span>, chunk_overlap=<span class="str">20</span>):
     chunks = []
     start_idx = <span class="str">0</span>
@@ -3244,7 +3268,7 @@ mcp = <span class="fn">FastMCP</span>(<span class="str">"DocumentMCP"</span>, <s
 
     <span class="kw">return</span> chunks</pre>
 
-    <p style="margin-top:16px;margin-bottom:6px"><strong style="color:#e2e8f0">Chunk by sentence</strong></p>
+    <p style="margin-top:16px;margin-bottom:6px"><strong style="color:#EDE9E2">Chunk by sentence</strong></p>
     <pre class="code-block"><span class="kw">import</span> re
 
 <span class="kw">def</span> <span class="fn">chunk_by_sentence</span>(text, max_sentences_per_chunk=<span class="str">5</span>, overlap_sentences=<span class="str">1</span>):
@@ -3261,7 +3285,7 @@ mcp = <span class="fn">FastMCP</span>(<span class="str">"DocumentMCP"</span>, <s
 
     <span class="kw">return</span> chunks</pre>
 
-    <p style="margin-top:16px;margin-bottom:6px"><strong style="color:#e2e8f0">Chunk by document section</strong></p>
+    <p style="margin-top:16px;margin-bottom:6px"><strong style="color:#EDE9E2">Chunk by document section</strong></p>
     <pre class="code-block"><span class="kw">def</span> <span class="fn">chunk_by_section</span>(document_text):
     pattern = <span class="str">r"\n## "</span>
     <span class="kw">return</span> re.<span class="fn">split</span>(pattern, document_text)</pre>
@@ -3312,8 +3336,8 @@ vo = voyageai.<span class="fn">Client</span>()
         <div class="rag-step-title">Chunk Your Source Text</div>
         <div class="rag-step-body">Split your document into chunks. Our example uses two sections from a company annual report:
           <ul class="rag-list" style="margin-top:8px;margin-bottom:0">
-            <li><strong style="color:#e2e8f0">Medical Research:</strong> "This year saw significant strides in our understanding of XDR-47, a 'bug' we have not seen before."</li>
-            <li><strong style="color:#e2e8f0">Software Engineering:</strong> "This division dedicated significant effort to studying various infection vectors in our distributed systems."</li>
+            <li><strong style="color:#EDE9E2">Medical Research:</strong> "This year saw significant strides in our understanding of XDR-47, a 'bug' we have not seen before."</li>
+            <li><strong style="color:#EDE9E2">Software Engineering:</strong> "This division dedicated significant effort to studying various infection vectors in our distributed systems."</li>
           </ul>
         </div>
       </div>
@@ -3339,22 +3363,22 @@ vo = voyageai.<span class="fn">Client</span>()
               </div>
             </div>
           </div>
-          <p style="margin-top:10px;margin-bottom:0;font-size:0.83rem">Before storage, each vector is <strong style="color:#e2e8f0">normalized</strong> to a magnitude of 1.0 (typically handled automatically by the embedding API). Both normalized points lie exactly on the edge of a unit circle.</p>
+          <p style="margin-top:10px;margin-bottom:0;font-size:0.83rem">Before storage, each vector is <strong style="color:#EDE9E2">normalized</strong> to a magnitude of 1.0 (typically handled automatically by the embedding API). Both normalized points lie exactly on the edge of a unit circle.</p>
         </div>
       </div>
 
       <div class="rag-step">
         <div class="rag-step-num">STEP 3</div>
         <div class="rag-step-title">Create a Vector Store</div>
-        <div class="rag-step-body">The normalized embeddings are stored in a <strong style="color:#e2e8f0">vector database</strong> — a specialized database optimized for storing and comparing long lists of numbers efficiently.</div>
+        <div class="rag-step-body">The normalized embeddings are stored in a <strong style="color:#EDE9E2">vector database</strong> — a specialized database optimized for storing and comparing long lists of numbers efficiently.</div>
       </div>
 
       <div class="rag-step">
         <div class="rag-step-num">STEP 4</div>
         <div class="rag-step-title">Process User Query and Build the Final Prompt</div>
         <div class="rag-step-body">
-          When a user asks <em>"What did the software engineering department do this year?"</em>, the query runs through the same embedding model: <span style="font-family:monospace;color:#f6ad55">[0.1, 0.89]</span> → normalized to <span style="font-family:monospace;color:#f6ad55">[0.112, 0.993]</span>.
-          <p style="margin-top:10px;margin-bottom:8px;font-size:0.83rem">The vector database finds the closest stored embedding using <strong style="color:#e2e8f0">cosine similarity</strong> — the cosine of the angle between two vectors (1.0 = same direction, 0.0 = perpendicular, −1.0 = opposite):</p>
+          When a user asks <em>"What did the software engineering department do this year?"</em>, the query runs through the same embedding model: <span style="font-family:monospace;color:#D9925B">[0.1, 0.89]</span> → normalized to <span style="font-family:monospace;color:#D9925B">[0.112, 0.993]</span>.
+          <p style="margin-top:10px;margin-bottom:8px;font-size:0.83rem">The vector database finds the closest stored embedding using <strong style="color:#EDE9E2">cosine similarity</strong> — the cosine of the angle between two vectors (1.0 = same direction, 0.0 = perpendicular, −1.0 = opposite):</p>
           <div class="rag-cosine-result">
             <div class="rag-cosine-card high">
               <div class="rag-cosine-label">vs. Software Engineering</div>
@@ -3385,17 +3409,17 @@ This division dedicated significant effort to studying various infection vectors
 
     <div class="info-box" style="margin-top:16px">
       <div class="tag">COSINE DISTANCE</div>
-      <p>Vector database docs often show <strong>cosine distance</strong> instead of similarity. It is simply <code style="color:#f6ad55;font-size:0.82rem">1 − cosine similarity</code>, flipping the scale so smaller = more similar: 0.0 (identical), 1.0 (perpendicular), 2.0 (opposite).</p>
+      <p>Vector database docs often show <strong>cosine distance</strong> instead of similarity. It is simply <code style="color:#D9925B;font-size:0.82rem">1 − cosine similarity</code>, flipping the scale so smaller = more similar: 0.0 (identical), 1.0 (perpendicular), 2.0 (opposite).</p>
     </div>
 
-    <div class="takeaway" style="background:#0d1117;border-color:#553c9a;margin:28px 0 6px">
+    <div class="takeaway" style="background:#110F0C;border-color:#553c9a;margin:28px 0 6px">
       <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.1em;color:#b794f4;margin-bottom:6px">DEEP DIVE · IMPLEMENTATION STRATEGIES</div>
-      <p style="margin:0;font-size:0.85rem;color:#a0aec0">The sections below go beyond basic RAG and walk through production-grade patterns: hybrid search with BM25 + vector indexes, Reciprocal Rank Fusion, LLM-powered reranking, and contextual retrieval. Together, these techniques form a complete, robust retrieval pipeline.</p>
+      <p style="margin:0;font-size:0.85rem;color:#B0A896">The sections below go beyond basic RAG and walk through production-grade patterns: hybrid search with BM25 + vector indexes, Reciprocal Rank Fusion, LLM-powered reranking, and contextual retrieval. Together, these techniques form a complete, robust retrieval pipeline.</p>
     </div>
 
     <h3>Hybrid Search &amp; Reranking</h3>
-    <p>Semantic search alone can miss exact keyword matches. <strong style="color:#e2e8f0">Hybrid search</strong> combines vector (semantic) search with <strong style="color:#e2e8f0">BM25</strong> lexical search to capture the best of both approaches.</p>
-    <p>Because vector similarity scores and BM25 relevance scores operate on incompatible scales, results are merged using <strong style="color:#e2e8f0">Reciprocal Rank Fusion (RRF)</strong> — a rank-based technique that focuses on position rather than raw score value.</p>
+    <p>Semantic search alone can miss exact keyword matches. <strong style="color:#EDE9E2">Hybrid search</strong> combines vector (semantic) search with <strong style="color:#EDE9E2">BM25</strong> lexical search to capture the best of both approaches.</p>
+    <p>Because vector similarity scores and BM25 relevance scores operate on incompatible scales, results are merged using <strong style="color:#EDE9E2">Reciprocal Rank Fusion (RRF)</strong> — a rank-based technique that focuses on position rather than raw score value.</p>
 
     <pre class="code-block"><span class="cmt"># Retriever — wraps any number of SearchIndex instances with optional reranking</span>
 <span class="kw">from</span> typing <span class="kw">import</span> Any, List, Dict, Tuple, Protocol, Callable, Optional
@@ -3482,16 +3506,16 @@ retriever = <span class="fn">Retriever</span>(bm25_index, vector_index, <span cl
 
     <div class="rag-tradeoffs">
       <div class="rag-tradeoff">
-        <span class="rag-tradeoff-icon" style="color:#f6ad55">↑</span>
-        <span class="rag-tradeoff-text"><strong style="color:#e2e8f0">Increased latency</strong> — each search now waits for an additional LLM call to complete</span>
+        <span class="rag-tradeoff-icon" style="color:#D9925B">↑</span>
+        <span class="rag-tradeoff-text"><strong style="color:#EDE9E2">Increased latency</strong> — each search now waits for an additional LLM call to complete</span>
       </div>
       <div class="rag-tradeoff">
-        <span class="rag-tradeoff-icon" style="color:#68d391">✓</span>
-        <span class="rag-tradeoff-text"><strong style="color:#e2e8f0">Improved accuracy</strong> — Claude understands context and intent better than pure similarity scores</span>
+        <span class="rag-tradeoff-icon" style="color:#A8C08A">✓</span>
+        <span class="rag-tradeoff-text"><strong style="color:#EDE9E2">Improved accuracy</strong> — Claude understands context and intent better than pure similarity scores</span>
       </div>
       <div class="rag-tradeoff">
-        <span class="rag-tradeoff-icon" style="color:#f6ad55">$</span>
-        <span class="rag-tradeoff-text"><strong style="color:#e2e8f0">Additional cost</strong> — each search incurs an extra LLM API call</span>
+        <span class="rag-tradeoff-icon" style="color:#D9925B">$</span>
+        <span class="rag-tradeoff-text"><strong style="color:#EDE9E2">Additional cost</strong> — each search incurs an extra LLM API call</span>
       </div>
     </div>
 
@@ -3910,7 +3934,7 @@ function getTempZone(temp) {
   return 'creative';
 }
 
-const ZONE_COLORS = { precise: '#63b3ed', balanced: '#68d391', creative: '#f6ad55' };
+const ZONE_COLORS = { precise: '#E8AE8C', balanced: '#A8C08A', creative: '#D9925B' };
 
 function updateTemp(sliderVal) {
   const temp = sliderVal / 100;
@@ -3996,7 +4020,7 @@ const MT_MAX = MT_TURNS.length;
 
 function mtBuildPayload(turnIdx) {
   if (turnIdx === 0) {
-    return `<span style="color:#4a5568">// Complete message history included each time</span>`;
+    return `<span style="color:#6B6355">// Complete message history included each time</span>`;
   }
   const trunc = (s, n) => s.length > n ? s.slice(0, n) + '…' : s;
   let html = `<span class="lc-d">{</span>\n`;
@@ -4026,7 +4050,7 @@ function mtRender() {
   const chat = document.getElementById('mtChat');
   chat.innerHTML = '';
   if (t === 0) {
-    chat.innerHTML = `<div style="color:#4a5568;font-size:0.8rem;text-align:center;padding:24px 0">Click "Start Conversation" to begin</div>`;
+    chat.innerHTML = `<div style="color:#6B6355;font-size:0.8rem;text-align:center;padding:24px 0">Click "Start Conversation" to begin</div>`;
   } else {
     for (let i = 0; i < t; i++) {
       const isNew = i === t - 1;
@@ -4215,12 +4239,12 @@ function pfRender() {
   const opt = PF_OPTIONS[pfCurrent];
   const label = opt.label.replace(/</g, '&lt;').replace(/`/g, '&#96;');
   document.getElementById('pfCode').innerHTML =
-    `<span style="color:#4a5568"># messages sent to API</span>\n` +
+    `<span style="color:#6B6355"># messages sent to API</span>\n` +
     `[\n` +
-    `  { <span style="color:#63b3ed">"role"</span>: <span style="color:#f6ad55">"user"</span>,\n` +
-    `    <span style="color:#63b3ed">"content"</span>: <span style="color:#f6ad55">"Is tea or coffee better?"</span> },\n` +
-    `  { <span style="color:#63b3ed">"role"</span>: <span style="color:#68d391">"assistant"</span>,\n` +
-    `    <span style="color:#63b3ed">"content"</span>: <span style="color:#68d391">"${label}"</span> }  <span style="color:#4a5568">← prefill</span>\n` +
+    `  { <span style="color:#E8AE8C">"role"</span>: <span style="color:#D9925B">"user"</span>,\n` +
+    `    <span style="color:#E8AE8C">"content"</span>: <span style="color:#D9925B">"Is tea or coffee better?"</span> },\n` +
+    `  { <span style="color:#E8AE8C">"role"</span>: <span style="color:#A8C08A">"assistant"</span>,\n` +
+    `    <span style="color:#E8AE8C">"content"</span>: <span style="color:#A8C08A">"${label}"</span> }  <span style="color:#6B6355">← prefill</span>\n` +
     `]`;
   document.getElementById('pfSeedText').textContent = opt.label;
   const cont = document.getElementById('pfContText');
@@ -4422,7 +4446,7 @@ response = client.chat.completions.create(
     model="llama3.2",
     messages=[...]
 )`,
-    note: 'Only <code style="color:#68d391">base_url</code> and <code style="color:#68d391">api_key</code> change. Every <code style="color:#68d391">client.chat.completions.create(…)</code> call, message format, and response parsing stays identical. This works because local inference servers (Ollama, vLLM, LM Studio, llama.cpp) all implement an OpenAI-compatible endpoint.',
+    note: 'Only <code style="color:#A8C08A">base_url</code> and <code style="color:#A8C08A">api_key</code> change. Every <code style="color:#A8C08A">client.chat.completions.create(…)</code> call, message format, and response parsing stays identical. This works because local inference servers (Ollama, vLLM, LM Studio, llama.cpp) all implement an OpenAI-compatible endpoint.',
   },
   anthropic: {
     portable:   false,
