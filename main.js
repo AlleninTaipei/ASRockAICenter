@@ -17,11 +17,15 @@ function getLocale() {
 function renderApps(t) {
   const grid = document.getElementById('apps-grid');
   if (!grid) return;
+  const modelPrefix = (t.appsSection && t.appsSection.modelPrefix) || 'MODEL NO.';
   grid.innerHTML = t.apps.map((app, i) => {
     const isHero = i === 0 && app.badge;
+    const modelNo = `${modelPrefix} ${app.name.toUpperCase()}-${String(i + 1).padStart(2, '0')}`;
     return `
       <div class="app-card${isHero ? ' app-card--hero' : ''}">
+        <span class="app-card-scan" aria-hidden="true"></span>
         ${isHero ? `<span class="hero-factory-badge">${app.badge}</span>` : ''}
+        <span class="app-model-no">${modelNo}</span>
         <div class="app-header">
           <div class="app-icon">${app.icon}</div>
           <div class="app-title-group">
