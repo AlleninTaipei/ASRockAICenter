@@ -6,7 +6,8 @@ const LOCALES = {
       taglines: [
         "In the era of AI, compute is strategy. Own yours \u2014 on-premise or hybrid.",
         "From AI infrastructure to enterprise transformation: we close the gap."
-      ]
+      ],
+      statusLine: "ON-PREM AI INFRASTRUCTURE // OPERATIONAL"
     },
     audienceNav: {
       decisionMaker: {
@@ -57,7 +58,8 @@ const LOCALES = {
     ],
     appsSection: {
       title: "Inside the Factory — Precision AI Tools",
-      subtitle: "Every application runs on infrastructure you control — on-premise, hybrid, or private cloud. Your data never leaves your perimeter."
+      subtitle: "Every application runs on infrastructure you control — on-premise, hybrid, or private cloud. Your data never leaves your perimeter.",
+      modelPrefix: "MODEL NO."
     },
     apps: [
       {
@@ -310,7 +312,8 @@ const LOCALES = {
       taglines: [
         "在 AI 時代，算力就是戰略。本地、雲端，或兩者兼備——都在你的掌控中。",
         "從 AI 基礎設施到企業轉型，我們填補這段距離。"
-      ]
+      ],
+      statusLine: "地端運行中 // STATUS: OPERATIONAL"
     },
     audienceNav: {
       decisionMaker: {
@@ -361,7 +364,8 @@ const LOCALES = {
     ],
     appsSection: {
       title: "AI 工廠內部：精密應用工具",
-      subtitle: "每一項應用都在你掌控的基礎設施上運行——本地、混合雲或私有雲皆適用。數據永遠不會離開你的邊界。"
+      subtitle: "每一項應用都在你掌控的基礎設施上運行——本地、混合雲或私有雲皆適用。數據永遠不會離開你的邊界。",
+      modelPrefix: "MODEL NO."
     },
     apps: [
       {
