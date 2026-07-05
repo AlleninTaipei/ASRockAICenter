@@ -5,92 +5,115 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Anatomy of an Agent Harness</title>
   <style>
+    @font-face {
+      font-family: 'Archivo';
+      src: url('../../../fonts/archivo/Archivo-Bold.woff2') format('woff2');
+      font-weight: 700 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'IBM Plex Mono';
+      src: url('../../../fonts/ibm-plex-mono/IBMPlexMono-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'IBM Plex Mono';
+      src: url('../../../fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-           background: #0f1117; color: #e2e8f0; line-height: 1.7; }
+           background: #14110E; color: #EDE9E2; line-height: 1.7; }
 
-    header { background: linear-gradient(135deg, #1a1f2e 0%, #0f1117 100%);
-             border-bottom: 1px solid #2d3748; padding: 48px 24px 40px; text-align: center; }
-    header h1 { font-size: 2.2rem; font-weight: 700; color: #f7fafc; }
-    header p  { margin-top: 10px; color: #a0aec0; font-size: 1.05rem;
+    header { background: linear-gradient(135deg, #221D17 0%, #14110E 100%);
+             border-top: 3px solid #CC785C;
+             border-bottom: 1px solid #3A332B; padding: 48px 24px 40px; text-align: center; }
+    header h1 { font-family: 'Archivo', -apple-system, sans-serif; font-size: 2.2rem; font-weight: 700; color: #F5F1E9; }
+    header p  { margin-top: 10px; color: #B0A896; font-size: 1.05rem;
                 max-width: 640px; margin-inline: auto; }
-    header .source { margin-top: 16px; font-size: 0.78rem; color: #4a5568; }
-    header .source a { color: #4a9eda; text-decoration: none; }
-    header .source a:hover { color: #90cdf4; text-decoration: underline; }
+    header .source { margin-top: 16px; font-size: 0.78rem; color: #6B6355; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em; text-transform: uppercase; }
+    header .source a { color: #CC785C; text-decoration: none; }
+    header .source a:hover { color: #E8AE8C; text-decoration: underline; }
 
     main    { max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; }
     section { margin-bottom: 56px; }
-    h2 { font-size: 1.4rem; font-weight: 600; color: #90cdf4;
-         border-left: 4px solid #4299e1; padding-left: 14px; margin-bottom: 20px; }
-    h3 { font-size: 1.05rem; font-weight: 600; color: #e2e8f0; margin: 18px 0 8px; }
-    p  { color: #a0aec0; margin-bottom: 12px; }
+    h2 { font-family: 'Archivo', -apple-system, sans-serif; font-size: 1.4rem; font-weight: 700; color: #E8AE8C;
+         border-left: 4px solid #CC785C; padding-left: 14px; margin-bottom: 20px; }
+    h3 { font-size: 1.05rem; font-weight: 600; color: #EDE9E2; margin: 18px 0 8px; }
+    p  { color: #B0A896; margin-bottom: 12px; }
 
-    .code-block { background: #0d1117; border: 1px solid #2d3748; border-radius: 8px;
-      padding: 16px 18px; font-family: "SF Mono", "Fira Code", monospace; font-size: 0.82rem;
-      color: #e2e8f0; overflow-x: auto; margin-top: 14px; line-height: 1.75; white-space: pre; }
+    .code-block { background: #110F0C; border: 1px solid #3A332B; border-radius: 8px;
+      padding: 16px 18px; font-family: 'IBM Plex Mono', "SF Mono", "Fira Code", monospace; font-size: 0.82rem;
+      color: #EDE9E2; overflow-x: auto; margin-top: 14px; line-height: 1.75; white-space: pre; }
     .kw  { color: #9f7aea; }
-    .fn  { color: #68d391; }
-    .str { color: #f6ad55; }
-    .cmt { color: #4a5568; font-style: italic; }
-    .key { color: #63b3ed; }
+    .fn  { color: #A8C08A; }
+    .str { color: #D9925B; }
+    .cmt { color: #6B6355; font-style: italic; }
+    .key { color: #E8AE8C; }
 
-    .info-box { background: #1a202c; border: 1px solid #2a4a6a; border-radius: 10px;
+    .info-box { background: #221D17; border: 1px solid #2a4a6a; border-radius: 10px;
       padding: 16px 20px; margin-top: 14px; }
-    .info-box .tag { display: inline-block; background: #2a4a6a; color: #90cdf4;
+    .info-box .tag { display: inline-block; background: #2a4a6a; color: #E8AE8C;
       font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 4px;
       margin-bottom: 10px; letter-spacing: 0.05em; }
-    .info-box p { color: #a0aec0; font-size: 0.88rem; margin: 0; }
+    .info-box p { color: #B0A896; font-size: 0.88rem; margin: 0; }
 
-    .takeaway { background: linear-gradient(135deg, #1a2a1a, #1a202c);
+    .takeaway { background: linear-gradient(135deg, #1a2a1a, #221D17);
       border: 1px solid #276749; border-radius: 10px; padding: 20px 24px; margin-top: 16px; }
     .takeaway p { color: #c6f6d5; font-size: 0.9rem; margin: 0; }
 
     .api-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
-    .field { background: #1a202c; border: 1px solid #2d3748; border-radius: 8px; padding: 14px 16px; }
-    .field .name { font-family: monospace; font-size: 0.85rem; color: #68d391; font-weight: 600; }
-    .field .desc { font-size: 0.82rem; color: #718096; margin-top: 4px; }
+    .field { background: #221D17; border: 1px solid #3A332B; border-radius: 8px; padding: 14px 16px; }
+    .field .name { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: #A8C08A; font-weight: 600; }
+    .field .desc { font-size: 0.82rem; color: #8C8375; margin-top: 4px; }
 
     .event-list { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
-    .event-item { background: #1a202c; border: 1px solid #2d3748; border-radius: 6px;
+    .event-item { background: #221D17; border: 1px solid #3A332B; border-radius: 6px;
       padding: 10px 14px; display: flex; gap: 14px; align-items: baseline; }
-    .event-name { font-family: monospace; font-size: 0.82rem; color: #68d391;
+    .event-name { font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; color: #A8C08A;
       min-width: 170px; flex-shrink: 0; }
-    .event-desc { font-size: 0.82rem; color: #718096; }
+    .event-desc { font-size: 0.82rem; color: #8C8375; }
 
-    .response-box { background: #1a202c; border: 1px solid #2d3748; border-radius: 10px;
+    .response-box { background: #221D17; border: 1px solid #3A332B; border-radius: 10px;
       padding: 20px; margin-top: 16px; }
-    .response-field { display: flex; gap: 16px; padding: 9px 0; border-bottom: 1px solid #2d3748; }
+    .response-field { display: flex; gap: 16px; padding: 9px 0; border-bottom: 1px solid #3A332B; }
     .response-field:last-child { border-bottom: none; }
-    .rf-key { font-family: monospace; font-size: 0.82rem; color: #f6ad55;
+    .rf-key { font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; color: #D9925B;
                width: 150px; flex-shrink: 0; }
-    .rf-val { font-size: 0.84rem; color: #a0aec0; }
+    .rf-val { font-size: 0.84rem; color: #B0A896; }
 
     .scope-badge { display: inline-block; font-size: 0.58rem; font-weight: 700;
       letter-spacing: 0.07em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px;
       vertical-align: middle; margin-left: 10px; position: relative; top: -2px; }
-    .scope-universal { background: #1a3a28; color: #68d391; border: 1px solid #276749; }
+    .scope-universal { background: #1a3a28; color: #A8C08A; border: 1px solid #276749; }
     .scope-specific  { background: #2d1f4a; color: #b794f4; border: 1px solid #553c8b; }
     .scope-legend { display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
-      background: #1a202c; border: 1px solid #2d3748; border-radius: 8px;
+      background: #221D17; border: 1px solid #3A332B; border-radius: 8px;
       padding: 10px 18px; margin-bottom: 36px; }
-    .scope-legend-label { font-size: 0.72rem; color: #4a5568; font-weight: 700; }
-    .scope-legend-item  { display: flex; align-items: center; gap: 6px; font-size: 0.72rem; color: #718096; }
+    .scope-legend-label { font-size: 0.72rem; color: #6B6355; font-weight: 700; }
+    .scope-legend-item  { display: flex; align-items: center; gap: 6px; font-size: 0.72rem; color: #8C8375; }
 
     .btn { padding: 9px 20px; border-radius: 8px; font-size: 0.85rem; font-weight: 600;
       cursor: pointer; border: none; transition: all 0.2s; }
-    .btn-primary { background: #2b6cb0; color: #fff; }
-    .btn-primary:hover:not(:disabled) { background: #3182ce; }
-    .btn-primary:disabled { background: #2d3748; color: #4a5568; cursor: default; }
-    .btn-ghost { background: transparent; color: #718096; border: 1px solid #2d3748; }
-    .btn-ghost:hover:not(:disabled) { color: #e2e8f0; border-color: #4a5568; }
+    .btn-primary { background: #CC785C; color: #fff; }
+    .btn-primary:hover:not(:disabled) { background: #A8603F; }
+    .btn-primary:disabled { background: #3A332B; color: #6B6355; cursor: default; }
+    .btn-ghost { background: transparent; color: #8C8375; border: 1px solid #3A332B; }
+    .btn-ghost:hover:not(:disabled) { color: #EDE9E2; border-color: #6B6355; }
     .btn-ghost:disabled { opacity: 0.4; cursor: default; }
-    .step-indicator { color: #718096; font-size: 0.82rem; margin-left: auto; }
+    .step-indicator { color: #8C8375; font-size: 0.82rem; margin-left: auto; }
     .demo-controls  { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; align-items: center; }
 
     .stage-tabs { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
     .stage-tab  { padding: 7px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
-      cursor: pointer; border: 1px solid #2d3748; background: #1a202c; color: #718096; transition: all 0.2s; }
-    .stage-tab.active { background: #2b6cb0; border-color: #4299e1; color: #fff; }
+      cursor: pointer; border: 1px solid #3A332B; background: #221D17; color: #8C8375; transition: all 0.2s; }
+    .stage-tab.active { background: #CC785C; border-color: #CC785C; color: #fff; }
     .stage-tab.done   { background: #276749; border-color: #48bb78; color: #c6f6d5; }
 
     .demo-panel { display: none; }
@@ -98,24 +121,24 @@
     @keyframes fadeIn { from { opacity:0; transform:translateY(5px) } to { opacity:1; transform:none } }
 
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
-    .col-card { background: #1a202c; border: 1px solid #2d3748; border-radius: 10px; padding: 16px 18px; }
+    .col-card { background: #221D17; border: 1px solid #3A332B; border-radius: 10px; padding: 16px 18px; }
     .col-card-title { font-size: 0.73rem; font-weight: 700; letter-spacing: 0.07em;
-      text-transform: uppercase; color: #4a5568; margin-bottom: 10px; }
-    .col-card p { font-size: 0.83rem; color: #a0aec0; margin-bottom: 6px; }
+      text-transform: uppercase; color: #6B6355; margin-bottom: 10px; }
+    .col-card p { font-size: 0.83rem; color: #B0A896; margin-bottom: 6px; }
     .col-card p:last-child { margin-bottom: 0; }
 
     .chip-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; align-items: center; }
-    .chip-label { font-size: 0.73rem; color: #4a5568; font-weight: 700; text-transform: uppercase;
+    .chip-label { font-size: 0.73rem; color: #6B6355; font-weight: 700; text-transform: uppercase;
                   letter-spacing: 0.06em; }
     .chip { padding: 5px 13px; border-radius: 20px; font-size: 0.78rem; font-weight: 600;
-      cursor: pointer; border: 1px solid #2d3748; background: #1a202c; color: #718096;
+      cursor: pointer; border: 1px solid #3A332B; background: #221D17; color: #8C8375;
       transition: all 0.2s; user-select: none; }
-    .chip.active { background: #1c3a2a; border-color: #38a169; color: #68d391; }
-    .chip:hover:not(.active) { border-color: #4a5568; color: #a0aec0; }
+    .chip.active { background: #1c3a2a; border-color: #38a169; color: #A8C08A; }
+    .chip:hover:not(.active) { border-color: #6B6355; color: #B0A896; }
 
-    .panel-inner { padding: 20px; background: #151b27; border: 1px solid #2d3748;
+    .panel-inner { padding: 20px; background: #151b27; border: 1px solid #3A332B;
       border-radius: 10px; }
-    .panel-inner h3 { font-size: 1rem; color: #90cdf4; margin: 0 0 10px; }
+    .panel-inner h3 { font-size: 1rem; color: #E8AE8C; margin: 0 0 10px; }
     .panel-inner > p { font-size: 0.88rem; }
     .panel-inner .event-list { margin-top: 10px; }
     .panel-inner .api-fields { margin-top: 10px; }
@@ -125,10 +148,10 @@
     .panel-inner .code-block { margin-top: 10px; }
 
     .stat-row { display: flex; gap: 14px; margin-top: 20px; flex-wrap: wrap; }
-    .stat-card { background: #1a202c; border: 1px solid #2d3748; border-radius: 10px;
+    .stat-card { background: #221D17; border: 1px solid #3A332B; border-radius: 10px;
       padding: 20px; flex: 1; min-width: 150px; }
-    .stat-value { font-size: 2rem; font-weight: 700; color: #68d391; line-height: 1; }
-    .stat-label { font-size: 0.78rem; color: #718096; margin-top: 6px; line-height: 1.5; }
+    .stat-value { font-size: 2rem; font-weight: 700; color: #A8C08A; line-height: 1; }
+    .stat-label { font-size: 0.78rem; color: #8C8375; margin-top: 6px; line-height: 1.5; }
 
     @media (max-width: 640px) {
       .api-fields, .two-col, .stat-row { grid-template-columns: 1fr; }
@@ -140,7 +163,7 @@
 <body>
 
 <header>
-  <p style="font-size: 0.75rem; color: #4a5568; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;">2026</p>
+  <p style="font-size: 0.75rem; color: #6B6355; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;">2026</p>
   <h1>The Anatomy of an Agent Harness</h1>
   <p>A deep dive into orchestration loops, tools, memory, context management, and everything that transforms a stateless LLM into a capable agent.</p>
   <p class="source">source：<a href="https://x.com/akshay_pachaar/status/2041146899319971922" target="_blank" rel="noopener">@akshay_pachaar</a></p>
