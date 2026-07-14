@@ -141,7 +141,7 @@ const LOCALES = {
           { icon: "📈", value: "↑", label: "care adherence" }
         ],
         modules: ["RagPilot", "ChatForge"],
-        desc: "Built on RagPilot's medical knowledge base and ChatForge's conversational layer — both running on-premise — the system delivers personalized patient education without a single patient record touching an external API. Multilingual Q&A adapts to each patient's literacy level; take-home summaries are generated locally. Clinical teams gain compliance confidence alongside measurable care improvements: 30 hours saved per nurse per month, zero sensitive health data exposed."
+        desc: "RagPilot's medical knowledge base and ChatForge's conversational layer both run on-premise, delivering personalized multilingual Q&A without any patient record touching an external API. Summaries are generated locally; compliance and care quality improve together."
       },
       {
         icon: "🎨",
@@ -154,7 +154,7 @@ const LOCALES = {
           { icon: "🔁", value: "∞", label: "creative variations" }
         ],
         modules: ["PixelForge"],
-        desc: "PixelForge runs the entire visual generation workflow on the team's own compute — meaning unreleased product imagery and brand concepts never leave the firewall. Anyone can instantly create, share, and remix high-quality visuals without design expertise or NDAs. No per-token fees to external AI providers. No IP leakage risk. Parameter-aware remixing turns individual outputs into reusable team knowledge, accelerating creative production without surrendering control."
+        desc: "PixelForge runs the entire visual generation workflow on the team's own compute — unreleased imagery and brand concepts never leave the firewall. Anyone can create, share, and remix high-quality visuals without design expertise, NDAs, or per-token fees."
       },
       {
         "icon": "🏭",
@@ -167,7 +167,7 @@ const LOCALES = {
           { "icon": "🔒", "value": "100%", "label": "on-prem data privacy" }
         ],
         "modules": ["ScriptForge", "RagLingo"],
-        "desc": "ScriptForge handles speech recognition and timeline alignment; RagLingo delivers high-precision, context-aware translation — both running on an on-premise AI workstation. The result: no per-token fees to external APIs, no content sent outside the organization, and a multi-day manual workflow compressed to hours. Every frame of sensitive content remains under the publisher's direct control, making multilingual publishing a scalable, repeatable pipeline without sacrificing data sovereignty."
+        "desc": "ScriptForge handles speech recognition and timeline alignment; RagLingo delivers context-aware translation — both on-premise. A multi-day manual pipeline compresses to hours with no content routed outside the organization."
       },
       {
         "icon": "📘",
@@ -180,7 +180,7 @@ const LOCALES = {
           { "icon": "📈", "value": "↑", "label": "learning outcomes" }
         ],
         "modules": ["RagPilot", "ChatForge"],
-        "desc": "RagPilot transforms the publisher's existing curriculum library into a structured knowledge base; ChatForge delivers that knowledge as personalized, adaptive Q&A for each student. Running on-premise means student performance data — a compliance-sensitive asset — stays entirely within the institution. Static textbooks become a living, continuously adapting learning platform: 70% faster content production, 40% higher engagement, and full data sovereignty maintained throughout."
+        "desc": "RagPilot structures the existing curriculum library; ChatForge delivers it as personalized, adaptive Q&A per student — entirely on-premise. Student performance data stays within the institution; static textbooks become a continuously evolving learning platform."
       },
       {
         "icon": "⚽",
@@ -193,7 +193,7 @@ const LOCALES = {
           { "icon": "📊", "value": "Weekly", "label": "player performance reports" }
         ],
         "modules": ["MotionScope"],
-        "desc": "MotionScope ingests match and training footage and transforms it into structured motion intelligence — tracking every player's position, trajectory, and movement pattern across every frame. Running entirely on the team's own server, no clip is ever sent to an external service. What previously demanded a professional analyst working through hours of footage is now a fully automated process: annotated movement visualizations, player reports, and tactical pattern summaries delivered overnight. 90% of analysis time eliminated. Zero footage sent to third parties."
+        "desc": "MotionScope transforms match and training footage into structured motion intelligence — tracking every player's position, trajectory, and movement across every frame. Fully automated on the team's own server; no clip is ever sent externally."
       },
       {
         icon: "🔭",
@@ -206,7 +206,7 @@ const LOCALES = {
           { icon: "🔒", value: "0", label: "portfolio exposure to cloud" }
         ],
         modules: ["RagPilot", "RagLingo", "ChatForge"],
-        desc: "RagPilot ingests and indexes the manager's private research archive — earnings transcripts, broker reports, macroeconomic data across regions — into a structured, queryable knowledge base running entirely on-premise. RagLingo dissolves language barriers across global markets, translating and contextualizing research from any region or language into actionable insights without routing a single document through an external API. ChatForge sits at the top of the stack as the conversational interface: natural-language queries generate cross-border investment briefs, thesis summaries, and position rationales drawn from the manager's own curated data. No cloud subscription. No document ever leaves the workstation. 80% of per-thesis research time eliminated."
+        desc: "RagPilot indexes the manager's private research archive on-premise; RagLingo translates cross-market materials without routing any document externally; ChatForge converts the stack into a natural-language interface for cross-border briefs and thesis summaries. No cloud subscription. No document leaves the workstation."
       }
     ],
     resources: {
@@ -446,7 +446,7 @@ const LOCALES = {
           { icon: "📈", value: "↑", label: "照護依從性提升" }
         ],
         modules: ["RagPilot", "ChatForge"],
-        desc: "以 RagPilot 建構醫療知識庫，透過 ChatForge 提供病患對話介面——兩者皆在院內地端運行，確保每一筆敏感健康資料不觸及外部 API。系統依病患理解程度自動調整內容、支援多語語音問答，並在本地生成個人化帶回資料。臨床團隊同時兼顧合規要求與可量化的照護提升：每位護理師每月節省 30 小時，且無任何患者資料外流風險。"
+        desc: "RagPilot 建構醫療知識庫，ChatForge 提供多語病患問答介面——兩者皆在院內地端運行，每一筆健康資料均不觸及外部 API。個人化帶回資料在本地生成，合規要求與照護品質同步提升。"
       },
       {
         icon: "🎨",
@@ -459,7 +459,7 @@ const LOCALES = {
           { icon: "🔁", value: "∞", label: "創意變體產出" }
         ],
         modules: ["PixelForge"],
-        desc: "PixelForge 在團隊自有算力上執行完整視覺生成工作流——尚未發布的產品影像與品牌概念始終保存在防火牆內。任何人無需設計背景或保密協議，即可即時產出、共享並 Remix 高品質視覺內容。無外部 AI 服務商的按次計費，無 IP 外洩風險。參數可追溯的 Remix 機制將個人創作轉化為團隊可複用的視覺知識資產，在不失去掌控的前提下加速創意產出。"
+        desc: "PixelForge 在自有算力上執行完整視覺工作流，產品影像與品牌概念始終保存在防火牆內。無需設計背景，無保密協議，無外部按次計費。"
       },
       {
         "icon": "🏭",
@@ -472,7 +472,7 @@ const LOCALES = {
           { "icon": "🔒", "value": "100%", "label": "內容全程本地處理" }
         ],
         "modules": ["ScriptForge", "RagLingo"],
-        "desc": "ScriptForge 負責語音辨識與時間軸對齊，RagLingo 提供高精度語境感知翻譯——兩者皆運行於地端 AI 工作站之上。結果：零外部 API 按次計費，敏感內容不流出組織，多日人工作業壓縮至數小時。每一幀影像版權資產都在出版商的直接掌控之下，多語內容製作從此成為可擴展、可重複的生產管線，且完整維護數位主權。"
+        "desc": "ScriptForge 負責語音辨識與時間軸對齊，RagLingo 提供語境感知翻譯——兩者皆在地端運行。多日人工作業壓縮至數小時，敏感內容全程不流出組織。"
       },
       {
         "icon": "📘",
@@ -485,7 +485,7 @@ const LOCALES = {
           { "icon": "📈", "value": "↑", "label": "學習成效提升" }
         ],
         "modules": ["RagPilot", "ChatForge"],
-        "desc": "RagPilot 將出版商現有課程素材轉化為結構化知識庫；ChatForge 以此為基礎，為每位學生提供個人化、自適應的問答互動。地端運行確保學生表現數據——一項高度合規敏感的資產——完整保存於機構內部。靜態教材因此蛻變為持續進化的學習平台：內容製作時間縮短 70%、學習投入度提升 40%，且全程維護完整的數位主權。"
+        "desc": "RagPilot 將課程素材轉化為結構化知識庫，ChatForge 以此為每位學生提供個人化問答——全程地端運行。學生表現數據完整保存於機構內部，靜態教材蛻變為持續進化的學習平台。"
       },
       {
         "icon": "⚽",
@@ -498,7 +498,7 @@ const LOCALES = {
           { "icon": "📊", "value": "每週產出", "label": "球員表現報告" }
         ],
         "modules": ["MotionScope"],
-        "desc": "MotionScope 將比賽與訓練影片轉化為結構化的人體動態情報——追蹤每位球員在每一幀中的位置、軌跡與動作模式。系統全程在球隊自有伺服器上運行，影片片段不外流至任何第三方服務。原本需要專職分析師逐格審視的工作，如今完全自動化：動作軌跡視覺化標註、球員報告與戰術模式摘要一夜生成。影片分析時間縮短 90%，零資料傳送至第三方。"
+        "desc": "MotionScope 將比賽與訓練影片轉化為結構化動態情報——逐幀追蹤每位球員的位置、軌跡與動作。系統在球隊自有伺服器上運行，影片片段不外流至任何第三方。"
       },
       {
         "icon": "🔭",
@@ -511,7 +511,7 @@ const LOCALES = {
           { "icon": "🔒", "value": "0", "label": "投資組合不外流" }
         ],
         "modules": ["RagPilot", "RagLingo", "ChatForge"],
-        "desc": "RagPilot 將管理者的私有研究資料庫——跨地區的財報逐字稿、券商報告與總體經濟數據——轉化為全程在地端運行的結構化可查詢知識庫。RagLingo 打破全球市場的語言壁壘，將任何語種的研究報告與資訊翻譯、語境化為可執行的投資洞察，全程不將任何文件路由至外部 API。ChatForge 作為最上層的對話介面：以自然語言查詢，即可從管理者自有的精選資料中生成跨境投資摘要、論點總結與持倉依據。無雲端訂閱費用，無文件流出工作站，每筆研究時間縮短 80%。"
+        "desc": "RagPilot 將私有研究資料在地端索引結構化，RagLingo 跨語言翻譯不路由至外部 API，ChatForge 作為對話介面生成跨境投資摘要與論點。無雲端訂閱費用，無文件流出工作站。"
       }
     ],
     resources: {
