@@ -68,7 +68,7 @@ const LOCALES = {
         "badge": "AI Factory Core",
         "subtitle": "Enterprise AI, Running on Your Own Compute",
         "tagline": "“In the era of AI, compute is strategy. Own yours.”",
-        "desc": "SquadForge transforms your organization into an AI-native workforce by deploying dedicated agents for every employee — running entirely on your on-prem AI infrastructure. While others depend on external APIs and pay per token, you operate on owned compute: predictable, scalable, and fully under your control. No external dependencies. No data exposure. Just continuous, autonomous execution powered by your own systems. This is not SaaS. This is your AI factory."
+        "desc": "Deploys a dedicated AI agent for every employee, running entirely on your on-prem infrastructure. No external APIs, no per-token costs, no data exposure — continuous autonomous execution on compute you own."
       },
       {
         name: "ChatForge", icon: "💬",
@@ -92,7 +92,7 @@ const LOCALES = {
         name: "MotionScope", icon: "🎬",
         subtitle: "Human Motion Intelligence from Any Footage",
         tagline: '“Every frame holds a story. MotionScope reads it.”',
-        desc: "Upload any video — dashcam recordings, retail surveillance, public space footage, sports training films, or news reels — and MotionScope transforms it into structured human motion intelligence. Every person's position, trajectory, and movement pattern is tracked, quantified, and visualized across every frame. No live feed required. No specialized setup. Just deep, frame-by-frame insight from the footage you already have."
+        desc: "Transforms any existing video into structured human motion intelligence — tracking every person's position, trajectory, and movement pattern frame by frame. No live feed required. No specialized setup."
       },
       {
         name: "RagPilot", icon: "🎯",
@@ -116,7 +116,7 @@ const LOCALES = {
         name: "DeepTuner", icon: "🎛️",
         subtitle: "No-Code LLM Fine-Tuning Studio",
         tagline: '“Your model. Your data. Your rules — no code required.”',
-        desc: "DeepTuner packs the full power of LLM fine-tuning into a single, intuitive interface — no scripts, no terminal, no engineering overhead. Upload your model and dataset, set your training parameters, and DeepTuner handles the rest. GPU usage, memory, and loss curves stay visible in real time, so every run is something you can actually see and understand."
+        desc: "Full LLM fine-tuning in a no-code interface — no scripts, no terminal. Upload your model and dataset, set parameters, and monitor GPU usage and loss curves in real time."
       },
       {
         name: "PerfScope", icon: "📊",
@@ -373,7 +373,7 @@ const LOCALES = {
         "badge": "AI 工廠核心",
         "subtitle": "企業級 AI，在你的算力上運行",
         "tagline": "「在 AI 時代，算力就是戰略。掌握它。」",
-        "desc": "為每位員工部署專屬 AI 代理，全面運行於企業自有的本地 AI 基礎設施之上。當他人依賴外部 API、按 token 付費時，你運行的是自有算力：可預測、可擴展、完全掌控。無外部依賴，無資料外流。所有任務持續、自主地在你的系統中執行。這不是 SaaS，而是你的 AI 生產體系。"
+        "desc": "為每位員工部署專屬 AI 代理，全面運行於自有本地基礎設施之上。無外部 API 依賴，無資料外流，無按量計費，只有在你算力上持續自主運行的 AI 生產體系。"
       },
       {
         name: "ChatForge", icon: "💬",
@@ -397,7 +397,7 @@ const LOCALES = {
         name: "MotionScope", icon: "🎬",
         subtitle: "從任何影片提取人體動態智慧",
         tagline: "「每一幀影像，都藏著一個故事。MotionScope 讀懂它。」",
-        desc: "上傳任何影片，行車紀錄器、賣場監控、運動訓練或新聞畫面都行，MotionScope 會把它轉化成結構化的人體動態情報：每個人的位置、軌跡與動作模式，逐幀追蹤、量化呈現。不需要即時串流，不需要特殊設備，你手上現有的影像就夠了。"
+        desc: "將現有影片轉化為結構化人體動態情報，逐幀追蹤每個人的位置、軌跡與動作模式。不需即時串流，不需特殊設備。"
       },
       {
         name: "RagPilot", icon: "🎯",
@@ -421,7 +421,7 @@ const LOCALES = {
         name: "DeepTuner", icon: "🎛️",
         subtitle: "無程式碼 LLM 微調工作室",
         tagline: "「你的模型，你的數據，你的規則——無需任何程式碼。」",
-        desc: "DeepTuner 把 LLM 微調濃縮成一個介面操作，不需要寫程式、不需要碰終端機。上傳模型與資料集、設定好訓練參數，GPU 使用率與 loss 曲線全程可視，每一輪訓練都看得懂、看得見。"
+        desc: "無需程式碼即可進行 LLM 微調：上傳模型與資料集，設定訓練參數，GPU 使用率與 loss 曲線全程可視。"
       },
       {
         name: "PerfScope", icon: "📊",
