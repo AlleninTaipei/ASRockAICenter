@@ -32,97 +32,120 @@
 <body>
   <div class="app-root">
 
-    <!-- Language Toggle -->
-    <div class="lang-toggle">
-      <button class="lang-btn" id="lang-toggle-btn">
-        <span>EN</span>
-      </button>
-    </div>
-
-    <!-- Theme Toggle -->
-    <div class="theme-toggle">
-      <button class="theme-btn" id="theme-toggle-btn">
-        <span>Light</span>
-      </button>
-    </div>
+    <!-- Sticky Nav -->
+    <header class="site-header" id="site-header">
+      <div class="nav-inner">
+        <a href="#hero" class="nav-brand">ASRock AI</a>
+        <ul class="nav-links" id="nav-links">
+          <!-- populated by main.js -->
+        </ul>
+        <div class="nav-actions">
+          <button class="lang-btn" id="lang-toggle-btn">
+            <span>EN</span>
+          </button>
+        </div>
+      </div>
+    </header>
 
     <div class="container">
 
-      <!-- Header -->
-      <header>
+      <!-- Hero -->
+      <header id="hero">
+        <span class="eyebrow eyebrow-mono" data-i18n="header.eyebrow"></span>
         <h1 data-i18n="header.title">ASRock AI</h1>
-        <h2 data-i18n="header.subtitle"></h2>
+        <h2 class="gradient-text" data-i18n="header.subtitle"></h2>
         <p class="tagline" data-i18n="header.taglines.0"></p>
         <p class="tagline" data-i18n="header.taglines.1"></p>
-        <p class="tagline" data-i18n="header.taglines.2"></p>
-        <p class="hero-status-line" data-i18n="header.statusLine"></p>
+        <div class="hero-cta-row">
+          <a href="#products" class="btn btn-secondary btn-arrow" data-i18n="header.cta.primary"></a>
+          <a href="#contact" class="btn btn-ghost" data-i18n="header.cta.secondary"></a>
+        </div>
       </header>
 
-      <!-- Audience Navigation -->
-      <section class="section audience-nav-section" id="audience-nav">
-        <div class="audience-nav-grid" id="audience-nav-grid">
+      <!-- Why AI Center -->
+      <section class="section" id="why">
+        <div class="section-head">
+          <span class="eyebrow" data-i18n="whySection.eyebrow"></span>
+          <h2 data-i18n="whySection.title"></h2>
+          <p class="section-subtitle" data-i18n="whySection.subtitle"></p>
+        </div>
+        <div class="bento" id="why-grid">
           <!-- populated by main.js -->
         </div>
       </section>
 
-      <!-- Apps Section -->
-      <section class="section audience-hidden" id="apps">
-        <h2 data-i18n="appsSection.title"></h2>
-        <p class="section-subtitle" data-i18n="appsSection.subtitle"></p>
-        <div class="apps-grid" id="apps-grid">
-          <!-- populated by main.js -->
+      <!-- Services -->
+      <section class="section" id="services">
+        <div class="section-head">
+          <h2 data-i18n="processSection.title"></h2>
+          <p class="section-subtitle" data-i18n="processSection.subtitle"></p>
         </div>
-      </section>
-
-      <!-- Process Section -->
-      <section class="section audience-hidden" id="process">
-        <h2 data-i18n="processSection.title"></h2>
-        <p class="section-subtitle" data-i18n="processSection.subtitle"></p>
         <div class="process-steps" id="process-steps">
           <!-- populated by main.js -->
         </div>
       </section>
 
-      <!-- Success Stories Section -->
-      <section class="section audience-hidden" id="success-stories">
-        <h2 data-i18n="successStoriesSection.title"></h2>
-        <p class="section-subtitle" data-i18n="successStoriesSection.subtitle"></p>
-        <div class="success-stories-grid" id="success-stories-grid">
+      <!-- Products -->
+      <section class="section" id="products">
+        <div class="section-head">
+          <h2 data-i18n="appsSection.title"></h2>
+          <p class="section-subtitle" data-i18n="appsSection.subtitle"></p>
+        </div>
+        <div class="bento" id="apps-grid">
           <!-- populated by main.js -->
         </div>
       </section>
 
-      <!-- Resources Section -->
-      <section class="section audience-hidden" id="resources">
-        <h2 data-i18n="resources.title"></h2>
-        <p class="section-subtitle" data-i18n="resources.subtitle"></p>
+      <!-- Solutions / Case Studies -->
+      <section class="section" id="solutions">
+        <div class="section-head">
+          <h2 data-i18n="successStoriesSection.title"></h2>
+          <p class="section-subtitle" data-i18n="successStoriesSection.subtitle"></p>
+        </div>
+        <div class="bento" id="success-stories-grid">
+          <!-- populated by main.js -->
+        </div>
+      </section>
+
+      <!-- Resources -->
+      <section class="section" id="resources">
+        <div class="section-head">
+          <h2 data-i18n="resources.title"></h2>
+          <p class="section-subtitle" data-i18n="resources.subtitle"></p>
+        </div>
         <div class="links-grid" id="resources-grid">
           <!-- populated by main.js -->
         </div>
       </section>
 
-      <!-- Developer Courses Section -->
-      <section class="section audience-hidden" id="courses">
-        <h2 data-i18n="coursesSection.title"></h2>
-        <p class="section-subtitle" data-i18n="coursesSection.subtitle"></p>
+      <!-- Developer Courses -->
+      <section class="section" id="courses">
+        <div class="section-head">
+          <h2 data-i18n="coursesSection.title"></h2>
+          <p class="section-subtitle" data-i18n="coursesSection.subtitle"></p>
+        </div>
         <div class="links-grid" id="courses-grid">
           <!-- populated by main.js -->
         </div>
       </section>
 
-      <!-- Blogs Section -->
-      <section class="section audience-hidden" id="blogs">
-        <h2 data-i18n="blogsSection.title"></h2>
-        <p class="section-subtitle" data-i18n="blogsSection.subtitle"></p>
+      <!-- Blogs -->
+      <section class="section" id="blogs">
+        <div class="section-head">
+          <h2 data-i18n="blogsSection.title"></h2>
+          <p class="section-subtitle" data-i18n="blogsSection.subtitle"></p>
+        </div>
         <div class="links-grid" id="blogs-grid">
           <!-- populated by main.js -->
         </div>
       </section>
 
-      <!-- YouTube Section -->
-      <section class="section youtube-section hidden audience-hidden" id="youtube-section">
-        <h2 data-i18n="youtubeSection.title"></h2>
-        <p class="section-subtitle" data-i18n="youtubeSection.subtitle"></p>
+      <!-- YouTube -->
+      <section class="section youtube-section hidden" id="youtube-section">
+        <div class="section-head">
+          <h2 data-i18n="youtubeSection.title"></h2>
+          <p class="section-subtitle" data-i18n="youtubeSection.subtitle"></p>
+        </div>
         <div class="videos-grid" id="videos-grid">
           <!-- populated by main.js -->
         </div>
@@ -132,12 +155,16 @@
         </div>
       </section>
 
-      <!-- Contact Section -->
-      <footer class="section contact-section" id="contact">
+      <!-- Contact -->
+      <section class="section contact-section" id="contact">
         <h2 data-i18n="contact.title"></h2>
         <div class="contact-cards" id="contact-cards">
           <!-- populated by main.js -->
         </div>
+      </section>
+
+      <footer class="site-footer">
+        <span data-i18n="footer.copyright"></span>
       </footer>
 
     </div><!-- /.container -->

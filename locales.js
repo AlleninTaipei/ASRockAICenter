@@ -2,28 +2,42 @@ const LOCALES = {
   en: {
     header: {
       title: "ASRock AI",
+      eyebrow: "ASRock AI Center",
       subtitle: "Enterprise AI Transformation \u2014 on your infrastructure, on your terms.",
       taglines: [
         "In the era of AI, compute is strategy. Own yours \u2014 on-premise or hybrid.",
         "From AI infrastructure to enterprise transformation: we close the gap."
       ],
-      statusLine: "ON-PREM AI INFRASTRUCTURE // OPERATIONAL"
-    },
-    audienceNav: {
-      decisionMaker: {
-        badge: "For Decision Makers",
-        title: "Business Value & ROI",
-        desc: "Partner with us to lead enterprise AI transformation — from infrastructure design to production deployment, across on-premise and hybrid environments.",
-        cta: "Explore Solutions →",
-        anchor: "#apps"
-      },
-      developer: {
-        badge: "ASRock AI Developer Academy",
-        title: "Developer Enablement",
-        desc: "Courses, architecture deep-dives, and curated resources for engineers building enterprise AI systems — on-premise, hybrid, or private cloud.",
-        cta: "Enter Academy →",
-        anchor: "#courses"
+      statusLine: "ON-PREM AI INFRASTRUCTURE // OPERATIONAL",
+      cta: {
+        primary: "Explore Products",
+        secondary: "Talk to Us"
       }
+    },
+    nav: {
+      why: "Why",
+      services: "Services",
+      products: "Products",
+      solutions: "Solutions",
+      resources: "Resources",
+      contact: "Contact"
+    },
+    whySection: {
+      eyebrow: "Why ASRock AI Center",
+      title: "Enterprise AI, built on infrastructure you own",
+      subtitle: "A single team taking AI from strategy to production — without your data ever leaving your perimeter.",
+      description: "ASRock AI Center pairs a structured service model with a growing suite of production-ready AI applications, all designed to run entirely on-premise or in a hybrid environment. From the first requirements interview to ongoing optimization, every step keeps compute and data under your control.",
+      stats: [
+        { label: "AI Applications" },
+        { label: "Pilot Projects" },
+        { label: "Step Service Process" }
+      ],
+      reasonsTitle: "What sets us apart",
+      reasons: [
+        { title: "Your infrastructure, your rules", desc: "Every application and pilot runs on-premise or hybrid — no data leaves your perimeter, no per-token costs, no external API dependency." },
+        { title: "End-to-end, not just a toolkit", desc: "From requirements interview through POC, deployment, and ongoing optimization — one structured process, one team accountable for outcomes." },
+        { title: "Proven across industries", desc: "Pilot deployments spanning healthcare, finance, education, media, sports, and consumer electronics — real production workloads, not demos." }
+      ]
     },
     processSection: {
       title: "Service Model & Collaboration Process",
@@ -58,8 +72,7 @@ const LOCALES = {
     ],
     appsSection: {
       title: "Inside the Factory — Precision AI Tools",
-      subtitle: "Every application runs on infrastructure you control — on-premise, hybrid, or private cloud. Your data never leaves your perimeter.",
-      modelPrefix: "MODEL NO."
+      subtitle: "Every application runs on infrastructure you control — on-premise, hybrid, or private cloud. Your data never leaves your perimeter."
     },
     apps: [
       {
@@ -303,33 +316,50 @@ const LOCALES = {
         { name: "Ricardo Hsu", title: "Business Development", email: "Ricardo_Hsu@asrock.com.tw" },
         { name: "Steven Chen", title: "Technical Marketing Manager", email: "Steven2_Chen@asrock.com.tw" }
       ]
+    },
+    footer: {
+      copyright: "© 2025 ASRock AI Center. All rights reserved."
     }
   },
   'zh-TW': {
     header: {
       title: "ASRock AI",
+      eyebrow: "ASRock AI Center",
       subtitle: "企業 AI 轉型——算力在你手中，主導權也是。",
       taglines: [
         "在 AI 時代，算力就是戰略。本地、雲端，或兩者兼備——都在你的掌控中。",
         "從 AI 基礎設施到企業轉型，我們填補這段距離。"
       ],
-      statusLine: "地端運行中 // STATUS: OPERATIONAL"
-    },
-    audienceNav: {
-      decisionMaker: {
-        badge: "寫給決策者",
-        title: "商業價值與投資回報",
-        desc: "與我們攜手推動企業 AI 轉型——涵蓋基礎設施規劃、生產環境部署，以及本地與混合雲架構下的 AI 治理。",
-        cta: "探索解決方案 →",
-        anchor: "#apps"
-      },
-      developer: {
-        badge: "ASRock AI 開發者學院",
-        title: "開發者賦能專區",
-        desc: "課程、架構深度解析，以及專為工程師精選的技術資源，助你在企業 AI 基礎設施上快速建構——本地、混合雲或私有雲皆適用。",
-        cta: "進入學院 →",
-        anchor: "#courses"
+      statusLine: "地端運行中 // STATUS: OPERATIONAL",
+      cta: {
+        primary: "探索產品",
+        secondary: "聯絡我們"
       }
+    },
+    nav: {
+      why: "為什麼選擇",
+      services: "服務流程",
+      products: "產品",
+      solutions: "案例",
+      resources: "資源",
+      contact: "聯絡我們"
+    },
+    whySection: {
+      eyebrow: "為什麼選擇 ASRock AI Center",
+      title: "企業 AI，運行在你自己的基礎設施上",
+      subtitle: "從策略到落地，由同一個團隊全程陪伴，資料從未離開你的環境。",
+      description: "ASRock AI Center 結合結構化的服務流程與持續擴充的正式 AI 應用套件，全部設計為在地端或混合雲環境完整運行。從第一次需求訪談到後續優化，每個階段都讓算力與資料掌控權留在你手中。",
+      stats: [
+        { label: "AI 應用工具" },
+        { label: "領航專案" },
+        { label: "步驟服務流程" }
+      ],
+      reasonsTitle: "我們的不同之處",
+      reasons: [
+        { title: "基礎設施由你主導", desc: "每個應用與領航專案都在地端或混合雲環境運行，資料不離開你的環境，沒有 token 計費，不依賴外部 API。" },
+        { title: "全程陪伴，不只是工具", desc: "從需求訪談、POC 驗證，到部署與後續優化，同一套結構化流程，同一個團隊對成果負責。" },
+        { title: "跨產業實戰驗證", desc: "領航專案橫跨醫療、金融、教育、媒體、運動與消費電子，都是實際上線的生產環境，不是展示 demo。" }
+      ]
     },
     processSection: {
       title: "服務模式與合作流程",
@@ -364,8 +394,7 @@ const LOCALES = {
     ],
     appsSection: {
       title: "AI 工廠內部：精密應用工具",
-      subtitle: "每一項應用都在你掌控的基礎設施上運行——本地、混合雲或私有雲皆適用。數據永遠不會離開你的邊界。",
-      modelPrefix: "MODEL NO."
+      subtitle: "每一項應用都在你掌控的基礎設施上運行——本地、混合雲或私有雲皆適用。數據永遠不會離開你的邊界。"
     },
     apps: [
       {
@@ -572,6 +601,9 @@ const LOCALES = {
         { name: "Ricardo", title: "業務開發", email: "Ricardo_Hsu@asrock.com.tw" },
         { name: "Steven", title: "技術行銷主管", email: "Steven2_Chen@asrock.com.tw" }
       ]
+    },
+    footer: {
+      copyright: "© 2025 ASRock AI Center. All rights reserved."
     }
   }
 };

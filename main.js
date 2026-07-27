@@ -1,62 +1,50 @@
 // ── State ──────────────────────────────────────────────────────────────────
 let currentLang = localStorage.getItem('lang') || 'zh-TW';
-let selectedAudience = localStorage.getItem('audience') || null;
-let currentTheme = localStorage.getItem('theme') || 'light';
 
-const AUDIENCE_SECTIONS = {
-  decision: ['apps', 'process', 'success-stories', 'resources'],
-  developer: ['courses', 'blogs', 'youtube-section']
-};
+const NAV_SECTIONS = ['why', 'services', 'products', 'solutions', 'resources', 'contact'];
 
 // ── DOM helpers ─────────────────────────────────────────────────────────────
 function getLocale() {
   return LOCALES[currentLang] || LOCALES['en'];
 }
 
-// ── Render dynamic sections ─────────────────────────────────────────────────
-function renderApps(t) {
-  const grid = document.getElementById('apps-grid');
-  if (!grid) return;
-  const modelPrefix = (t.appsSection && t.appsSection.modelPrefix) || 'MODEL NO.';
-  grid.innerHTML = t.apps.map((app, i) => {
-    const isHero = i === 0 && app.badge;
-    const modelNo = `${modelPrefix} ${app.name.toUpperCase()}-${String(i + 1).padStart(2, '0')}`;
-    return `
-      <div class="app-card${isHero ? ' app-card--hero' : ''}">
-        <span class="app-card-scan" aria-hidden="true"></span>
-        ${isHero ? `<span class="hero-factory-badge">${app.badge}</span>` : ''}
-        <span class="app-model-no">${modelNo}</span>
-        <div class="app-header">
-          <div class="app-icon">${app.icon}</div>
-          <div class="app-title-group">
-            <h3 class="app-name">${app.name}</h3>
-            <span class="app-subtitle">${app.subtitle}</span>
-          </div>
-        </div>
-        <p class="app-tagline">${app.tagline}</p>
-        <p class="app-description">${app.desc}</p>
-      </div>
-    `;
-  }).join('');
+function revealAttrs(i) {
+  return `data-reveal data-reveal-delay="${(i % 5) + 1}"`;
 }
 
-function renderAudienceNav(t) {
-  const grid = document.getElementById('audience-nav-grid');
-  if (!grid || !t.audienceNav) return;
-  const nav = t.audienceNav;
+// ── Render dynamic sections ─────────────────────────────────────────────────
+function renderNavLinks(t) {
+  const list = document.getElementById('nav-links');
+  if (!list || !t.nav) return;
+  list.innerHTML = NAV_SECTIONS.map(id => `<li><a href="#${id}">${t.nav[id] || id}</a></li>`).join('');
+}
+
+function renderWhy(t) {
+  const grid = document.getElementById('why-grid');
+  if (!grid || !t.whySection) return;
+  const w = t.whySection;
+  const statValues = [t.apps.length, t.successStories.length, t.process.length];
+  const statsHtml = w.stats.map((s, i) => `
+    <div>
+      <div class="why-stat-num" data-count="${statValues[i]}">0</div>
+      <div class="why-stat-label">${s.label}</div>
+    </div>
+  `).join('');
+  const reasonsHtml = w.reasons.map(r => `
+    <div class="why-reason">
+      <div class="why-reason-title">${r.title}</div>
+      <p class="why-reason-desc">${r.desc}</p>
+    </div>
+  `).join('');
   grid.innerHTML = `
-    <button onclick="selectAudience('decision')" class="audience-card audience-card--decision${selectedAudience === 'decision' ? ' audience-card--active' : ''}">
-      <span class="audience-badge">${nav.decisionMaker.badge}</span>
-      <div class="audience-title">${nav.decisionMaker.title}</div>
-      <p class="audience-desc">${nav.decisionMaker.desc}</p>
-      <span class="audience-cta">${nav.decisionMaker.cta}</span>
-    </button>
-    <button onclick="selectAudience('developer')" class="audience-card audience-card--developer${selectedAudience === 'developer' ? ' audience-card--active' : ''}">
-      <span class="audience-badge">${nav.developer.badge}</span>
-      <div class="audience-title">${nav.developer.title}</div>
-      <p class="audience-desc">${nav.developer.desc}</p>
-      <span class="audience-cta">${nav.developer.cta}</span>
-    </button>
+    <div class="bento-cell col-span-7 is-tint-green" ${revealAttrs(0)}>
+      <p class="why-description">${w.description}</p>
+      <div class="why-stats">${statsHtml}</div>
+    </div>
+    <div class="bento-cell col-span-5 is-alt" ${revealAttrs(1)}>
+      <div class="why-reasons-title">${w.reasonsTitle}</div>
+      ${reasonsHtml}
+    </div>
   `;
 }
 
@@ -64,7 +52,7 @@ function renderProcess(t) {
   const container = document.getElementById('process-steps');
   if (!container || !t.process) return;
   container.innerHTML = t.process.map((step, i) => `
-    <div class="process-step">
+    <div class="process-step" ${revealAttrs(i)}>
       <div class="step-circle">
         <span class="step-num">${String(i + 1).padStart(2, '0')}</span>
       </div>
@@ -76,16 +64,37 @@ function renderProcess(t) {
   `).join('');
 }
 
+function renderApps(t) {
+  const grid = document.getElementById('apps-grid');
+  if (!grid) return;
+  grid.innerHTML = t.apps.map((app, i) => {
+    return `
+      <div class="bento-cell is-interactive card-product col-span-4" ${revealAttrs(i)}>
+        ${app.badge ? `<span class="card-badge">${app.badge}</span>` : ''}
+        <div class="card-header">
+          <div class="card-icon">${app.icon}</div>
+          <div class="card-title-group">
+            <h3 class="card-name">${app.name}</h3>
+            <span class="card-subtitle">${app.subtitle}</span>
+          </div>
+        </div>
+        <p class="card-tagline">${app.tagline}</p>
+        <p class="card-description">${app.desc}</p>
+      </div>
+    `;
+  }).join('');
+}
+
 function renderSuccessStories(t) {
   const grid = document.getElementById('success-stories-grid');
   if (!grid || !t.successStories) return;
-  grid.innerHTML = t.successStories.map(story => `
-    <div class="success-story-card">
-      <div class="app-header">
-        <div class="app-icon">${story.icon}</div>
-        <div class="app-title-group">
-          <h3 class="app-name">${story.company}</h3>
-          <span class="app-subtitle">${story.industry}</span>
+  grid.innerHTML = t.successStories.map((story, i) => `
+    <div class="bento-cell is-interactive card-solution col-span-4" ${revealAttrs(i)}>
+      <div class="card-header">
+        <div class="card-icon">${story.icon}</div>
+        <div class="card-title-group">
+          <h3 class="card-name">${story.company}</h3>
+          <span class="card-subtitle">${story.industry}</span>
         </div>
       </div>
       <p class="story-quote">"${story.quote}"</p>
@@ -99,7 +108,7 @@ function renderSuccessStories(t) {
         `).join('')}
       </div>
       ${story.modules ? `<div class="story-modules">${story.modules.map(mod => `<span class="story-module-tag">${mod}</span>`).join('')}</div>` : ''}
-      <p class="app-description">${story.desc}</p>
+      <p class="card-description">${story.desc}</p>
     </div>
   `).join('');
 }
@@ -107,8 +116,8 @@ function renderSuccessStories(t) {
 function renderResources(t) {
   const grid = document.getElementById('resources-grid');
   if (!grid) return;
-  grid.innerHTML = t.resources.items.map(item => `
-    <a href="${item.link}" class="link-card" data-type="${item.type || 'external'}" target="_blank" rel="noreferrer">
+  grid.innerHTML = t.resources.items.map((item, i) => `
+    <a href="${item.link}" class="bento-cell is-interactive link-card" data-type="${item.type || 'external'}" target="_blank" rel="noreferrer" ${revealAttrs(i)}>
       <div class="link-title">${item.title}</div>
       <div class="link-description">${item.desc}</div>
     </a>
@@ -121,8 +130,8 @@ function renderCourses(t) {
   // Always use English content and links regardless of language
   const items = LOCALES['en'].courses;
   const langBadge = currentLang !== 'en' ? '<span class="link-lang-badge">English</span>' : '';
-  grid.innerHTML = items.map(item => `
-    <a href="${item.link}" class="link-card" data-type="${item.type || 'external'}" target="_blank" rel="noreferrer">
+  grid.innerHTML = items.map((item, i) => `
+    <a href="${item.link}" class="bento-cell is-interactive link-card" data-type="${item.type || 'external'}" target="_blank" rel="noreferrer" ${revealAttrs(i)}>
       <div class="link-title">${item.title}${langBadge}</div>
       <div class="link-description">${item.desc}</div>
     </a>
@@ -133,8 +142,8 @@ function renderBlogs() {
   const grid = document.getElementById('blogs-grid');
   if (!grid) return;
   const items = LOCALES['en'].blogs;
-  grid.innerHTML = items.map(item => `
-    <a href="${item.link}" class="link-card" data-type="external" target="_blank" rel="noopener noreferrer">
+  grid.innerHTML = items.map((item, i) => `
+    <a href="${item.link}" class="bento-cell is-interactive link-card" data-type="external" target="_blank" rel="noopener noreferrer" ${revealAttrs(i)}>
       <div class="link-title">${item.title}</div>
       <div class="link-description">${item.desc}</div>
     </a>
@@ -145,8 +154,8 @@ function renderContact(t) {
   const container = document.getElementById('contact-cards');
   if (!container) return;
   const c = t.contact;
-  const peopleCards = c.people.map(p => `
-    <a href="mailto:${p.email}" class="contact-card contact-card--email">
+  const peopleCards = c.people.map((p, i) => `
+    <a href="mailto:${p.email}" class="bento-cell is-interactive contact-card contact-card--email" ${revealAttrs(i + 1)}>
       <div class="contact-card-body">
         <span class="contact-card-platform">${p.name}, ${p.title}</span>
         <span class="contact-card-label">${p.email}</span>
@@ -155,7 +164,7 @@ function renderContact(t) {
     </a>
   `).join('');
   container.innerHTML = `
-    <a href="${c.linkedinUrl}" target="_blank" rel="noopener noreferrer" class="contact-card contact-card--linkedin">
+    <a href="${c.linkedinUrl}" target="_blank" rel="noopener noreferrer" class="bento-cell is-interactive contact-card contact-card--linkedin" ${revealAttrs(0)}>
       <div class="contact-card-body">
         <span class="contact-card-platform">LinkedIn</span>
         <span class="contact-card-label">${c.linkedinText}</span>
@@ -164,41 +173,6 @@ function renderContact(t) {
     </a>
     ${peopleCards}
   `;
-}
-
-// ── Audience selection ──────────────────────────────────────────────────────
-function selectAudience(type, scroll = true) {
-  selectedAudience = type;
-  localStorage.setItem('audience', type);
-
-  const allIds = [...AUDIENCE_SECTIONS.decision, ...AUDIENCE_SECTIONS.developer];
-  const showIds = AUDIENCE_SECTIONS[type];
-
-  allIds.forEach(id => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    if (showIds.includes(id)) {
-      el.classList.remove('audience-hidden');
-      el.classList.remove('section-entering');
-      void el.offsetWidth;
-      el.classList.add('section-entering');
-    } else {
-      el.classList.add('audience-hidden');
-    }
-  });
-
-  document.querySelectorAll('.audience-card').forEach(c => c.classList.remove('audience-card--active'));
-  const activeCard = document.querySelector(`.audience-card--${type}`);
-  if (activeCard) activeCard.classList.add('audience-card--active');
-
-  attachScrollReveal();
-
-  if (type === 'developer') fetchVideos();
-
-  if (scroll) {
-    const firstEl = document.getElementById(showIds[0]);
-    if (firstEl) setTimeout(() => firstEl.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
-  }
 }
 
 // ── Apply locale ────────────────────────────────────────────────────────────
@@ -216,7 +190,8 @@ function applyLocale(lang) {
   });
 
   // Dynamic grids
-  renderAudienceNav(t);
+  renderNavLinks(t);
+  renderWhy(t);
   renderProcess(t);
   renderApps(t);
   renderSuccessStories(t);
@@ -229,8 +204,9 @@ function applyLocale(lang) {
   const btn = document.getElementById('lang-toggle-btn');
   if (btn) btn.querySelector('span').textContent = lang === 'zh-TW' ? 'EN' : '中文';
 
-  // Re-attach scroll reveal to newly rendered cards
+  // Re-attach scroll reveal / count-up to newly rendered cards
   attachScrollReveal();
+  attachCountUp();
 
   // Fetch/display YouTube videos for new lang
   fetchVideos();
@@ -251,16 +227,51 @@ function attachScrollReveal() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('reveal');
+        entry.target.classList.add('is-revealed');
+        observer.unobserve(entry.target);
       }
     });
   }, observerOptions);
 
   setTimeout(() => {
-    document.querySelectorAll('.app-card, .success-story-card, .link-card, .process-step, .section').forEach(el => {
+    document.querySelectorAll('[data-reveal]').forEach(el => {
       observer.observe(el);
     });
   }, 100);
+}
+
+// ── Count-up stats ──────────────────────────────────────────────────────────
+function attachCountUp() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      observer.unobserve(el);
+      const target = parseInt(el.getAttribute('data-count'), 10) || 0;
+      const duration = 1400;
+      const start = performance.now();
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target);
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: 0.4 });
+
+  document.querySelectorAll('[data-count]').forEach(el => observer.observe(el));
+}
+
+// ── Header scroll state ─────────────────────────────────────────────────────
+function attachHeaderScroll() {
+  const header = document.getElementById('site-header');
+  if (!header) return;
+  const update = () => {
+    header.classList.toggle('is-scrolled', window.scrollY > 10);
+  };
+  window.addEventListener('scroll', update, { passive: true });
+  update();
 }
 
 // ── YouTube ─────────────────────────────────────────────────────────────────
@@ -358,8 +369,8 @@ function renderVideos(videos, t) {
   const pinnedId = t.youtubeSection && t.youtubeSection.pinnedVideo && t.youtubeSection.pinnedVideo.videoId;
   const limit = maxResults + (pinnedId ? 1 : 0);
 
-  grid.innerHTML = videos.slice(0, limit).map(video => `
-    <a href="https://www.youtube.com/watch?v=${video.id.videoId}" target="_blank" rel="noreferrer" class="video-card">
+  grid.innerHTML = videos.slice(0, limit).map((video, i) => `
+    <a href="https://www.youtube.com/watch?v=${video.id.videoId}" target="_blank" rel="noreferrer" class="video-card" ${revealAttrs(i)}>
       <div class="video-thumbnail">
         <img src="${video.snippet.thumbnails.high.url}" alt="${escapeHtml(video.snippet.title)}" loading="lazy" />
       </div>
@@ -375,6 +386,8 @@ function renderVideos(videos, t) {
     moreLink.href = 'https://www.youtube.com/results?search_query=' + query;
     moreLink.textContent = t.youtubeSection.more || 'Watch on YouTube';
   }
+
+  attachScrollReveal();
 }
 
 function escapeHtml(str) {
@@ -383,14 +396,6 @@ function escapeHtml(str) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
-}
-
-// ── Theme ────────────────────────────────────────────────────────────────────
-function applyTheme(theme) {
-  currentTheme = theme;
-  document.documentElement.setAttribute('data-theme', theme);
-  const btn = document.getElementById('theme-toggle-btn');
-  if (btn) btn.querySelector('span').textContent = theme === 'dark' ? 'Light' : 'Dark';
 }
 
 // ── Init ────────────────────────────────────────────────────────────────────
@@ -405,24 +410,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Theme toggle button
-  const themeBtn = document.getElementById('theme-toggle-btn');
-  if (themeBtn) {
-    themeBtn.addEventListener('click', () => {
-      const next = currentTheme === 'light' ? 'dark' : 'light';
-      localStorage.setItem('theme', next);
-      applyTheme(next);
-    });
-  }
+  attachHeaderScroll();
 
   // Apply initial locale
   applyLocale(currentLang);
-
-  // Apply saved theme
-  applyTheme(currentTheme);
-
-  // Restore previously selected audience (no scroll jump)
-  if (selectedAudience) {
-    selectAudience(selectedAudience, false);
-  }
 });
