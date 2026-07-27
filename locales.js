@@ -2,17 +2,12 @@ const LOCALES = {
   en: {
     header: {
       title: "ASRock AI",
-      eyebrow: "ASRock AI Center",
       subtitle: "Enterprise AI Transformation \u2014 on your infrastructure, on your terms.",
       taglines: [
         "In the era of AI, compute is strategy. Own yours \u2014 on-premise or hybrid.",
         "From AI infrastructure to enterprise transformation: we close the gap."
       ],
-      statusLine: "ON-PREM AI INFRASTRUCTURE // OPERATIONAL",
-      cta: {
-        primary: "Explore Products",
-        secondary: "Talk to Us"
-      }
+      statusLine: "ON-PREM AI INFRASTRUCTURE // OPERATIONAL"
     },
     nav: {
       why: "Why",
@@ -23,10 +18,9 @@ const LOCALES = {
       contact: "Contact"
     },
     whySection: {
-      eyebrow: "Why ASRock AI Center",
       title: "Enterprise AI, built on infrastructure you own",
       subtitle: "A single team taking AI from strategy to production — without your data ever leaving your perimeter.",
-      description: "ASRock AI Center pairs a structured service model with a growing suite of production-ready AI applications, all designed to run entirely on-premise or in a hybrid environment. From the first requirements interview to ongoing optimization, every step keeps compute and data under your control.",
+      description: "ASRock AI pairs a structured service model with a growing suite of production-ready AI applications, all designed to run entirely on-premise or in a hybrid environment. From the first requirements interview to ongoing optimization, every step keeps compute and data under your control.",
       stats: [
         { label: "AI Applications" },
         { label: "Pilot Projects" },
@@ -324,17 +318,12 @@ const LOCALES = {
   'zh-TW': {
     header: {
       title: "ASRock AI",
-      eyebrow: "ASRock AI Center",
       subtitle: "企業 AI 轉型——算力在你手中，主導權也是。",
       taglines: [
         "在 AI 時代，算力就是戰略。本地、雲端，或兩者兼備——都在你的掌控中。",
         "從 AI 基礎設施到企業轉型，我們填補這段距離。"
       ],
-      statusLine: "地端運行中 // STATUS: OPERATIONAL",
-      cta: {
-        primary: "探索產品",
-        secondary: "聯絡我們"
-      }
+      statusLine: "地端運行中 // STATUS: OPERATIONAL"
     },
     nav: {
       why: "為什麼選擇",
@@ -345,10 +334,9 @@ const LOCALES = {
       contact: "聯絡我們"
     },
     whySection: {
-      eyebrow: "為什麼選擇 ASRock AI Center",
       title: "企業 AI，運行在你自己的基礎設施上",
       subtitle: "從策略到落地，由同一個團隊全程陪伴，資料從未離開你的環境。",
-      description: "ASRock AI Center 結合結構化的服務流程與持續擴充的正式 AI 應用套件，全部設計為在地端或混合雲環境完整運行。從第一次需求訪談到後續優化，每個階段都讓算力與資料掌控權留在你手中。",
+      description: "ASRock AI 結合結構化的服務流程與持續擴充的正式 AI 應用套件，全部設計為在地端或混合雲環境完整運行。從第一次需求訪談到後續優化，每個階段都讓算力與資料掌控權留在你手中。",
       stats: [
         { label: "AI 應用工具" },
         { label: "領航專案" },
