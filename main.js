@@ -1,6 +1,9 @@
 // ── State ──────────────────────────────────────────────────────────────────
 let currentLang = localStorage.getItem('lang') || 'zh-TW';
 
+// zh-TW 訪客一律導向官方微站, 不在本站顯示中文版內容
+const ZH_TW_OFFICIAL_URL = 'https://www.asrock.com/microsite/AICenter/index.tw.html';
+
 const NAV_SECTIONS = ['why', 'services', 'products', 'solutions', 'resources', 'contact'];
 
 // ── DOM helpers ─────────────────────────────────────────────────────────────
@@ -416,12 +419,21 @@ function escapeHtml(str) {
 
 // ── Init ────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+  if (currentLang === 'zh-TW') {
+    window.location.replace(ZH_TW_OFFICIAL_URL);
+    return;
+  }
+
   // Language toggle button
   const toggleBtn = document.getElementById('lang-toggle-btn');
   if (toggleBtn) {
     toggleBtn.addEventListener('click', () => {
       const next = currentLang === 'zh-TW' ? 'en' : 'zh-TW';
       localStorage.setItem('lang', next);
+      if (next === 'zh-TW') {
+        window.location.replace(ZH_TW_OFFICIAL_URL);
+        return;
+      }
       applyLocale(next);
     });
   }
