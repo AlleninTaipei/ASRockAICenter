@@ -204,6 +204,13 @@ function applyLocale(lang) {
   const btn = document.getElementById('lang-toggle-btn');
   if (btn) btn.querySelector('span').textContent = lang === 'zh-TW' ? 'EN' : '中文';
 
+  // Official microsite link (language-aware)
+  const officialLink = document.getElementById('official-link');
+  if (officialLink && t.nav) {
+    officialLink.textContent = t.nav.official || 'Official Site';
+    officialLink.href = t.nav.officialUrl || '#';
+  }
+
   // Re-attach scroll reveal / count-up to newly rendered cards
   attachScrollReveal();
   attachCountUp();
