@@ -48,6 +48,17 @@ GitHub Pages 設定：來源為 `main` branch，根目錄 `/`，不需要 build 
 
 檔案命名慣例：所有文件檔案統一採用 kebab-case（以 `-` 分隔詞，不使用空格或底線）。kebab-case 是 Web 靜態資源的業界標準，符合 URL 規範且對 SEO 友善，搜尋引擎會將 `-` 視為詞語分隔符。
 
+### zh-TW 轉址行為
+
+2026/07/29 華擎官網正式揭露新事業 AI Center 的資訊, 官方微站網址為 https://www.asrock.com/microsite/AICenter/index.tw.html . 自此本站不再自行呈現中文版內容, 改為偵測語系為 zh-TW 時直接轉址至官方微站.
+
+轉址邏輯分兩層 :
+
+1. `index.html` 的 head 內有一段內嵌 script, 在頁面渲染前先讀取 `localStorage.getItem('lang')` , 若為 zh-TW 或尚未設定 (預設值即為 zh-TW) , 立即以 `location.replace()` 轉址, 避免出現英文版畫面閃爍.
+2. `main.js` 的 `DOMContentLoaded` 內也有相同判斷作為保險, 並且在語言切換鈕被點擊, 語系由 en 切換為 zh-TW 時, 同樣直接轉址, 不在本站內切換顯示.
+
+因此目前只有瀏覽器內已存有修改前 lang=en 紀錄的舊訪客才會看到英文版內容, 新訪客一律會被導向官方微站.
+
 ### OG Image 生成技術指引
 
 `public/og-image.html` 是一張 1200 x 630 的 HTML 模板，不只方便預覽，也可以直接透過 Chrome DevTools 輸出成高品質靜態 PNG。這種做法比單純用繪圖軟體更適合本專案：品牌色、字體、網格、漸層與發光效果都能用程式碼精準控制；日後如果要調整標題、配色或版面，也只需要修改幾行 HTML/CSS，就能快速重新產出。
