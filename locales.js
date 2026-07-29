@@ -1,7 +1,7 @@
 const LOCALES = {
   en: {
     header: {
-      title: "ASRock AI",
+      title:  "ASRock AI Center",
       subtitle: "Enterprise AI Transformation \u2014 on your infrastructure, on your terms.",
       taglines: [
         "In the era of AI, compute is strategy. Own yours \u2014 on-premise or hybrid.",
@@ -15,12 +15,14 @@ const LOCALES = {
       products: "Products",
       solutions: "Solutions",
       resources: "Resources",
-      contact: "Contact"
+      contact: "Contact",
+      official: "Official Site",
+      officialUrl: "https://www.asrock.com/microsite/AICenter/index.html"
     },
     whySection: {
       title: "Enterprise AI, built on infrastructure you own",
       subtitle: "A single team taking AI from strategy to production — without your data ever leaving your perimeter.",
-      description: "ASRock AI pairs a structured service model with a growing suite of production-ready AI applications, all designed to run entirely on-premise or in a hybrid environment. From the first requirements interview to ongoing optimization, every step keeps compute and data under your control.",
+      description: "We pair a structured service model with a growing suite of production-ready AI applications, all designed to run entirely on-premise or in a hybrid environment. From the first requirements interview to ongoing optimization, every step keeps compute and data under your control.",
       stats: [
         { label: "AI Applications" },
         { label: "Pilot Projects" },
@@ -306,7 +308,7 @@ const LOCALES = {
       linkedinUrl: "https://www.linkedin.com/in/allen-sun-67738b38a",
       linkedinText: "Contact Allen on LinkedIn",
       people: [
-        { name: "Allen Sun", title: "ASRock AI Center Head", email: "allen1_sun@asrock.com.tw" },
+        { name: "Allen Sun", title: "Head of ASRock AI Center", email: "allen1_sun@asrock.com.tw" },
         { name: "Ricardo Hsu", title: "Business Development", email: "Ricardo_Hsu@asrock.com.tw" },
         { name: "Steven Chen", title: "Technical Marketing Manager", email: "Steven2_Chen@asrock.com.tw" }
       ]
@@ -317,7 +319,7 @@ const LOCALES = {
   },
   'zh-TW': {
     header: {
-      title: "ASRock AI",
+      title: "ASRock AI Center",
       subtitle: "企業 AI 轉型——算力在你手中，主導權也是。",
       taglines: [
         "在 AI 時代，算力就是戰略。本地、雲端，或兩者兼備——都在你的掌控中。",
@@ -331,12 +333,14 @@ const LOCALES = {
       products: "產品",
       solutions: "案例",
       resources: "資源",
-      contact: "聯絡我們"
+      contact: "聯絡我們",
+      official: "官方頁面",
+      officialUrl: "https://www.asrock.com/microsite/AICenter/index.tw.html"
     },
     whySection: {
       title: "企業 AI，運行在你自己的基礎設施上",
       subtitle: "從策略到落地，由同一個團隊全程陪伴，資料從未離開你的環境。",
-      description: "ASRock AI 結合結構化的服務流程與持續擴充的正式 AI 應用套件，全部設計為在地端或混合雲環境完整運行。從第一次需求訪談到後續優化，每個階段都讓算力與資料掌控權留在你手中。",
+      description: "結合結構化的服務流程與持續擴充的正式 AI 應用套件，全部設計為在地端或混合雲環境完整運行。從第一次需求訪談到後續優化，每個階段都讓算力與資料掌控權留在你手中。",
       stats: [
         { label: "AI 應用工具" },
         { label: "領航專案" },
