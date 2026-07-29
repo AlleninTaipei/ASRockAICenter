@@ -3,6 +3,15 @@
 
 <head>
   <meta charset="UTF-8" />
+  <script>
+    // zh-TW 訪客一律導向官方微站, 在渲染前即攔截以避免英文版畫面閃爍
+    (function () {
+      var lang = localStorage.getItem('lang') || 'zh-TW';
+      if (lang === 'zh-TW') {
+        window.location.replace('https://www.asrock.com/microsite/AICenter/index.tw.html');
+      }
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="google-site-verification" content="YMYxij6jy2UuUCWx4wc4FgxMeN9zZDmaFTn_Q8uE9mY" />
   <!-- YouTube API Key: set content to your key to enable the videos section -->
