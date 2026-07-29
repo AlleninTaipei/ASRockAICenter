@@ -234,6 +234,12 @@ body {
     transform: translateY(-1px);
 }
 
+.official-btn--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
 /* ── Eyebrow badges ────────────────────────────────────────────────────── */
 .eyebrow {
     display: inline-flex;
