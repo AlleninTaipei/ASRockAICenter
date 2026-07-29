@@ -207,8 +207,17 @@ function applyLocale(lang) {
   // Official microsite link (language-aware)
   const officialLink = document.getElementById('official-link');
   if (officialLink && t.nav) {
-    officialLink.textContent = t.nav.official || 'Official Site';
-    officialLink.href = t.nav.officialUrl || '#';
+    const isReady = t.nav.officialUrlReady !== false;
+    officialLink.classList.toggle('official-btn--disabled', !isReady);
+    if (isReady) {
+      officialLink.textContent = t.nav.official || 'Official Site';
+      officialLink.href = t.nav.officialUrl || '#';
+      officialLink.removeAttribute('aria-disabled');
+    } else {
+      officialLink.textContent = t.nav.comingSoon || 'Coming Soon';
+      officialLink.removeAttribute('href');
+      officialLink.setAttribute('aria-disabled', 'true');
+    }
   }
 
   // Re-attach scroll reveal / count-up to newly rendered cards

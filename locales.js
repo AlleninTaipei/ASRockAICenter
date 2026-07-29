@@ -17,7 +17,9 @@ const LOCALES = {
       resources: "Resources",
       contact: "Contact",
       official: "Official Site",
-      officialUrl: "https://www.asrock.com/microsite/AICenter/index.html"
+      officialUrl: "https://www.asrock.com/microsite/AICenter/index.html",
+      officialUrlReady: false,
+      comingSoon: "Coming Soon"
     },
     whySection: {
       title: "Enterprise AI, built on infrastructure you own",
