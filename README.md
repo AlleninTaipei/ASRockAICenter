@@ -4,7 +4,8 @@
 
 | 分支 | 說明 | 狀態 |
 |------|------|------|
-| `main` | 純 HTML + CSS + JS，無任何框架，直接部署至 GitHub Pages | **主線** |
+| `main` | 純 HTML + CSS + JS，無任何框架，直接部署至 GitHub Pages | 主線 |
+| `no-redirect` | 與 `main` 相同，但移除 zh-TW 自動轉址至官方微站的攔截邏輯，另外加入本機 chatbot 示範功能 | 開發/示範用 |
 | `react-vite` | React 18 + Vite 5，需 build 步驟 | 歸檔 |
 
 ---
@@ -122,6 +123,46 @@ GitHub Pages 設定：來源為 `main` branch，根目錄 `/`，不需要 build 
 3. 把 `index.html` 裡的 `content` 保持為 `YOUR_API_KEY_HERE`（佔位符），永不填入真實金鑰
 
 > **小結：** 第一層限制金鑰用途，確保洩漏後無害；第二層避免金鑰進入 git 歷史，兩者搭配使用最為穩健。若只能選一，優先做第一層。
+
+---
+
+## `no-redirect` 分支 — 本機 Chatbot 示範
+
+此分支在 `main` 的基礎上額外加入一套僅供本機示範的 chatbot widget, 用來展示官網未來導入 AI 對話助理的可行性. 此功能不會部署到 GitHub Pages, 也不會合併進 `main`.
+
+### 新增檔案
+
+```
+.
+├── chatbot.js       # 前端對話 widget, 動態 append 到 body, 讀取 LOCALES 做多語系顯示
+├── chatbot.css      # widget 樣式, 沿用站上現有的 CSS 變數
+└── server/
+    ├── package.json
+    ├── server.js    # Express 伺服器, 同時服務整個站台靜態檔案並提供 /api/chat 端點
+    └── knowledge.js # chatbot 回覆所依據的系統提示與知識庫, 內容取自 locales.js 目前的服務流程/產品/領航專案
+```
+
+### 運作方式
+
+使用者在 widget 送出訊息後, 前端呼叫 `/api/chat`, 伺服器組合對話歷史後透過 `child_process.spawn` 呼叫本機已登入的 claude CLI 產生真實回覆, 並非關鍵字比對的模擬問答. 對話歷史保存在伺服器記憶體中 (每個 sessionId 最近 8 輪), 伺服器重啟即清空.
+
+### 執行方式
+
+```
+cd server
+npm install
+npm start
+```
+
+瀏覽器開啟 http://localhost:3000, 畫面與直接開啟 index.html 一致, 右下角會出現 chatbot 按鈕.
+
+前置需求: 本機已安裝並登入 claude CLI.
+
+### 限制
+
+- 僅供本機示範, 不部署到 GitHub Pages, 也未考慮多人同時使用或正式環境所需的驗證與速率限制
+- claude CLI 執行時會讀取本機環境的全域設定 (例如強制回覆語言), 可能覆蓋 knowledge.js 裡跟隨使用者提問語言回覆的規則, 於不同機器示範時行為可能有差異
+- 若日後要正式導入, server/server.js 裡的 askClaude() 函式是主要替換點, 可改為呼叫正式 Anthropic API 並改用 API key 管理
 
 ---
 

@@ -226,6 +226,9 @@ function applyLocale(lang) {
 
   // Fetch/display YouTube videos for new lang
   fetchVideos();
+
+  // Sync chatbot widget texts (if chatbot.js has loaded)
+  if (typeof window.updateChatbotTexts === 'function') window.updateChatbotTexts();
 }
 
 // Resolve a dot-separated key path against an object

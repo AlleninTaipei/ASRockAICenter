@@ -315,6 +315,16 @@ const LOCALES = {
         { name: "Steven Chen", title: "Technical Marketing Manager", email: "Steven2_Chen@asrock.com.tw" }
       ]
     },
+    chatbot: {
+      title: "ASRock AI Center Assistant",
+      subtitle: "Ask about our services and products",
+      greeting: "Hi! I'm the ASRock AI Center assistant. Ask me about our service process, products, or pilot projects.",
+      placeholder: "Type your message...",
+      send: "Send",
+      pending: "Typing...",
+      error: "Something went wrong. Please try again, or contact us directly.",
+      launcherLabel: "Open chat assistant"
+    },
     footer: {
       copyright: "© 2025 ASRock AI Center. All rights reserved."
     }
@@ -595,6 +605,16 @@ const LOCALES = {
         { name: "Ricardo", title: "業務開發", email: "Ricardo_Hsu@asrock.com.tw" },
         { name: "Steven", title: "技術行銷主管", email: "Steven2_Chen@asrock.com.tw" }
       ]
+    },
+    chatbot: {
+      title: "ASRock AI Center 顧問助理",
+      subtitle: "詢問我們的服務與產品",
+      greeting: "您好, 我是 ASRock AI Center 顧問助理. 歡迎詢問我們的服務流程, 產品工具, 或領航專案.",
+      placeholder: "請輸入訊息...",
+      send: "傳送",
+      pending: "輸入中...",
+      error: "目前發生問題, 請稍後再試, 或直接聯絡我們.",
+      launcherLabel: "開啟 chatbot 對話視窗"
     },
     footer: {
       copyright: "© 2025 ASRock AI Center. All rights reserved."
