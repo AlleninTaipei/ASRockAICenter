@@ -1,8 +1,15 @@
 // ── State ──────────────────────────────────────────────────────────────────
-let currentLang = localStorage.getItem('lang') || 'zh-TW';
-
-// zh-TW 訪客一律導向官方微站, 不在本站顯示中文版內容
+// 全訪客一律導向官方微站, 不在本站顯示內容; localStorage.lang 僅作除錯用手動覆寫
 const ZH_TW_OFFICIAL_URL = 'https://www.asrock.com/microsite/AICenter/index.tw.html';
+const EN_OFFICIAL_URL = 'https://www.asrock.com/microsite/AICenter/index.html';
+
+function detectTargetLang() {
+  const stored = localStorage.getItem('lang');
+  if (stored === 'zh-TW' || stored === 'en') return stored;
+  return (navigator.language || '').toLowerCase().indexOf('zh') === 0 ? 'zh-TW' : 'en';
+}
+
+let currentLang = detectTargetLang();
 
 const NAV_SECTIONS = ['why', 'services', 'products', 'solutions', 'resources', 'contact'];
 
@@ -202,10 +209,6 @@ function applyLocale(lang) {
   renderCourses(t);
   renderBlogs();
   renderContact(t);
-
-  // Language toggle button label
-  const btn = document.getElementById('lang-toggle-btn');
-  if (btn) btn.querySelector('span').textContent = lang === 'zh-TW' ? 'EN' : '中文';
 
   // Official microsite link (language-aware)
   const officialLink = document.getElementById('official-link');
@@ -418,28 +421,7 @@ function escapeHtml(str) {
 }
 
 // ── Init ────────────────────────────────────────────────────────────────────
+// 保險層: head 內嵌 script 已在渲染前導向, 這裡是第二層防護
 document.addEventListener('DOMContentLoaded', () => {
-  if (currentLang === 'zh-TW') {
-    window.location.replace(ZH_TW_OFFICIAL_URL);
-    return;
-  }
-
-  // Language toggle button
-  const toggleBtn = document.getElementById('lang-toggle-btn');
-  if (toggleBtn) {
-    toggleBtn.addEventListener('click', () => {
-      const next = currentLang === 'zh-TW' ? 'en' : 'zh-TW';
-      localStorage.setItem('lang', next);
-      if (next === 'zh-TW') {
-        window.location.replace(ZH_TW_OFFICIAL_URL);
-        return;
-      }
-      applyLocale(next);
-    });
-  }
-
-  attachHeaderScroll();
-
-  // Apply initial locale
-  applyLocale(currentLang);
+  window.location.replace(currentLang === 'zh-TW' ? ZH_TW_OFFICIAL_URL : EN_OFFICIAL_URL);
 });
