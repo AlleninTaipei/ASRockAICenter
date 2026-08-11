@@ -23,16 +23,15 @@ GitHub Pages source: `main` branch, root `/`, no build command.
 |------|------|
 | `index.html` | Full page structure + all SEO/OG meta |
 | `style.css` | All styles (from `global.css`, Starfield canvas rules removed) |
-| `locales.js` | `const LOCALES = { en: {...}, 'zh-TW': {...} }` global |
-| `main.js` | Language toggle, scroll reveal, YouTube fetch/cache |
+| `locales.js` | `const LOCALES = { en: {...} }` global (English only, see Internationalization below) |
+| `main.js` | Language-based redirect, scroll reveal, YouTube fetch/cache |
 | `public/` | Static assets — docs (PDF), favicon, og-image, robots.txt, sitemap.xml |
 
-### Internationalization
+### Internationalization / redirect behavior
 
-`locales.js` exposes a single `LOCALES` global. `main.js` reads `localStorage.getItem('lang')` on load (default `'en'`), then calls `applyLocale(lang)` which:
-- Resolves `data-i18n` key paths (e.g. `header.taglines.0`) against `LOCALES[lang]`
-- Re-renders dynamic grids (apps, resources, contact) via `innerHTML`
-- Re-attaches `IntersectionObserver` for scroll reveal
+This site no longer renders any content itself for real visitors. On load, an inline script in `index.html`'s `<head>` and a matching guard in `main.js`'s `DOMContentLoaded` both compute a target language — `localStorage.getItem('lang')` if it's `'zh-TW'`/`'en'` (manual override for debugging), otherwise derived from `navigator.language` (a `zh*` prefix maps to `'zh-TW'`, everything else to `'en'`) — and immediately `location.replace()` to the matching official ASRock microsite (`.../AICenter/index.tw.html` or `.../AICenter/index.html`).
+
+`locales.js` still exposes `LOCALES.en` and `applyLocale(lang)` still renders `data-i18n` keys and dynamic grids from it, but this render path is unreachable in production since every visitor is redirected before `applyLocale` is ever called. It exists for local development/preview (temporarily comment out the `location.replace()` call to exercise it) and should stay in sync with `index.html`'s markup even though it's not exercised on `main`.
 
 When adding or editing content, edit `locales.js` only.
 

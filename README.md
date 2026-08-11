@@ -21,7 +21,7 @@ GitHub Pages 設定：來源為 `main` branch，根目錄 `/`，不需要 build 
 .
 ├── index.html      # 完整頁面結構 + SEO meta
 ├── style.css       # 全部樣式
-├── locales.js      # EN 與 zh-TW 語系物件（全域變數 LOCALES）
+├── locales.js      # 英文文案物件（全域變數 LOCALES, 目前僅保留 en, 本站已不再本地渲染中文內容）
 ├── main.js         # 語言切換、捲動動畫、YouTube 取得/快取邏輯
 ├── robots.txt                        # 爬蟲規則，須位於根目錄
 ├── sitemap.xml                       # 網站地圖，須位於根目錄
@@ -48,16 +48,25 @@ GitHub Pages 設定：來源為 `main` branch，根目錄 `/`，不需要 build 
 
 檔案命名慣例：所有文件檔案統一採用 kebab-case（以 `-` 分隔詞，不使用空格或底線）。kebab-case 是 Web 靜態資源的業界標準，符合 URL 規範且對 SEO 友善，搜尋引擎會將 `-` 視為詞語分隔符。
 
-### zh-TW 轉址行為
+### 語系轉址行為
 
-2026/07/29 華擎官網正式揭露新事業 AI Center 的資訊, 官方微站網址為 https://www.asrock.com/microsite/AICenter/index.tw.html . 自此本站不再自行呈現中文版內容, 改為偵測語系為 zh-TW 時直接轉址至官方微站.
+2026/07/29 華擎官網正式揭露新事業 AI Center 的資訊, 官方微站分為兩個語系版本 :
 
-轉址邏輯分兩層 :
+- 中文 : https://www.asrock.com/microsite/AICenter/index.tw.html
+- 英文 : https://www.asrock.com/microsite/AICenter/index.html
 
-1. `index.html` 的 head 內有一段內嵌 script, 在頁面渲染前先讀取 `localStorage.getItem('lang')` , 若為 zh-TW 或尚未設定 (預設值即為 zh-TW) , 立即以 `location.replace()` 轉址, 避免出現英文版畫面閃爍.
-2. `main.js` 的 `DOMContentLoaded` 內也有相同判斷作為保險, 並且在語言切換鈕被點擊, 語系由 en 切換為 zh-TW 時, 同樣直接轉址, 不在本站內切換顯示.
+自此本站不再自行呈現任何語言版本的內容, 所有訪客一律依語系轉址至對應的官方微站頁面.
 
-因此目前只有瀏覽器內已存有修改前 lang=en 紀錄的舊訪客才會看到英文版內容, 新訪客一律會被導向官方微站.
+語系判斷順序 :
+
+1. `localStorage.getItem('lang')` 若已存在且為 `zh-TW` 或 `en`, 採用該值 (供除錯手動覆寫).
+2. 否則依 `navigator.language` 是否以 `zh` 開頭判斷, 是則視為 `zh-TW`, 否則視為 `en`.
+
+轉址邏輯分兩層 : `index.html` 的 head 內有一段內嵌 script, 在頁面渲染前依上述順序判斷並立即以 `location.replace()` 轉址, 避免出現本站畫面閃爍; `main.js` 的 `DOMContentLoaded` 內有相同判斷作為第二層保險.
+
+Nav 上的語言按鈕 (`lang-toggle-btn`) 不再是站內語言切換, 改為固定指向中文微站的外部連結 (`前往官方中文站`), 供已在英文微站的訪客手動切換到中文版.
+
+開發/測試若需要暫時停留在本站檢視渲染內容 (例如檢查 `en` 版排版), 需暫時註解掉 `index.html` head script 與 `main.js` 的 `location.replace()` 呼叫, 否則兩層轉址都會在渲染前就導離本站.
 
 ### OG Image 生成技術指引
 

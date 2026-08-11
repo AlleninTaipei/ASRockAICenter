@@ -1,15 +1,18 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <script>
-    // zh-TW 訪客一律導向官方微站, 在渲染前即攔截以避免英文版畫面閃爍
+    // 全訪客一律導向官方微站, 在渲染前即攔截以避免本站畫面閃爍
     (function () {
-      var lang = localStorage.getItem('lang') || 'zh-TW';
-      if (lang === 'zh-TW') {
-        window.location.replace('https://www.asrock.com/microsite/AICenter/index.tw.html');
-      }
+      var stored = localStorage.getItem('lang');
+      var lang = (stored === 'zh-TW' || stored === 'en')
+        ? stored
+        : ((navigator.language || '').toLowerCase().indexOf('zh') === 0 ? 'zh-TW' : 'en');
+      window.location.replace(lang === 'zh-TW'
+        ? 'https://www.asrock.com/microsite/AICenter/index.tw.html'
+        : 'https://www.asrock.com/microsite/AICenter/index.html');
     })();
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,7 +23,7 @@
   <link rel="icon" type="image/svg+xml" href="public/favicon.svg" />
   <title>ASRock AI Center</title>
   <meta name="description"
-    content="讓企業 AI 完全在地端基礎設施運行——資料不離開您的環境，主導權完全掌握在您手中。這不是 SaaS，而是您的 AI 工廠。" />
+    content="Run enterprise AI entirely on your own infrastructure — your data never leaves your environment, and you stay fully in control. This isn't SaaS. It's your AI factory." />
   <meta name="author" content="ASRock AI Center" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <link rel="canonical" href="https://allenintaipei.github.io/ASRockAICenter/" />
@@ -28,12 +31,12 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://allenintaipei.github.io/ASRockAICenter/" />
   <meta property="og:title" content="ASRock AI Center" />
-  <meta property="og:description" content="讓企業 AI 完全在地端基礎設施運行——資料不離開您的環境，主導權完全掌握在您手中。這不是 SaaS，而是您的 AI 工廠。" />
+  <meta property="og:description" content="Run enterprise AI entirely on your own infrastructure — your data never leaves your environment, and you stay fully in control. This isn't SaaS. It's your AI factory." />
   <meta property="og:image" content="https://allenintaipei.github.io/ASRockAICenter/og-image.png" />
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="ASRock AI Center" />
-  <meta name="twitter:description" content="讓企業 AI 完全在地端基礎設施運行——資料不離開您的環境，主導權完全掌握在您手中。這不是 SaaS，而是您的 AI 工廠。" />
+  <meta name="twitter:description" content="Run enterprise AI entirely on your own infrastructure — your data never leaves your environment, and you stay fully in control. This isn't SaaS. It's your AI factory." />
   <meta name="twitter:image" content="https://allenintaipei.github.io/ASRockAICenter/og-image.png" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -50,9 +53,10 @@
         </ul>
         <div class="nav-actions">
           <a class="official-btn" id="official-link" href="#" target="_blank" rel="noreferrer"></a>
-          <button class="lang-btn" id="lang-toggle-btn">
-            <span>EN</span>
-          </button>
+          <a class="lang-btn" id="lang-toggle-btn" href="https://www.asrock.com/microsite/AICenter/index.tw.html"
+            target="_blank" rel="noreferrer">
+            <span>前往官方中文站 ↗</span>
+          </a>
         </div>
       </div>
     </header>
