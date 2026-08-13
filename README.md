@@ -1,5 +1,7 @@
 # [ASRockAICenter](https://allenintaipei.github.io/ASRockAICenter/)
 
+> ASRock AI Center 官網已正式上線, 內容已轉移至官方網域. 本 repo 不再進行 deploy, 僅保留原始碼與開發歷程作為封存用途.
+
 ## 分支說明
 
 | 分支 | 說明 | 狀態 |
